@@ -602,7 +602,7 @@ def generate_html(projects_metrics, all_months_metrics):
                                 <div class="value">{month_data["active_issues"]}</div>
                             </div>
                             <div class="metric-card">
-                                <div class="label">📚 Backlog (Sin Etiqueta)</div>
+                                <div class="label">🏷️ Sin Label</div>
                                 <div class="value">{month_data["backlog_untracked"]}</div>
                             </div>
                             <div class="metric-card">
@@ -623,7 +623,7 @@ def generate_html(projects_metrics, all_months_metrics):
                             <strong>📌 Nota sobre los totales:</strong>
                             <div class="disclaimer-item">Pendientes + Cerrados = Issues considerados (con etiqueta de producto)</div>
                             <div class="disclaimer-item">Los issues en estado "Discarded" se excluyen y no se cuentan en ninguna categoría</div>
-                            <div class="disclaimer-item">Los issues sin etiqueta de producto se muestran en "Backlog (Sin Etiqueta)" - NO se incluyen en el total hasta tener etiqueta</div>
+                            <div class="disclaimer-item">"Sin Label" muestra issues que no tienen etiqueta de producto - NO se incluyen en el total hasta etiquetarlos</div>
                         </div>
 
                         <div class="section-box">
