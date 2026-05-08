@@ -149,6 +149,7 @@ def calculate_metrics(issues, month_name):
         "by_team": {"CE1": 0, "CE2": 0},
         "pending_by_product": {},
         "by_state_by_team": {},
+        "pending_issues_list": [],  # Lista de issues pendientes (con etiqueta)
         "untracked_issues_list": []  # Lista de issues sin etiqueta
     }
 
@@ -201,6 +202,16 @@ def calculate_metrics(issues, month_name):
                 # Pendientes = todo excepto Closed (Discarded ya están filtrados)
                 if state != "Closed":
                     metrics["pending_by_product"][product] = metrics["pending_by_product"].get(product, 0) + 1
+
+            # Guardar en lista de pendientes si está en estado pendiente
+            if state != "Closed":
+                metrics["pending_issues_list"].append({
+                    "id": issue["identifier"],
+                    "title": issue["title"],
+                    "state": state,
+                    "team": team,
+                    "products": ", ".join(product_labels)
+                })
 
     return metrics
 
@@ -686,11 +697,50 @@ def generate_html(projects_metrics, all_months_metrics):
                         </div>
         """
 
-        # Agregar tabla de issues sin etiqueta si existen
+        # Agregar tabla de Pendientes (con etiqueta)
+        if month_data["pending_issues_list"]:
+            html += f"""
+                        <div class="section-box">
+                            <h2>⏳ Pendientes por Revisar ({len(month_data["pending_issues_list"])})</h2>
+                            <table>
+                                <tr>
+                                    <th>ID Issue</th>
+                                    <th>Título</th>
+                                    <th>Estado</th>
+                                    <th>Producto</th>
+                                    <th>Team</th>
+                                    <th>Link</th>
+                                </tr>
+            """
+            for issue in month_data["pending_issues_list"]:
+                issue_id = issue["id"]
+                title = issue["title"]
+                state = issue["state"]
+                products = issue["products"]
+                team = issue["team"]
+                link = f'<a href="https://linear.app/guinea/issue/{issue_id}" target="_blank" style="color: #0052ff; text-decoration: none;">Abrir →</a>'
+
+                html += f"""
+                                <tr>
+                                    <td><strong>{issue_id}</strong></td>
+                                    <td>{title}</td>
+                                    <td>{state}</td>
+                                    <td>{products}</td>
+                                    <td>{team}</td>
+                                    <td>{link}</td>
+                                </tr>
+                """
+
+            html += """
+                            </table>
+                        </div>
+            """
+
+        # Agregar tabla de issues sin etiqueta
         if month_data["untracked_issues_list"]:
             html += f"""
                         <div class="section-box">
-                            <h2>🏷️ Issues Sin Etiqueta ({len(month_data["untracked_issues_list"])})</h2>
+                            <h2>🏷️ Sin Label por Etiquetar ({len(month_data["untracked_issues_list"])})</h2>
                             <table>
                                 <tr>
                                     <th>ID Issue</th>
