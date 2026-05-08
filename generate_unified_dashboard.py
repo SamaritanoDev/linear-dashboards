@@ -35,7 +35,7 @@ def query_linear(query_str):
         return None
 
 def get_projects():
-    """Obtiene proyectos de CE1 y CE2"""
+    """Obtiene proyectos de CE2"""
     query = """
     {
       projects(
@@ -58,7 +58,7 @@ def get_projects():
     }
     """
 
-    print("📊 Obteniendo proyectos...")
+    print("📊 Obteniendo proyectos de CE2...")
     result = query_linear(query)
 
     if not result or "errors" in result:
@@ -68,15 +68,15 @@ def get_projects():
         return []
 
     all_projects = result["data"]["projects"]["nodes"]
-    # Filtrar solo proyectos de CE1 y CE2
-    ce_projects = []
+    # Filtrar solo proyectos de CE2
+    ce2_projects = []
     for p in all_projects:
         teams = p.get("teams", {}).get("nodes", [])
-        if teams and any(t.get("key") in ["CE1", "CE2"] for t in teams):
-            ce_projects.append(p)
+        if teams and any(t.get("key") == "CE2" for t in teams):
+            ce2_projects.append(p)
 
-    print(f"✅ {len(ce_projects)} proyectos de CE1+CE2 obtenidos (de {len(all_projects)} totales)\n")
-    return ce_projects
+    print(f"✅ {len(ce2_projects)} proyectos de CE2 obtenidos (de {len(all_projects)} totales)\n")
+    return ce2_projects
 
 def get_issues_for_month(year, month, month_name):
     """Obtiene issues SIN proyecto para un mes específico de CE1 + CE2"""
@@ -880,59 +880,39 @@ def generate_html(projects_metrics, all_months_metrics):
     # SECCIÓN PROYECTOS
     html += f"""
                 <div id="projects" class="section">
-                    <h1>📦 Proyectos - CE1 + CE2</h1>
+                    <h1>📦 Proyectos - CE2</h1>
 
                     <div class="note">
-                        <strong>ℹ️ Nota:</strong> Proyectos de los equipos CE1 y CE2 con sus métricas de progreso.
+                        <strong>ℹ️ Nota:</strong> Proyectos del equipo CE2 con sus métricas de estado.
                     </div>
 
                     <div class="metrics">
                         <div class="metric-card">
-                            <div class="label">Total Proyectos</div>
+                            <div class="label">Total CE2</div>
                             <div class="value">{projects_metrics["total_projects"]}</div>
-                        </div>
-                        <div class="metric-card">
-                            <div class="label">Pendientes CE2</div>
-                            <div class="value">{projects_metrics["pending_ce2"]}</div>
                         </div>
                         <div class="metric-card">
                             <div class="label">En Progreso</div>
                             <div class="value">{projects_metrics["in_progress"]}</div>
                         </div>
                         <div class="metric-card">
-                            <div class="label">Cerrados 2026</div>
-                            <div class="value">{projects_metrics["closed_2026"]}</div>
+                            <div class="label">Pendientes</div>
+                            <div class="value">{projects_metrics["pending_ce2"]}</div>
                         </div>
                     </div>
 
                     <div class="section-box">
-                        <h2>👥 Por Lead</h2>
+                        <h2>📊 Por Estado</h2>
                         <table>
                             <tr>
-                                <th>Lead</th>
-                                <th>Proyectos</th>
-                            </tr>
-    """
-
-    for lead, count in sorted(projects_metrics["by_lead"].items(), key=lambda x: x[1], reverse=True):
-        html += f"<tr><td>{lead}</td><td>{count}</td></tr>"
-
-    html += """
-                        </table>
-                    </div>
-
-                    <div class="section-box">
-                        <h2>📈 Distribución de Progreso</h2>
-                        <table>
-                            <tr>
-                                <th>Rango</th>
+                                <th>Estado</th>
                                 <th>Count</th>
                             </tr>
     """
 
-    for range_label in ["0-25%", "25-50%", "50-75%", "75-100%"]:
-        count = projects_metrics["progress_distribution"][range_label]
-        html += f"<tr><td>{range_label}</td><td>{count}</td></tr>"
+    for state in sorted(projects_metrics["by_state"].keys()):
+        count = projects_metrics["by_state"][state]
+        html += f"<tr><td>{state}</td><td>{count}</td></tr>"
 
     html += f"""
                         </table>
