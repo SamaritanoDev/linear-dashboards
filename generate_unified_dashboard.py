@@ -509,9 +509,10 @@ def generate_html(projects_metrics, all_months_metrics):
             }
             .section-box h2 {
                 margin-top: 0;
+                margin-bottom: 25px;
                 color: #ffffff;
                 border-bottom: 2px solid #0052ff;
-                padding-bottom: 10px;
+                padding-bottom: 15px;
             }
             table {
                 width: 100%;
