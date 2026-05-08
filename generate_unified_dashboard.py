@@ -548,6 +548,12 @@ def generate_html(projects_metrics, all_months_metrics):
                             </div>
                         </div>
 
+                        <div class="disclaimer" style="margin-top: 20px;">
+                            <strong>📌 Nota sobre los totales:</strong>
+                            <div class="disclaimer-item">Total = Pendientes + Cerrados + Descartados</div>
+                            <div class="disclaimer-item">Los issues en estado "Discarded" se excluyen de ambas categorías</div>
+                        </div>
+
                         <div class="section-box">
                             <h2>📊 Por Estado (Desglose por Team)</h2>
                             <table>
