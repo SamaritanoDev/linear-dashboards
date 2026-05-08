@@ -40,9 +40,6 @@ def get_projects():
     {
       projects(
         first: 100
-        filter: {
-          team: {key: "CE2"}
-        }
       ) {
         nodes {
           id
@@ -50,12 +47,17 @@ def get_projects():
           state
           progress
           lead {name}
+          teams(first: 1) {
+            nodes {
+              key
+            }
+          }
         }
       }
     }
     """
 
-    print("📊 Obteniendo proyectos de CE2...")
+    print("📊 Obteniendo proyectos...")
     result = query_linear(query)
 
     if not result or "errors" in result:
@@ -64,9 +66,16 @@ def get_projects():
             print(f"   Detalle: {result['errors']}")
         return []
 
-    projects = result["data"]["projects"]["nodes"]
-    print(f"✅ {len(projects)} proyectos obtenidos\n")
-    return projects
+    all_projects = result["data"]["projects"]["nodes"]
+    # Filtrar solo proyectos de CE2
+    ce2_projects = []
+    for p in all_projects:
+        teams = p.get("teams", {}).get("nodes", [])
+        if teams and any(t.get("key") == "CE2" for t in teams):
+            ce2_projects.append(p)
+
+    print(f"✅ {len(ce2_projects)} proyectos de CE2 obtenidos (de {len(all_projects)} totales)\n")
+    return ce2_projects
 
 def get_issues_for_month(year, month, month_name):
     """Obtiene issues SIN proyecto para un mes específico de CE1 + CE2"""
