@@ -737,6 +737,16 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
                 border-color: #fa76b1;
                 color: #fa76b1;
             }
+            body.light-mode .product-name {
+                color: #fa76b1;
+                font-weight: 700;
+            }
+            body.light-mode .stat-value {
+                color: #fa76b1;
+            }
+            body.light-mode .stat-label {
+                color: #999;
+            }
             @media (max-width: 768px) {
                 .drawer {
                     width: 100%;
