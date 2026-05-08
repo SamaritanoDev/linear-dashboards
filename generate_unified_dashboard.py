@@ -537,7 +537,7 @@ def generate_html(projects_metrics, all_months_metrics):
             .product-summary {
                 display: grid;
                 grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-                gap: 15px;
+                gap: 25px;
                 margin-bottom: 10px;
             }
             .product-card {
