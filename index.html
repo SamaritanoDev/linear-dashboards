@@ -105,6 +105,23 @@
             margin-bottom: 20px;
             font-size: 13px;
         }
+        .disclaimer {
+            background: #f8f8f8;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            font-size: 12px;
+            color: #555;
+            line-height: 1.5;
+        }
+        .disclaimer strong {
+            color: #333;
+        }
+        .disclaimer-title {
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
         .pending-alert {
             background: #fff3cd;
             padding: 12px;
@@ -195,6 +212,21 @@
         <div id="issues" class="page active">
             <h2>📈 Issues Multimonth</h2>
             <p style="color: #666; margin-bottom: 20px; font-size: 13px;">Elige un mes para ver el desglose de issues, pendientes y estado por team.</p>
+
+            <div class="disclaimer">
+                <div class="disclaimer-title">ℹ️ Definición de "Pendientes"</div>
+                <p><strong>Pendientes</strong> incluye todos los issues que NO están en estado <strong>Closed</strong>:</p>
+                <p style="margin-top: 6px; color: #666;">
+                    • Triage<br>
+                    • Planning<br>
+                    • Backlog<br>
+                    • In Progress<br>
+                    • In Review<br>
+                    • Blocked<br>
+                    • Discarded<br>
+                    • Cualquier otro estado ≠ Closed
+                </p>
+            </div>
 
             <div class="months-tabs">
                 <button class="month-tab " onclick="showMonth('Enero')">Enero 2026</button>
@@ -561,7 +593,7 @@
             </div>
 
             <div class="timestamp">
-                Actualizado: 2026-05-08 14:14:30 UTC
+                Actualizado: 2026-05-08 14:17:11 UTC
             </div>
         </div>
     </div>
@@ -572,7 +604,6 @@
             document.getElementById(page).classList.add('active');
             document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
             event.target.classList.add('active');
-            // Reset to first month when switching to issues
             if (page === 'issues') {
                 showMonth('Mayo');
             }
