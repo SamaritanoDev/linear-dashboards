@@ -22,20 +22,28 @@ jobs:
       - name: Generate dashboard
         env:
           LINEAR_API_KEY: ${{ secrets.LINEAR_API_KEY }}
-        run: python generate_dashboard.py
+        run: |
+          echo "🔄 Generando dashboard desde Linear..."
+          python3 generate_unified_dashboard.py
+          if [ $? -eq 0 ]; then
+            echo "✅ Dashboard generado exitosamente"
+          else
+            echo "❌ Error al generar dashboard"
+            exit 1
+          fi
 
       - name: Commit and push changes
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
 
-          # Solo hacer commit si hay cambios
-          if git diff --quiet; then
-            echo "✅ No hay cambios en el dashboard"
+          # Verificar si hay cambios en index.html
+          if git diff --quiet index.html; then
+            echo "✅ Dashboard sin cambios - no hay actualizaciones necesarias"
           else
-            echo "📝 Actualizando dashboard..."
+            echo "📝 Detectados cambios en el dashboard, actualizando..."
             git add index.html
             git commit -m "🤖 Actualizar dashboard - $(date +'%Y-%m-%d %H:%M:%S UTC')"
-            git push
-            echo "✅ Dashboard actualizado y pusheado"
+            git push origin main
+            echo "✅ Dashboard actualizado y pusheado a GitHub"
           fi
