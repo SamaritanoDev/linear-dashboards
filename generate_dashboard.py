@@ -63,6 +63,7 @@ def get_issues_for_month(year, month, month_name):
           completedAt
           assignee {{name}}
           team {{key}}
+          project {{id}}
           labels(first: 10) {{
             nodes {{name}}
           }}
@@ -79,8 +80,10 @@ def get_issues_for_month(year, month, month_name):
         return []
 
     issues = result["data"]["issues"]["nodes"]
-    print(f"✅ {len(issues)} issues obtenidos para {month_name}\n")
-    return issues
+    # Filtrar solo issues SIN proyecto
+    issues_without_project = [i for i in issues if not i.get("project")]
+    print(f"✅ {len(issues_without_project)} issues sin proyecto obtenidos para {month_name} (de {len(issues)} totales)\n")
+    return issues_without_project
 
 def calculate_metrics(issues, month_name):
     """Calcula métricas para un conjunto de issues"""

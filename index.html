@@ -1,620 +1,763 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Linear Dashboard - CE1 + CE2</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background: #f5f5f5;
-            display: flex;
-            height: 100vh;
-            overflow: hidden;
-        }
-        .drawer {
-            width: 280px;
-            background: white;
-            border-right: 1px solid #e0e0e0;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-        }
-        .drawer-header {
-            padding: 20px;
-            border-bottom: 1px solid #e0e0e0;
-            background: #0052ff;
-            color: white;
-        }
-        .drawer-header h1 {
-            font-size: 16px;
-            margin: 0;
-        }
-        .drawer-nav {
-            flex: 1;
-            padding: 10px;
-        }
-        .nav-item {
-            padding: 12px 16px;
-            margin: 4px 0;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 14px;
-            transition: all 0.2s;
-            border: none;
-            background: none;
-            text-align: left;
-            width: 100%;
-            color: #333;
-        }
-        .nav-item:hover {
-            background: #f0f0f0;
-        }
-        .nav-item.active {
-            background: #0052ff;
-            color: white;
-            font-weight: 600;
-        }
-        .drawer-footer {
-            padding: 10px;
-            border-top: 1px solid #e0e0e0;
-            font-size: 11px;
-            color: #999;
-            text-align: center;
-        }
-        .content {
-            flex: 1;
-            overflow-y: auto;
-            padding: 20px;
-        }
-        .page { display: none; }
-        .page.active { display: block; }
-        h2 {
-            color: #333;
-            margin-bottom: 20px;
-            font-size: 24px;
-        }
-        .months-tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            border-bottom: 2px solid #ddd;
-            flex-wrap: wrap;
-        }
-        .month-tab {
-            padding: 10px 16px;
-            cursor: pointer;
-            border: none;
-            background: none;
-            font-size: 13px;
-            color: #666;
-            border-bottom: 3px solid transparent;
-            transition: all 0.2s;
-        }
-        .month-tab:hover { color: #0052ff; }
-        .month-tab.active { color: #0052ff; border-bottom-color: #0052ff; }
-        .month-content { display: none; }
-        .month-content.active { display: block; }
-        .month-summary {
-            background: #f0f7ff;
-            padding: 15px;
-            border-left: 4px solid #0052ff;
-            border-radius: 4px;
-            margin-bottom: 20px;
-            font-size: 13px;
-        }
-        .disclaimer {
-            background: #f8f8f8;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            margin-bottom: 20px;
-            font-size: 12px;
-            color: #555;
-            line-height: 1.5;
-        }
-        .disclaimer strong {
-            color: #333;
-        }
-        .disclaimer-title {
-            font-weight: 600;
-            margin-bottom: 6px;
-        }
-        .pending-alert {
-            background: #fff3cd;
-            padding: 12px;
-            border-left: 4px solid #ffc107;
-            border-radius: 4px;
-            margin-bottom: 20px;
-            color: #856404;
-            font-weight: 500;
-        }
-        .metrics {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 15px;
-            margin-bottom: 30px;
-        }
-        .metric {
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            border-left: 4px solid #0052ff;
-            text-align: center;
-        }
-        .metric.pending { border-left-color: #ffc107; background: #fffbf0; }
-        .metric.ce1 { border-left-color: #ff6b6b; }
-        .metric.ce2 { border-left-color: #4ecdc4; }
-        .metric-value {
-            font-size: 28px;
-            font-weight: bold;
-            color: #0052ff;
-            margin: 8px 0;
-        }
-        .metric.pending .metric-value { color: #ffc107; }
-        .metric.ce1 .metric-value { color: #ff6b6b; }
-        .metric.ce2 .metric-value { color: #4ecdc4; }
-        .metric-label { color: #666; font-size: 11px; }
-        .section {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-        .section h3 {
-            margin: 0 0 15px 0;
-            color: #333;
-            border-bottom: 2px solid #0052ff;
-            padding-bottom: 10px;
-            font-size: 14px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 13px;
-        }
-        th, td { padding: 10px; text-align: left; border-bottom: 1px solid #eee; }
-        th { background: #f9f9f9; font-weight: 600; color: #333; }
-        .timestamp {
-            text-align: center;
-            color: #999;
-            font-size: 11px;
-            margin-top: 20px;
-        }
-        @media (max-width: 768px) {
-            body { flex-direction: column; }
-            .drawer { width: 100%; height: auto; border-right: none; border-bottom: 1px solid #e0e0e0; }
-            .metrics { grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); }
-        }
-    </style>
-</head>
-<body>
-    <div class="drawer">
-        <div class="drawer-header">
-            <h1>📊 Linear Dashboard</h1>
-        </div>
-        <div class="drawer-nav">
-            <button class="nav-item active" onclick="showPage('issues')">📈 Issues</button>
-            <button class="nav-item" onclick="showPage('projects')">🏢 Projects</button>
-        </div>
-        <div class="drawer-footer">
-            <p>CE1 + CE2</p>
-            <p>Actualizado hoy</p>
-        </div>
-    </div>
 
-    <div class="content">
-        <!-- ISSUES PAGE -->
-        <div id="issues" class="page active">
-            <h2>📈 Issues Multimonth</h2>
-            <p style="color: #666; margin-bottom: 20px; font-size: 13px;">Elige un mes para ver el desglose de issues, pendientes y estado por team.</p>
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="utf-8">
+        <title>Linear Dashboard Multimonth (CE1+CE2)</title>
+        <style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+                background: #f5f5f5;
+                padding: 20px;
+                margin: 0;
+            }
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+            h1 {
+                color: #333;
+                text-align: center;
+                margin-bottom: 20px;
+            }
+            .note {
+                background: #e3f2fd;
+                padding: 12px;
+                border-left: 4px solid #1976d2;
+                margin-bottom: 20px;
+                border-radius: 4px;
+            }
+            .disclaimer {
+                background: #fff3cd;
+                padding: 15px;
+                border-left: 4px solid #ffc107;
+                margin-bottom: 20px;
+                border-radius: 4px;
+                font-size: 13px;
+            }
+            .disclaimer strong {
+                display: block;
+                margin-bottom: 8px;
+            }
+            .disclaimer-item {
+                margin: 5px 0;
+            }
+            .tabs {
+                display: flex;
+                gap: 10px;
+                margin-bottom: 20px;
+                border-bottom: 2px solid #ddd;
+                flex-wrap: wrap;
+            }
+            .tab-button {
+                background: none;
+                border: none;
+                padding: 12px 16px;
+                cursor: pointer;
+                font-size: 14px;
+                font-weight: 500;
+                color: #666;
+                border-bottom: 3px solid transparent;
+                transition: all 0.2s;
+            }
+            .tab-button:hover {
+                color: #0052ff;
+            }
+            .tab-button.active {
+                color: #0052ff;
+                border-bottom-color: #0052ff;
+            }
+            .tab-content {
+                display: none;
+            }
+            .tab-content.active {
+                display: block;
+            }
+            .month-summary {
+                background: #f0f7ff;
+                padding: 15px;
+                border-left: 4px solid #0052ff;
+                border-radius: 4px;
+                margin-bottom: 20px;
+                font-size: 14px;
+            }
+            .metrics {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 15px;
+                margin-bottom: 30px;
+            }
+            .metric-card {
+                background: white;
+                padding: 15px;
+                border-radius: 8px;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+                border-left: 4px solid #0052ff;
+                text-align: center;
+            }
+            .metric-card.ce1 {
+                border-left-color: #ff6b6b;
+            }
+            .metric-card.ce2 {
+                border-left-color: #4ecdc4;
+            }
+            .value {
+                font-size: 28px;
+                font-weight: bold;
+                color: #0052ff;
+                margin: 8px 0;
+            }
+            .metric-card.ce1 .value {
+                color: #ff6b6b;
+            }
+            .metric-card.ce2 .value {
+                color: #4ecdc4;
+            }
+            .label {
+                color: #666;
+                font-size: 12px;
+            }
+            .section {
+                background: white;
+                padding: 20px;
+                border-radius: 8px;
+                margin-bottom: 20px;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            }
+            .section h2 {
+                margin-top: 0;
+                color: #333;
+                border-bottom: 2px solid #0052ff;
+                padding-bottom: 10px;
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+            th, td {
+                padding: 12px;
+                text-align: left;
+                border-bottom: 1px solid #eee;
+            }
+            th {
+                background: #f9f9f9;
+                font-weight: 600;
+                color: #333;
+            }
+            .team-ce1 {
+                background: #fff5f5;
+            }
+            .team-ce2 {
+                background: #f0fffe;
+            }
+            .timestamp {
+                text-align: center;
+                color: #999;
+                font-size: 12px;
+                margin-top: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>📊 Linear Dashboard Multimonth (CE1 + CE2)</h1>
+
+            <div class="note">
+                <strong>ℹ️ Nota:</strong> Dashboard que filtra por AMBOS teams (CE1 y CE2).
+                Haz clic en las pestañas para ver cada mes. Cada mes muestra desglose por team.
+            </div>
 
             <div class="disclaimer">
-                <div class="disclaimer-title">ℹ️ Definición de "Pendientes"</div>
-                <p><strong>Pendientes</strong> incluye todos los issues que NO están en estado <strong>Closed</strong> NI <strong>Discarded</strong>:</p>
-                <p style="margin-top: 6px; color: #666;">
-                    ✓ Triage<br>
-                    ✓ Planning<br>
-                    ✓ Backlog<br>
-                    ✓ In Progress<br>
-                    ✓ In Review<br>
-                    ✓ Blocked<br>
-                    ✗ Discarded (NO se cuenta)<br>
-                    ✗ Closed (NO se cuenta)
-                </p>
+                <strong>📌 Definición de "Pendientes":</strong>
+                <div class="disclaimer-item">✓ Se cuentan: Triage, Planning, Backlog, In Progress, In Review, Blocked</div>
+                <div class="disclaimer-item">✗ NO se cuentan: Closed, Discarded</div>
             </div>
 
-            <div class="months-tabs">
-                <button class="month-tab " onclick="showMonth('Enero')">Enero 2026</button>
-                <button class="month-tab " onclick="showMonth('Febrero')">Febrero 2026</button>
-                <button class="month-tab " onclick="showMonth('Marzo')">Marzo 2026</button>
-                <button class="month-tab " onclick="showMonth('Abril')">Abril 2026</button>
-                <button class="month-tab active" onclick="showMonth('Mayo')">Mayo 2026</button>
+            <div class="tabs">
+    <button class="tab-button " onclick="switchTab('Enero')">Enero 2026</button><button class="tab-button " onclick="switchTab('Febrero')">Febrero 2026</button><button class="tab-button " onclick="switchTab('Marzo')">Marzo 2026</button><button class="tab-button " onclick="switchTab('Abril')">Abril 2026</button><button class="tab-button active" onclick="switchTab('Mayo')">Mayo 2026</button>
             </div>
-            <div class="month-content " id="month-Enero">
+    
+            <div class="tab-content " id="tab-Enero">
                 <div class="month-summary">
-                    <strong>Enero 2026:</strong> 116 issues totales (CE1: 15 + CE2: 101)
-                    <br>Pendientes: 5 (CE1: 0, CE2: 5) | Cerrados: 107
+                    <strong>Enero 2026:</strong> 34 issues totales
+                    (CE1: 15 + CE2: 19)
+                    | <strong>Pendientes: 0</strong>
                 </div>
-                <div class="pending-alert">⚠️ 5 issues pendientes que requieren atención</div>
 
+                <h3>📊 Resumen</h3>
                 <div class="metrics">
-                    <div class="metric">
-                        <div class="metric-label">Total</div>
-                        <div class="metric-value">116</div>
+                    <div class="metric-card">
+                        <div class="label">Total Issues</div>
+                        <div class="value">34</div>
                     </div>
-                    <div class="metric pending">
-                        <div class="metric-label">⏳ Pendientes</div>
-                        <div class="metric-value">5</div>
+                    <div class="metric-card ce1">
+                        <div class="label">CE1 Issues</div>
+                        <div class="value">15</div>
                     </div>
-                    <div class="metric">
-                        <div class="metric-label">✅ Cerrados</div>
-                        <div class="metric-value">107</div>
+                    <div class="metric-card ce2">
+                        <div class="label">CE2 Issues</div>
+                        <div class="value">19</div>
                     </div>
-                    <div class="metric ce1">
-                        <div class="metric-label">CE1 Pend.</div>
-                        <div class="metric-value">0</div>
+                    <div class="metric-card">
+                        <div class="label">🔥 Activos</div>
+                        <div class="value">0</div>
                     </div>
-                    <div class="metric ce2">
-                        <div class="metric-label">CE2 Pend.</div>
-                        <div class="metric-value">5</div>
+                    <div class="metric-card">
+                        <div class="label">📚 Backlog</div>
+                        <div class="value">0</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="label">🚫 Bloqueados</div>
+                        <div class="value">0</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="label">✅ Cerrados</div>
+                        <div class="value">31</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="label">⏳ Pendientes</div>
+                        <div class="value">0</div>
                     </div>
                 </div>
 
                 <div class="section">
-                    <h3>📊 Por Estado</h3>
+                    <h2>📊 Por Estado (Desglose por Team)</h2>
                     <table>
-                        <tr><th>Estado</th><th>Count</th></tr>
-                        <tr><td>Closed</td><td>107</td></tr>
-                        <tr><td>Discarded</td><td>4</td></tr>
-                        <tr><td>Planning</td><td>4</td></tr>
-                        <tr><td>In Progress</td><td>1</td></tr>
+                        <tr>
+                            <th>Estado</th>
+                            <th>CE1</th>
+                            <th>CE2</th>
+                            <th>Total</th>
+                        </tr>
+        <tr><td>Closed</td><td>15</td><td>16</td><td>31</td></tr><tr><td>Discarded</td><td>0</td><td>3</td><td>3</td></tr>
                     </table>
                 </div>
 
                 <div class="section">
-                    <h3>🏢 Por Producto</h3>
+                    <h2>🏢 Por Producto (Pendientes vs Total)</h2>
                     <table>
-                        <tr><th>Producto</th><th>Pendientes</th><th>Total</th><th>%</th></tr>
-                        <tr><td>Fimo</td><td>0</td><td>1</td><td>100%</td></tr>
-                        <tr><td>Wings</td><td>0</td><td>1</td><td>100%</td></tr>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Pendientes</th>
+                            <th>Total</th>
+                            <th>Completado %</th>
+                        </tr>
+        
+                        <tr>
+                            <td><strong>Fimo</strong></td>
+                            <td>0</td>
+                            <td>1</td>
+                            <td>100.0%</td>
+                        </tr>
+            
+                        <tr>
+                            <td><strong>Wings</strong></td>
+                            <td>0</td>
+                            <td>1</td>
+                            <td>100.0%</td>
+                        </tr>
+            
                     </table>
                 </div>
             </div>
-            <div class="month-content " id="month-Febrero">
+        
+            <div class="tab-content " id="tab-Febrero">
                 <div class="month-summary">
-                    <strong>Febrero 2026:</strong> 250 issues totales (CE1: 22 + CE2: 228)
-                    <br>Pendientes: 2 (CE1: 0, CE2: 2) | Cerrados: 225
+                    <strong>Febrero 2026:</strong> 133 issues totales
+                    (CE1: 22 + CE2: 111)
+                    | <strong>Pendientes: 0</strong>
                 </div>
-                <div class="pending-alert">⚠️ 2 issues pendientes que requieren atención</div>
 
+                <h3>📊 Resumen</h3>
                 <div class="metrics">
-                    <div class="metric">
-                        <div class="metric-label">Total</div>
-                        <div class="metric-value">250</div>
+                    <div class="metric-card">
+                        <div class="label">Total Issues</div>
+                        <div class="value">133</div>
                     </div>
-                    <div class="metric pending">
-                        <div class="metric-label">⏳ Pendientes</div>
-                        <div class="metric-value">2</div>
+                    <div class="metric-card ce1">
+                        <div class="label">CE1 Issues</div>
+                        <div class="value">22</div>
                     </div>
-                    <div class="metric">
-                        <div class="metric-label">✅ Cerrados</div>
-                        <div class="metric-value">225</div>
+                    <div class="metric-card ce2">
+                        <div class="label">CE2 Issues</div>
+                        <div class="value">111</div>
                     </div>
-                    <div class="metric ce1">
-                        <div class="metric-label">CE1 Pend.</div>
-                        <div class="metric-value">0</div>
+                    <div class="metric-card">
+                        <div class="label">🔥 Activos</div>
+                        <div class="value">1</div>
                     </div>
-                    <div class="metric ce2">
-                        <div class="metric-label">CE2 Pend.</div>
-                        <div class="metric-value">2</div>
+                    <div class="metric-card">
+                        <div class="label">📚 Backlog</div>
+                        <div class="value">0</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="label">🚫 Bloqueados</div>
+                        <div class="value">0</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="label">✅ Cerrados</div>
+                        <div class="value">127</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="label">⏳ Pendientes</div>
+                        <div class="value">0</div>
                     </div>
                 </div>
 
                 <div class="section">
-                    <h3>📊 Por Estado</h3>
+                    <h2>📊 Por Estado (Desglose por Team)</h2>
                     <table>
-                        <tr><th>Estado</th><th>Count</th></tr>
-                        <tr><td>Closed</td><td>225</td></tr>
-                        <tr><td>Discarded</td><td>23</td></tr>
-                        <tr><td>In Progress</td><td>1</td></tr>
-                        <tr><td>In Review</td><td>1</td></tr>
+                        <tr>
+                            <th>Estado</th>
+                            <th>CE1</th>
+                            <th>CE2</th>
+                            <th>Total</th>
+                        </tr>
+        <tr><td>Closed</td><td>22</td><td>105</td><td>127</td></tr><tr><td>Discarded</td><td>0</td><td>5</td><td>5</td></tr><tr><td>In Progress</td><td>0</td><td>1</td><td>1</td></tr>
                     </table>
                 </div>
 
                 <div class="section">
-                    <h3>🏢 Por Producto</h3>
+                    <h2>🏢 Por Producto (Pendientes vs Total)</h2>
                     <table>
-                        <tr><th>Producto</th><th>Pendientes</th><th>Total</th><th>%</th></tr>
-                        <tr><td>Airalo</td><td>0</td><td>6</td><td>100%</td></tr>
-                        <tr><td>Cuy</td><td>0</td><td>2</td><td>100%</td></tr>
-                        <tr><td>Fimo</td><td>0</td><td>3</td><td>100%</td></tr>
-                        <tr><td>Habla+</td><td>0</td><td>12</td><td>100%</td></tr>
-                        <tr><td>PeruSim+</td><td>1</td><td>2</td><td>50%</td></tr>
-                        <tr><td>Wings</td><td>0</td><td>5</td><td>100%</td></tr>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Pendientes</th>
+                            <th>Total</th>
+                            <th>Completado %</th>
+                        </tr>
+        
+                        <tr>
+                            <td><strong>Airalo</strong></td>
+                            <td>0</td>
+                            <td>6</td>
+                            <td>100.0%</td>
+                        </tr>
+            
+                        <tr>
+                            <td><strong>Cuy</strong></td>
+                            <td>0</td>
+                            <td>2</td>
+                            <td>100.0%</td>
+                        </tr>
+            
+                        <tr>
+                            <td><strong>Fimo</strong></td>
+                            <td>0</td>
+                            <td>3</td>
+                            <td>100.0%</td>
+                        </tr>
+            
+                        <tr>
+                            <td><strong>Habla+</strong></td>
+                            <td>0</td>
+                            <td>9</td>
+                            <td>100.0%</td>
+                        </tr>
+            
+                        <tr>
+                            <td><strong>Wings</strong></td>
+                            <td>0</td>
+                            <td>3</td>
+                            <td>100.0%</td>
+                        </tr>
+            
                     </table>
                 </div>
             </div>
-            <div class="month-content " id="month-Marzo">
+        
+            <div class="tab-content " id="tab-Marzo">
                 <div class="month-summary">
-                    <strong>Marzo 2026:</strong> 250 issues totales (CE1: 75 + CE2: 175)
-                    <br>Pendientes: 15 (CE1: 5, CE2: 10) | Cerrados: 223
+                    <strong>Marzo 2026:</strong> 161 issues totales
+                    (CE1: 75 + CE2: 86)
+                    | <strong>Pendientes: 1</strong>
                 </div>
-                <div class="pending-alert">⚠️ 15 issues pendientes que requieren atención</div>
 
+                <h3>📊 Resumen</h3>
                 <div class="metrics">
-                    <div class="metric">
-                        <div class="metric-label">Total</div>
-                        <div class="metric-value">250</div>
+                    <div class="metric-card">
+                        <div class="label">Total Issues</div>
+                        <div class="value">161</div>
                     </div>
-                    <div class="metric pending">
-                        <div class="metric-label">⏳ Pendientes</div>
-                        <div class="metric-value">15</div>
+                    <div class="metric-card ce1">
+                        <div class="label">CE1 Issues</div>
+                        <div class="value">75</div>
                     </div>
-                    <div class="metric">
-                        <div class="metric-label">✅ Cerrados</div>
-                        <div class="metric-value">223</div>
+                    <div class="metric-card ce2">
+                        <div class="label">CE2 Issues</div>
+                        <div class="value">86</div>
                     </div>
-                    <div class="metric ce1">
-                        <div class="metric-label">CE1 Pend.</div>
-                        <div class="metric-value">5</div>
+                    <div class="metric-card">
+                        <div class="label">🔥 Activos</div>
+                        <div class="value">2</div>
                     </div>
-                    <div class="metric ce2">
-                        <div class="metric-label">CE2 Pend.</div>
-                        <div class="metric-value">10</div>
+                    <div class="metric-card">
+                        <div class="label">📚 Backlog</div>
+                        <div class="value">4</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="label">🚫 Bloqueados</div>
+                        <div class="value">0</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="label">✅ Cerrados</div>
+                        <div class="value">143</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="label">⏳ Pendientes</div>
+                        <div class="value">1</div>
                     </div>
                 </div>
 
                 <div class="section">
-                    <h3>📊 Por Estado</h3>
+                    <h2>📊 Por Estado (Desglose por Team)</h2>
                     <table>
-                        <tr><th>Estado</th><th>Count</th></tr>
-                        <tr><td>Closed</td><td>223</td></tr>
-                        <tr><td>Discarded</td><td>12</td></tr>
-                        <tr><td>Backlog</td><td>9</td></tr>
-                        <tr><td>In Progress</td><td>3</td></tr>
-                        <tr><td>Planning</td><td>1</td></tr>
-                        <tr><td>Blocked</td><td>1</td></tr>
-                        <tr><td>In Review</td><td>1</td></tr>
+                        <tr>
+                            <th>Estado</th>
+                            <th>CE1</th>
+                            <th>CE2</th>
+                            <th>Total</th>
+                        </tr>
+        <tr><td>Backlog</td><td>2</td><td>1</td><td>3</td></tr><tr><td>Closed</td><td>67</td><td>76</td><td>143</td></tr><tr><td>Discarded</td><td>3</td><td>9</td><td>12</td></tr><tr><td>In Progress</td><td>1</td><td>0</td><td>1</td></tr><tr><td>In Review</td><td>1</td><td>0</td><td>1</td></tr><tr><td>Planning</td><td>1</td><td>0</td><td>1</td></tr>
                     </table>
                 </div>
 
                 <div class="section">
-                    <h3>🏢 Por Producto</h3>
+                    <h2>🏢 Por Producto (Pendientes vs Total)</h2>
                     <table>
-                        <tr><th>Producto</th><th>Pendientes</th><th>Total</th><th>%</th></tr>
-                        <tr><td>Airalo</td><td>0</td><td>1</td><td>100%</td></tr>
-                        <tr><td>Cuy</td><td>0</td><td>39</td><td>100%</td></tr>
-                        <tr><td>Fimo</td><td>0</td><td>1</td><td>100%</td></tr>
-                        <tr><td>Guinea</td><td>0</td><td>1</td><td>100%</td></tr>
-                        <tr><td>Habla+</td><td>0</td><td>3</td><td>100%</td></tr>
-                        <tr><td>PeruSim+</td><td>1</td><td>2</td><td>50%</td></tr>
-                        <tr><td>Wings</td><td>0</td><td>2</td><td>100%</td></tr>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Pendientes</th>
+                            <th>Total</th>
+                            <th>Completado %</th>
+                        </tr>
+        
+                        <tr>
+                            <td><strong>Airalo</strong></td>
+                            <td>0</td>
+                            <td>1</td>
+                            <td>100.0%</td>
+                        </tr>
+            
+                        <tr>
+                            <td><strong>Cuy</strong></td>
+                            <td>0</td>
+                            <td>33</td>
+                            <td>100.0%</td>
+                        </tr>
+            
+                        <tr>
+                            <td><strong>Fimo</strong></td>
+                            <td>0</td>
+                            <td>1</td>
+                            <td>100.0%</td>
+                        </tr>
+            
+                        <tr>
+                            <td><strong>Guinea</strong></td>
+                            <td>0</td>
+                            <td>1</td>
+                            <td>100.0%</td>
+                        </tr>
+            
+                        <tr>
+                            <td><strong>Habla+</strong></td>
+                            <td>0</td>
+                            <td>3</td>
+                            <td>100.0%</td>
+                        </tr>
+            
+                        <tr>
+                            <td><strong>PeruSim+</strong></td>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>50.0%</td>
+                        </tr>
+            
+                        <tr>
+                            <td><strong>Wings</strong></td>
+                            <td>0</td>
+                            <td>2</td>
+                            <td>100.0%</td>
+                        </tr>
+            
                     </table>
                 </div>
             </div>
-            <div class="month-content " id="month-Abril">
+        
+            <div class="tab-content " id="tab-Abril">
                 <div class="month-summary">
-                    <strong>Abril 2026:</strong> 225 issues totales (CE1: 77 + CE2: 148)
-                    <br>Pendientes: 38 (CE1: 11, CE2: 27) | Cerrados: 158
+                    <strong>Abril 2026:</strong> 190 issues totales
+                    (CE1: 77 + CE2: 113)
+                    | <strong>Pendientes: 23</strong>
                 </div>
-                <div class="pending-alert">⚠️ 38 issues pendientes que requieren atención</div>
 
+                <h3>📊 Resumen</h3>
                 <div class="metrics">
-                    <div class="metric">
-                        <div class="metric-label">Total</div>
-                        <div class="metric-value">225</div>
+                    <div class="metric-card">
+                        <div class="label">Total Issues</div>
+                        <div class="value">190</div>
                     </div>
-                    <div class="metric pending">
-                        <div class="metric-label">⏳ Pendientes</div>
-                        <div class="metric-value">38</div>
+                    <div class="metric-card ce1">
+                        <div class="label">CE1 Issues</div>
+                        <div class="value">77</div>
                     </div>
-                    <div class="metric">
-                        <div class="metric-label">✅ Cerrados</div>
-                        <div class="metric-value">158</div>
+                    <div class="metric-card ce2">
+                        <div class="label">CE2 Issues</div>
+                        <div class="value">113</div>
                     </div>
-                    <div class="metric ce1">
-                        <div class="metric-label">CE1 Pend.</div>
-                        <div class="metric-value">11</div>
+                    <div class="metric-card">
+                        <div class="label">🔥 Activos</div>
+                        <div class="value">13</div>
                     </div>
-                    <div class="metric ce2">
-                        <div class="metric-label">CE2 Pend.</div>
-                        <div class="metric-value">27</div>
+                    <div class="metric-card">
+                        <div class="label">📚 Backlog</div>
+                        <div class="value">20</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="label">🚫 Bloqueados</div>
+                        <div class="value">1</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="label">✅ Cerrados</div>
+                        <div class="value">128</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="label">⏳ Pendientes</div>
+                        <div class="value">23</div>
                     </div>
                 </div>
 
                 <div class="section">
-                    <h3>📊 Por Estado</h3>
+                    <h2>📊 Por Estado (Desglose por Team)</h2>
                     <table>
-                        <tr><th>Estado</th><th>Count</th></tr>
-                        <tr><td>Closed</td><td>158</td></tr>
-                        <tr><td>Discarded</td><td>29</td></tr>
-                        <tr><td>Backlog</td><td>13</td></tr>
-                        <tr><td>Planning</td><td>10</td></tr>
-                        <tr><td>In Progress</td><td>8</td></tr>
-                        <tr><td>In Review</td><td>6</td></tr>
-                        <tr><td>Blocked</td><td>1</td></tr>
+                        <tr>
+                            <th>Estado</th>
+                            <th>CE1</th>
+                            <th>CE2</th>
+                            <th>Total</th>
+                        </tr>
+        <tr><td>Backlog</td><td>1</td><td>9</td><td>10</td></tr><tr><td>Blocked</td><td>0</td><td>1</td><td>1</td></tr><tr><td>Closed</td><td>52</td><td>76</td><td>128</td></tr><tr><td>Discarded</td><td>14</td><td>14</td><td>28</td></tr><tr><td>In Progress</td><td>4</td><td>3</td><td>7</td></tr><tr><td>In Review</td><td>2</td><td>4</td><td>6</td></tr><tr><td>Planning</td><td>4</td><td>6</td><td>10</td></tr>
                     </table>
                 </div>
 
                 <div class="section">
-                    <h3>🏢 Por Producto</h3>
+                    <h2>🏢 Por Producto (Pendientes vs Total)</h2>
                     <table>
-                        <tr><th>Producto</th><th>Pendientes</th><th>Total</th><th>%</th></tr>
-                        <tr><td>Airalo</td><td>0</td><td>3</td><td>100%</td></tr>
-                        <tr><td>B2B</td><td>1</td><td>10</td><td>90%</td></tr>
-                        <tr><td>Cuy</td><td>12</td><td>52</td><td>77%</td></tr>
-                        <tr><td>Fimo</td><td>1</td><td>13</td><td>92%</td></tr>
-                        <tr><td>Guinea</td><td>4</td><td>18</td><td>78%</td></tr>
-                        <tr><td>Habla+</td><td>5</td><td>18</td><td>72%</td></tr>
-                        <tr><td>PeruSim+</td><td>2</td><td>22</td><td>91%</td></tr>
-                        <tr><td>Wings</td><td>1</td><td>12</td><td>92%</td></tr>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Pendientes</th>
+                            <th>Total</th>
+                            <th>Completado %</th>
+                        </tr>
+        
+                        <tr>
+                            <td><strong>Airalo</strong></td>
+                            <td>0</td>
+                            <td>3</td>
+                            <td>100.0%</td>
+                        </tr>
+            
+                        <tr>
+                            <td><strong>B2B</strong></td>
+                            <td>1</td>
+                            <td>10</td>
+                            <td>90.0%</td>
+                        </tr>
+            
+                        <tr>
+                            <td><strong>Cuy</strong></td>
+                            <td>10</td>
+                            <td>45</td>
+                            <td>77.8%</td>
+                        </tr>
+            
+                        <tr>
+                            <td><strong>Fimo</strong></td>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>50.0%</td>
+                        </tr>
+            
+                        <tr>
+                            <td><strong>Guinea</strong></td>
+                            <td>4</td>
+                            <td>18</td>
+                            <td>77.8%</td>
+                        </tr>
+            
+                        <tr>
+                            <td><strong>Habla+</strong></td>
+                            <td>5</td>
+                            <td>14</td>
+                            <td>64.3%</td>
+                        </tr>
+            
+                        <tr>
+                            <td><strong>PeruSim+</strong></td>
+                            <td>1</td>
+                            <td>19</td>
+                            <td>94.7%</td>
+                        </tr>
+            
+                        <tr>
+                            <td><strong>Wings</strong></td>
+                            <td>1</td>
+                            <td>10</td>
+                            <td>90.0%</td>
+                        </tr>
+            
                     </table>
                 </div>
             </div>
-            <div class="month-content active" id="month-Mayo">
+        
+            <div class="tab-content active" id="tab-Mayo">
                 <div class="month-summary">
-                    <strong>Mayo 2026:</strong> 46 issues totales (CE1: 19 + CE2: 27)
-                    <br>Pendientes: 25 (CE1: 11, CE2: 14) | Cerrados: 16
+                    <strong>Mayo 2026:</strong> 42 issues totales
+                    (CE1: 19 + CE2: 23)
+                    | <strong>Pendientes: 14</strong>
                 </div>
-                <div class="pending-alert">⚠️ 25 issues pendientes que requieren atención</div>
 
+                <h3>📊 Resumen</h3>
                 <div class="metrics">
-                    <div class="metric">
-                        <div class="metric-label">Total</div>
-                        <div class="metric-value">46</div>
+                    <div class="metric-card">
+                        <div class="label">Total Issues</div>
+                        <div class="value">42</div>
                     </div>
-                    <div class="metric pending">
-                        <div class="metric-label">⏳ Pendientes</div>
-                        <div class="metric-value">25</div>
+                    <div class="metric-card ce1">
+                        <div class="label">CE1 Issues</div>
+                        <div class="value">19</div>
                     </div>
-                    <div class="metric">
-                        <div class="metric-label">✅ Cerrados</div>
-                        <div class="metric-value">16</div>
+                    <div class="metric-card ce2">
+                        <div class="label">CE2 Issues</div>
+                        <div class="value">23</div>
                     </div>
-                    <div class="metric ce1">
-                        <div class="metric-label">CE1 Pend.</div>
-                        <div class="metric-value">11</div>
+                    <div class="metric-card">
+                        <div class="label">🔥 Activos</div>
+                        <div class="value">3</div>
                     </div>
-                    <div class="metric ce2">
-                        <div class="metric-label">CE2 Pend.</div>
-                        <div class="metric-value">14</div>
+                    <div class="metric-card">
+                        <div class="label">📚 Backlog</div>
+                        <div class="value">13</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="label">🚫 Bloqueados</div>
+                        <div class="value">0</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="label">✅ Cerrados</div>
+                        <div class="value">14</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="label">⏳ Pendientes</div>
+                        <div class="value">14</div>
                     </div>
                 </div>
 
                 <div class="section">
-                    <h3>📊 Por Estado</h3>
+                    <h2>📊 Por Estado (Desglose por Team)</h2>
                     <table>
-                        <tr><th>Estado</th><th>Count</th></tr>
-                        <tr><td>Closed</td><td>16</td></tr>
-                        <tr><td>Triage</td><td>7</td></tr>
-                        <tr><td>Planning</td><td>7</td></tr>
-                        <tr><td>Backlog</td><td>7</td></tr>
-                        <tr><td>Discarded</td><td>5</td></tr>
-                        <tr><td>In Progress</td><td>4</td></tr>
+                        <tr>
+                            <th>Estado</th>
+                            <th>CE1</th>
+                            <th>CE2</th>
+                            <th>Total</th>
+                        </tr>
+        <tr><td>Backlog</td><td>5</td><td>2</td><td>7</td></tr><tr><td>Closed</td><td>6</td><td>8</td><td>14</td></tr><tr><td>Discarded</td><td>2</td><td>3</td><td>5</td></tr><tr><td>In Progress</td><td>0</td><td>3</td><td>3</td></tr><tr><td>Planning</td><td>3</td><td>3</td><td>6</td></tr><tr><td>Triage</td><td>3</td><td>4</td><td>7</td></tr>
                     </table>
                 </div>
 
                 <div class="section">
-                    <h3>🏢 Por Producto</h3>
+                    <h2>🏢 Por Producto (Pendientes vs Total)</h2>
                     <table>
-                        <tr><th>Producto</th><th>Pendientes</th><th>Total</th><th>%</th></tr>
-                        <tr><td>Airalo</td><td>1</td><td>2</td><td>50%</td></tr>
-                        <tr><td>B2B</td><td>0</td><td>1</td><td>100%</td></tr>
-                        <tr><td>Cuy</td><td>8</td><td>11</td><td>27%</td></tr>
-                        <tr><td>Fimo</td><td>0</td><td>3</td><td>100%</td></tr>
-                        <tr><td>Guinea</td><td>4</td><td>6</td><td>33%</td></tr>
-                        <tr><td>Habla+</td><td>2</td><td>4</td><td>50%</td></tr>
-                        <tr><td>PeruSim+</td><td>1</td><td>4</td><td>75%</td></tr>
-                        <tr><td>Wings</td><td>0</td><td>2</td><td>100%</td></tr>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Pendientes</th>
+                            <th>Total</th>
+                            <th>Completado %</th>
+                        </tr>
+        
+                        <tr>
+                            <td><strong>Airalo</strong></td>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>50.0%</td>
+                        </tr>
+            
+                        <tr>
+                            <td><strong>B2B</strong></td>
+                            <td>0</td>
+                            <td>1</td>
+                            <td>100.0%</td>
+                        </tr>
+            
+                        <tr>
+                            <td><strong>Cuy</strong></td>
+                            <td>7</td>
+                            <td>10</td>
+                            <td>30.0%</td>
+                        </tr>
+            
+                        <tr>
+                            <td><strong>Fimo</strong></td>
+                            <td>0</td>
+                            <td>3</td>
+                            <td>100.0%</td>
+                        </tr>
+            
+                        <tr>
+                            <td><strong>Guinea</strong></td>
+                            <td>3</td>
+                            <td>5</td>
+                            <td>40.0%</td>
+                        </tr>
+            
+                        <tr>
+                            <td><strong>Habla+</strong></td>
+                            <td>2</td>
+                            <td>4</td>
+                            <td>50.0%</td>
+                        </tr>
+            
+                        <tr>
+                            <td><strong>PeruSim+</strong></td>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>50.0%</td>
+                        </tr>
+            
+                        <tr>
+                            <td><strong>Wings</strong></td>
+                            <td>0</td>
+                            <td>2</td>
+                            <td>100.0%</td>
+                        </tr>
+            
                     </table>
                 </div>
             </div>
-
-        </div>
-
-        <!-- PROJECTS PAGE -->
-        <div id="projects" class="page">
-            <h2>🏢 Projects</h2>
-
-            <div class="metrics">
-                <div class="metric">
-                    <div class="metric-label">Total Proyectos</div>
-                    <div class="metric-value">100</div>
-                </div>
-                <div class="metric">
-                    <div class="metric-label">Backlog</div>
-                    <div class="metric-value">20</div>
-                </div>
-                <div class="metric">
-                    <div class="metric-label">Canceled</div>
-                    <div class="metric-value">5</div>
-                </div>
-                <div class="metric">
-                    <div class="metric-label">Completed</div>
-                    <div class="metric-value">58</div>
-                </div>
-                <div class="metric">
-                    <div class="metric-label">Planned</div>
-                    <div class="metric-value">1</div>
-                </div>
-                <div class="metric">
-                    <div class="metric-label">Started</div>
-                    <div class="metric-value">16</div>
-                </div>
-            </div>
-
-            <div class="section">
-                <h3>📊 Por Estado</h3>
-                <table>
-                    <tr><th>Estado</th><th>Count</th><th>%</th></tr>
-                    <tr><td>Completed</td><td>58</td><td>58.0%</td></tr>
-                    <tr><td>Backlog</td><td>20</td><td>20.0%</td></tr>
-                    <tr><td>Started</td><td>16</td><td>16.0%</td></tr>
-                    <tr><td>Canceled</td><td>5</td><td>5.0%</td></tr>
-                    <tr><td>Planned</td><td>1</td><td>1.0%</td></tr>
-                </table>
-            </div>
-
-            <div class="section">
-                <h3>👥 Top Leads</h3>
-                <table>
-                    <tr><th>Lead</th><th>Proyectos</th></tr>
-                    <tr><td>Patrick Bolaños</td><td>36</td></tr>
-                    <tr><td>Alberto Pereda</td><td>14</td></tr>
-                    <tr><td>Rawil Ceballo</td><td>11</td></tr>
-                    <tr><td>Angel Crispin</td><td>10</td></tr>
-                    <tr><td>Farialis Martinez</td><td>7</td></tr>
-                    <tr><td>Israel Gutierrez</td><td>6</td></tr>
-                    <tr><td>Leandro Ramirez</td><td>5</td></tr>
-                    <tr><td>Miguel Fernandez</td><td>3</td></tr>
-                    <tr><td>Alex Estrada</td><td>2</td></tr>
-                    <tr><td>Daniel Alvarez</td><td>2</td></tr>
-                    <tr><td>Unassigned</td><td>1</td></tr>
-                    <tr><td>Lesly Samaritano</td><td>1</td></tr>
-                    <tr><td>federico.brond@guinea.pe</td><td>1</td></tr>
-                    <tr><td>Wilzon Mariño</td><td>1</td></tr>
-                </table>
-            </div>
-
-            <div class="section">
-                <h3>📈 Distribución de Progreso</h3>
-                <table>
-                    <tr><th>Rango</th><th>Count</th><th>%</th></tr>
-                    <tr><td>0-25%</td><td>34</td><td>34.0%</td></tr>
-                    <tr><td>25-50%</td><td>2</td><td>2.0%</td></tr>
-                    <tr><td>50-75%</td><td>3</td><td>3.0%</td></tr>
-                    <tr><td>75-100%</td><td>61</td><td>61.0%</td></tr>
-                </table>
-            </div>
-
+        
             <div class="timestamp">
-                Actualizado: 2026-05-08 14:19:04 UTC
+                Actualizado: 2026-05-08 14:44:46 UTC
             </div>
         </div>
-    </div>
 
-    <script>
-        function showPage(page) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.getElementById(page).classList.add('active');
-            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
-            event.target.classList.add('active');
-            if (page === 'issues') {
-                showMonth('Mayo');
+        <script>
+            function switchTab(monthName) {
+                const tabs = document.querySelectorAll('.tab-content');
+                tabs.forEach(tab => tab.classList.remove('active'));
+
+                const buttons = document.querySelectorAll('.tab-button');
+                buttons.forEach(btn => btn.classList.remove('active'));
+
+                const selectedTab = document.getElementById('tab-' + monthName);
+                if (selectedTab) {
+                    selectedTab.classList.add('active');
+                }
+
+                event.target.classList.add('active');
             }
-        }
-
-        function showMonth(month) {
-            document.querySelectorAll('.month-content').forEach(m => m.classList.remove('active'));
-            document.getElementById('month-' + month).classList.add('active');
-            document.querySelectorAll('.month-tab').forEach(tab => tab.classList.remove('active'));
-            event.target.classList.add('active');
-        }
-    </script>
-</body>
-</html>
+        </script>
+    </body>
+    </html>
+    
