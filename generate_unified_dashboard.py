@@ -35,7 +35,7 @@ def query_linear(query_str):
         return None
 
 def get_projects():
-    """Obtiene proyectos de CE2"""
+    """Obtiene proyectos de CE1 y CE2"""
     query = """
     {
       projects(
@@ -47,7 +47,8 @@ def get_projects():
           state
           progress
           lead {name}
-          teams(first: 1) {
+          createdAt
+          teams(first: 5) {
             nodes {
               key
             }
@@ -67,15 +68,15 @@ def get_projects():
         return []
 
     all_projects = result["data"]["projects"]["nodes"]
-    # Filtrar solo proyectos de CE2
-    ce2_projects = []
+    # Filtrar solo proyectos de CE1 y CE2
+    ce_projects = []
     for p in all_projects:
         teams = p.get("teams", {}).get("nodes", [])
-        if teams and any(t.get("key") == "CE2" for t in teams):
-            ce2_projects.append(p)
+        if teams and any(t.get("key") in ["CE1", "CE2"] for t in teams):
+            ce_projects.append(p)
 
-    print(f"✅ {len(ce2_projects)} proyectos de CE2 obtenidos (de {len(all_projects)} totales)\n")
-    return ce2_projects
+    print(f"✅ {len(ce_projects)} proyectos de CE1+CE2 obtenidos (de {len(all_projects)} totales)\n")
+    return ce_projects
 
 def get_issues_for_month(year, month, month_name):
     """Obtiene issues SIN proyecto para un mes específico de CE1 + CE2"""
@@ -181,8 +182,13 @@ def calculate_metrics(issues, month_name):
 
 def calculate_project_metrics(projects):
     """Calcula métricas para proyectos"""
+    from datetime import datetime as dt
+
     metrics = {
         "total_projects": len(projects),
+        "pending_ce2": 0,  # CE2 projects NOT Closed/Discarded
+        "in_progress": 0,
+        "closed_2026": 0,  # Closed projects from CE1+CE2 in 2026
         "by_state": {},
         "by_lead": {},
         "progress_distribution": {
@@ -194,12 +200,33 @@ def calculate_project_metrics(projects):
         "projects_list": []
     }
 
+    current_year = dt.now().year
+
     for project in projects:
         state = project.get("state", "Unknown")
         lead = project.get("lead", {}).get("name", "Unassigned") if project.get("lead") else "Unassigned"
         progress = project.get("progress", 0)
         name = project.get("name", "Unknown")
-        identifier = project.get("identifier", "")
+        created_at = project.get("createdAt", "")
+        teams = project.get("teams", {}).get("nodes", [])
+
+        # Contar In Progress
+        if state == "In Progress":
+            metrics["in_progress"] += 1
+
+        # Contar pendientes de CE2 (NOT Closed, NOT Discarded)
+        is_ce2 = any(t.get("key") == "CE2" for t in teams)
+        if is_ce2 and state not in ["Closed", "Discarded"]:
+            metrics["pending_ce2"] += 1
+
+        # Contar cerrados de 2026
+        if state == "Closed" and created_at:
+            try:
+                created_year = int(created_at.split("-")[0])
+                if created_year == current_year:
+                    metrics["closed_2026"] += 1
+            except:
+                pass
 
         metrics["by_state"][state] = metrics["by_state"].get(state, 0) + 1
         metrics["by_lead"][lead] = metrics["by_lead"].get(lead, 0) + 1
@@ -215,7 +242,6 @@ def calculate_project_metrics(projects):
 
         metrics["projects_list"].append({
             "name": name,
-            "identifier": identifier,
             "state": state,
             "lead": lead,
             "progress": progress
@@ -582,10 +608,10 @@ def generate_html(projects_metrics, all_months_metrics):
     # SECCIÓN PROYECTOS
     html += f"""
                 <div id="projects" class="section">
-                    <h1>📦 Proyectos - CE2</h1>
+                    <h1>📦 Proyectos - CE1 + CE2</h1>
 
                     <div class="note">
-                        <strong>ℹ️ Nota:</strong> Proyectos activos en el equipo CE2 con sus métricas de progreso.
+                        <strong>ℹ️ Nota:</strong> Proyectos de los equipos CE1 y CE2 con sus métricas de progreso.
                     </div>
 
                     <div class="metrics">
@@ -593,36 +619,18 @@ def generate_html(projects_metrics, all_months_metrics):
                             <div class="label">Total Proyectos</div>
                             <div class="value">{projects_metrics["total_projects"]}</div>
                         </div>
-    """
-
-    for state in ["In Progress", "Planning", "Backlog", "Completed", "In Review", "Paused"]:
-        count = projects_metrics["by_state"].get(state, 0)
-        html += f"""
                         <div class="metric-card">
-                            <div class="label">{state}</div>
-                            <div class="value">{count}</div>
+                            <div class="label">Pendientes CE2</div>
+                            <div class="value">{projects_metrics["pending_ce2"]}</div>
                         </div>
-        """
-
-    html += """
-                    </div>
-
-                    <div class="section-box">
-                        <h2>📊 Por Estado</h2>
-                        <table>
-                            <tr>
-                                <th>Estado</th>
-                                <th>Count</th>
-                                <th>% del Total</th>
-                            </tr>
-    """
-
-    for state, count in sorted(projects_metrics["by_state"].items(), key=lambda x: x[1], reverse=True):
-        pct = (count / projects_metrics["total_projects"] * 100) if projects_metrics["total_projects"] > 0 else 0
-        html += f"<tr><td>{state}</td><td>{count}</td><td>{pct:.1f}%</td></tr>"
-
-    html += """
-                        </table>
+                        <div class="metric-card">
+                            <div class="label">En Progreso</div>
+                            <div class="value">{projects_metrics["in_progress"]}</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="label">Cerrados 2026</div>
+                            <div class="value">{projects_metrics["closed_2026"]}</div>
+                        </div>
                     </div>
 
                     <div class="section-box">
