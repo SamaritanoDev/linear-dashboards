@@ -78,15 +78,43 @@ def get_projects():
     print(f"✅ {len(ce2_projects)} proyectos de CE2 obtenidos (de {len(all_projects)} totales)\n")
     return ce2_projects
 
+def get_projects_for_month(year, month, month_name, all_projects):
+    """Filtra proyectos de CE2 para un mes específico"""
+    from datetime import datetime as dt, timezone
+
+    # Crear fechas de inicio y fin del mes (timezone-aware)
+    start_date = dt(year, month, 1, tzinfo=timezone.utc)
+    if month == 12:
+        end_date = dt(year + 1, 1, 1, tzinfo=timezone.utc)
+    else:
+        end_date = dt(year, month + 1, 1, tzinfo=timezone.utc)
+
+    projects_in_month = []
+    for p in all_projects:
+        created_at_str = p.get("createdAt", "")
+        if created_at_str:
+            try:
+                created_at = dt.fromisoformat(created_at_str.replace('Z', '+00:00'))
+                if start_date <= created_at < end_date:
+                    projects_in_month.append(p)
+            except Exception as e:
+                pass
+
+    return projects_in_month
+
 def get_issues_for_month(year, month, month_name):
     """Obtiene issues SIN proyecto para un mes específico de CE1 + CE2"""
-    from datetime import datetime as dt
+    from datetime import datetime as dt, timezone
 
-    start_date = dt(year, month, 1)
+    start_date = dt(year, month, 1, tzinfo=timezone.utc)
     if month == 12:
-        end_date = dt(year + 1, 1, 1)
+        end_date = dt(year + 1, 1, 1, tzinfo=timezone.utc)
     else:
-        end_date = dt(year, month + 1, 1)
+        end_date = dt(year, month + 1, 1, tzinfo=timezone.utc)
+
+    # Format dates for GraphQL (remove timezone info, use Z suffix)
+    start_str = start_date.replace(tzinfo=None).isoformat()
+    end_str = end_date.replace(tzinfo=None).isoformat()
 
     query = f"""
     {{
@@ -94,7 +122,7 @@ def get_issues_for_month(year, month, month_name):
         first: 250
         filter: {{
           team: {{key: {{in: ["CE1", "CE2"]}}}}
-          createdAt: {{gte: "{start_date.isoformat()}Z", lt: "{end_date.isoformat()}Z"}}
+          createdAt: {{gte: "{start_str}Z", lt: "{end_str}Z"}}
         }}
       ) {{
         nodes {{
@@ -285,7 +313,7 @@ def calculate_project_metrics(projects):
 
     return metrics
 
-def generate_html(projects_metrics, all_months_metrics):
+def generate_html(all_months_projects_metrics, all_months_metrics):
     """Genera HTML unificado con drawer menu"""
 
     html = """
@@ -878,7 +906,7 @@ def generate_html(projects_metrics, all_months_metrics):
     """
 
     # SECCIÓN PROYECTOS
-    html += f"""
+    html += """
                 <div id="projects" class="section">
                     <h1>📦 Proyectos - CE2</h1>
 
@@ -886,37 +914,63 @@ def generate_html(projects_metrics, all_months_metrics):
                         <strong>ℹ️ Nota:</strong> Proyectos del equipo CE2 con sus métricas de estado.
                     </div>
 
-                    <div class="metrics">
-                        <div class="metric-card">
-                            <div class="label">Total CE2</div>
-                            <div class="value">{projects_metrics["total_projects"]}</div>
-                        </div>
-                        <div class="metric-card">
-                            <div class="label">En Progreso</div>
-                            <div class="value">{projects_metrics["in_progress"]}</div>
-                        </div>
-                        <div class="metric-card">
-                            <div class="label">Pendientes</div>
-                            <div class="value">{projects_metrics["pending_ce2"]}</div>
-                        </div>
-                    </div>
-
-                    <div class="section-box">
-                        <h2>📊 Por Estado</h2>
-                        <table>
-                            <tr>
-                                <th>Estado</th>
-                                <th>Total</th>
-                            </tr>
+                    <div class="tabs">
     """
 
-    for state in sorted(projects_metrics["by_state"].keys()):
-        count = projects_metrics["by_state"][state]
-        html += f"<tr><td>{state}</td><td>{count}</td></tr>"
+    months_order = ["Enero", "Febrero", "Marzo", "Abril", "Mayo"]
+    for month in months_order:
+        active = "active" if month == "Mayo" else ""
+        html += f'<button class="tab-button {active}" onclick="switchTab(\'{month}_projects\')">{month} 2026</button>'
 
-    html += f"""
-                        </table>
+    html += """
                     </div>
+    """
+
+    for month_data in all_months_projects_metrics:
+        month_name = month_data["month"]
+        active = "active" if month_name == "Mayo" else ""
+
+        html += f"""
+                    <div class="tab-content {active}" id="tab-{month_name}_projects">
+                        <div class="month-summary">
+                            <strong>{month_name} 2026:</strong> {month_data["total_projects"]} proyectos creados
+                        </div>
+
+                        <div class="metrics">
+                            <div class="metric-card">
+                                <div class="label">Total CE2</div>
+                                <div class="value">{month_data["total_projects"]}</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="label">En Progreso</div>
+                                <div class="value">{month_data["in_progress"]}</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="label">Pendientes</div>
+                                <div class="value">{month_data["pending_ce2"]}</div>
+                            </div>
+                        </div>
+
+                        <div class="section-box">
+                            <h2>📊 Por Estado</h2>
+                            <table>
+                                <tr>
+                                    <th>Estado</th>
+                                    <th>Total</th>
+                                </tr>
+        """
+
+        for state in sorted(month_data["by_state"].keys()):
+            count = month_data["by_state"][state]
+            html += f"<tr><td>{state}</td><td>{count}</td></tr>"
+
+        html += """
+                            </table>
+                        </div>
+                    </div>
+        """
+
+    html += """
                 </div>
 
                 <div class="timestamp">
@@ -945,17 +999,21 @@ def generate_html(projects_metrics, all_months_metrics):
                 event.target.classList.add('active');
             }}
 
-            function switchTab(monthName) {{
-                // Hide all tabs
-                const tabs = document.querySelectorAll('.tab-content');
+            function switchTab(monthIdentifier) {{
+                // Get the active section
+                const activeSection = document.querySelector('.section.active');
+                if (!activeSection) return;
+
+                // Hide all tabs in this section
+                const tabs = activeSection.querySelectorAll('.tab-content');
                 tabs.forEach(tab => tab.classList.remove('active'));
 
-                // Remove active from buttons
-                const buttons = document.querySelectorAll('.tab-button');
+                // Remove active from buttons in this section
+                const buttons = activeSection.querySelectorAll('.tab-button');
                 buttons.forEach(btn => btn.classList.remove('active'));
 
                 // Show selected tab
-                const selectedTab = document.getElementById('tab-' + monthName);
+                const selectedTab = document.getElementById('tab-' + monthIdentifier);
                 if (selectedTab) {{
                     selectedTab.classList.add('active');
                 }}
@@ -973,24 +1031,10 @@ def generate_html(projects_metrics, all_months_metrics):
 if __name__ == "__main__":
     print("🔄 Generando dashboard unificado...\n")
 
-    # Obtener proyectos
-    projects = get_projects()
-    if projects:
-        projects_metrics = calculate_project_metrics(projects)
-    else:
-        projects_metrics = {
-            "total_projects": 0,
-            "by_state": {},
-            "by_lead": {},
-            "progress_distribution": {
-                "0-25%": 0,
-                "25-50%": 0,
-                "50-75%": 0,
-                "75-100%": 0
-            }
-        }
+    # Obtener todos los proyectos de CE2
+    all_projects = get_projects()
 
-    # Obtener issues por mes
+    # Meses a procesar
     all_months = [
         (1, "Enero"),
         (2, "Febrero"),
@@ -999,9 +1043,40 @@ if __name__ == "__main__":
         (5, "Mayo")
     ]
 
+    # Procesar proyectos por mes
+    all_months_projects_metrics = []
+
+    print("Procesando proyectos por mes...\n")
+
+    for month_num, month_name in all_months:
+        projects_in_month = get_projects_for_month(2026, month_num, month_name, all_projects)
+        if projects_in_month:
+            projects_metrics = calculate_project_metrics(projects_in_month)
+        else:
+            projects_metrics = {
+                "month": month_name,
+                "total_projects": 0,
+                "in_progress": 0,
+                "pending_ce2": 0,
+                "by_state": {},
+                "by_lead": {},
+                "progress_distribution": {
+                    "0-25%": 0,
+                    "25-50%": 0,
+                    "50-75%": 0,
+                    "75-100%": 0
+                },
+                "projects_list": []
+            }
+
+        projects_metrics["month"] = month_name
+        all_months_projects_metrics.append(projects_metrics)
+        print(f"📈 {month_name}: {projects_metrics['total_projects']} proyectos (En Progreso: {projects_metrics['in_progress']}, Pendientes: {projects_metrics['pending_ce2']})")
+
+    # Obtener issues por mes
     all_months_metrics = []
 
-    print("Obteniendo issues sin proyecto...\n")
+    print("\nObteniendo issues sin proyecto...\n")
 
     for month_num, month_name in all_months:
         issues = get_issues_for_month(2026, month_num, month_name)
@@ -1011,7 +1086,7 @@ if __name__ == "__main__":
         pending_total = sum(metrics['pending_by_product'].values())
         print(f"📈 {month_name}: {metrics['total_issues']} issues (CE1: {metrics['by_team']['CE1']}, CE2: {metrics['by_team']['CE2']}) | Pendientes: {pending_total}")
 
-    html = generate_html(projects_metrics, all_months_metrics)
+    html = generate_html(all_months_projects_metrics, all_months_metrics)
     with open("index.html", "w") as f:
         f.write(html)
     print("\n✅ Dashboard unificado generado: index.html")
