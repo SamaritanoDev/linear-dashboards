@@ -620,6 +620,123 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
             .stat-value.closed {
                 color: #04ffb0;
             }
+            .theme-toggle {
+                padding: 10px 12px;
+                margin-bottom: 15px;
+                cursor: pointer;
+                border-radius: 6px;
+                background: #2a2a2a;
+                border: 1px solid #333;
+                color: #e0e0e0;
+                font-size: 14px;
+                transition: all 0.2s;
+                text-align: center;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+            }
+            .theme-toggle:hover {
+                background: #333;
+                border-color: #fa76b1;
+                color: #fa76b1;
+            }
+            /* MODO CLARO */
+            body.light-mode {
+                background: #f5f5f7;
+                color: #1a1a1a;
+            }
+            body.light-mode .drawer {
+                background: #ffffff;
+                color: #1a1a1a;
+                box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+                border-right: 1px solid #e0e0e0;
+            }
+            body.light-mode .drawer h2 {
+                border-bottom-color: #fa76b1;
+                color: #1a1a1a;
+            }
+            body.light-mode .drawer-item {
+                color: #666;
+            }
+            body.light-mode .drawer-item:hover {
+                background: #f0f0f0;
+                color: #fa76b1;
+            }
+            body.light-mode .drawer-item.active {
+                background: #fa76b1;
+                color: #ffffff;
+            }
+            body.light-mode .content {
+                background: #f5f5f7;
+            }
+            body.light-mode h1, body.light-mode h2, body.light-mode h3, body.light-mode h4 {
+                color: #1a1a1a;
+            }
+            body.light-mode .section-box {
+                background: #ffffff;
+                border: 1px solid #e0e0e0;
+            }
+            body.light-mode .metric-card {
+                background: #ffffff;
+                border: 1px solid #e0e0e0;
+            }
+            body.light-mode .note {
+                background: #f0f7ff;
+                color: #004080;
+                border-left-color: #04ffb0;
+            }
+            body.light-mode .disclaimer {
+                background: #fff5f5;
+                color: #600;
+                border-left-color: #ff687a;
+            }
+            body.light-mode table {
+                color: #1a1a1a;
+            }
+            body.light-mode th {
+                background: #f0f0f0;
+                color: #1a1a1a;
+                border-bottom-color: #d0d0d0;
+            }
+            body.light-mode td {
+                border-bottom-color: #e0e0e0;
+            }
+            body.light-mode .product-card {
+                background: #ffffff;
+                border-color: #e0e0e0;
+            }
+            body.light-mode .product-card:hover {
+                border-color: #fa76b1;
+                background: #fff5ff;
+            }
+            body.light-mode .tab-button {
+                color: #999;
+            }
+            body.light-mode .tab-button:hover {
+                color: #fa76b1;
+            }
+            body.light-mode .tab-button.active {
+                color: #fa76b1;
+                border-bottom-color: #fa76b1;
+            }
+            body.light-mode .progress-container {
+                background: #ffffff;
+                border: 1px solid #e0e0e0;
+            }
+            body.light-mode .progress-bar {
+                background: #e0e0e0;
+            }
+            body.light-mode .theme-toggle {
+                background: #f0f0f0;
+                border-color: #e0e0e0;
+                color: #666;
+            }
+            body.light-mode .theme-toggle:hover {
+                background: #e8e8e8;
+                border-color: #fa76b1;
+                color: #fa76b1;
+            }
             @media (max-width: 768px) {
                 .drawer {
                     width: 100%;
@@ -636,6 +753,7 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
         <div class="container">
             <div class="drawer">
                 <h2>📊 Dashboard</h2>
+                <button class="theme-toggle" onclick="toggleTheme()">🌙 Modo Claro</button>
                 <div class="drawer-item active" onclick="switchSection('issues')">Issues (CE1 + CE2)</div>
                 <div class="drawer-item" onclick="switchSection('projects')">Proyectos (CE2)</div>
             </div>
@@ -997,6 +1115,33 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
         </div>
 
         <script>
+            // Initialize theme from localStorage
+            function initTheme() {{
+                const savedTheme = localStorage.getItem('theme');
+                if (savedTheme === 'light') {{
+                    document.body.classList.add('light-mode');
+                    updateToggleButton(true);
+                }}
+            }}
+
+            // Toggle theme
+            function toggleTheme() {{
+                const body = document.body;
+                const isLightMode = body.classList.toggle('light-mode');
+
+                // Save preference
+                localStorage.setItem('theme', isLightMode ? 'light' : 'dark');
+                updateToggleButton(isLightMode);
+            }}
+
+            // Update toggle button text
+            function updateToggleButton(isLightMode) {{
+                const btn = document.querySelector('.theme-toggle');
+                if (btn) {{
+                    btn.textContent = isLightMode ? '☀️ Modo Oscuro' : '🌙 Modo Claro';
+                }}
+            }}
+
             function switchSection(sectionId) {{
                 // Hide all sections
                 const sections = document.querySelectorAll('.section');
@@ -1038,6 +1183,9 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
                 // Add active to clicked button
                 event.target.classList.add('active');
             }}
+
+            // Initialize theme on page load
+            initTheme();
         </script>
     </body>
     </html>
