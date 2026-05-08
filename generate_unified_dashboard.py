@@ -246,8 +246,8 @@ def calculate_project_metrics(projects):
         created_at = project.get("createdAt", "")
         teams = project.get("teams", {}).get("nodes", [])
 
-        # Contar In Progress
-        if state == "In Progress":
+        # Contar In Progress (Linear usa "started" para In Progress)
+        if state in ["In Progress", "started"]:
             metrics["in_progress"] += 1
 
         # Contar pendientes de CE2 (NOT Closed, NOT Discarded)
