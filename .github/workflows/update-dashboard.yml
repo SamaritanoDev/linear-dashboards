@@ -6,6 +6,9 @@ on:
     - cron: '0 8 * * *'
   workflow_dispatch:  # Permite ejecutar manualmente desde GitHub
 
+permissions:
+  contents: write  # Permisos para hacer push al repositorio
+
 jobs:
   update-dashboard:
     runs-on: ubuntu-latest
@@ -34,8 +37,13 @@ jobs:
 
       - name: Commit and push changes
         run: |
+          set -e  # Exit on error
+
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
+
+          echo "📊 Estado actual del repositorio:"
+          git status
 
           # Verificar si hay cambios en index.html
           if git diff --quiet index.html; then
@@ -44,6 +52,11 @@ jobs:
             echo "📝 Detectados cambios en el dashboard, actualizando..."
             git add index.html
             git commit -m "🤖 Actualizar dashboard - $(date +'%Y-%m-%d %H:%M:%S UTC')"
-            git push origin main
+            echo "⏳ Haciendo push a GitHub..."
+            git push origin main || {
+              echo "❌ Error al hacer push. Reintentando..."
+              git pull origin main --rebase
+              git push origin main
+            }
             echo "✅ Dashboard actualizado y pusheado a GitHub"
           fi
