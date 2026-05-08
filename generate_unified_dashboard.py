@@ -283,9 +283,9 @@ def calculate_project_metrics(projects):
         if state in ["Closed", "completed"]:
             metrics["completed"] += 1
 
-        # Contar pendientes de CE2 (NOT Closed, NOT Discarded)
+        # Contar pendientes de CE2 (proyectos que NO están completados, cancelados o descartados)
         is_ce2 = any(t.get("key") == "CE2" for t in teams)
-        if is_ce2 and state not in ["Closed", "Discarded"]:
+        if is_ce2 and state not in ["Closed", "Discarded", "completed", "canceled"]:
             metrics["pending_ce2"] += 1
 
         # Contar cerrados de 2026
