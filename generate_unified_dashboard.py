@@ -248,12 +248,15 @@ def calculate_project_metrics(projects):
     """Calcula métricas para proyectos"""
     from datetime import datetime as dt
 
+    # Contar proyectos válidos (excluyendo canceled y discarded)
+    valid_projects = [p for p in projects if p.get("state") not in ["canceled", "Discarded"]]
+
     metrics = {
-        "total_projects": len(projects),
+        "total_projects": len(valid_projects),  # Sin cancelados/descartados
         "pending_ce2": 0,  # CE2 projects NOT Closed/Discarded/canceled
         "in_progress": 0,
         "completed": 0,  # Completed projects
-        "canceled": 0,  # Canceled projects
+        "canceled": 0,  # Canceled projects (referencia, no en total)
         "closed_2026": 0,  # Closed projects from CE1+CE2 in 2026
         "by_state": {},
         "by_lead": {},
