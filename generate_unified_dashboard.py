@@ -302,7 +302,8 @@ def generate_html(projects_metrics, all_months_metrics):
             }
             body {
                 font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-                background: #f5f5f5;
+                background: #0f0f0f;
+                color: #e0e0e0;
             }
             .container {
                 display: flex;
@@ -351,23 +352,25 @@ def generate_html(projects_metrics, all_months_metrics):
                 display: block;
             }
             h1 {
-                color: #333;
+                color: #ffffff;
                 margin-bottom: 20px;
             }
             .note {
-                background: #e3f2fd;
+                background: #1a2332;
                 padding: 12px;
-                border-left: 4px solid #1976d2;
+                border-left: 4px solid #0052ff;
                 margin-bottom: 20px;
                 border-radius: 4px;
+                color: #b3d9ff;
             }
             .disclaimer {
-                background: #fff3cd;
+                background: #2d2416;
                 padding: 15px;
                 border-left: 4px solid #ffc107;
                 margin-bottom: 20px;
                 border-radius: 4px;
                 font-size: 13px;
+                color: #ffd699;
             }
             .disclaimer strong {
                 display: block;
@@ -380,7 +383,7 @@ def generate_html(projects_metrics, all_months_metrics):
                 display: flex;
                 gap: 10px;
                 margin-bottom: 20px;
-                border-bottom: 2px solid #ddd;
+                border-bottom: 2px solid #333;
                 flex-wrap: wrap;
             }
             .tab-button {
@@ -390,7 +393,7 @@ def generate_html(projects_metrics, all_months_metrics):
                 cursor: pointer;
                 font-size: 14px;
                 font-weight: 500;
-                color: #666;
+                color: #999;
                 border-bottom: 3px solid transparent;
                 transition: all 0.2s;
             }
@@ -408,12 +411,13 @@ def generate_html(projects_metrics, all_months_metrics):
                 display: block;
             }
             .month-summary {
-                background: #f0f7ff;
+                background: #1a2332;
                 padding: 15px;
                 border-left: 4px solid #0052ff;
                 border-radius: 4px;
                 margin-bottom: 20px;
                 font-size: 14px;
+                color: #b3d9ff;
             }
             .metrics {
                 display: grid;
@@ -422,10 +426,10 @@ def generate_html(projects_metrics, all_months_metrics):
                 margin-bottom: 30px;
             }
             .metric-card {
-                background: white;
+                background: #1f1f1f;
                 padding: 15px;
                 border-radius: 8px;
-                box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+                box-shadow: 0 1px 3px rgba(0,0,0,0.3);
                 border-left: 4px solid #0052ff;
                 text-align: center;
             }
@@ -448,14 +452,14 @@ def generate_html(projects_metrics, all_months_metrics):
                 color: #4ecdc4;
             }
             .label {
-                color: #666;
+                color: #aaa;
                 font-size: 12px;
             }
             .progress-container {
-                background: white;
+                background: #1f1f1f;
                 padding: 20px;
                 border-radius: 8px;
-                box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+                box-shadow: 0 1px 3px rgba(0,0,0,0.3);
                 margin-bottom: 30px;
             }
             .progress-header {
@@ -466,7 +470,7 @@ def generate_html(projects_metrics, all_months_metrics):
             }
             .progress-header h4 {
                 margin: 0;
-                color: #333;
+                color: #ffffff;
                 font-size: 14px;
             }
             .progress-percentage {
@@ -477,7 +481,7 @@ def generate_html(projects_metrics, all_months_metrics):
             .progress-bar {
                 width: 100%;
                 height: 24px;
-                background: #f0f0f0;
+                background: #333;
                 border-radius: 12px;
                 overflow: hidden;
                 position: relative;
@@ -496,15 +500,15 @@ def generate_html(projects_metrics, all_months_metrics):
                 transition: width 0.3s ease;
             }
             .section-box {
-                background: white;
+                background: #1f1f1f;
                 padding: 20px;
                 border-radius: 8px;
                 margin-bottom: 20px;
-                box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+                box-shadow: 0 1px 3px rgba(0,0,0,0.3);
             }
             .section-box h2 {
                 margin-top: 0;
-                color: #333;
+                color: #ffffff;
                 border-bottom: 2px solid #0052ff;
                 padding-bottom: 10px;
             }
@@ -515,16 +519,17 @@ def generate_html(projects_metrics, all_months_metrics):
             th, td {
                 padding: 12px;
                 text-align: left;
-                border-bottom: 1px solid #eee;
+                border-bottom: 1px solid #333;
+                color: #e0e0e0;
             }
             th {
-                background: #f9f9f9;
+                background: #2a2a2a;
                 font-weight: 600;
-                color: #333;
+                color: #ffffff;
             }
             .timestamp {
                 text-align: center;
-                color: #999;
+                color: #666;
                 font-size: 12px;
                 margin-top: 20px;
             }
