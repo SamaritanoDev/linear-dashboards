@@ -132,7 +132,8 @@ def get_issues_for_month(year, month, month_name):
 
 def calculate_metrics(issues, month_name):
     """Calcula métricas para issues"""
-    products = ["Cuy", "Guinea", "Habla+", "Wings", "PeruSim+", "Fimo", "Airalo", "B2B"]
+    # Labels de Customer obligatorios (productos + categorías)
+    customer_labels = ["Cuy", "Guinea", "Habla+", "Wings", "PeruSim+", "Fimo", "Airalo", "B2B", "Finanzas", "Legales", "Partner"]
     pending_states = ["Triage", "Planning", "Backlog", "In Progress", "In Review", "Blocked"]
 
     metrics = {
@@ -157,7 +158,7 @@ def calculate_metrics(issues, month_name):
         state = issue["state"]["name"]
         team = issue.get("team", {}).get("key", "Unknown")
         labels = [l["name"] for l in issue["labels"]["nodes"]]
-        product_labels = [l for l in labels if l in products]
+        product_labels = [l for l in labels if l in customer_labels]
 
         # Contar todos los estados para referencia
         metrics["by_state"][state] = metrics["by_state"].get(state, 0) + 1
