@@ -698,9 +698,12 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
                 background: #f0f0f0;
                 color: #1a1a1a;
                 border-bottom-color: #d0d0d0;
+                font-weight: 700;
             }
             body.light-mode td {
-                border-bottom-color: #e0e0e0;
+                color: #1a1a1a;
+                border-bottom-color: #d0d0d0;
+                font-weight: 500;
             }
             body.light-mode .product-card {
                 background: #ffffff;
