@@ -132,11 +132,16 @@ def get_issues_for_month(year, month, month_name):
 
 def calculate_metrics(issues, month_name):
     """Calcula métricas para issues"""
+    products = ["Cuy", "Guinea", "Habla+", "Wings", "PeruSim+", "Fimo", "Airalo", "B2B"]
+    pending_states = ["Triage", "Planning", "Backlog", "In Progress", "In Review", "Blocked"]
+
     metrics = {
         "month": month_name,
-        "total_issues": len(issues),
+        "total_issues": 0,  # Solo issues considerados (con etiqueta o cerrados)
+        "untracked_issues": 0,  # Issues sin etiqueta en estado pendiente
         "active_issues": 0,
         "backlog": 0,
+        "backlog_untracked": 0,  # Backlog sin etiqueta
         "blocked": 0,
         "closed": 0,
         "by_state": {},
@@ -150,8 +155,19 @@ def calculate_metrics(issues, month_name):
         state = issue["state"]["name"]
         team = issue.get("team", {}).get("key", "Unknown")
         labels = [l["name"] for l in issue["labels"]["nodes"]]
+        product_labels = [l for l in labels if l in products]
 
+        # Contar todos los estados para referencia
         metrics["by_state"][state] = metrics["by_state"].get(state, 0) + 1
+
+        # Issues sin etiqueta en estado pendiente (EXCLUIDOS del total)
+        if not product_labels and state in pending_states:
+            metrics["untracked_issues"] += 1
+            metrics["backlog_untracked"] += 1
+            continue  # No contarlos en el total
+
+        # Contar en total solo si tienen etiqueta o están cerrados
+        metrics["total_issues"] += 1
 
         if team in metrics["by_team"]:
             metrics["by_team"][team] += 1
@@ -171,7 +187,6 @@ def calculate_metrics(issues, month_name):
         if state == "Closed":
             metrics["closed"] += 1
 
-        product_labels = [l for l in labels if l in ["Cuy", "Guinea", "Habla+", "Wings", "PeruSim+", "Fimo", "Airalo", "B2B"]]
         if product_labels:
             for product in product_labels:
                 metrics["by_product"][product] = metrics["by_product"].get(product, 0) + 1
@@ -587,8 +602,8 @@ def generate_html(projects_metrics, all_months_metrics):
                                 <div class="value">{month_data["active_issues"]}</div>
                             </div>
                             <div class="metric-card">
-                                <div class="label">📚 Backlog</div>
-                                <div class="value">{month_data["backlog"]}</div>
+                                <div class="label">📚 Backlog (Sin Etiqueta)</div>
+                                <div class="value">{month_data["backlog_untracked"]}</div>
                             </div>
                             <div class="metric-card">
                                 <div class="label">🚫 Bloqueados</div>
@@ -606,8 +621,9 @@ def generate_html(projects_metrics, all_months_metrics):
 
                         <div class="disclaimer" style="margin-top: 20px;">
                             <strong>📌 Nota sobre los totales:</strong>
-                            <div class="disclaimer-item">Pendientes + Cerrados = Issues considerados</div>
+                            <div class="disclaimer-item">Pendientes + Cerrados = Issues considerados (con etiqueta de producto)</div>
                             <div class="disclaimer-item">Los issues en estado "Discarded" se excluyen y no se cuentan en ninguna categoría</div>
+                            <div class="disclaimer-item">Los issues sin etiqueta de producto se muestran en "Backlog (Sin Etiqueta)" - NO se incluyen en el total hasta tener etiqueta</div>
                         </div>
 
                         <div class="section-box">
