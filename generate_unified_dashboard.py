@@ -252,6 +252,7 @@ def calculate_project_metrics(projects):
         "total_projects": len(projects),
         "pending_ce2": 0,  # CE2 projects NOT Closed/Discarded
         "in_progress": 0,
+        "completed": 0,  # Completed projects
         "closed_2026": 0,  # Closed projects from CE1+CE2 in 2026
         "by_state": {},
         "by_lead": {},
@@ -277,6 +278,10 @@ def calculate_project_metrics(projects):
         # Contar In Progress (Linear usa "started" para In Progress)
         if state in ["In Progress", "started"]:
             metrics["in_progress"] += 1
+
+        # Contar completados
+        if state in ["Closed", "completed"]:
+            metrics["completed"] += 1
 
         # Contar pendientes de CE2 (NOT Closed, NOT Discarded)
         is_ce2 = any(t.get("key") == "CE2" for t in teams)
@@ -949,6 +954,18 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
                                 <div class="label">Pendientes</div>
                                 <div class="value">{month_data["pending_ce2"]}</div>
                             </div>
+        """
+
+        # Mostrar Completados solo si hay
+        if month_data["completed"] > 0:
+            html += f"""
+                            <div class="metric-card">
+                                <div class="label">✅ Completados</div>
+                                <div class="value">{month_data["completed"]}</div>
+                            </div>
+        """
+
+        html += """
                         </div>
 
                         <div class="section-box">
@@ -1058,6 +1075,7 @@ if __name__ == "__main__":
                 "total_projects": 0,
                 "in_progress": 0,
                 "pending_ce2": 0,
+                "completed": 0,
                 "by_state": {},
                 "by_lead": {},
                 "progress_distribution": {
