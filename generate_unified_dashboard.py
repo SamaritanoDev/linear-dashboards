@@ -356,7 +356,7 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
                 font-size: 14px;
                 margin-bottom: 15px;
                 padding-bottom: 8px;
-                border-bottom: 2px solid #0052ff;
+                border-bottom: 2px solid #fa76b1;
             }
             .drawer-item {
                 padding: 10px 12px;
@@ -371,8 +371,8 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
                 background: #2a2a2a;
             }
             .drawer-item.active {
-                background: #0052ff;
-                border-left-color: #00d4ff;
+                background: #fa76b1;
+                border-left-color: #ffcfec;
             }
             .content {
                 flex: 1;
@@ -390,21 +390,21 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
                 margin-bottom: 20px;
             }
             .note {
-                background: #1a2332;
+                background: #2a1a2a;
                 padding: 12px;
-                border-left: 4px solid #0052ff;
+                border-left: 4px solid #fa76b1;
                 margin-bottom: 20px;
                 border-radius: 4px;
-                color: #b3d9ff;
+                color: #ffcfec;
             }
             .disclaimer {
-                background: #2d2416;
+                background: #2a1a25;
                 padding: 15px;
-                border-left: 4px solid #ffc107;
+                border-left: 4px solid #fa76b1;
                 margin-bottom: 20px;
                 border-radius: 4px;
                 font-size: 13px;
-                color: #ffd699;
+                color: #ffcfec;
             }
             .disclaimer strong {
                 display: block;
@@ -432,11 +432,11 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
                 transition: all 0.2s;
             }
             .tab-button:hover {
-                color: #0052ff;
+                color: #fa76b1;
             }
             .tab-button.active {
-                color: #0052ff;
-                border-bottom-color: #0052ff;
+                color: #fa76b1;
+                border-bottom-color: #fa76b1;
             }
             .tab-content {
                 display: none;
@@ -445,13 +445,13 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
                 display: block;
             }
             .month-summary {
-                background: #1a2332;
+                background: #2a1a2a;
                 padding: 15px;
-                border-left: 4px solid #0052ff;
+                border-left: 4px solid #fa76b1;
                 border-radius: 4px;
                 margin-bottom: 20px;
                 font-size: 14px;
-                color: #b3d9ff;
+                color: #ffcfec;
             }
             .metrics {
                 display: grid;
@@ -464,26 +464,26 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
                 padding: 15px;
                 border-radius: 8px;
                 box-shadow: 0 1px 3px rgba(0,0,0,0.3);
-                border-left: 4px solid #0052ff;
+                border-left: 4px solid #fa76b1;
                 text-align: center;
             }
             .metric-card.ce1 {
-                border-left-color: #ff6b6b;
+                border-left-color: #ff687a;
             }
             .metric-card.ce2 {
-                border-left-color: #4ecdc4;
+                border-left-color: #04ffb0;
             }
             .value {
                 font-size: 28px;
                 font-weight: bold;
-                color: #0052ff;
+                color: #fa76b1;
                 margin: 8px 0;
             }
             .metric-card.ce1 .value {
-                color: #ff6b6b;
+                color: #ff687a;
             }
             .metric-card.ce2 .value {
-                color: #4ecdc4;
+                color: #04ffb0;
             }
             .label {
                 color: #aaa;
@@ -510,7 +510,7 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
             .progress-percentage {
                 font-size: 18px;
                 font-weight: bold;
-                color: #0052ff;
+                color: #fa76b1;
             }
             .progress-bar {
                 width: 100%;
@@ -522,7 +522,7 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
             }
             .progress-fill {
                 height: 100%;
-                background: linear-gradient(90deg, #0052ff, #00d4ff);
+                background: linear-gradient(90deg, #fa76b1, #ffcfec);
                 border-radius: 12px;
                 display: flex;
                 align-items: center;
@@ -544,7 +544,7 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
                 margin-top: 0;
                 margin-bottom: 25px;
                 color: #ffffff;
-                border-bottom: 2px solid #0052ff;
+                border-bottom: 2px solid #fa76b1;
                 padding-bottom: 15px;
             }
             table {
@@ -582,8 +582,8 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
                 transition: all 0.2s;
             }
             .product-card:hover {
-                border-color: #0052ff;
-                box-shadow: 0 0 10px rgba(0, 82, 255, 0.2);
+                border-color: #fa76b1;
+                box-shadow: 0 0 10px rgba(250, 118, 177, 0.2);
             }
             .product-name {
                 font-weight: 600;
@@ -612,13 +612,13 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
                 display: block;
                 font-size: 16px;
                 font-weight: bold;
-                color: #0052ff;
+                color: #fa76b1;
             }
             .stat-value.pending {
-                color: #ffa500;
+                color: #ffcfec;
             }
             .stat-value.closed {
-                color: #4ade80;
+                color: #04ffb0;
             }
             @media (max-width: 768px) {
                 .drawer {
