@@ -65,6 +65,16 @@
                 border-radius: 4px;
                 margin-bottom: 20px;
                 font-size: 14px;
+                line-height: 1.6;
+            }
+            .pending-alert {
+                background: #fff3cd;
+                padding: 12px;
+                border-left: 4px solid #ffc107;
+                border-radius: 4px;
+                margin-bottom: 20px;
+                color: #856404;
+                font-weight: 500;
             }
             .metrics {
                 display: grid;
@@ -86,6 +96,10 @@
             .metric-card.ce2 {
                 border-left-color: #4ecdc4;
             }
+            .metric-card.pending {
+                border-left-color: #ffc107;
+                background: #fffbf0;
+            }
             .value {
                 font-size: 28px;
                 font-weight: bold;
@@ -97,6 +111,9 @@
             }
             .metric-card.ce2 .value {
                 color: #4ecdc4;
+            }
+            .metric-card.pending .value {
+                color: #ffc107;
             }
             .label {
                 color: #666;
@@ -129,12 +146,6 @@
                 font-weight: 600;
                 color: #333;
             }
-            .team-ce1 {
-                background: #fff5f5;
-            }
-            .team-ce2 {
-                background: #f0fffe;
-            }
             .timestamp {
                 text-align: center;
                 color: #999;
@@ -149,7 +160,7 @@
 
             <div class="note">
                 <strong>ℹ️ Nota:</strong> Dashboard que filtra por AMBOS teams (CE1 y CE2).
-                Haz clic en las pestañas para ver cada mes. Cada mes muestra desglose por team.
+                Cada mes muestra cuántos issues quedaron pendientes (sin cerrar).
             </div>
 
             <div class="tabs">
@@ -158,8 +169,13 @@
     
             <div class="tab-content " id="tab-Enero">
                 <div class="month-summary">
-                    <strong>Enero 2026:</strong> 116 issues totales
-                    (CE1: 15 + CE2: 101)
+                    <strong>Enero 2026:</strong> 116 issues totales (CE1: 15 + CE2: 101)
+                    <br>
+                    <strong>Cerrados:</strong> 107 | <strong>Pendientes:</strong> 9 (CE1: 0, CE2: 9)
+                </div>
+
+                <div class="pending-alert">
+                    ⚠️ 9 issues pendientes en Enero que requieren atención
                 </div>
 
                 <h3>📊 Resumen</h3>
@@ -168,13 +184,21 @@
                         <div class="label">Total Issues</div>
                         <div class="value">116</div>
                     </div>
+                    <div class="metric-card pending">
+                        <div class="label">⏳ Pendientes</div>
+                        <div class="value">9</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="label">✅ Cerrados</div>
+                        <div class="value">107</div>
+                    </div>
                     <div class="metric-card ce1">
-                        <div class="label">CE1 Issues</div>
-                        <div class="value">15</div>
+                        <div class="label">CE1 Pendientes</div>
+                        <div class="value">0</div>
                     </div>
                     <div class="metric-card ce2">
-                        <div class="label">CE2 Issues</div>
-                        <div class="value">101</div>
+                        <div class="label">CE2 Pendientes</div>
+                        <div class="value">9</div>
                     </div>
                     <div class="metric-card">
                         <div class="label">🔥 Activos</div>
@@ -183,14 +207,6 @@
                     <div class="metric-card">
                         <div class="label">📚 Backlog</div>
                         <div class="value">4</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="label">🚫 Bloqueados</div>
-                        <div class="value">0</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="label">✅ Cerrados</div>
-                        <div class="value">107</div>
                     </div>
                 </div>
 
@@ -237,8 +253,13 @@
         
             <div class="tab-content " id="tab-Febrero">
                 <div class="month-summary">
-                    <strong>Febrero 2026:</strong> 250 issues totales
-                    (CE1: 22 + CE2: 228)
+                    <strong>Febrero 2026:</strong> 250 issues totales (CE1: 22 + CE2: 228)
+                    <br>
+                    <strong>Cerrados:</strong> 225 | <strong>Pendientes:</strong> 25 (CE1: 0, CE2: 25)
+                </div>
+
+                <div class="pending-alert">
+                    ⚠️ 25 issues pendientes en Febrero que requieren atención
                 </div>
 
                 <h3>📊 Resumen</h3>
@@ -247,13 +268,21 @@
                         <div class="label">Total Issues</div>
                         <div class="value">250</div>
                     </div>
+                    <div class="metric-card pending">
+                        <div class="label">⏳ Pendientes</div>
+                        <div class="value">25</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="label">✅ Cerrados</div>
+                        <div class="value">225</div>
+                    </div>
                     <div class="metric-card ce1">
-                        <div class="label">CE1 Issues</div>
-                        <div class="value">22</div>
+                        <div class="label">CE1 Pendientes</div>
+                        <div class="value">0</div>
                     </div>
                     <div class="metric-card ce2">
-                        <div class="label">CE2 Issues</div>
-                        <div class="value">228</div>
+                        <div class="label">CE2 Pendientes</div>
+                        <div class="value">25</div>
                     </div>
                     <div class="metric-card">
                         <div class="label">🔥 Activos</div>
@@ -262,14 +291,6 @@
                     <div class="metric-card">
                         <div class="label">📚 Backlog</div>
                         <div class="value">0</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="label">🚫 Bloqueados</div>
-                        <div class="value">0</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="label">✅ Cerrados</div>
-                        <div class="value">225</div>
                     </div>
                 </div>
 
@@ -344,8 +365,13 @@
         
             <div class="tab-content " id="tab-Marzo">
                 <div class="month-summary">
-                    <strong>Marzo 2026:</strong> 250 issues totales
-                    (CE1: 75 + CE2: 175)
+                    <strong>Marzo 2026:</strong> 250 issues totales (CE1: 75 + CE2: 175)
+                    <br>
+                    <strong>Cerrados:</strong> 223 | <strong>Pendientes:</strong> 27 (CE1: 8, CE2: 19)
+                </div>
+
+                <div class="pending-alert">
+                    ⚠️ 27 issues pendientes en Marzo que requieren atención
                 </div>
 
                 <h3>📊 Resumen</h3>
@@ -354,13 +380,21 @@
                         <div class="label">Total Issues</div>
                         <div class="value">250</div>
                     </div>
+                    <div class="metric-card pending">
+                        <div class="label">⏳ Pendientes</div>
+                        <div class="value">27</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="label">✅ Cerrados</div>
+                        <div class="value">223</div>
+                    </div>
                     <div class="metric-card ce1">
-                        <div class="label">CE1 Issues</div>
-                        <div class="value">75</div>
+                        <div class="label">CE1 Pendientes</div>
+                        <div class="value">8</div>
                     </div>
                     <div class="metric-card ce2">
-                        <div class="label">CE2 Issues</div>
-                        <div class="value">175</div>
+                        <div class="label">CE2 Pendientes</div>
+                        <div class="value">19</div>
                     </div>
                     <div class="metric-card">
                         <div class="label">🔥 Activos</div>
@@ -369,14 +403,6 @@
                     <div class="metric-card">
                         <div class="label">📚 Backlog</div>
                         <div class="value">10</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="label">🚫 Bloqueados</div>
-                        <div class="value">1</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="label">✅ Cerrados</div>
-                        <div class="value">223</div>
                     </div>
                 </div>
 
@@ -458,8 +484,13 @@
         
             <div class="tab-content " id="tab-Abril">
                 <div class="month-summary">
-                    <strong>Abril 2026:</strong> 225 issues totales
-                    (CE1: 77 + CE2: 148)
+                    <strong>Abril 2026:</strong> 225 issues totales (CE1: 77 + CE2: 148)
+                    <br>
+                    <strong>Cerrados:</strong> 158 | <strong>Pendientes:</strong> 67 (CE1: 25, CE2: 42)
+                </div>
+
+                <div class="pending-alert">
+                    ⚠️ 67 issues pendientes en Abril que requieren atención
                 </div>
 
                 <h3>📊 Resumen</h3>
@@ -468,29 +499,29 @@
                         <div class="label">Total Issues</div>
                         <div class="value">225</div>
                     </div>
-                    <div class="metric-card ce1">
-                        <div class="label">CE1 Issues</div>
-                        <div class="value">77</div>
-                    </div>
-                    <div class="metric-card ce2">
-                        <div class="label">CE2 Issues</div>
-                        <div class="value">148</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="label">🔥 Activos</div>
-                        <div class="value">13</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="label">📚 Backlog</div>
-                        <div class="value">24</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="label">🚫 Bloqueados</div>
-                        <div class="value">1</div>
+                    <div class="metric-card pending">
+                        <div class="label">⏳ Pendientes</div>
+                        <div class="value">67</div>
                     </div>
                     <div class="metric-card">
                         <div class="label">✅ Cerrados</div>
                         <div class="value">158</div>
+                    </div>
+                    <div class="metric-card ce1">
+                        <div class="label">CE1 Pendientes</div>
+                        <div class="value">25</div>
+                    </div>
+                    <div class="metric-card ce2">
+                        <div class="label">CE2 Pendientes</div>
+                        <div class="value">42</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="label">🔥 Activos</div>
+                        <div class="value">14</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="label">📚 Backlog</div>
+                        <div class="value">23</div>
                     </div>
                 </div>
 
@@ -503,7 +534,7 @@
                             <th>CE2</th>
                             <th>Total</th>
                         </tr>
-        <tr><td>Backlog</td><td>1</td><td>13</td><td>14</td></tr><tr><td>Blocked</td><td>0</td><td>1</td><td>1</td></tr><tr><td>Closed</td><td>52</td><td>106</td><td>158</td></tr><tr><td>Discarded</td><td>14</td><td>15</td><td>29</td></tr><tr><td>In Progress</td><td>4</td><td>3</td><td>7</td></tr><tr><td>In Review</td><td>2</td><td>4</td><td>6</td></tr><tr><td>Planning</td><td>4</td><td>6</td><td>10</td></tr>
+        <tr><td>Backlog</td><td>1</td><td>12</td><td>13</td></tr><tr><td>Blocked</td><td>0</td><td>1</td><td>1</td></tr><tr><td>Closed</td><td>52</td><td>106</td><td>158</td></tr><tr><td>Discarded</td><td>14</td><td>15</td><td>29</td></tr><tr><td>In Progress</td><td>4</td><td>4</td><td>8</td></tr><tr><td>In Review</td><td>2</td><td>4</td><td>6</td></tr><tr><td>Planning</td><td>4</td><td>6</td><td>10</td></tr>
                     </table>
                 </div>
 
@@ -579,8 +610,13 @@
         
             <div class="tab-content active" id="tab-Mayo">
                 <div class="month-summary">
-                    <strong>Mayo 2026:</strong> 45 issues totales
-                    (CE1: 19 + CE2: 26)
+                    <strong>Mayo 2026:</strong> 45 issues totales (CE1: 19 + CE2: 26)
+                    <br>
+                    <strong>Cerrados:</strong> 16 | <strong>Pendientes:</strong> 29 (CE1: 13, CE2: 16)
+                </div>
+
+                <div class="pending-alert">
+                    ⚠️ 29 issues pendientes en Mayo que requieren atención
                 </div>
 
                 <h3>📊 Resumen</h3>
@@ -589,29 +625,29 @@
                         <div class="label">Total Issues</div>
                         <div class="value">45</div>
                     </div>
+                    <div class="metric-card pending">
+                        <div class="label">⏳ Pendientes</div>
+                        <div class="value">29</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="label">✅ Cerrados</div>
+                        <div class="value">16</div>
+                    </div>
                     <div class="metric-card ce1">
-                        <div class="label">CE1 Issues</div>
-                        <div class="value">19</div>
+                        <div class="label">CE1 Pendientes</div>
+                        <div class="value">13</div>
                     </div>
                     <div class="metric-card ce2">
-                        <div class="label">CE2 Issues</div>
-                        <div class="value">26</div>
+                        <div class="label">CE2 Pendientes</div>
+                        <div class="value">16</div>
                     </div>
                     <div class="metric-card">
                         <div class="label">🔥 Activos</div>
-                        <div class="value">5</div>
+                        <div class="value">4</div>
                     </div>
                     <div class="metric-card">
                         <div class="label">📚 Backlog</div>
                         <div class="value">14</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="label">🚫 Bloqueados</div>
-                        <div class="value">0</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="label">✅ Cerrados</div>
-                        <div class="value">15</div>
                     </div>
                 </div>
 
@@ -624,7 +660,7 @@
                             <th>CE2</th>
                             <th>Total</th>
                         </tr>
-        <tr><td>Backlog</td><td>5</td><td>2</td><td>7</td></tr><tr><td>Closed</td><td>6</td><td>9</td><td>15</td></tr><tr><td>Discarded</td><td>2</td><td>2</td><td>4</td></tr><tr><td>In Progress</td><td>0</td><td>5</td><td>5</td></tr><tr><td>Planning</td><td>3</td><td>4</td><td>7</td></tr><tr><td>Triage</td><td>3</td><td>4</td><td>7</td></tr>
+        <tr><td>Backlog</td><td>5</td><td>2</td><td>7</td></tr><tr><td>Closed</td><td>6</td><td>10</td><td>16</td></tr><tr><td>Discarded</td><td>2</td><td>2</td><td>4</td></tr><tr><td>In Progress</td><td>0</td><td>4</td><td>4</td></tr><tr><td>Planning</td><td>3</td><td>4</td><td>7</td></tr><tr><td>Triage</td><td>3</td><td>4</td><td>7</td></tr>
                     </table>
                 </div>
 
@@ -661,9 +697,9 @@
             
                         <tr>
                             <td><strong>Fimo</strong></td>
-                            <td>1</td>
+                            <td>0</td>
                             <td>3</td>
-                            <td>66.7%</td>
+                            <td>100.0%</td>
                         </tr>
             
                         <tr>
@@ -699,27 +735,18 @@
             </div>
         
             <div class="timestamp">
-                Actualizado: 2026-05-08 13:06:36 UTC
+                Actualizado: 2026-05-08 13:11:07 UTC
             </div>
         </div>
 
         <script>
             function switchTab(monthName) {
-                // Hide all tabs
                 const tabs = document.querySelectorAll('.tab-content');
                 tabs.forEach(tab => tab.classList.remove('active'));
-
-                // Remove active class from buttons
                 const buttons = document.querySelectorAll('.tab-button');
                 buttons.forEach(btn => btn.classList.remove('active'));
-
-                // Show selected tab
                 const selectedTab = document.getElementById('tab-' + monthName);
-                if (selectedTab) {
-                    selectedTab.classList.add('active');
-                }
-
-                // Add active class to clicked button
+                if (selectedTab) selectedTab.classList.add('active');
                 event.target.classList.add('active');
             }
         </script>
