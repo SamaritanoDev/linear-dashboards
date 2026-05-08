@@ -702,9 +702,8 @@ def generate_html(projects_metrics, all_months_metrics):
                             <div class="product-summary">
         """
 
-        # Generar resumen por producto
-        for product in sorted(month_data["by_product"].keys()):
-            total = month_data["by_product"][product]
+        # Generar resumen por producto (ordenado por total de mayor a menor)
+        for product, total in sorted(month_data["by_product"].items(), key=lambda x: x[1], reverse=True):
             pending = month_data["pending_by_product"].get(product, 0)
 
             html += f"""
