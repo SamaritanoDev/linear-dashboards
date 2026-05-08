@@ -848,7 +848,7 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
                 state = issue["state"]
                 products = issue["products"]
                 team = issue["team"]
-                link = f'<a href="https://linear.app/guinea/issue/{issue_id}" target="_blank" style="color: #0052ff; text-decoration: none;">Abrir →</a>'
+                link = f'<a href="https://linear.app/guinea/issue/{issue_id}" target="_blank" style="color: #d3c5ff; text-decoration: none;">Abrir →</a>'
 
                 html += f"""
                                 <tr>
@@ -885,7 +885,7 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
                 title = issue["title"]
                 state = issue["state"]
                 team = issue["team"]
-                link = f'<a href="https://linear.app/guinea/issue/{issue_id}" target="_blank" style="color: #0052ff; text-decoration: none;">Abrir →</a>'
+                link = f'<a href="https://linear.app/guinea/issue/{issue_id}" target="_blank" style="color: #d3c5ff; text-decoration: none;">Abrir →</a>'
 
                 html += f"""
                                 <tr>
