@@ -58,6 +58,14 @@
             .tab-content.active {
                 display: block;
             }
+            .month-summary {
+                background: #f0f7ff;
+                padding: 15px;
+                border-left: 4px solid #0052ff;
+                border-radius: 4px;
+                margin-bottom: 20px;
+                font-size: 14px;
+            }
             .metrics {
                 display: grid;
                 grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -72,11 +80,23 @@
                 border-left: 4px solid #0052ff;
                 text-align: center;
             }
+            .metric-card.ce1 {
+                border-left-color: #ff6b6b;
+            }
+            .metric-card.ce2 {
+                border-left-color: #4ecdc4;
+            }
             .value {
                 font-size: 28px;
                 font-weight: bold;
                 color: #0052ff;
                 margin: 8px 0;
+            }
+            .metric-card.ce1 .value {
+                color: #ff6b6b;
+            }
+            .metric-card.ce2 .value {
+                color: #4ecdc4;
             }
             .label {
                 color: #666;
@@ -109,6 +129,12 @@
                 font-weight: 600;
                 color: #333;
             }
+            .team-ce1 {
+                background: #fff5f5;
+            }
+            .team-ce2 {
+                background: #f0fffe;
+            }
             .timestamp {
                 text-align: center;
                 color: #999;
@@ -123,7 +149,7 @@
 
             <div class="note">
                 <strong>ℹ️ Nota:</strong> Dashboard que filtra por AMBOS teams (CE1 y CE2).
-                Haz clic en las pestañas para ver cada mes.
+                Haz clic en las pestañas para ver cada mes. Cada mes muestra desglose por team.
             </div>
 
             <div class="tabs">
@@ -131,10 +157,24 @@
             </div>
     
             <div class="tab-content " id="tab-Enero">
+                <div class="month-summary">
+                    <strong>Enero 2026:</strong> 116 issues totales
+                    (CE1: 15 + CE2: 101)
+                </div>
+
+                <h3>📊 Resumen</h3>
                 <div class="metrics">
                     <div class="metric-card">
                         <div class="label">Total Issues</div>
                         <div class="value">116</div>
+                    </div>
+                    <div class="metric-card ce1">
+                        <div class="label">CE1 Issues</div>
+                        <div class="value">15</div>
+                    </div>
+                    <div class="metric-card ce2">
+                        <div class="label">CE2 Issues</div>
+                        <div class="value">101</div>
                     </div>
                     <div class="metric-card">
                         <div class="label">🔥 Activos</div>
@@ -155,13 +195,15 @@
                 </div>
 
                 <div class="section">
-                    <h2>📊 Por Estado</h2>
+                    <h2>📊 Por Estado (Desglose por Team)</h2>
                     <table>
                         <tr>
                             <th>Estado</th>
-                            <th>Count</th>
+                            <th>CE1</th>
+                            <th>CE2</th>
+                            <th>Total</th>
                         </tr>
-        <tr><td>Closed</td><td>107</td></tr><tr><td>Discarded</td><td>4</td></tr><tr><td>Planning</td><td>4</td></tr><tr><td>In Progress</td><td>1</td></tr>
+        <tr><td>Closed</td><td>15</td><td>92</td><td>107</td></tr><tr><td>Discarded</td><td>0</td><td>4</td><td>4</td></tr><tr><td>In Progress</td><td>0</td><td>1</td><td>1</td></tr><tr><td>Planning</td><td>0</td><td>4</td><td>4</td></tr>
                     </table>
                 </div>
 
@@ -191,24 +233,27 @@
             
                     </table>
                 </div>
-
-                <div class="section">
-                    <h2>👥 Por Team</h2>
-                    <table>
-                        <tr>
-                            <th>Team</th>
-                            <th>Issues</th>
-                        </tr>
-        <tr><td>CE1</td><td>15</td></tr><tr><td>CE2</td><td>101</td></tr>
-                    </table>
-                </div>
             </div>
         
             <div class="tab-content " id="tab-Febrero">
+                <div class="month-summary">
+                    <strong>Febrero 2026:</strong> 250 issues totales
+                    (CE1: 22 + CE2: 228)
+                </div>
+
+                <h3>📊 Resumen</h3>
                 <div class="metrics">
                     <div class="metric-card">
                         <div class="label">Total Issues</div>
                         <div class="value">250</div>
+                    </div>
+                    <div class="metric-card ce1">
+                        <div class="label">CE1 Issues</div>
+                        <div class="value">22</div>
+                    </div>
+                    <div class="metric-card ce2">
+                        <div class="label">CE2 Issues</div>
+                        <div class="value">228</div>
                     </div>
                     <div class="metric-card">
                         <div class="label">🔥 Activos</div>
@@ -229,13 +274,15 @@
                 </div>
 
                 <div class="section">
-                    <h2>📊 Por Estado</h2>
+                    <h2>📊 Por Estado (Desglose por Team)</h2>
                     <table>
                         <tr>
                             <th>Estado</th>
-                            <th>Count</th>
+                            <th>CE1</th>
+                            <th>CE2</th>
+                            <th>Total</th>
                         </tr>
-        <tr><td>Closed</td><td>225</td></tr><tr><td>Discarded</td><td>23</td></tr><tr><td>In Progress</td><td>1</td></tr><tr><td>In Review</td><td>1</td></tr>
+        <tr><td>Closed</td><td>22</td><td>203</td><td>225</td></tr><tr><td>Discarded</td><td>0</td><td>23</td><td>23</td></tr><tr><td>In Progress</td><td>0</td><td>1</td><td>1</td></tr><tr><td>In Review</td><td>0</td><td>1</td><td>1</td></tr>
                     </table>
                 </div>
 
@@ -293,24 +340,27 @@
             
                     </table>
                 </div>
-
-                <div class="section">
-                    <h2>👥 Por Team</h2>
-                    <table>
-                        <tr>
-                            <th>Team</th>
-                            <th>Issues</th>
-                        </tr>
-        <tr><td>CE1</td><td>22</td></tr><tr><td>CE2</td><td>228</td></tr>
-                    </table>
-                </div>
             </div>
         
             <div class="tab-content " id="tab-Marzo">
+                <div class="month-summary">
+                    <strong>Marzo 2026:</strong> 250 issues totales
+                    (CE1: 75 + CE2: 175)
+                </div>
+
+                <h3>📊 Resumen</h3>
                 <div class="metrics">
                     <div class="metric-card">
                         <div class="label">Total Issues</div>
                         <div class="value">250</div>
+                    </div>
+                    <div class="metric-card ce1">
+                        <div class="label">CE1 Issues</div>
+                        <div class="value">75</div>
+                    </div>
+                    <div class="metric-card ce2">
+                        <div class="label">CE2 Issues</div>
+                        <div class="value">175</div>
                     </div>
                     <div class="metric-card">
                         <div class="label">🔥 Activos</div>
@@ -331,13 +381,15 @@
                 </div>
 
                 <div class="section">
-                    <h2>📊 Por Estado</h2>
+                    <h2>📊 Por Estado (Desglose por Team)</h2>
                     <table>
                         <tr>
                             <th>Estado</th>
-                            <th>Count</th>
+                            <th>CE1</th>
+                            <th>CE2</th>
+                            <th>Total</th>
                         </tr>
-        <tr><td>Closed</td><td>223</td></tr><tr><td>Discarded</td><td>12</td></tr><tr><td>Backlog</td><td>9</td></tr><tr><td>In Progress</td><td>3</td></tr><tr><td>Planning</td><td>1</td></tr><tr><td>Blocked</td><td>1</td></tr><tr><td>In Review</td><td>1</td></tr>
+        <tr><td>Backlog</td><td>2</td><td>7</td><td>9</td></tr><tr><td>Blocked</td><td>0</td><td>1</td><td>1</td></tr><tr><td>Closed</td><td>67</td><td>156</td><td>223</td></tr><tr><td>Discarded</td><td>3</td><td>9</td><td>12</td></tr><tr><td>In Progress</td><td>1</td><td>2</td><td>3</td></tr><tr><td>In Review</td><td>1</td><td>0</td><td>1</td></tr><tr><td>Planning</td><td>1</td><td>0</td><td>1</td></tr>
                     </table>
                 </div>
 
@@ -402,24 +454,27 @@
             
                     </table>
                 </div>
-
-                <div class="section">
-                    <h2>👥 Por Team</h2>
-                    <table>
-                        <tr>
-                            <th>Team</th>
-                            <th>Issues</th>
-                        </tr>
-        <tr><td>CE1</td><td>75</td></tr><tr><td>CE2</td><td>175</td></tr>
-                    </table>
-                </div>
             </div>
         
             <div class="tab-content " id="tab-Abril">
+                <div class="month-summary">
+                    <strong>Abril 2026:</strong> 225 issues totales
+                    (CE1: 77 + CE2: 148)
+                </div>
+
+                <h3>📊 Resumen</h3>
                 <div class="metrics">
                     <div class="metric-card">
                         <div class="label">Total Issues</div>
                         <div class="value">225</div>
+                    </div>
+                    <div class="metric-card ce1">
+                        <div class="label">CE1 Issues</div>
+                        <div class="value">77</div>
+                    </div>
+                    <div class="metric-card ce2">
+                        <div class="label">CE2 Issues</div>
+                        <div class="value">148</div>
                     </div>
                     <div class="metric-card">
                         <div class="label">🔥 Activos</div>
@@ -440,13 +495,15 @@
                 </div>
 
                 <div class="section">
-                    <h2>📊 Por Estado</h2>
+                    <h2>📊 Por Estado (Desglose por Team)</h2>
                     <table>
                         <tr>
                             <th>Estado</th>
-                            <th>Count</th>
+                            <th>CE1</th>
+                            <th>CE2</th>
+                            <th>Total</th>
                         </tr>
-        <tr><td>Closed</td><td>158</td></tr><tr><td>Discarded</td><td>29</td></tr><tr><td>Backlog</td><td>14</td></tr><tr><td>Planning</td><td>10</td></tr><tr><td>In Progress</td><td>7</td></tr><tr><td>In Review</td><td>6</td></tr><tr><td>Blocked</td><td>1</td></tr>
+        <tr><td>Backlog</td><td>1</td><td>13</td><td>14</td></tr><tr><td>Blocked</td><td>0</td><td>1</td><td>1</td></tr><tr><td>Closed</td><td>52</td><td>106</td><td>158</td></tr><tr><td>Discarded</td><td>14</td><td>15</td><td>29</td></tr><tr><td>In Progress</td><td>4</td><td>3</td><td>7</td></tr><tr><td>In Review</td><td>2</td><td>4</td><td>6</td></tr><tr><td>Planning</td><td>4</td><td>6</td><td>10</td></tr>
                     </table>
                 </div>
 
@@ -518,24 +575,27 @@
             
                     </table>
                 </div>
-
-                <div class="section">
-                    <h2>👥 Por Team</h2>
-                    <table>
-                        <tr>
-                            <th>Team</th>
-                            <th>Issues</th>
-                        </tr>
-        <tr><td>CE1</td><td>77</td></tr><tr><td>CE2</td><td>148</td></tr>
-                    </table>
-                </div>
             </div>
         
             <div class="tab-content active" id="tab-Mayo">
+                <div class="month-summary">
+                    <strong>Mayo 2026:</strong> 45 issues totales
+                    (CE1: 19 + CE2: 26)
+                </div>
+
+                <h3>📊 Resumen</h3>
                 <div class="metrics">
                     <div class="metric-card">
                         <div class="label">Total Issues</div>
                         <div class="value">45</div>
+                    </div>
+                    <div class="metric-card ce1">
+                        <div class="label">CE1 Issues</div>
+                        <div class="value">19</div>
+                    </div>
+                    <div class="metric-card ce2">
+                        <div class="label">CE2 Issues</div>
+                        <div class="value">26</div>
                     </div>
                     <div class="metric-card">
                         <div class="label">🔥 Activos</div>
@@ -556,13 +616,15 @@
                 </div>
 
                 <div class="section">
-                    <h2>📊 Por Estado</h2>
+                    <h2>📊 Por Estado (Desglose por Team)</h2>
                     <table>
                         <tr>
                             <th>Estado</th>
-                            <th>Count</th>
+                            <th>CE1</th>
+                            <th>CE2</th>
+                            <th>Total</th>
                         </tr>
-        <tr><td>Closed</td><td>15</td></tr><tr><td>Triage</td><td>7</td></tr><tr><td>Planning</td><td>7</td></tr><tr><td>Backlog</td><td>7</td></tr><tr><td>In Progress</td><td>5</td></tr><tr><td>Discarded</td><td>4</td></tr>
+        <tr><td>Backlog</td><td>5</td><td>2</td><td>7</td></tr><tr><td>Closed</td><td>6</td><td>9</td><td>15</td></tr><tr><td>Discarded</td><td>2</td><td>2</td><td>4</td></tr><tr><td>In Progress</td><td>0</td><td>5</td><td>5</td></tr><tr><td>Planning</td><td>3</td><td>4</td><td>7</td></tr><tr><td>Triage</td><td>3</td><td>4</td><td>7</td></tr>
                     </table>
                 </div>
 
@@ -634,21 +696,10 @@
             
                     </table>
                 </div>
-
-                <div class="section">
-                    <h2>👥 Por Team</h2>
-                    <table>
-                        <tr>
-                            <th>Team</th>
-                            <th>Issues</th>
-                        </tr>
-        <tr><td>CE1</td><td>19</td></tr><tr><td>CE2</td><td>26</td></tr>
-                    </table>
-                </div>
             </div>
         
             <div class="timestamp">
-                Actualizado: 2026-05-08 13:03:25 UTC
+                Actualizado: 2026-05-08 13:06:36 UTC
             </div>
         </div>
 
