@@ -706,7 +706,6 @@ def generate_html(projects_metrics, all_months_metrics):
         for product in sorted(month_data["by_product"].keys()):
             total = month_data["by_product"][product]
             pending = month_data["pending_by_product"].get(product, 0)
-            closed = total - pending
 
             html += f"""
                                 <div class="product-card">
@@ -716,14 +715,18 @@ def generate_html(projects_metrics, all_months_metrics):
                                             <span class="stat-label">Total</span>
                                             <span class="stat-value">{total}</span>
                                         </div>
+            """
+
+            # Solo mostrar Pendientes si hay
+            if pending > 0:
+                html += f"""
                                         <div class="stat">
                                             <span class="stat-label">Pendientes</span>
                                             <span class="stat-value pending">{pending}</span>
                                         </div>
-                                        <div class="stat">
-                                            <span class="stat-label">Cerrados</span>
-                                            <span class="stat-value closed">{closed}</span>
-                                        </div>
+                """
+
+            html += """
                                     </div>
                                 </div>
             """
