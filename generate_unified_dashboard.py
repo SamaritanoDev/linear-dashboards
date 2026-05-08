@@ -618,7 +618,7 @@ def generate_html(projects_metrics, all_months_metrics):
                                 <div class="value">{month_data["by_team"]["CE2"]}</div>
                             </div>
                             <div class="metric-card">
-                                <div class="label">🔥 Activos</div>
+                                <div class="label">🔥 In Progress</div>
                                 <div class="value">{month_data["active_issues"]}</div>
                             </div>
                             <div class="metric-card">
