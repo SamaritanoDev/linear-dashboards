@@ -390,17 +390,17 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
                 margin-bottom: 20px;
             }
             .note {
-                background: #2a1a2a;
+                background: #1a2a28;
                 padding: 12px;
-                border-left: 4px solid #fa76b1;
+                border-left: 4px solid #04ffb0;
                 margin-bottom: 20px;
                 border-radius: 4px;
-                color: #ffcfec;
+                color: #5cffd4;
             }
             .disclaimer {
-                background: #2a1a25;
+                background: #2a1a1a;
                 padding: 15px;
-                border-left: 4px solid #fa76b1;
+                border-left: 4px solid #ff687a;
                 margin-bottom: 20px;
                 border-radius: 4px;
                 font-size: 13px;
