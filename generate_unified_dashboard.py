@@ -416,6 +416,50 @@ def generate_html(projects_metrics, all_months_metrics):
                 color: #666;
                 font-size: 12px;
             }
+            .progress-container {
+                background: white;
+                padding: 20px;
+                border-radius: 8px;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+                margin-bottom: 30px;
+            }
+            .progress-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 12px;
+            }
+            .progress-header h4 {
+                margin: 0;
+                color: #333;
+                font-size: 14px;
+            }
+            .progress-percentage {
+                font-size: 18px;
+                font-weight: bold;
+                color: #0052ff;
+            }
+            .progress-bar {
+                width: 100%;
+                height: 24px;
+                background: #f0f0f0;
+                border-radius: 12px;
+                overflow: hidden;
+                position: relative;
+            }
+            .progress-fill {
+                height: 100%;
+                background: linear-gradient(90deg, #0052ff, #00d4ff);
+                border-radius: 12px;
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+                padding-right: 8px;
+                color: white;
+                font-size: 11px;
+                font-weight: 600;
+                transition: width 0.3s ease;
+            }
             .section-box {
                 background: white;
                 padding: 20px;
@@ -514,17 +558,28 @@ def generate_html(projects_metrics, all_months_metrics):
                         </div>
 
                         <h3>📊 Resumen</h3>
+
+                        <div class="progress-container">
+                            <div class="progress-header">
+                                <h4>Progreso General</h4>
+                                <span class="progress-percentage">{int((month_data["closed"] / month_data["total_issues"] * 100) if month_data["total_issues"] > 0 else 0)}%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: {int((month_data["closed"] / month_data["total_issues"] * 100) if month_data["total_issues"] > 0 else 0)}%"></div>
+                            </div>
+                        </div>
+
                         <div class="metrics">
                             <div class="metric-card">
                                 <div class="label">Total Issues</div>
                                 <div class="value">{month_data["total_issues"]}</div>
                             </div>
                             <div class="metric-card ce1">
-                                <div class="label">CE1 Issues</div>
+                                <div class="label">CE1 Issues Total</div>
                                 <div class="value">{month_data["by_team"]["CE1"]}</div>
                             </div>
                             <div class="metric-card ce2">
-                                <div class="label">CE2 Issues</div>
+                                <div class="label">CE2 Issues Total</div>
                                 <div class="value">{month_data["by_team"]["CE2"]}</div>
                             </div>
                             <div class="metric-card">
