@@ -2463,40 +2463,40 @@
                 </div>
 
                 <div class="timestamp">
-                    Actualizado: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')} UTC
+                    Actualizado: 2026-05-08 18:25:55 UTC
                 </div>
             </div>
         </div>
 
         <script>
             // Initialize theme from localStorage
-            function initTheme() {{
+            function initTheme() {
                 const savedTheme = localStorage.getItem('theme');
-                if (savedTheme === 'light') {{
+                if (savedTheme === 'light') {
                     document.body.classList.add('light-mode');
                     updateToggleButton(true);
-                }}
-            }}
+                }
+            }
 
             // Toggle theme
-            function toggleTheme() {{
+            function toggleTheme() {
                 const body = document.body;
                 const isLightMode = body.classList.toggle('light-mode');
 
                 // Save preference
                 localStorage.setItem('theme', isLightMode ? 'light' : 'dark');
                 updateToggleButton(isLightMode);
-            }}
+            }
 
             // Update toggle button text
-            function updateToggleButton(isLightMode) {{
+            function updateToggleButton(isLightMode) {
                 const btn = document.querySelector('.theme-toggle');
-                if (btn) {{
+                if (btn) {
                     btn.textContent = isLightMode ? '☀️ Modo Oscuro' : '🌙 Modo Claro';
-                }}
-            }}
+                }
+            }
 
-            function switchSection(sectionId) {{
+            function switchSection(sectionId) {
                 // Hide all sections
                 const sections = document.querySelectorAll('.section');
                 sections.forEach(s => s.classList.remove('active'));
@@ -2507,15 +2507,15 @@
 
                 // Show selected section
                 const section = document.getElementById(sectionId);
-                if (section) {{
+                if (section) {
                     section.classList.add('active');
-                }}
+                }
 
                 // Add active to clicked item
                 event.target.classList.add('active');
-            }}
+            }
 
-            function switchTab(monthIdentifier) {{
+            function switchTab(monthIdentifier) {
                 // Get the active section
                 const activeSection = document.querySelector('.section.active');
                 if (!activeSection) return;
@@ -2530,13 +2530,13 @@
 
                 // Show selected tab
                 const selectedTab = document.getElementById('tab-' + monthIdentifier);
-                if (selectedTab) {{
+                if (selectedTab) {
                     selectedTab.classList.add('active');
-                }}
+                }
 
                 // Add active to clicked button
                 event.target.classList.add('active');
-            }}
+            }
 
             // Initialize theme on page load
             initTheme();

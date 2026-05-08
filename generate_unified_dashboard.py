@@ -1105,7 +1105,7 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
                     </div>
         """
 
-    html += """
+    html += f"""
                 </div>
 
                 <div class="timestamp">
