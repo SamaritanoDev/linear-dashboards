@@ -533,6 +533,58 @@ def generate_html(projects_metrics, all_months_metrics):
                 font-size: 12px;
                 margin-top: 20px;
             }
+            .product-summary {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+                gap: 15px;
+                margin-bottom: 10px;
+            }
+            .product-card {
+                background: #2a2a2a;
+                border: 1px solid #333;
+                border-radius: 6px;
+                padding: 15px;
+                transition: all 0.2s;
+            }
+            .product-card:hover {
+                border-color: #0052ff;
+                box-shadow: 0 0 10px rgba(0, 82, 255, 0.2);
+            }
+            .product-name {
+                font-weight: 600;
+                color: #ffffff;
+                margin-bottom: 12px;
+                font-size: 13px;
+            }
+            .product-stats {
+                display: flex;
+                justify-content: space-between;
+                gap: 10px;
+            }
+            .stat {
+                flex: 1;
+                text-align: center;
+            }
+            .stat-label {
+                display: block;
+                color: #999;
+                font-size: 11px;
+                margin-bottom: 4px;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+            .stat-value {
+                display: block;
+                font-size: 16px;
+                font-weight: bold;
+                color: #0052ff;
+            }
+            .stat-value.pending {
+                color: #ffa500;
+            }
+            .stat-value.closed {
+                color: #4ade80;
+            }
             @media (max-width: 768px) {
                 .drawer {
                     width: 100%;
@@ -641,6 +693,41 @@ def generate_html(projects_metrics, all_months_metrics):
                             <div class="metric-card">
                                 <div class="label">⏳ Pendientes</div>
                                 <div class="value">{pending_total}</div>
+                            </div>
+                        </div>
+
+                        <div class="section-box" style="margin-bottom: 20px;">
+                            <h2>📦 Resumen por Producto (Total vs Pendientes)</h2>
+                            <div class="product-summary">
+        """
+
+        # Generar resumen por producto
+        for product in sorted(month_data["by_product"].keys()):
+            total = month_data["by_product"][product]
+            pending = month_data["pending_by_product"].get(product, 0)
+            closed = total - pending
+
+            html += f"""
+                                <div class="product-card">
+                                    <div class="product-name">{product}</div>
+                                    <div class="product-stats">
+                                        <div class="stat">
+                                            <span class="stat-label">Total</span>
+                                            <span class="stat-value">{total}</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Pendientes</span>
+                                            <span class="stat-value pending">{pending}</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Cerrados</span>
+                                            <span class="stat-value closed">{closed}</span>
+                                        </div>
+                                    </div>
+                                </div>
+            """
+
+        html += """
                             </div>
                         </div>
 

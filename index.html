@@ -243,6 +243,58 @@
                 font-size: 12px;
                 margin-top: 20px;
             }
+            .product-summary {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+                gap: 15px;
+                margin-bottom: 10px;
+            }
+            .product-card {
+                background: #2a2a2a;
+                border: 1px solid #333;
+                border-radius: 6px;
+                padding: 15px;
+                transition: all 0.2s;
+            }
+            .product-card:hover {
+                border-color: #0052ff;
+                box-shadow: 0 0 10px rgba(0, 82, 255, 0.2);
+            }
+            .product-name {
+                font-weight: 600;
+                color: #ffffff;
+                margin-bottom: 12px;
+                font-size: 13px;
+            }
+            .product-stats {
+                display: flex;
+                justify-content: space-between;
+                gap: 10px;
+            }
+            .stat {
+                flex: 1;
+                text-align: center;
+            }
+            .stat-label {
+                display: block;
+                color: #999;
+                font-size: 11px;
+                margin-bottom: 4px;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+            .stat-value {
+                display: block;
+                font-size: 16px;
+                font-weight: bold;
+                color: #0052ff;
+            }
+            .stat-value.pending {
+                color: #ffa500;
+            }
+            .stat-value.closed {
+                color: #4ade80;
+            }
             @media (max-width: 768px) {
                 .drawer {
                     width: 100%;
@@ -334,6 +386,49 @@
                             <div class="metric-card">
                                 <div class="label">⏳ Pendientes</div>
                                 <div class="value">0</div>
+                            </div>
+                        </div>
+
+                        <div class="section-box" style="margin-bottom: 20px;">
+                            <h2>📦 Resumen por Producto (Total vs Pendientes)</h2>
+                            <div class="product-summary">
+        
+                                <div class="product-card">
+                                    <div class="product-name">Fimo</div>
+                                    <div class="product-stats">
+                                        <div class="stat">
+                                            <span class="stat-label">Total</span>
+                                            <span class="stat-value">1</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Pendientes</span>
+                                            <span class="stat-value pending">0</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Cerrados</span>
+                                            <span class="stat-value closed">1</span>
+                                        </div>
+                                    </div>
+                                </div>
+            
+                                <div class="product-card">
+                                    <div class="product-name">Wings</div>
+                                    <div class="product-stats">
+                                        <div class="stat">
+                                            <span class="stat-label">Total</span>
+                                            <span class="stat-value">1</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Pendientes</span>
+                                            <span class="stat-value pending">0</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Cerrados</span>
+                                            <span class="stat-value closed">1</span>
+                                        </div>
+                                    </div>
+                                </div>
+            
                             </div>
                         </div>
 
@@ -437,6 +532,103 @@
                             <div class="metric-card">
                                 <div class="label">⏳ Pendientes</div>
                                 <div class="value">0</div>
+                            </div>
+                        </div>
+
+                        <div class="section-box" style="margin-bottom: 20px;">
+                            <h2>📦 Resumen por Producto (Total vs Pendientes)</h2>
+                            <div class="product-summary">
+        
+                                <div class="product-card">
+                                    <div class="product-name">Airalo</div>
+                                    <div class="product-stats">
+                                        <div class="stat">
+                                            <span class="stat-label">Total</span>
+                                            <span class="stat-value">6</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Pendientes</span>
+                                            <span class="stat-value pending">0</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Cerrados</span>
+                                            <span class="stat-value closed">6</span>
+                                        </div>
+                                    </div>
+                                </div>
+            
+                                <div class="product-card">
+                                    <div class="product-name">Cuy</div>
+                                    <div class="product-stats">
+                                        <div class="stat">
+                                            <span class="stat-label">Total</span>
+                                            <span class="stat-value">2</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Pendientes</span>
+                                            <span class="stat-value pending">0</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Cerrados</span>
+                                            <span class="stat-value closed">2</span>
+                                        </div>
+                                    </div>
+                                </div>
+            
+                                <div class="product-card">
+                                    <div class="product-name">Fimo</div>
+                                    <div class="product-stats">
+                                        <div class="stat">
+                                            <span class="stat-label">Total</span>
+                                            <span class="stat-value">3</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Pendientes</span>
+                                            <span class="stat-value pending">0</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Cerrados</span>
+                                            <span class="stat-value closed">3</span>
+                                        </div>
+                                    </div>
+                                </div>
+            
+                                <div class="product-card">
+                                    <div class="product-name">Habla+</div>
+                                    <div class="product-stats">
+                                        <div class="stat">
+                                            <span class="stat-label">Total</span>
+                                            <span class="stat-value">9</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Pendientes</span>
+                                            <span class="stat-value pending">0</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Cerrados</span>
+                                            <span class="stat-value closed">9</span>
+                                        </div>
+                                    </div>
+                                </div>
+            
+                                <div class="product-card">
+                                    <div class="product-name">Wings</div>
+                                    <div class="product-stats">
+                                        <div class="stat">
+                                            <span class="stat-label">Total</span>
+                                            <span class="stat-value">3</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Pendientes</span>
+                                            <span class="stat-value pending">0</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Cerrados</span>
+                                            <span class="stat-value closed">3</span>
+                                        </div>
+                                    </div>
+                                </div>
+            
                             </div>
                         </div>
 
@@ -561,6 +753,139 @@
                             <div class="metric-card">
                                 <div class="label">⏳ Pendientes</div>
                                 <div class="value">1</div>
+                            </div>
+                        </div>
+
+                        <div class="section-box" style="margin-bottom: 20px;">
+                            <h2>📦 Resumen por Producto (Total vs Pendientes)</h2>
+                            <div class="product-summary">
+        
+                                <div class="product-card">
+                                    <div class="product-name">Airalo</div>
+                                    <div class="product-stats">
+                                        <div class="stat">
+                                            <span class="stat-label">Total</span>
+                                            <span class="stat-value">1</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Pendientes</span>
+                                            <span class="stat-value pending">0</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Cerrados</span>
+                                            <span class="stat-value closed">1</span>
+                                        </div>
+                                    </div>
+                                </div>
+            
+                                <div class="product-card">
+                                    <div class="product-name">Cuy</div>
+                                    <div class="product-stats">
+                                        <div class="stat">
+                                            <span class="stat-label">Total</span>
+                                            <span class="stat-value">33</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Pendientes</span>
+                                            <span class="stat-value pending">0</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Cerrados</span>
+                                            <span class="stat-value closed">33</span>
+                                        </div>
+                                    </div>
+                                </div>
+            
+                                <div class="product-card">
+                                    <div class="product-name">Fimo</div>
+                                    <div class="product-stats">
+                                        <div class="stat">
+                                            <span class="stat-label">Total</span>
+                                            <span class="stat-value">1</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Pendientes</span>
+                                            <span class="stat-value pending">0</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Cerrados</span>
+                                            <span class="stat-value closed">1</span>
+                                        </div>
+                                    </div>
+                                </div>
+            
+                                <div class="product-card">
+                                    <div class="product-name">Guinea</div>
+                                    <div class="product-stats">
+                                        <div class="stat">
+                                            <span class="stat-label">Total</span>
+                                            <span class="stat-value">1</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Pendientes</span>
+                                            <span class="stat-value pending">0</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Cerrados</span>
+                                            <span class="stat-value closed">1</span>
+                                        </div>
+                                    </div>
+                                </div>
+            
+                                <div class="product-card">
+                                    <div class="product-name">Habla+</div>
+                                    <div class="product-stats">
+                                        <div class="stat">
+                                            <span class="stat-label">Total</span>
+                                            <span class="stat-value">3</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Pendientes</span>
+                                            <span class="stat-value pending">0</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Cerrados</span>
+                                            <span class="stat-value closed">3</span>
+                                        </div>
+                                    </div>
+                                </div>
+            
+                                <div class="product-card">
+                                    <div class="product-name">PeruSim+</div>
+                                    <div class="product-stats">
+                                        <div class="stat">
+                                            <span class="stat-label">Total</span>
+                                            <span class="stat-value">1</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Pendientes</span>
+                                            <span class="stat-value pending">0</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Cerrados</span>
+                                            <span class="stat-value closed">1</span>
+                                        </div>
+                                    </div>
+                                </div>
+            
+                                <div class="product-card">
+                                    <div class="product-name">Wings</div>
+                                    <div class="product-stats">
+                                        <div class="stat">
+                                            <span class="stat-label">Total</span>
+                                            <span class="stat-value">3</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Pendientes</span>
+                                            <span class="stat-value pending">1</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Cerrados</span>
+                                            <span class="stat-value closed">2</span>
+                                        </div>
+                                    </div>
+                                </div>
+            
                             </div>
                         </div>
 
@@ -745,6 +1070,211 @@
                             <div class="metric-card">
                                 <div class="label">⏳ Pendientes</div>
                                 <div class="value">28</div>
+                            </div>
+                        </div>
+
+                        <div class="section-box" style="margin-bottom: 20px;">
+                            <h2>📦 Resumen por Producto (Total vs Pendientes)</h2>
+                            <div class="product-summary">
+        
+                                <div class="product-card">
+                                    <div class="product-name">Airalo</div>
+                                    <div class="product-stats">
+                                        <div class="stat">
+                                            <span class="stat-label">Total</span>
+                                            <span class="stat-value">3</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Pendientes</span>
+                                            <span class="stat-value pending">0</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Cerrados</span>
+                                            <span class="stat-value closed">3</span>
+                                        </div>
+                                    </div>
+                                </div>
+            
+                                <div class="product-card">
+                                    <div class="product-name">B2B</div>
+                                    <div class="product-stats">
+                                        <div class="stat">
+                                            <span class="stat-label">Total</span>
+                                            <span class="stat-value">10</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Pendientes</span>
+                                            <span class="stat-value pending">1</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Cerrados</span>
+                                            <span class="stat-value closed">9</span>
+                                        </div>
+                                    </div>
+                                </div>
+            
+                                <div class="product-card">
+                                    <div class="product-name">Cuy</div>
+                                    <div class="product-stats">
+                                        <div class="stat">
+                                            <span class="stat-label">Total</span>
+                                            <span class="stat-value">40</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Pendientes</span>
+                                            <span class="stat-value pending">9</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Cerrados</span>
+                                            <span class="stat-value closed">31</span>
+                                        </div>
+                                    </div>
+                                </div>
+            
+                                <div class="product-card">
+                                    <div class="product-name">Fimo</div>
+                                    <div class="product-stats">
+                                        <div class="stat">
+                                            <span class="stat-label">Total</span>
+                                            <span class="stat-value">2</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Pendientes</span>
+                                            <span class="stat-value pending">1</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Cerrados</span>
+                                            <span class="stat-value closed">1</span>
+                                        </div>
+                                    </div>
+                                </div>
+            
+                                <div class="product-card">
+                                    <div class="product-name">Finanzas</div>
+                                    <div class="product-stats">
+                                        <div class="stat">
+                                            <span class="stat-label">Total</span>
+                                            <span class="stat-value">17</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Pendientes</span>
+                                            <span class="stat-value pending">4</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Cerrados</span>
+                                            <span class="stat-value closed">13</span>
+                                        </div>
+                                    </div>
+                                </div>
+            
+                                <div class="product-card">
+                                    <div class="product-name">Guinea</div>
+                                    <div class="product-stats">
+                                        <div class="stat">
+                                            <span class="stat-label">Total</span>
+                                            <span class="stat-value">17</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Pendientes</span>
+                                            <span class="stat-value pending">4</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Cerrados</span>
+                                            <span class="stat-value closed">13</span>
+                                        </div>
+                                    </div>
+                                </div>
+            
+                                <div class="product-card">
+                                    <div class="product-name">Habla+</div>
+                                    <div class="product-stats">
+                                        <div class="stat">
+                                            <span class="stat-label">Total</span>
+                                            <span class="stat-value">13</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Pendientes</span>
+                                            <span class="stat-value pending">5</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Cerrados</span>
+                                            <span class="stat-value closed">8</span>
+                                        </div>
+                                    </div>
+                                </div>
+            
+                                <div class="product-card">
+                                    <div class="product-name">Legales</div>
+                                    <div class="product-stats">
+                                        <div class="stat">
+                                            <span class="stat-label">Total</span>
+                                            <span class="stat-value">4</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Pendientes</span>
+                                            <span class="stat-value pending">1</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Cerrados</span>
+                                            <span class="stat-value closed">3</span>
+                                        </div>
+                                    </div>
+                                </div>
+            
+                                <div class="product-card">
+                                    <div class="product-name">Partner</div>
+                                    <div class="product-stats">
+                                        <div class="stat">
+                                            <span class="stat-label">Total</span>
+                                            <span class="stat-value">1</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Pendientes</span>
+                                            <span class="stat-value pending">1</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Cerrados</span>
+                                            <span class="stat-value closed">0</span>
+                                        </div>
+                                    </div>
+                                </div>
+            
+                                <div class="product-card">
+                                    <div class="product-name">PeruSim+</div>
+                                    <div class="product-stats">
+                                        <div class="stat">
+                                            <span class="stat-label">Total</span>
+                                            <span class="stat-value">19</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Pendientes</span>
+                                            <span class="stat-value pending">1</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Cerrados</span>
+                                            <span class="stat-value closed">18</span>
+                                        </div>
+                                    </div>
+                                </div>
+            
+                                <div class="product-card">
+                                    <div class="product-name">Wings</div>
+                                    <div class="product-stats">
+                                        <div class="stat">
+                                            <span class="stat-label">Total</span>
+                                            <span class="stat-value">10</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Pendientes</span>
+                                            <span class="stat-value pending">1</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Cerrados</span>
+                                            <span class="stat-value closed">9</span>
+                                        </div>
+                                    </div>
+                                </div>
+            
                             </div>
                         </div>
 
@@ -1235,6 +1765,211 @@
                             </div>
                         </div>
 
+                        <div class="section-box" style="margin-bottom: 20px;">
+                            <h2>📦 Resumen por Producto (Total vs Pendientes)</h2>
+                            <div class="product-summary">
+        
+                                <div class="product-card">
+                                    <div class="product-name">Airalo</div>
+                                    <div class="product-stats">
+                                        <div class="stat">
+                                            <span class="stat-label">Total</span>
+                                            <span class="stat-value">3</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Pendientes</span>
+                                            <span class="stat-value pending">2</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Cerrados</span>
+                                            <span class="stat-value closed">1</span>
+                                        </div>
+                                    </div>
+                                </div>
+            
+                                <div class="product-card">
+                                    <div class="product-name">B2B</div>
+                                    <div class="product-stats">
+                                        <div class="stat">
+                                            <span class="stat-label">Total</span>
+                                            <span class="stat-value">1</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Pendientes</span>
+                                            <span class="stat-value pending">0</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Cerrados</span>
+                                            <span class="stat-value closed">1</span>
+                                        </div>
+                                    </div>
+                                </div>
+            
+                                <div class="product-card">
+                                    <div class="product-name">Cuy</div>
+                                    <div class="product-stats">
+                                        <div class="stat">
+                                            <span class="stat-label">Total</span>
+                                            <span class="stat-value">13</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Pendientes</span>
+                                            <span class="stat-value pending">11</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Cerrados</span>
+                                            <span class="stat-value closed">2</span>
+                                        </div>
+                                    </div>
+                                </div>
+            
+                                <div class="product-card">
+                                    <div class="product-name">Fimo</div>
+                                    <div class="product-stats">
+                                        <div class="stat">
+                                            <span class="stat-label">Total</span>
+                                            <span class="stat-value">3</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Pendientes</span>
+                                            <span class="stat-value pending">0</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Cerrados</span>
+                                            <span class="stat-value closed">3</span>
+                                        </div>
+                                    </div>
+                                </div>
+            
+                                <div class="product-card">
+                                    <div class="product-name">Finanzas</div>
+                                    <div class="product-stats">
+                                        <div class="stat">
+                                            <span class="stat-label">Total</span>
+                                            <span class="stat-value">2</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Pendientes</span>
+                                            <span class="stat-value pending">2</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Cerrados</span>
+                                            <span class="stat-value closed">0</span>
+                                        </div>
+                                    </div>
+                                </div>
+            
+                                <div class="product-card">
+                                    <div class="product-name">Guinea</div>
+                                    <div class="product-stats">
+                                        <div class="stat">
+                                            <span class="stat-label">Total</span>
+                                            <span class="stat-value">6</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Pendientes</span>
+                                            <span class="stat-value pending">4</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Cerrados</span>
+                                            <span class="stat-value closed">2</span>
+                                        </div>
+                                    </div>
+                                </div>
+            
+                                <div class="product-card">
+                                    <div class="product-name">Habla+</div>
+                                    <div class="product-stats">
+                                        <div class="stat">
+                                            <span class="stat-label">Total</span>
+                                            <span class="stat-value">3</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Pendientes</span>
+                                            <span class="stat-value pending">2</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Cerrados</span>
+                                            <span class="stat-value closed">1</span>
+                                        </div>
+                                    </div>
+                                </div>
+            
+                                <div class="product-card">
+                                    <div class="product-name">Legales</div>
+                                    <div class="product-stats">
+                                        <div class="stat">
+                                            <span class="stat-label">Total</span>
+                                            <span class="stat-value">1</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Pendientes</span>
+                                            <span class="stat-value pending">1</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Cerrados</span>
+                                            <span class="stat-value closed">0</span>
+                                        </div>
+                                    </div>
+                                </div>
+            
+                                <div class="product-card">
+                                    <div class="product-name">Partner</div>
+                                    <div class="product-stats">
+                                        <div class="stat">
+                                            <span class="stat-label">Total</span>
+                                            <span class="stat-value">2</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Pendientes</span>
+                                            <span class="stat-value pending">1</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Cerrados</span>
+                                            <span class="stat-value closed">1</span>
+                                        </div>
+                                    </div>
+                                </div>
+            
+                                <div class="product-card">
+                                    <div class="product-name">PeruSim+</div>
+                                    <div class="product-stats">
+                                        <div class="stat">
+                                            <span class="stat-label">Total</span>
+                                            <span class="stat-value">3</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Pendientes</span>
+                                            <span class="stat-value pending">2</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Cerrados</span>
+                                            <span class="stat-value closed">1</span>
+                                        </div>
+                                    </div>
+                                </div>
+            
+                                <div class="product-card">
+                                    <div class="product-name">Wings</div>
+                                    <div class="product-stats">
+                                        <div class="stat">
+                                            <span class="stat-label">Total</span>
+                                            <span class="stat-value">2</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Pendientes</span>
+                                            <span class="stat-value pending">0</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-label">Cerrados</span>
+                                            <span class="stat-value closed">2</span>
+                                        </div>
+                                    </div>
+                                </div>
+            
+                            </div>
+                        </div>
+
                         <div class="disclaimer" style="margin-top: 20px;">
                             <strong>📌 Nota sobre los totales:</strong>
                             <div class="disclaimer-item">Pendientes + Cerrados = Issues considerados (con etiqueta de producto)</div>
@@ -1639,7 +2374,7 @@
                 </div>
 
                 <div class="timestamp">
-                    Actualizado: 2026-05-08 17:33:10 UTC
+                    Actualizado: 2026-05-08 17:36:54 UTC
                 </div>
             </div>
         </div>
