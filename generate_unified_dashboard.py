@@ -148,7 +148,8 @@ def calculate_metrics(issues, month_name):
         "by_product": {},
         "by_team": {"CE1": 0, "CE2": 0},
         "pending_by_product": {},
-        "by_state_by_team": {}
+        "by_state_by_team": {},
+        "untracked_issues_list": []  # Lista de issues sin etiqueta
     }
 
     for issue in issues:
@@ -164,6 +165,13 @@ def calculate_metrics(issues, month_name):
         if not product_labels and state in pending_states:
             metrics["untracked_issues"] += 1
             metrics["backlog_untracked"] += 1
+            # Guardar en lista para mostrar en tabla
+            metrics["untracked_issues_list"].append({
+                "id": issue["identifier"],
+                "title": issue["title"],
+                "state": state,
+                "team": team
+            })
             continue  # No contarlos en el total
 
         # Contar en total solo si tienen etiqueta o están cerrados
@@ -676,6 +684,45 @@ def generate_html(projects_metrics, all_months_metrics):
         html += """
                             </table>
                         </div>
+        """
+
+        # Agregar tabla de issues sin etiqueta si existen
+        if month_data["untracked_issues_list"]:
+            html += f"""
+                        <div class="section-box">
+                            <h2>🏷️ Issues Sin Etiqueta ({len(month_data["untracked_issues_list"])})</h2>
+                            <table>
+                                <tr>
+                                    <th>ID Issue</th>
+                                    <th>Título</th>
+                                    <th>Estado</th>
+                                    <th>Team</th>
+                                    <th>Link</th>
+                                </tr>
+            """
+            for issue in month_data["untracked_issues_list"]:
+                issue_id = issue["id"]
+                title = issue["title"]
+                state = issue["state"]
+                team = issue["team"]
+                link = f'<a href="https://linear.app/guinea/issue/{issue_id}" target="_blank" style="color: #0052ff; text-decoration: none;">Abrir →</a>'
+
+                html += f"""
+                                <tr>
+                                    <td><strong>{issue_id}</strong></td>
+                                    <td>{title}</td>
+                                    <td>{state}</td>
+                                    <td>{team}</td>
+                                    <td>{link}</td>
+                                </tr>
+                """
+
+            html += """
+                            </table>
+                        </div>
+            """
+
+        html += """
                     </div>
         """
 
