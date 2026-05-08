@@ -125,8 +125,8 @@ def get_issues_for_month(year, month, month_name):
         return []
 
     issues = result["data"]["issues"]["nodes"]
-    # Filtrar solo issues SIN proyecto
-    issues_without_project = [i for i in issues if not i.get("project")]
+    # Filtrar solo issues SIN proyecto Y excluir Discarded
+    issues_without_project = [i for i in issues if not i.get("project") and i.get("state", {}).get("name") != "Discarded"]
     print(f"✅ {len(issues_without_project)} issues sin proyecto obtenidos para {month_name} (de {len(issues)} totales)\n")
     return issues_without_project
 
@@ -175,7 +175,8 @@ def calculate_metrics(issues, month_name):
         if product_labels:
             for product in product_labels:
                 metrics["by_product"][product] = metrics["by_product"].get(product, 0) + 1
-                if state not in ["Closed", "Discarded"]:
+                # Pendientes = todo excepto Closed (Discarded ya están filtrados)
+                if state != "Closed":
                     metrics["pending_by_product"][product] = metrics["pending_by_product"].get(product, 0) + 1
 
     return metrics
