@@ -185,7 +185,7 @@ def calculate_metrics(issues, month_name):
         key = f"{team}_{state}"
         metrics["by_state_by_team"][key] = metrics["by_state_by_team"].get(key, 0) + 1
 
-        if state in ["In Progress", "In Review"]:
+        if state == "In Progress":
             metrics["active_issues"] += 1
 
         if state in ["Backlog", "Planning"]:
