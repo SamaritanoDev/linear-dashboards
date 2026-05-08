@@ -196,11 +196,13 @@ def calculate_metrics(issues, month_name):
             metrics["untracked_issues"] += 1
             metrics["backlog_untracked"] += 1
             # Guardar en lista para mostrar en tabla
+            assignee_name = issue.get("assignee", {}).get("name", "Sin asignar") if issue.get("assignee") else "Sin asignar"
             metrics["untracked_issues_list"].append({
                 "id": issue["identifier"],
                 "title": issue["title"],
                 "state": state,
-                "team": team
+                "team": team,
+                "assignee": assignee_name
             })
             continue  # No contarlos en el total
 
@@ -234,12 +236,14 @@ def calculate_metrics(issues, month_name):
 
             # Guardar en lista de pendientes si está en estado pendiente
             if state != "Closed":
+                assignee_name = issue.get("assignee", {}).get("name", "Sin asignar") if issue.get("assignee") else "Sin asignar"
                 metrics["pending_issues_list"].append({
                     "id": issue["identifier"],
                     "title": issue["title"],
                     "state": state,
                     "team": team,
-                    "products": ", ".join(product_labels)
+                    "products": ", ".join(product_labels),
+                    "assignee": assignee_name
                 })
 
     return metrics
@@ -978,6 +982,7 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
                                     <th>Estado</th>
                                     <th>Producto</th>
                                     <th>Team</th>
+                                    <th>Asignado a</th>
                                     <th>Link</th>
                                 </tr>
             """
@@ -987,6 +992,7 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
                 state = issue["state"]
                 products = issue["products"]
                 team = issue["team"]
+                assignee = issue.get("assignee", "Sin asignar")
                 link = f'<a href="https://linear.app/guinea/issue/{issue_id}" target="_blank" style="color: #d3c5ff; text-decoration: none;">Abrir →</a>'
 
                 html += f"""
@@ -996,6 +1002,7 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
                                     <td>{state}</td>
                                     <td>{products}</td>
                                     <td>{team}</td>
+                                    <td>{assignee}</td>
                                     <td>{link}</td>
                                 </tr>
                 """
@@ -1016,6 +1023,7 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
                                     <th>Título</th>
                                     <th>Estado</th>
                                     <th>Team</th>
+                                    <th>Asignado a</th>
                                     <th>Link</th>
                                 </tr>
             """
@@ -1024,6 +1032,7 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
                 title = issue["title"]
                 state = issue["state"]
                 team = issue["team"]
+                assignee = issue.get("assignee", "Sin asignar")
                 link = f'<a href="https://linear.app/guinea/issue/{issue_id}" target="_blank" style="color: #d3c5ff; text-decoration: none;">Abrir →</a>'
 
                 html += f"""
@@ -1032,6 +1041,7 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
                                     <td>{title}</td>
                                     <td>{state}</td>
                                     <td>{team}</td>
+                                    <td>{assignee}</td>
                                     <td>{link}</td>
                                 </tr>
                 """
