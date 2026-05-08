@@ -310,28 +310,29 @@ def generate_html(projects_metrics, all_months_metrics):
                 min-height: 100vh;
             }
             .drawer {
-                width: 280px;
+                width: 200px;
                 background: #1a1a1a;
                 color: white;
-                padding: 20px;
+                padding: 15px;
                 box-shadow: 2px 0 10px rgba(0,0,0,0.1);
                 position: fixed;
                 height: 100vh;
                 overflow-y: auto;
             }
             .drawer h2 {
-                font-size: 18px;
-                margin-bottom: 20px;
-                padding-bottom: 10px;
+                font-size: 14px;
+                margin-bottom: 15px;
+                padding-bottom: 8px;
                 border-bottom: 2px solid #0052ff;
             }
             .drawer-item {
-                padding: 12px 16px;
-                margin-bottom: 8px;
+                padding: 10px 12px;
+                margin-bottom: 6px;
                 cursor: pointer;
                 border-radius: 6px;
                 border-left: 3px solid transparent;
                 transition: all 0.2s;
+                font-size: 13px;
             }
             .drawer-item:hover {
                 background: #2a2a2a;
@@ -342,7 +343,7 @@ def generate_html(projects_metrics, all_months_metrics):
             }
             .content {
                 flex: 1;
-                margin-left: 280px;
+                margin-left: 200px;
                 padding: 30px;
             }
             .section {
