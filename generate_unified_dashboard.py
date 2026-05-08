@@ -906,7 +906,7 @@ def generate_html(projects_metrics, all_months_metrics):
                         <table>
                             <tr>
                                 <th>Estado</th>
-                                <th>Count</th>
+                                <th>Total</th>
                             </tr>
     """
 
