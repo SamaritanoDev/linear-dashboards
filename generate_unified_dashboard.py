@@ -250,9 +250,10 @@ def calculate_project_metrics(projects):
 
     metrics = {
         "total_projects": len(projects),
-        "pending_ce2": 0,  # CE2 projects NOT Closed/Discarded
+        "pending_ce2": 0,  # CE2 projects NOT Closed/Discarded/canceled
         "in_progress": 0,
         "completed": 0,  # Completed projects
+        "canceled": 0,  # Canceled projects
         "closed_2026": 0,  # Closed projects from CE1+CE2 in 2026
         "by_state": {},
         "by_lead": {},
@@ -283,9 +284,13 @@ def calculate_project_metrics(projects):
         if state in ["Closed", "completed"]:
             metrics["completed"] += 1
 
-        # Contar pendientes de CE2 (proyectos que NO están completados, cancelados o descartados)
+        # Contar cancelados
+        if state in ["canceled", "Discarded"]:
+            metrics["canceled"] += 1
+
+        # Contar pendientes de CE2 (proyectos en Backlog o Planned, sin incluir In Progress)
         is_ce2 = any(t.get("key") == "CE2" for t in teams)
-        if is_ce2 and state not in ["Closed", "Discarded", "completed", "canceled"]:
+        if is_ce2 and state in ["backlog", "Backlog", "planned", "Planned"]:
             metrics["pending_ce2"] += 1
 
         # Contar cerrados de 2026
@@ -1093,6 +1098,16 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
                             <div class="metric-card">
                                 <div class="label">✅ Completados</div>
                                 <div class="value">{month_data["completed"]}</div>
+                            </div>
+        """
+
+        # Mostrar Cancelados solo si hay
+        canceled_count = month_data.get("canceled", 0)
+        if canceled_count > 0:
+            html += f"""
+                            <div class="metric-card">
+                                <div class="label">⛔ Cancelados</div>
+                                <div class="value">{canceled_count}</div>
                             </div>
         """
 
