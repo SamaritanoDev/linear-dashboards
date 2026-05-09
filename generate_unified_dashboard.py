@@ -1150,6 +1150,7 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
                 </div>
 
                 <div class="timestamp">
+                    <strong>📊 Continuity Engineering</strong><br>
                     Actualizado: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')} UTC
                 </div>
             </div>
