@@ -844,10 +844,6 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
                                 <div class="label">Total Issues</div>
                                 <div class="value">{month_data["total_issues"]}</div>
                             </div>
-                            <div class="metric-card ce1">
-                                <div class="label">CE1 Issues Total</div>
-                                <div class="value">{month_data["by_team"]["CE1"]}</div>
-                            </div>
                             <div class="metric-card ce2">
                                 <div class="label">CE2 Issues Total</div>
                                 <div class="value">{month_data["by_team"]["CE2"]}</div>
