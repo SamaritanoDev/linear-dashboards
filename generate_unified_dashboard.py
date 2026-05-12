@@ -123,6 +123,7 @@ def get_issues_for_month(year, month, month_name):
         filter: {{
           team: {{key: {{in: ["CE1", "CE2"]}}}}
           createdAt: {{gte: "{start_str}Z", lt: "{end_str}Z"}}
+          project: {{null: true}}
         }}
       ) {{
         nodes {{
