@@ -338,7 +338,7 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
     <html>
     <head>
         <meta charset="utf-8">
-        <title>Linear Dashboard - CE1, CE2 & Proyectos</title>
+        <title>Linear Dashboard - Continuity Engineering</title>
         <style>
             * {
                 margin: 0;
@@ -779,8 +779,8 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
             <div class="drawer">
                 <h2>📊 Dashboard</h2>
                 <button class="theme-toggle" onclick="toggleTheme()">🌙 Modo Claro</button>
-                <div class="drawer-item active" onclick="switchSection('issues')">Issues (CE1 + CE2)</div>
-                <div class="drawer-item" onclick="switchSection('projects')">Proyectos (CE2)</div>
+                <div class="drawer-item active" onclick="switchSection('issues')">Issues CE</div>
+                <div class="drawer-item" onclick="switchSection('projects')">Proyectos CE</div>
             </div>
 
             <div class="content">
@@ -789,7 +789,7 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
     # SECCIÓN ISSUES
     html += """
                 <div id="issues" class="section active">
-                    <h1>📌 Issues Sin Proyecto - CE1 + CE2</h1>
+                    <h1>📌 Issues Sin Proyecto CE</h1>
 
                     <div class="note">
                         <strong>ℹ️ Nota:</strong> Solo se muestran issues que NO pertenecen a ningún proyecto.
@@ -1062,10 +1062,10 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
     # SECCIÓN PROYECTOS
     html += """
                 <div id="projects" class="section">
-                    <h1>📦 Proyectos - CE2</h1>
+                    <h1>📦 Proyectos CE</h1>
 
                     <div class="note">
-                        <strong>ℹ️ Nota:</strong> Proyectos del equipo CE2 con sus métricas de estado.
+                        <strong>ℹ️ Nota:</strong> Proyectos del equipo Continuity Engineering con sus métricas de estado.
                     </div>
 
                     <div class="tabs">
