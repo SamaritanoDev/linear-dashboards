@@ -824,7 +824,6 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
                     <div class="tab-content {active}" id="tab-{month_name}">
                         <div class="month-summary">
                             <strong>{month_name} 2026:</strong> {month_data["total_issues"]} issues totales
-                            (CE1: {month_data["by_team"]["CE1"]} + CE2: {month_data["by_team"]["CE2"]})
                             | <strong>Pendientes: {pending_total}</strong>
                         </div>
 
@@ -1293,7 +1292,7 @@ if __name__ == "__main__":
         all_months_metrics.append(metrics)
 
         pending_total = sum(metrics['pending_by_product'].values())
-        print(f"📈 {month_name}: {metrics['total_issues']} issues (CE1: {metrics['by_team']['CE1']}, CE2: {metrics['by_team']['CE2']}) | Pendientes: {pending_total}")
+        print(f"📈 {month_name}: {metrics['total_issues']} issues CE | Pendientes: {pending_total}")
 
     html = generate_html(all_months_projects_metrics, all_months_metrics)
     with open("index.html", "w") as f:
