@@ -263,6 +263,7 @@ def calculate_project_metrics(projects):
         "completed": 0,  # Completed projects
         "canceled": 0,  # Canceled projects (referencia, no en total)
         "closed_2026": 0,  # Closed projects from CE1+CE2 in 2026
+        "blocked": 0,  # Blocked projects
         "by_state": {},
         "by_lead": {},
         "progress_distribution": {
@@ -295,6 +296,10 @@ def calculate_project_metrics(projects):
         # Contar cancelados
         if state in ["canceled", "Discarded"]:
             metrics["canceled"] += 1
+
+        # Contar bloqueados
+        if state in ["Blocked", "blocked"]:
+            metrics["blocked"] += 1
 
         # Contar pendientes de CE2 (proyectos en Backlog o Planned, sin incluir In Progress)
         is_ce2 = any(t.get("key") == "CE2" for t in teams)
@@ -370,6 +375,7 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
             "total_projects": month_data.get("total_projects", 0),
             "in_progress": month_data.get("in_progress", 0),
             "pending_ce2": month_data.get("pending_ce2", 0),
+            "blocked": month_data.get("blocked", 0),
             "by_state": month_data.get("by_state", {}),
             "brands": brands_count
         }
@@ -431,6 +437,7 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
     total = current_month_projects.get("total_projects", 0)
     in_progress = current_month_projects.get("in_progress", 0)
     pending = current_month_projects.get("pending_ce2", 0)
+    blocked = current_month_projects.get("blocked", 0)
     metrics_cards = '        <div class="glacier-card p-6 rounded-xl">\n'
     metrics_cards += '            <span class="text-on-surface-variant text-xs font-bold uppercase mb-2 tracking-tighter">Total CE2</span>\n'
     metrics_cards += '            <span class="text-4xl font-bold text-white" id="metric-total">' + str(total) + '</span>\n'
@@ -445,7 +452,7 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
     metrics_cards += '        </div>\n'
     metrics_cards += '        <div class="glacier-card p-6 rounded-xl">\n'
     metrics_cards += '            <span class="text-on-surface-variant text-xs font-bold uppercase mb-2 tracking-tighter">Bloqueados</span>\n'
-    metrics_cards += '            <span class="text-4xl font-bold text-error/60">0</span>\n'
+    metrics_cards += '            <span class="text-4xl font-bold text-error/60" id="metric-blocked">' + str(blocked) + '</span>\n'
     metrics_cards += '        </div>\n'
 
     # Obtener sección de Issues CE
@@ -682,6 +689,7 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
                 document.getElementById('metric-total').textContent = data.total_projects;
                 document.getElementById('metric-progress').textContent = data.in_progress;
                 document.getElementById('metric-pending').textContent = data.pending_ce2;
+                document.getElementById('metric-blocked').textContent = data.blocked;
 
                 // Actualizar tarjetas de marcas
                 document.querySelectorAll('.brand-card').forEach(card => {
