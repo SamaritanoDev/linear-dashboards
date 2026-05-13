@@ -334,6 +334,7 @@ def calculate_project_metrics(projects):
 
 def generate_html(all_months_projects_metrics, all_months_metrics):
     """Genera HTML con Tailwind CSS - Proyectos CE coincide con oscuro.html/claro.html"""
+    import json
 
     # Leer archivo existente para extraer sección de Issues CE
     original = ""
@@ -343,10 +344,44 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
     except FileNotFoundError:
         pass
 
-    # Obtener datos del mes actual
-    current_month_projects = all_months_projects_metrics[-1] if all_months_projects_metrics else {"total_projects": 0, "in_progress": 0, "pending_ce2": 0, "by_state": {}, "month": "Mayo"}
+    # Extraer datos de marcas de los nombres de proyectos
+    brands = ["Cuy", "PeruSim", "Habla+", "Wings", "Fimo", "Guinea", "B2B", "Partner", "Legales", "Finanzas", "Airalo"]
 
-    # Contar totales por estado
+    # Generar datos de todos los meses para JavaScript
+    months_data = {}
+    for month_data in all_months_projects_metrics:
+        month_name = month_data.get("month", "")
+        projects_list = month_data.get("projects_list", [])
+
+        # Contar proyectos por marca basándose en los nombres
+        brands_count = {brand: {"total": 0, "pending": 0} for brand in brands}
+        for project in projects_list:
+            project_name = project.get("name", "")
+            # Buscar coincidencias de marca en el nombre
+            for brand in brands:
+                if brand.lower() in project_name.lower():
+                    brands_count[brand]["total"] += 1
+                    state = project.get("state", "").lower()
+                    # Contar como pendiente si no está cerrado
+                    if state not in ["closed", "completed", "canceled", "discarded"]:
+                        brands_count[brand]["pending"] += 1
+
+        months_data[month_name] = {
+            "total_projects": month_data.get("total_projects", 0),
+            "in_progress": month_data.get("in_progress", 0),
+            "pending_ce2": month_data.get("pending_ce2", 0),
+            "by_state": month_data.get("by_state", {}),
+            "brands": brands_count
+        }
+
+    # Obtener datos del mes actual (último en la lista)
+    current_month_projects = all_months_projects_metrics[-1] if all_months_projects_metrics else {
+        "total_projects": 0, "in_progress": 0, "pending_ce2": 0, "by_state": {}, "month": "Mayo"
+    }
+    current_month = current_month_projects.get("month", "Mayo")
+    current_data = months_data.get(current_month, {})
+
+    # Contar totales por estado en todos los meses
     projects_by_state = {}
     for month_data in all_months_projects_metrics:
         for state, count in month_data.get("by_state", {}).items():
@@ -377,35 +412,38 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
         classes = 'text-primary bg-primary/10 border border-primary/30 shadow-lg shadow-primary/5 font-semibold' if is_active else 'text-on-surface-variant hover:text-white hover:bg-surface-container transition-all font-medium'
         month_buttons += '    <button class="px-5 py-2.5 rounded-full text-sm ' + classes + ' whitespace-nowrap" data-month="' + month + '">' + month + ' 2026</button>\n'
 
-    # Generar tarjetas de marcas
-    brands = ["Cuy", "PeruSim", "Habla+", "Wings", "Fimo", "Guinea", "B2B", "Partner", "Legales", "Finanzas", "Airalo"]
+    # Generar tarjetas de marcas con datos actuales
+    current_brands = current_data.get("brands", {brand: {"total": 0, "pending": 0} for brand in brands})
     brands_cards = ""
     for brand in brands:
-        brands_cards += '    <div class="glacier-card p-4 rounded-xl">\n'
+        brand_data = current_brands.get(brand, {"total": 0, "pending": 0})
+        total = brand_data.get("total", 0)
+        pending = brand_data.get("pending", 0)
+        brands_cards += '    <div class="glacier-card p-4 rounded-xl brand-card" data-brand="' + brand + '">\n'
         brands_cards += '        <div class="text-primary font-bold text-sm mb-3 border-b border-outline-variant/20 pb-2">' + brand + '</div>\n'
         brands_cards += '        <div class="grid grid-cols-2 gap-2">\n'
-        brands_cards += '            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-white">0</span></div>\n'
-        brands_cards += '            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary">0</span></div>\n'
+        brands_cards += '            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-white brand-total">' + str(total) + '</span></div>\n'
+        brands_cards += '            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary brand-pending">' + str(pending) + '</span></div>\n'
         brands_cards += '        </div>\n'
         brands_cards += '    </div>\n'
 
-    # Generar tarjetas de métricas
+    # Generar tarjetas de métricas con datos actuales
     total = current_month_projects.get("total_projects", 0)
     in_progress = current_month_projects.get("in_progress", 0)
     pending = current_month_projects.get("pending_ce2", 0)
-    metrics_cards = '        <div class="glacier-card p-6 rounded-xl flex flex-col items-center justify-center text-center">\n'
+    metrics_cards = '        <div class="glacier-card p-6 rounded-xl">\n'
     metrics_cards += '            <span class="text-on-surface-variant text-xs font-bold uppercase mb-2 tracking-tighter">Total CE2</span>\n'
-    metrics_cards += '            <span class="text-4xl font-bold text-white">' + str(total) + '</span>\n'
+    metrics_cards += '            <span class="text-4xl font-bold text-white" id="metric-total">' + str(total) + '</span>\n'
     metrics_cards += '        </div>\n'
-    metrics_cards += '        <div class="glacier-card p-6 rounded-xl flex flex-col items-center justify-center text-center">\n'
+    metrics_cards += '        <div class="glacier-card p-6 rounded-xl">\n'
     metrics_cards += '            <span class="text-on-surface-variant text-xs font-bold uppercase mb-2 tracking-tighter">En Progreso</span>\n'
-    metrics_cards += '            <span class="text-4xl font-bold text-primary">' + str(in_progress) + '</span>\n'
+    metrics_cards += '            <span class="text-4xl font-bold text-primary" id="metric-progress">' + str(in_progress) + '</span>\n'
     metrics_cards += '        </div>\n'
-    metrics_cards += '        <div class="glacier-card p-6 rounded-xl flex flex-col items-center justify-center text-center">\n'
+    metrics_cards += '        <div class="glacier-card p-6 rounded-xl">\n'
     metrics_cards += '            <span class="text-on-surface-variant text-xs font-bold uppercase mb-2 tracking-tighter">Pendientes</span>\n'
-    metrics_cards += '            <span class="text-4xl font-bold text-secondary">' + str(pending) + '</span>\n'
+    metrics_cards += '            <span class="text-4xl font-bold text-secondary" id="metric-pending">' + str(pending) + '</span>\n'
     metrics_cards += '        </div>\n'
-    metrics_cards += '        <div class="glacier-card p-6 rounded-xl flex flex-col items-center justify-center text-center">\n'
+    metrics_cards += '        <div class="glacier-card p-6 rounded-xl">\n'
     metrics_cards += '            <span class="text-on-surface-variant text-xs font-bold uppercase mb-2 tracking-tighter">Bloqueados</span>\n'
     metrics_cards += '            <span class="text-4xl font-bold text-error/60">0</span>\n'
     metrics_cards += '        </div>\n'
@@ -414,6 +452,9 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
     issues_section_start = original.find('<div id="issues"')
     issues_section_end = original.find('</section>', issues_section_start)
     issues_section = original[issues_section_start:issues_section_end] if issues_section_start != -1 else ""
+
+    # Convertir datos a JSON para usar en JavaScript
+    months_data_json = json.dumps(months_data)
 
     month_text = current_month_projects.get("month", "Mayo")
 
@@ -623,6 +664,9 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
         </div>
 
         <script data-purpose="ui-interactions">
+            // Datos de todos los meses desde el servidor
+            const monthsData = """ + months_data_json + """;
+
             function switchSection(section) {
                 document.getElementById('projects').style.display = section === 'projects' ? 'block' : 'none';
                 document.getElementById('issues').style.display = section === 'issues' ? 'block' : 'none';
@@ -630,14 +674,40 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
                 event.target.closest('.drawer-item').classList.add('active');
             }
 
+            function updateMonthData(monthName) {
+                const data = monthsData[monthName];
+                if (!data) return;
+
+                // Actualizar métricas
+                document.getElementById('metric-total').textContent = data.total_projects;
+                document.getElementById('metric-progress').textContent = data.in_progress;
+                document.getElementById('metric-pending').textContent = data.pending_ce2;
+
+                // Actualizar tarjetas de marcas
+                document.querySelectorAll('.brand-card').forEach(card => {
+                    const brand = card.getAttribute('data-brand');
+                    const brandData = data.brands[brand];
+                    if (brandData) {
+                        card.querySelector('.brand-total').textContent = brandData.total;
+                        card.querySelector('.brand-pending').textContent = brandData.pending;
+                    }
+                });
+            }
+
             document.querySelectorAll('[data-month]').forEach(button => {
                 button.addEventListener('click', () => {
+                    const month = button.getAttribute('data-month');
+
+                    // Actualizar estilos de botones
                     document.querySelectorAll('[data-month]').forEach(btn => {
                         btn.classList.remove('text-primary', 'bg-primary/10', 'border-primary/30', 'shadow-lg', 'shadow-primary/5', 'font-semibold');
                         btn.classList.add('text-on-surface-variant', 'font-medium');
                     });
                     button.classList.add('text-primary', 'bg-primary/10', 'border-primary/30', 'shadow-lg', 'shadow-primary/5', 'font-semibold');
                     button.classList.remove('text-on-surface-variant', 'font-medium');
+
+                    // Actualizar datos
+                    updateMonthData(month);
                 });
             });
         </script>

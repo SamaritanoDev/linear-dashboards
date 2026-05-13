@@ -168,19 +168,19 @@
                         </div>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
-        <div class="glacier-card p-6 rounded-xl flex flex-col items-center justify-center text-center">
+        <div class="glacier-card p-6 rounded-xl">
             <span class="text-on-surface-variant text-xs font-bold uppercase mb-2 tracking-tighter">Total CE2</span>
-            <span class="text-4xl font-bold text-white">14</span>
+            <span class="text-4xl font-bold text-white" id="metric-total">14</span>
         </div>
-        <div class="glacier-card p-6 rounded-xl flex flex-col items-center justify-center text-center">
+        <div class="glacier-card p-6 rounded-xl">
             <span class="text-on-surface-variant text-xs font-bold uppercase mb-2 tracking-tighter">En Progreso</span>
-            <span class="text-4xl font-bold text-primary">1</span>
+            <span class="text-4xl font-bold text-primary" id="metric-progress">1</span>
         </div>
-        <div class="glacier-card p-6 rounded-xl flex flex-col items-center justify-center text-center">
+        <div class="glacier-card p-6 rounded-xl">
             <span class="text-on-surface-variant text-xs font-bold uppercase mb-2 tracking-tighter">Pendientes</span>
-            <span class="text-4xl font-bold text-secondary">13</span>
+            <span class="text-4xl font-bold text-secondary" id="metric-pending">13</span>
         </div>
-        <div class="glacier-card p-6 rounded-xl flex flex-col items-center justify-center text-center">
+        <div class="glacier-card p-6 rounded-xl">
             <span class="text-on-surface-variant text-xs font-bold uppercase mb-2 tracking-tighter">Bloqueados</span>
             <span class="text-4xl font-bold text-error/60">0</span>
         </div>
@@ -192,81 +192,81 @@
                                 Proyectos por Marca
                             </h2>
                             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
-    <div class="glacier-card p-4 rounded-xl">
+    <div class="glacier-card p-4 rounded-xl brand-card" data-brand="Cuy">
         <div class="text-primary font-bold text-sm mb-3 border-b border-outline-variant/20 pb-2">Cuy</div>
         <div class="grid grid-cols-2 gap-2">
-            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-white">0</span></div>
-            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary">0</span></div>
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-white brand-total">3</span></div>
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary brand-pending">3</span></div>
         </div>
     </div>
-    <div class="glacier-card p-4 rounded-xl">
+    <div class="glacier-card p-4 rounded-xl brand-card" data-brand="PeruSim">
         <div class="text-primary font-bold text-sm mb-3 border-b border-outline-variant/20 pb-2">PeruSim</div>
         <div class="grid grid-cols-2 gap-2">
-            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-white">0</span></div>
-            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary">0</span></div>
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-white brand-total">1</span></div>
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary brand-pending">1</span></div>
         </div>
     </div>
-    <div class="glacier-card p-4 rounded-xl">
+    <div class="glacier-card p-4 rounded-xl brand-card" data-brand="Habla+">
         <div class="text-primary font-bold text-sm mb-3 border-b border-outline-variant/20 pb-2">Habla+</div>
         <div class="grid grid-cols-2 gap-2">
-            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-white">0</span></div>
-            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary">0</span></div>
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-white brand-total">2</span></div>
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary brand-pending">2</span></div>
         </div>
     </div>
-    <div class="glacier-card p-4 rounded-xl">
+    <div class="glacier-card p-4 rounded-xl brand-card" data-brand="Wings">
         <div class="text-primary font-bold text-sm mb-3 border-b border-outline-variant/20 pb-2">Wings</div>
         <div class="grid grid-cols-2 gap-2">
-            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-white">0</span></div>
-            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary">0</span></div>
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-white brand-total">0</span></div>
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary brand-pending">0</span></div>
         </div>
     </div>
-    <div class="glacier-card p-4 rounded-xl">
+    <div class="glacier-card p-4 rounded-xl brand-card" data-brand="Fimo">
         <div class="text-primary font-bold text-sm mb-3 border-b border-outline-variant/20 pb-2">Fimo</div>
         <div class="grid grid-cols-2 gap-2">
-            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-white">0</span></div>
-            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary">0</span></div>
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-white brand-total">0</span></div>
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary brand-pending">0</span></div>
         </div>
     </div>
-    <div class="glacier-card p-4 rounded-xl">
+    <div class="glacier-card p-4 rounded-xl brand-card" data-brand="Guinea">
         <div class="text-primary font-bold text-sm mb-3 border-b border-outline-variant/20 pb-2">Guinea</div>
         <div class="grid grid-cols-2 gap-2">
-            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-white">0</span></div>
-            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary">0</span></div>
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-white brand-total">2</span></div>
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary brand-pending">2</span></div>
         </div>
     </div>
-    <div class="glacier-card p-4 rounded-xl">
+    <div class="glacier-card p-4 rounded-xl brand-card" data-brand="B2B">
         <div class="text-primary font-bold text-sm mb-3 border-b border-outline-variant/20 pb-2">B2B</div>
         <div class="grid grid-cols-2 gap-2">
-            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-white">0</span></div>
-            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary">0</span></div>
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-white brand-total">0</span></div>
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary brand-pending">0</span></div>
         </div>
     </div>
-    <div class="glacier-card p-4 rounded-xl">
+    <div class="glacier-card p-4 rounded-xl brand-card" data-brand="Partner">
         <div class="text-primary font-bold text-sm mb-3 border-b border-outline-variant/20 pb-2">Partner</div>
         <div class="grid grid-cols-2 gap-2">
-            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-white">0</span></div>
-            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary">0</span></div>
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-white brand-total">0</span></div>
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary brand-pending">0</span></div>
         </div>
     </div>
-    <div class="glacier-card p-4 rounded-xl">
+    <div class="glacier-card p-4 rounded-xl brand-card" data-brand="Legales">
         <div class="text-primary font-bold text-sm mb-3 border-b border-outline-variant/20 pb-2">Legales</div>
         <div class="grid grid-cols-2 gap-2">
-            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-white">0</span></div>
-            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary">0</span></div>
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-white brand-total">0</span></div>
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary brand-pending">0</span></div>
         </div>
     </div>
-    <div class="glacier-card p-4 rounded-xl">
+    <div class="glacier-card p-4 rounded-xl brand-card" data-brand="Finanzas">
         <div class="text-primary font-bold text-sm mb-3 border-b border-outline-variant/20 pb-2">Finanzas</div>
         <div class="grid grid-cols-2 gap-2">
-            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-white">0</span></div>
-            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary">0</span></div>
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-white brand-total">1</span></div>
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary brand-pending">1</span></div>
         </div>
     </div>
-    <div class="glacier-card p-4 rounded-xl">
+    <div class="glacier-card p-4 rounded-xl brand-card" data-brand="Airalo">
         <div class="text-primary font-bold text-sm mb-3 border-b border-outline-variant/20 pb-2">Airalo</div>
         <div class="grid grid-cols-2 gap-2">
-            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-white">0</span></div>
-            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary">0</span></div>
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-white brand-total">0</span></div>
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary brand-pending">0</span></div>
         </div>
     </div>
                             </div>
@@ -1858,11 +1858,15 @@
     </body>
     </html>
    
+                
                 </section>
             </main>
         </div>
 
         <script data-purpose="ui-interactions">
+            // Datos de todos los meses desde el servidor
+            const monthsData = {"Enero": {"total_projects": 0, "in_progress": 0, "pending_ce2": 0, "by_state": {}, "brands": {"Cuy": {"total": 0, "pending": 0}, "PeruSim": {"total": 0, "pending": 0}, "Habla+": {"total": 0, "pending": 0}, "Wings": {"total": 0, "pending": 0}, "Fimo": {"total": 0, "pending": 0}, "Guinea": {"total": 0, "pending": 0}, "B2B": {"total": 0, "pending": 0}, "Partner": {"total": 0, "pending": 0}, "Legales": {"total": 0, "pending": 0}, "Finanzas": {"total": 0, "pending": 0}, "Airalo": {"total": 0, "pending": 0}}}, "Febrero": {"total_projects": 23, "in_progress": 3, "pending_ce2": 2, "by_state": {"completed": 18, "backlog": 2, "started": 3, "canceled": 1}, "brands": {"Cuy": {"total": 4, "pending": 0}, "PeruSim": {"total": 2, "pending": 1}, "Habla+": {"total": 2, "pending": 2}, "Wings": {"total": 3, "pending": 0}, "Fimo": {"total": 3, "pending": 0}, "Guinea": {"total": 0, "pending": 0}, "B2B": {"total": 2, "pending": 0}, "Partner": {"total": 0, "pending": 0}, "Legales": {"total": 0, "pending": 0}, "Finanzas": {"total": 1, "pending": 0}, "Airalo": {"total": 2, "pending": 0}}}, "Marzo": {"total_projects": 26, "in_progress": 3, "pending_ce2": 2, "by_state": {"canceled": 2, "completed": 21, "started": 3, "backlog": 2}, "brands": {"Cuy": {"total": 8, "pending": 3}, "PeruSim": {"total": 2, "pending": 0}, "Habla+": {"total": 5, "pending": 1}, "Wings": {"total": 0, "pending": 0}, "Fimo": {"total": 2, "pending": 0}, "Guinea": {"total": 5, "pending": 1}, "B2B": {"total": 1, "pending": 0}, "Partner": {"total": 0, "pending": 0}, "Legales": {"total": 0, "pending": 0}, "Finanzas": {"total": 1, "pending": 0}, "Airalo": {"total": 3, "pending": 0}}}, "Abril": {"total_projects": 10, "in_progress": 0, "pending_ce2": 6, "by_state": {"backlog": 6, "completed": 4}, "brands": {"Cuy": {"total": 1, "pending": 0}, "PeruSim": {"total": 0, "pending": 0}, "Habla+": {"total": 0, "pending": 0}, "Wings": {"total": 1, "pending": 0}, "Fimo": {"total": 1, "pending": 0}, "Guinea": {"total": 0, "pending": 0}, "B2B": {"total": 0, "pending": 0}, "Partner": {"total": 0, "pending": 0}, "Legales": {"total": 0, "pending": 0}, "Finanzas": {"total": 4, "pending": 1}, "Airalo": {"total": 1, "pending": 1}}}, "Mayo": {"total_projects": 14, "in_progress": 1, "pending_ce2": 13, "by_state": {"backlog": 11, "planned": 2, "started": 1}, "brands": {"Cuy": {"total": 3, "pending": 3}, "PeruSim": {"total": 1, "pending": 1}, "Habla+": {"total": 2, "pending": 2}, "Wings": {"total": 0, "pending": 0}, "Fimo": {"total": 0, "pending": 0}, "Guinea": {"total": 2, "pending": 2}, "B2B": {"total": 0, "pending": 0}, "Partner": {"total": 0, "pending": 0}, "Legales": {"total": 0, "pending": 0}, "Finanzas": {"total": 1, "pending": 1}, "Airalo": {"total": 0, "pending": 0}}}};
+
             function switchSection(section) {
                 document.getElementById('projects').style.display = section === 'projects' ? 'block' : 'none';
                 document.getElementById('issues').style.display = section === 'issues' ? 'block' : 'none';
@@ -1870,14 +1874,40 @@
                 event.target.closest('.drawer-item').classList.add('active');
             }
 
+            function updateMonthData(monthName) {
+                const data = monthsData[monthName];
+                if (!data) return;
+
+                // Actualizar métricas
+                document.getElementById('metric-total').textContent = data.total_projects;
+                document.getElementById('metric-progress').textContent = data.in_progress;
+                document.getElementById('metric-pending').textContent = data.pending_ce2;
+
+                // Actualizar tarjetas de marcas
+                document.querySelectorAll('.brand-card').forEach(card => {
+                    const brand = card.getAttribute('data-brand');
+                    const brandData = data.brands[brand];
+                    if (brandData) {
+                        card.querySelector('.brand-total').textContent = brandData.total;
+                        card.querySelector('.brand-pending').textContent = brandData.pending;
+                    }
+                });
+            }
+
             document.querySelectorAll('[data-month]').forEach(button => {
                 button.addEventListener('click', () => {
+                    const month = button.getAttribute('data-month');
+
+                    // Actualizar estilos de botones
                     document.querySelectorAll('[data-month]').forEach(btn => {
                         btn.classList.remove('text-primary', 'bg-primary/10', 'border-primary/30', 'shadow-lg', 'shadow-primary/5', 'font-semibold');
                         btn.classList.add('text-on-surface-variant', 'font-medium');
                     });
                     button.classList.add('text-primary', 'bg-primary/10', 'border-primary/30', 'shadow-lg', 'shadow-primary/5', 'font-semibold');
                     button.classList.remove('text-on-surface-variant', 'font-medium');
+
+                    // Actualizar datos
+                    updateMonthData(month);
                 });
             });
         </script>
