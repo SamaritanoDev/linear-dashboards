@@ -347,8 +347,8 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
                 box-sizing: border-box;
             }
             body {
-                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-                background: #0f0f0f;
+                font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+                background: #0a0e1a;
                 color: #e0e0e0;
             }
             .container {
@@ -357,10 +357,12 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
             }
             .drawer {
                 width: 200px;
-                background: #1a1a1a;
+                background: rgba(15, 21, 36, 0.6);
+                backdrop-filter: blur(16px);
+                border-right: 1px solid rgba(125, 211, 252, 0.1);
                 color: white;
                 padding: 15px;
-                box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+                box-shadow: 0 0 30px rgba(125, 211, 252, 0.05);
                 position: fixed;
                 height: 100vh;
                 overflow-y: auto;
@@ -369,7 +371,8 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
                 font-size: 14px;
                 margin-bottom: 15px;
                 padding-bottom: 8px;
-                border-bottom: 2px solid #fa76b1;
+                border-bottom: 2px solid rgba(125, 211, 252, 0.3);
+                font-weight: 600;
             }
             .drawer-item {
                 padding: 10px 12px;
@@ -379,13 +382,18 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
                 border-left: 3px solid transparent;
                 transition: all 0.2s;
                 font-size: 13px;
+                background: rgba(125, 211, 252, 0.05);
+                border: 1px solid rgba(125, 211, 252, 0.1);
             }
             .drawer-item:hover {
-                background: #2a2a2a;
+                background: rgba(125, 211, 252, 0.1);
+                border-color: rgba(125, 211, 252, 0.2);
+                box-shadow: 0 0 15px rgba(125, 211, 252, 0.1);
             }
             .drawer-item.active {
-                background: #fa76b1;
-                border-left-color: #ffcfec;
+                background: rgba(125, 211, 252, 0.2);
+                border-left-color: #7dd3fc;
+                box-shadow: 0 0 20px rgba(125, 211, 252, 0.15);
             }
             .content {
                 flex: 1;
@@ -403,21 +411,29 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
                 margin-bottom: 20px;
             }
             .note {
-                background: #1a2a28;
+                background: rgba(15, 21, 36, 0.6);
+                backdrop-filter: blur(16px);
                 padding: 12px;
-                border-left: 4px solid #04ffb0;
+                border-left: 4px solid #7dd3fc;
+                border: 1px solid rgba(125, 211, 252, 0.2);
+                border-left: 4px solid #7dd3fc;
                 margin-bottom: 20px;
-                border-radius: 4px;
-                color: #5cffd4;
+                border-radius: 8px;
+                color: #7dd3fc;
+                box-shadow: 0 0 20px rgba(125, 211, 252, 0.05);
             }
             .disclaimer {
-                background: #2a1a1a;
+                background: rgba(15, 21, 36, 0.6);
+                backdrop-filter: blur(16px);
                 padding: 15px;
-                border-left: 4px solid #ff687a;
+                border-left: 4px solid #c8a0f0;
+                border: 1px solid rgba(200, 160, 240, 0.2);
+                border-left: 4px solid #c8a0f0;
                 margin-bottom: 20px;
-                border-radius: 4px;
+                border-radius: 8px;
                 font-size: 13px;
-                color: #ffcfec;
+                color: #c8a0f0;
+                box-shadow: 0 0 20px rgba(200, 160, 240, 0.05);
             }
             .disclaimer strong {
                 display: block;
@@ -445,11 +461,13 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
                 transition: all 0.2s;
             }
             .tab-button:hover {
-                color: #fa76b1;
+                color: #7dd3fc;
+                border-bottom-color: rgba(125, 211, 252, 0.3);
             }
             .tab-button.active {
-                color: #fa76b1;
-                border-bottom-color: #fa76b1;
+                color: #7dd3fc;
+                border-bottom-color: #7dd3fc;
+                box-shadow: 0 2px 10px rgba(125, 211, 252, 0.1);
             }
             .tab-content {
                 display: none;
@@ -458,13 +476,17 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
                 display: block;
             }
             .month-summary {
-                background: #2a1a2a;
+                background: rgba(15, 21, 36, 0.6);
+                backdrop-filter: blur(16px);
                 padding: 15px;
-                border-left: 4px solid #fa76b1;
-                border-radius: 4px;
+                border-left: 4px solid #7dd3fc;
+                border: 1px solid rgba(125, 211, 252, 0.2);
+                border-left: 4px solid #7dd3fc;
+                border-radius: 8px;
                 margin-bottom: 20px;
                 font-size: 14px;
-                color: #ffcfec;
+                color: #7dd3fc;
+                box-shadow: 0 0 20px rgba(125, 211, 252, 0.05);
             }
             .metrics {
                 display: grid;
@@ -473,12 +495,19 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
                 margin-bottom: 30px;
             }
             .metric-card {
-                background: #1f1f1f;
+                background: rgba(15, 21, 36, 0.6);
+                backdrop-filter: blur(16px);
                 padding: 15px;
-                border-radius: 8px;
-                box-shadow: 0 1px 3px rgba(0,0,0,0.3);
-                border-left: 4px solid #fa76b1;
+                border-radius: 12px;
+                box-shadow: 0 0 30px rgba(125, 211, 252, 0.05);
+                border: 1px solid rgba(125, 211, 252, 0.15);
                 text-align: center;
+                transition: all 0.3s ease;
+            }
+            .metric-card:hover {
+                background: rgba(15, 21, 36, 0.75);
+                border-color: rgba(125, 211, 252, 0.3);
+                box-shadow: 0 0 30px rgba(125, 211, 252, 0.1);
             }
             .metric-card.ce1 {
                 border-left-color: #ff687a;
@@ -489,24 +518,26 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
             .value {
                 font-size: 28px;
                 font-weight: bold;
-                color: #fa76b1;
+                color: #7dd3fc;
                 margin: 8px 0;
             }
             .metric-card.ce1 .value {
-                color: #ff687a;
+                color: #7dd3fc;
             }
             .metric-card.ce2 .value {
-                color: #04ffb0;
+                color: #7dd3fc;
             }
             .label {
                 color: #aaa;
                 font-size: 12px;
             }
             .progress-container {
-                background: #1f1f1f;
+                background: rgba(15, 21, 36, 0.6);
+                backdrop-filter: blur(16px);
                 padding: 20px;
-                border-radius: 8px;
-                box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+                border-radius: 12px;
+                box-shadow: 0 0 30px rgba(125, 211, 252, 0.05);
+                border: 1px solid rgba(125, 211, 252, 0.15);
                 margin-bottom: 30px;
             }
             .progress-header {
@@ -523,42 +554,47 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
             .progress-percentage {
                 font-size: 18px;
                 font-weight: bold;
-                color: #fa76b1;
+                color: #7dd3fc;
             }
             .progress-bar {
                 width: 100%;
                 height: 24px;
-                background: #333;
+                background: rgba(125, 211, 252, 0.1);
                 border-radius: 12px;
                 overflow: hidden;
                 position: relative;
+                border: 1px solid rgba(125, 211, 252, 0.2);
             }
             .progress-fill {
                 height: 100%;
-                background: linear-gradient(90deg, #fa76b1, #ffcfec);
+                background: linear-gradient(90deg, #7dd3fc, #c8a0f0);
                 border-radius: 12px;
                 display: flex;
                 align-items: center;
                 justify-content: flex-end;
                 padding-right: 8px;
-                color: white;
+                color: #0a0e1a;
                 font-size: 11px;
                 font-weight: 600;
                 transition: width 0.3s ease;
+                box-shadow: 0 0 20px rgba(125, 211, 252, 0.3);
             }
             .section-box {
-                background: #1f1f1f;
+                background: rgba(15, 21, 36, 0.6);
+                backdrop-filter: blur(16px);
                 padding: 20px;
-                border-radius: 8px;
+                border-radius: 12px;
                 margin-bottom: 20px;
-                box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+                box-shadow: 0 0 30px rgba(125, 211, 252, 0.05);
+                border: 1px solid rgba(125, 211, 252, 0.15);
             }
             .section-box h2 {
                 margin-top: 0;
                 margin-bottom: 25px;
                 color: #ffffff;
-                border-bottom: 2px solid #fa76b1;
+                border-bottom: 2px solid rgba(125, 211, 252, 0.3);
                 padding-bottom: 15px;
+                font-weight: 600;
             }
             table {
                 width: 100%;
@@ -588,15 +624,18 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
                 margin-bottom: 10px;
             }
             .product-card {
-                background: #2a2a2a;
-                border: 1px solid #333;
-                border-radius: 6px;
+                background: rgba(15, 21, 36, 0.6);
+                backdrop-filter: blur(16px);
+                border: 1px solid rgba(125, 211, 252, 0.15);
+                border-radius: 12px;
                 padding: 15px;
-                transition: all 0.2s;
+                transition: all 0.3s ease;
+                box-shadow: 0 0 20px rgba(125, 211, 252, 0.03);
             }
             .product-card:hover {
-                border-color: #fa76b1;
-                box-shadow: 0 0 10px rgba(250, 118, 177, 0.2);
+                background: rgba(15, 21, 36, 0.75);
+                border-color: rgba(125, 211, 252, 0.3);
+                box-shadow: 0 0 30px rgba(125, 211, 252, 0.1);
             }
             .product-name {
                 font-weight: 600;
@@ -625,23 +664,24 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
                 display: block;
                 font-size: 16px;
                 font-weight: bold;
-                color: #fa76b1;
+                color: #7dd3fc;
             }
             .stat-value.pending {
-                color: #ffcfec;
+                color: #c8a0f0;
             }
             .stat-value.closed {
-                color: #04ffb0;
+                color: #7dd3fc;
             }
             .theme-toggle {
                 padding: 10px 12px;
                 margin-bottom: 15px;
                 cursor: pointer;
-                border-radius: 6px;
-                background: #2a2a2a;
-                border: 1px solid #333;
-                color: #e0e0e0;
+                border-radius: 8px;
+                background: rgba(125, 211, 252, 0.1);
+                border: 1px solid rgba(125, 211, 252, 0.2);
+                color: #7dd3fc;
                 font-size: 14px;
+                font-weight: 500;
                 transition: all 0.2s;
                 text-align: center;
                 display: flex;
@@ -650,118 +690,173 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
                 gap: 8px;
             }
             .theme-toggle:hover {
-                background: #333;
-                border-color: #fa76b1;
-                color: #fa76b1;
+                background: rgba(125, 211, 252, 0.15);
+                border-color: rgba(125, 211, 252, 0.3);
+                color: #7dd3fc;
+                box-shadow: 0 0 20px rgba(125, 211, 252, 0.1);
             }
-            /* MODO CLARO */
+            /* MODO CLARO - GLACIER */
             body.light-mode {
-                background: #f5f5f7;
+                background: linear-gradient(135deg, #f8fafc 0%, #f0f4f8 100%);
                 color: #1a1a1a;
             }
             body.light-mode .drawer {
-                background: #ffffff;
+                background: rgba(248, 250, 252, 0.7);
+                backdrop-filter: blur(16px);
                 color: #1a1a1a;
-                box-shadow: 2px 0 10px rgba(0,0,0,0.1);
-                border-right: 1px solid #e0e0e0;
+                box-shadow: 0 0 30px rgba(125, 211, 252, 0.05);
+                border-right: 1px solid rgba(125, 211, 252, 0.15);
             }
             body.light-mode .drawer h2 {
-                border-bottom-color: #fa76b1;
+                border-bottom-color: rgba(125, 211, 252, 0.3);
                 color: #1a1a1a;
+                font-weight: 600;
             }
             body.light-mode .drawer-item {
-                color: #666;
+                color: #555;
+                background: rgba(125, 211, 252, 0.08);
+                border: 1px solid rgba(125, 211, 252, 0.12);
             }
             body.light-mode .drawer-item:hover {
-                background: #f0f0f0;
-                color: #fa76b1;
+                background: rgba(125, 211, 252, 0.15);
+                color: #0a5f8f;
+                border-color: rgba(125, 211, 252, 0.25);
+                box-shadow: 0 0 15px rgba(125, 211, 252, 0.1);
             }
             body.light-mode .drawer-item.active {
-                background: #fa76b1;
-                color: #ffffff;
+                background: rgba(125, 211, 252, 0.25);
+                color: #0a5f8f;
+                border-left-color: #7dd3fc;
+                box-shadow: 0 0 20px rgba(125, 211, 252, 0.15);
             }
             body.light-mode .content {
-                background: #f5f5f7;
+                background: linear-gradient(135deg, #f8fafc 0%, #f0f4f8 100%);
             }
             body.light-mode h1, body.light-mode h2, body.light-mode h3, body.light-mode h4 {
                 color: #1a1a1a;
+                font-weight: 600;
             }
             body.light-mode .section-box {
-                background: #ffffff;
-                border: 1px solid #e0e0e0;
+                background: rgba(248, 250, 252, 0.6);
+                backdrop-filter: blur(16px);
+                border: 1px solid rgba(125, 211, 252, 0.15);
+                box-shadow: 0 0 30px rgba(125, 211, 252, 0.05);
             }
             body.light-mode .metric-card {
-                background: #ffffff;
-                border: 1px solid #e0e0e0;
+                background: rgba(248, 250, 252, 0.6);
+                backdrop-filter: blur(16px);
+                border: 1px solid rgba(125, 211, 252, 0.15);
+                box-shadow: 0 0 20px rgba(125, 211, 252, 0.03);
+            }
+            body.light-mode .metric-card:hover {
+                background: rgba(248, 250, 252, 0.75);
+                border-color: rgba(125, 211, 252, 0.3);
+                box-shadow: 0 0 30px rgba(125, 211, 252, 0.1);
             }
             body.light-mode .note {
-                background: #f0f7ff;
-                color: #004080;
-                border-left-color: #04ffb0;
+                background: rgba(125, 211, 252, 0.08);
+                backdrop-filter: blur(16px);
+                color: #0a5f8f;
+                border-left: 4px solid #7dd3fc;
+                border: 1px solid rgba(125, 211, 252, 0.2);
+                border-left: 4px solid #7dd3fc;
+                box-shadow: 0 0 20px rgba(125, 211, 252, 0.05);
             }
             body.light-mode .disclaimer {
-                background: #fff5f5;
-                color: #600;
-                border-left-color: #ff687a;
+                background: rgba(200, 160, 240, 0.08);
+                backdrop-filter: blur(16px);
+                color: #6b4c99;
+                border-left: 4px solid #c8a0f0;
+                border: 1px solid rgba(200, 160, 240, 0.2);
+                border-left: 4px solid #c8a0f0;
+                box-shadow: 0 0 20px rgba(200, 160, 240, 0.05);
             }
             body.light-mode table {
                 color: #1a1a1a;
             }
             body.light-mode th {
-                background: #f0f0f0;
+                background: rgba(125, 211, 252, 0.1);
                 color: #1a1a1a;
-                border-bottom-color: #d0d0d0;
+                border-bottom-color: rgba(125, 211, 252, 0.2);
                 font-weight: 700;
             }
             body.light-mode td {
                 color: #1a1a1a;
-                border-bottom-color: #d0d0d0;
+                border-bottom-color: rgba(125, 211, 252, 0.1);
                 font-weight: 500;
             }
             body.light-mode .product-card {
-                background: #ffffff;
-                border-color: #e0e0e0;
+                background: rgba(248, 250, 252, 0.6);
+                backdrop-filter: blur(16px);
+                border: 1px solid rgba(125, 211, 252, 0.15);
+                box-shadow: 0 0 20px rgba(125, 211, 252, 0.03);
             }
             body.light-mode .product-card:hover {
-                border-color: #fa76b1;
-                background: #fff5ff;
+                border-color: rgba(125, 211, 252, 0.3);
+                background: rgba(248, 250, 252, 0.75);
+                box-shadow: 0 0 30px rgba(125, 211, 252, 0.1);
             }
             body.light-mode .tab-button {
-                color: #999;
+                color: #888;
             }
             body.light-mode .tab-button:hover {
-                color: #fa76b1;
+                color: #7dd3fc;
+                border-bottom-color: rgba(125, 211, 252, 0.3);
             }
             body.light-mode .tab-button.active {
-                color: #fa76b1;
-                border-bottom-color: #fa76b1;
+                color: #7dd3fc;
+                border-bottom-color: #7dd3fc;
+                box-shadow: 0 2px 10px rgba(125, 211, 252, 0.1);
             }
             body.light-mode .progress-container {
-                background: #ffffff;
-                border: 1px solid #e0e0e0;
+                background: rgba(248, 250, 252, 0.6);
+                backdrop-filter: blur(16px);
+                border: 1px solid rgba(125, 211, 252, 0.15);
+                box-shadow: 0 0 30px rgba(125, 211, 252, 0.05);
             }
             body.light-mode .progress-bar {
-                background: #e0e0e0;
+                background: rgba(125, 211, 252, 0.1);
+                border: 1px solid rgba(125, 211, 252, 0.2);
+            }
+            body.light-mode .progress-fill {
+                background: linear-gradient(90deg, #7dd3fc, #c8a0f0);
+                color: #0a0e1a;
+            }
+            body.light-mode .progress-percentage {
+                color: #7dd3fc;
             }
             body.light-mode .theme-toggle {
-                background: #f0f0f0;
-                border-color: #e0e0e0;
-                color: #666;
+                background: rgba(125, 211, 252, 0.1);
+                border-color: rgba(125, 211, 252, 0.2);
+                color: #7dd3fc;
             }
             body.light-mode .theme-toggle:hover {
-                background: #e8e8e8;
-                border-color: #fa76b1;
-                color: #fa76b1;
+                background: rgba(125, 211, 252, 0.15);
+                border-color: rgba(125, 211, 252, 0.3);
+                color: #7dd3fc;
+                box-shadow: 0 0 20px rgba(125, 211, 252, 0.1);
             }
             body.light-mode .product-name {
-                color: #fa76b1;
+                color: #0a5f8f;
                 font-weight: 700;
             }
             body.light-mode .stat-value {
-                color: #fa76b1;
+                color: #7dd3fc;
             }
             body.light-mode .stat-label {
-                color: #999;
+                color: #888;
+            }
+            body.light-mode .value {
+                color: #7dd3fc;
+            }
+            body.light-mode .month-summary {
+                background: rgba(125, 211, 252, 0.08);
+                backdrop-filter: blur(16px);
+                color: #0a5f8f;
+                border-left: 4px solid #7dd3fc;
+                border: 1px solid rgba(125, 211, 252, 0.2);
+                border-left: 4px solid #7dd3fc;
+                box-shadow: 0 0 20px rgba(125, 211, 252, 0.05);
             }
             @media (max-width: 768px) {
                 .drawer {

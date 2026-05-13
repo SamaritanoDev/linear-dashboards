@@ -11,8 +11,8 @@
                 box-sizing: border-box;
             }
             body {
-                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-                background: #0f0f0f;
+                font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+                background: #0a0e1a;
                 color: #e0e0e0;
             }
             .container {
@@ -21,10 +21,12 @@
             }
             .drawer {
                 width: 200px;
-                background: #1a1a1a;
+                background: rgba(15, 21, 36, 0.6);
+                backdrop-filter: blur(16px);
+                border-right: 1px solid rgba(125, 211, 252, 0.1);
                 color: white;
                 padding: 15px;
-                box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+                box-shadow: 0 0 30px rgba(125, 211, 252, 0.05);
                 position: fixed;
                 height: 100vh;
                 overflow-y: auto;
@@ -33,7 +35,8 @@
                 font-size: 14px;
                 margin-bottom: 15px;
                 padding-bottom: 8px;
-                border-bottom: 2px solid #fa76b1;
+                border-bottom: 2px solid rgba(125, 211, 252, 0.3);
+                font-weight: 600;
             }
             .drawer-item {
                 padding: 10px 12px;
@@ -43,13 +46,18 @@
                 border-left: 3px solid transparent;
                 transition: all 0.2s;
                 font-size: 13px;
+                background: rgba(125, 211, 252, 0.05);
+                border: 1px solid rgba(125, 211, 252, 0.1);
             }
             .drawer-item:hover {
-                background: #2a2a2a;
+                background: rgba(125, 211, 252, 0.1);
+                border-color: rgba(125, 211, 252, 0.2);
+                box-shadow: 0 0 15px rgba(125, 211, 252, 0.1);
             }
             .drawer-item.active {
-                background: #fa76b1;
-                border-left-color: #ffcfec;
+                background: rgba(125, 211, 252, 0.2);
+                border-left-color: #7dd3fc;
+                box-shadow: 0 0 20px rgba(125, 211, 252, 0.15);
             }
             .content {
                 flex: 1;
@@ -67,21 +75,29 @@
                 margin-bottom: 20px;
             }
             .note {
-                background: #1a2a28;
+                background: rgba(15, 21, 36, 0.6);
+                backdrop-filter: blur(16px);
                 padding: 12px;
-                border-left: 4px solid #04ffb0;
+                border-left: 4px solid #7dd3fc;
+                border: 1px solid rgba(125, 211, 252, 0.2);
+                border-left: 4px solid #7dd3fc;
                 margin-bottom: 20px;
-                border-radius: 4px;
-                color: #5cffd4;
+                border-radius: 8px;
+                color: #7dd3fc;
+                box-shadow: 0 0 20px rgba(125, 211, 252, 0.05);
             }
             .disclaimer {
-                background: #2a1a1a;
+                background: rgba(15, 21, 36, 0.6);
+                backdrop-filter: blur(16px);
                 padding: 15px;
-                border-left: 4px solid #ff687a;
+                border-left: 4px solid #c8a0f0;
+                border: 1px solid rgba(200, 160, 240, 0.2);
+                border-left: 4px solid #c8a0f0;
                 margin-bottom: 20px;
-                border-radius: 4px;
+                border-radius: 8px;
                 font-size: 13px;
-                color: #ffcfec;
+                color: #c8a0f0;
+                box-shadow: 0 0 20px rgba(200, 160, 240, 0.05);
             }
             .disclaimer strong {
                 display: block;
@@ -109,11 +125,13 @@
                 transition: all 0.2s;
             }
             .tab-button:hover {
-                color: #fa76b1;
+                color: #7dd3fc;
+                border-bottom-color: rgba(125, 211, 252, 0.3);
             }
             .tab-button.active {
-                color: #fa76b1;
-                border-bottom-color: #fa76b1;
+                color: #7dd3fc;
+                border-bottom-color: #7dd3fc;
+                box-shadow: 0 2px 10px rgba(125, 211, 252, 0.1);
             }
             .tab-content {
                 display: none;
@@ -122,13 +140,17 @@
                 display: block;
             }
             .month-summary {
-                background: #2a1a2a;
+                background: rgba(15, 21, 36, 0.6);
+                backdrop-filter: blur(16px);
                 padding: 15px;
-                border-left: 4px solid #fa76b1;
-                border-radius: 4px;
+                border-left: 4px solid #7dd3fc;
+                border: 1px solid rgba(125, 211, 252, 0.2);
+                border-left: 4px solid #7dd3fc;
+                border-radius: 8px;
                 margin-bottom: 20px;
                 font-size: 14px;
-                color: #ffcfec;
+                color: #7dd3fc;
+                box-shadow: 0 0 20px rgba(125, 211, 252, 0.05);
             }
             .metrics {
                 display: grid;
@@ -137,12 +159,19 @@
                 margin-bottom: 30px;
             }
             .metric-card {
-                background: #1f1f1f;
+                background: rgba(15, 21, 36, 0.6);
+                backdrop-filter: blur(16px);
                 padding: 15px;
-                border-radius: 8px;
-                box-shadow: 0 1px 3px rgba(0,0,0,0.3);
-                border-left: 4px solid #fa76b1;
+                border-radius: 12px;
+                box-shadow: 0 0 30px rgba(125, 211, 252, 0.05);
+                border: 1px solid rgba(125, 211, 252, 0.15);
                 text-align: center;
+                transition: all 0.3s ease;
+            }
+            .metric-card:hover {
+                background: rgba(15, 21, 36, 0.75);
+                border-color: rgba(125, 211, 252, 0.3);
+                box-shadow: 0 0 30px rgba(125, 211, 252, 0.1);
             }
             .metric-card.ce1 {
                 border-left-color: #ff687a;
@@ -153,24 +182,26 @@
             .value {
                 font-size: 28px;
                 font-weight: bold;
-                color: #fa76b1;
+                color: #7dd3fc;
                 margin: 8px 0;
             }
             .metric-card.ce1 .value {
-                color: #ff687a;
+                color: #7dd3fc;
             }
             .metric-card.ce2 .value {
-                color: #04ffb0;
+                color: #7dd3fc;
             }
             .label {
                 color: #aaa;
                 font-size: 12px;
             }
             .progress-container {
-                background: #1f1f1f;
+                background: rgba(15, 21, 36, 0.6);
+                backdrop-filter: blur(16px);
                 padding: 20px;
-                border-radius: 8px;
-                box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+                border-radius: 12px;
+                box-shadow: 0 0 30px rgba(125, 211, 252, 0.05);
+                border: 1px solid rgba(125, 211, 252, 0.15);
                 margin-bottom: 30px;
             }
             .progress-header {
@@ -187,42 +218,47 @@
             .progress-percentage {
                 font-size: 18px;
                 font-weight: bold;
-                color: #fa76b1;
+                color: #7dd3fc;
             }
             .progress-bar {
                 width: 100%;
                 height: 24px;
-                background: #333;
+                background: rgba(125, 211, 252, 0.1);
                 border-radius: 12px;
                 overflow: hidden;
                 position: relative;
+                border: 1px solid rgba(125, 211, 252, 0.2);
             }
             .progress-fill {
                 height: 100%;
-                background: linear-gradient(90deg, #fa76b1, #ffcfec);
+                background: linear-gradient(90deg, #7dd3fc, #c8a0f0);
                 border-radius: 12px;
                 display: flex;
                 align-items: center;
                 justify-content: flex-end;
                 padding-right: 8px;
-                color: white;
+                color: #0a0e1a;
                 font-size: 11px;
                 font-weight: 600;
                 transition: width 0.3s ease;
+                box-shadow: 0 0 20px rgba(125, 211, 252, 0.3);
             }
             .section-box {
-                background: #1f1f1f;
+                background: rgba(15, 21, 36, 0.6);
+                backdrop-filter: blur(16px);
                 padding: 20px;
-                border-radius: 8px;
+                border-radius: 12px;
                 margin-bottom: 20px;
-                box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+                box-shadow: 0 0 30px rgba(125, 211, 252, 0.05);
+                border: 1px solid rgba(125, 211, 252, 0.15);
             }
             .section-box h2 {
                 margin-top: 0;
                 margin-bottom: 25px;
                 color: #ffffff;
-                border-bottom: 2px solid #fa76b1;
+                border-bottom: 2px solid rgba(125, 211, 252, 0.3);
                 padding-bottom: 15px;
+                font-weight: 600;
             }
             table {
                 width: 100%;
@@ -252,15 +288,18 @@
                 margin-bottom: 10px;
             }
             .product-card {
-                background: #2a2a2a;
-                border: 1px solid #333;
-                border-radius: 6px;
+                background: rgba(15, 21, 36, 0.6);
+                backdrop-filter: blur(16px);
+                border: 1px solid rgba(125, 211, 252, 0.15);
+                border-radius: 12px;
                 padding: 15px;
-                transition: all 0.2s;
+                transition: all 0.3s ease;
+                box-shadow: 0 0 20px rgba(125, 211, 252, 0.03);
             }
             .product-card:hover {
-                border-color: #fa76b1;
-                box-shadow: 0 0 10px rgba(250, 118, 177, 0.2);
+                background: rgba(15, 21, 36, 0.75);
+                border-color: rgba(125, 211, 252, 0.3);
+                box-shadow: 0 0 30px rgba(125, 211, 252, 0.1);
             }
             .product-name {
                 font-weight: 600;
@@ -289,23 +328,24 @@
                 display: block;
                 font-size: 16px;
                 font-weight: bold;
-                color: #fa76b1;
+                color: #7dd3fc;
             }
             .stat-value.pending {
-                color: #ffcfec;
+                color: #c8a0f0;
             }
             .stat-value.closed {
-                color: #04ffb0;
+                color: #7dd3fc;
             }
             .theme-toggle {
                 padding: 10px 12px;
                 margin-bottom: 15px;
                 cursor: pointer;
-                border-radius: 6px;
-                background: #2a2a2a;
-                border: 1px solid #333;
-                color: #e0e0e0;
+                border-radius: 8px;
+                background: rgba(125, 211, 252, 0.1);
+                border: 1px solid rgba(125, 211, 252, 0.2);
+                color: #7dd3fc;
                 font-size: 14px;
+                font-weight: 500;
                 transition: all 0.2s;
                 text-align: center;
                 display: flex;
@@ -314,118 +354,173 @@
                 gap: 8px;
             }
             .theme-toggle:hover {
-                background: #333;
-                border-color: #fa76b1;
-                color: #fa76b1;
+                background: rgba(125, 211, 252, 0.15);
+                border-color: rgba(125, 211, 252, 0.3);
+                color: #7dd3fc;
+                box-shadow: 0 0 20px rgba(125, 211, 252, 0.1);
             }
-            /* MODO CLARO */
+            /* MODO CLARO - GLACIER */
             body.light-mode {
-                background: #f5f5f7;
+                background: linear-gradient(135deg, #f8fafc 0%, #f0f4f8 100%);
                 color: #1a1a1a;
             }
             body.light-mode .drawer {
-                background: #ffffff;
+                background: rgba(248, 250, 252, 0.7);
+                backdrop-filter: blur(16px);
                 color: #1a1a1a;
-                box-shadow: 2px 0 10px rgba(0,0,0,0.1);
-                border-right: 1px solid #e0e0e0;
+                box-shadow: 0 0 30px rgba(125, 211, 252, 0.05);
+                border-right: 1px solid rgba(125, 211, 252, 0.15);
             }
             body.light-mode .drawer h2 {
-                border-bottom-color: #fa76b1;
+                border-bottom-color: rgba(125, 211, 252, 0.3);
                 color: #1a1a1a;
+                font-weight: 600;
             }
             body.light-mode .drawer-item {
-                color: #666;
+                color: #555;
+                background: rgba(125, 211, 252, 0.08);
+                border: 1px solid rgba(125, 211, 252, 0.12);
             }
             body.light-mode .drawer-item:hover {
-                background: #f0f0f0;
-                color: #fa76b1;
+                background: rgba(125, 211, 252, 0.15);
+                color: #0a5f8f;
+                border-color: rgba(125, 211, 252, 0.25);
+                box-shadow: 0 0 15px rgba(125, 211, 252, 0.1);
             }
             body.light-mode .drawer-item.active {
-                background: #fa76b1;
-                color: #ffffff;
+                background: rgba(125, 211, 252, 0.25);
+                color: #0a5f8f;
+                border-left-color: #7dd3fc;
+                box-shadow: 0 0 20px rgba(125, 211, 252, 0.15);
             }
             body.light-mode .content {
-                background: #f5f5f7;
+                background: linear-gradient(135deg, #f8fafc 0%, #f0f4f8 100%);
             }
             body.light-mode h1, body.light-mode h2, body.light-mode h3, body.light-mode h4 {
                 color: #1a1a1a;
+                font-weight: 600;
             }
             body.light-mode .section-box {
-                background: #ffffff;
-                border: 1px solid #e0e0e0;
+                background: rgba(248, 250, 252, 0.6);
+                backdrop-filter: blur(16px);
+                border: 1px solid rgba(125, 211, 252, 0.15);
+                box-shadow: 0 0 30px rgba(125, 211, 252, 0.05);
             }
             body.light-mode .metric-card {
-                background: #ffffff;
-                border: 1px solid #e0e0e0;
+                background: rgba(248, 250, 252, 0.6);
+                backdrop-filter: blur(16px);
+                border: 1px solid rgba(125, 211, 252, 0.15);
+                box-shadow: 0 0 20px rgba(125, 211, 252, 0.03);
+            }
+            body.light-mode .metric-card:hover {
+                background: rgba(248, 250, 252, 0.75);
+                border-color: rgba(125, 211, 252, 0.3);
+                box-shadow: 0 0 30px rgba(125, 211, 252, 0.1);
             }
             body.light-mode .note {
-                background: #f0f7ff;
-                color: #004080;
-                border-left-color: #04ffb0;
+                background: rgba(125, 211, 252, 0.08);
+                backdrop-filter: blur(16px);
+                color: #0a5f8f;
+                border-left: 4px solid #7dd3fc;
+                border: 1px solid rgba(125, 211, 252, 0.2);
+                border-left: 4px solid #7dd3fc;
+                box-shadow: 0 0 20px rgba(125, 211, 252, 0.05);
             }
             body.light-mode .disclaimer {
-                background: #fff5f5;
-                color: #600;
-                border-left-color: #ff687a;
+                background: rgba(200, 160, 240, 0.08);
+                backdrop-filter: blur(16px);
+                color: #6b4c99;
+                border-left: 4px solid #c8a0f0;
+                border: 1px solid rgba(200, 160, 240, 0.2);
+                border-left: 4px solid #c8a0f0;
+                box-shadow: 0 0 20px rgba(200, 160, 240, 0.05);
             }
             body.light-mode table {
                 color: #1a1a1a;
             }
             body.light-mode th {
-                background: #f0f0f0;
+                background: rgba(125, 211, 252, 0.1);
                 color: #1a1a1a;
-                border-bottom-color: #d0d0d0;
+                border-bottom-color: rgba(125, 211, 252, 0.2);
                 font-weight: 700;
             }
             body.light-mode td {
                 color: #1a1a1a;
-                border-bottom-color: #d0d0d0;
+                border-bottom-color: rgba(125, 211, 252, 0.1);
                 font-weight: 500;
             }
             body.light-mode .product-card {
-                background: #ffffff;
-                border-color: #e0e0e0;
+                background: rgba(248, 250, 252, 0.6);
+                backdrop-filter: blur(16px);
+                border: 1px solid rgba(125, 211, 252, 0.15);
+                box-shadow: 0 0 20px rgba(125, 211, 252, 0.03);
             }
             body.light-mode .product-card:hover {
-                border-color: #fa76b1;
-                background: #fff5ff;
+                border-color: rgba(125, 211, 252, 0.3);
+                background: rgba(248, 250, 252, 0.75);
+                box-shadow: 0 0 30px rgba(125, 211, 252, 0.1);
             }
             body.light-mode .tab-button {
-                color: #999;
+                color: #888;
             }
             body.light-mode .tab-button:hover {
-                color: #fa76b1;
+                color: #7dd3fc;
+                border-bottom-color: rgba(125, 211, 252, 0.3);
             }
             body.light-mode .tab-button.active {
-                color: #fa76b1;
-                border-bottom-color: #fa76b1;
+                color: #7dd3fc;
+                border-bottom-color: #7dd3fc;
+                box-shadow: 0 2px 10px rgba(125, 211, 252, 0.1);
             }
             body.light-mode .progress-container {
-                background: #ffffff;
-                border: 1px solid #e0e0e0;
+                background: rgba(248, 250, 252, 0.6);
+                backdrop-filter: blur(16px);
+                border: 1px solid rgba(125, 211, 252, 0.15);
+                box-shadow: 0 0 30px rgba(125, 211, 252, 0.05);
             }
             body.light-mode .progress-bar {
-                background: #e0e0e0;
+                background: rgba(125, 211, 252, 0.1);
+                border: 1px solid rgba(125, 211, 252, 0.2);
+            }
+            body.light-mode .progress-fill {
+                background: linear-gradient(90deg, #7dd3fc, #c8a0f0);
+                color: #0a0e1a;
+            }
+            body.light-mode .progress-percentage {
+                color: #7dd3fc;
             }
             body.light-mode .theme-toggle {
-                background: #f0f0f0;
-                border-color: #e0e0e0;
-                color: #666;
+                background: rgba(125, 211, 252, 0.1);
+                border-color: rgba(125, 211, 252, 0.2);
+                color: #7dd3fc;
             }
             body.light-mode .theme-toggle:hover {
-                background: #e8e8e8;
-                border-color: #fa76b1;
-                color: #fa76b1;
+                background: rgba(125, 211, 252, 0.15);
+                border-color: rgba(125, 211, 252, 0.3);
+                color: #7dd3fc;
+                box-shadow: 0 0 20px rgba(125, 211, 252, 0.1);
             }
             body.light-mode .product-name {
-                color: #fa76b1;
+                color: #0a5f8f;
                 font-weight: 700;
             }
             body.light-mode .stat-value {
-                color: #fa76b1;
+                color: #7dd3fc;
             }
             body.light-mode .stat-label {
-                color: #999;
+                color: #888;
+            }
+            body.light-mode .value {
+                color: #7dd3fc;
+            }
+            body.light-mode .month-summary {
+                background: rgba(125, 211, 252, 0.08);
+                backdrop-filter: blur(16px);
+                color: #0a5f8f;
+                border-left: 4px solid #7dd3fc;
+                border: 1px solid rgba(125, 211, 252, 0.2);
+                border-left: 4px solid #7dd3fc;
+                box-shadow: 0 0 20px rgba(125, 211, 252, 0.05);
             }
             @media (max-width: 768px) {
                 .drawer {
@@ -470,7 +565,7 @@
     
                     <div class="tab-content " id="tab-Enero">
                         <div class="month-summary">
-                            <strong>Enero 2026:</strong> 0 issues totales
+                            <strong>Enero 2026:</strong> 31 issues totales
                             | <strong>Pendientes: 0</strong>
                         </div>
 
@@ -479,21 +574,21 @@
                         <div class="progress-container">
                             <div class="progress-header">
                                 <h4>Progreso General</h4>
-                                <span class="progress-percentage">0%</span>
+                                <span class="progress-percentage">100%</span>
                             </div>
                             <div class="progress-bar">
-                                <div class="progress-fill" style="width: 0%"></div>
+                                <div class="progress-fill" style="width: 100%"></div>
                             </div>
                         </div>
 
                         <div class="metrics">
                             <div class="metric-card">
                                 <div class="label">Total Issues</div>
-                                <div class="value">0</div>
+                                <div class="value">31</div>
                             </div>
                             <div class="metric-card ce2">
                                 <div class="label">CE2 Issues Total</div>
-                                <div class="value">0</div>
+                                <div class="value">31</div>
                             </div>
                             <div class="metric-card">
                                 <div class="label">🔥 In Progress</div>
@@ -509,7 +604,7 @@
                             </div>
                             <div class="metric-card">
                                 <div class="label">✅ Cerrados</div>
-                                <div class="value">0</div>
+                                <div class="value">31</div>
                             </div>
                             <div class="metric-card">
                                 <div class="label">⏳ Pendientes</div>
@@ -521,6 +616,28 @@
                             <h2>📦 Resumen por Producto (Total vs Pendientes)</h2>
                             <div class="product-summary">
         
+                                <div class="product-card">
+                                    <div class="product-name">Fimo</div>
+                                    <div class="product-stats">
+                                        <div class="stat">
+                                            <span class="stat-label">Total</span>
+                                            <span class="stat-value">1</span>
+                                        </div>
+            
+                                    </div>
+                                </div>
+            
+                                <div class="product-card">
+                                    <div class="product-name">Wings</div>
+                                    <div class="product-stats">
+                                        <div class="stat">
+                                            <span class="stat-label">Total</span>
+                                            <span class="stat-value">1</span>
+                                        </div>
+            
+                                    </div>
+                                </div>
+            
                             </div>
                         </div>
 
@@ -540,7 +657,7 @@
                                     <th>CE2</th>
                                     <th>Total</th>
                                 </tr>
-        
+        <tr><td>Closed</td><td>0</td><td>31</td><td>31</td></tr>
                             </table>
                         </div>
 
@@ -554,6 +671,20 @@
                                     <th>Completado %</th>
                                 </tr>
         
+                                <tr>
+                                    <td><strong>Fimo</strong></td>
+                                    <td>0</td>
+                                    <td>1</td>
+                                    <td>100.0%</td>
+                                </tr>
+            
+                                <tr>
+                                    <td><strong>Wings</strong></td>
+                                    <td>0</td>
+                                    <td>1</td>
+                                    <td>100.0%</td>
+                                </tr>
+            
                             </table>
                         </div>
         
@@ -1026,8 +1157,8 @@
         
                     <div class="tab-content " id="tab-Abril">
                         <div class="month-summary">
-                            <strong>Abril 2026:</strong> 158 issues totales
-                            | <strong>Pendientes: 27</strong>
+                            <strong>Abril 2026:</strong> 157 issues totales
+                            | <strong>Pendientes: 23</strong>
                         </div>
 
                         <h3>📊 Resumen</h3>
@@ -1035,25 +1166,25 @@
                         <div class="progress-container">
                             <div class="progress-header">
                                 <h4>Progreso General</h4>
-                                <span class="progress-percentage">82%</span>
+                                <span class="progress-percentage">85%</span>
                             </div>
                             <div class="progress-bar">
-                                <div class="progress-fill" style="width: 82%"></div>
+                                <div class="progress-fill" style="width: 85%"></div>
                             </div>
                         </div>
 
                         <div class="metrics">
                             <div class="metric-card">
                                 <div class="label">Total Issues</div>
-                                <div class="value">158</div>
+                                <div class="value">157</div>
                             </div>
                             <div class="metric-card ce2">
                                 <div class="label">CE2 Issues Total</div>
-                                <div class="value">158</div>
+                                <div class="value">157</div>
                             </div>
                             <div class="metric-card">
                                 <div class="label">🔥 In Progress</div>
-                                <div class="value">5</div>
+                                <div class="value">2</div>
                             </div>
                             <div class="metric-card">
                                 <div class="label">🏷️ Sin Label</div>
@@ -1065,11 +1196,11 @@
                             </div>
                             <div class="metric-card">
                                 <div class="label">✅ Cerrados</div>
-                                <div class="value">131</div>
+                                <div class="value">134</div>
                             </div>
                             <div class="metric-card">
                                 <div class="label">⏳ Pendientes</div>
-                                <div class="value">27</div>
+                                <div class="value">23</div>
                             </div>
                         </div>
 
@@ -1087,7 +1218,7 @@
             
                                         <div class="stat">
                                             <span class="stat-label">Pendientes</span>
-                                            <span class="stat-value pending">8</span>
+                                            <span class="stat-value pending">7</span>
                                         </div>
                 
                                     </div>
@@ -1103,7 +1234,7 @@
             
                                         <div class="stat">
                                             <span class="stat-label">Pendientes</span>
-                                            <span class="stat-value pending">6</span>
+                                            <span class="stat-value pending">5</span>
                                         </div>
                 
                                     </div>
@@ -1146,12 +1277,12 @@
                                     <div class="product-stats">
                                         <div class="stat">
                                             <span class="stat-label">Total</span>
-                                            <span class="stat-value">13</span>
+                                            <span class="stat-value">12</span>
                                         </div>
             
                                         <div class="stat">
                                             <span class="stat-label">Pendientes</span>
-                                            <span class="stat-value pending">4</span>
+                                            <span class="stat-value pending">3</span>
                                         </div>
                 
                                     </div>
@@ -1219,11 +1350,6 @@
                                             <span class="stat-value">2</span>
                                         </div>
             
-                                        <div class="stat">
-                                            <span class="stat-label">Pendientes</span>
-                                            <span class="stat-value pending">1</span>
-                                        </div>
-                
                                     </div>
                                 </div>
             
@@ -1262,7 +1388,7 @@
                                     <th>CE2</th>
                                     <th>Total</th>
                                 </tr>
-        <tr><td>Backlog</td><td>0</td><td>9</td><td>9</td></tr><tr><td>Closed</td><td>0</td><td>131</td><td>131</td></tr><tr><td>In Progress</td><td>0</td><td>5</td><td>6</td></tr><tr><td>In Review</td><td>0</td><td>7</td><td>7</td></tr><tr><td>Planning</td><td>0</td><td>6</td><td>6</td></tr>
+        <tr><td>Backlog</td><td>0</td><td>8</td><td>8</td></tr><tr><td>Closed</td><td>0</td><td>134</td><td>134</td></tr><tr><td>In Progress</td><td>0</td><td>2</td><td>3</td></tr><tr><td>In Review</td><td>0</td><td>7</td><td>7</td></tr><tr><td>Planning</td><td>0</td><td>6</td><td>6</td></tr>
                             </table>
                         </div>
 
@@ -1292,16 +1418,16 @@
             
                                 <tr>
                                     <td><strong>Cuy</strong></td>
-                                    <td>8</td>
+                                    <td>7</td>
                                     <td>41</td>
-                                    <td>80.5%</td>
+                                    <td>82.9%</td>
                                 </tr>
             
                                 <tr>
                                     <td><strong>Fimo</strong></td>
-                                    <td>1</td>
+                                    <td>0</td>
                                     <td>2</td>
-                                    <td>50.0%</td>
+                                    <td>100.0%</td>
                                 </tr>
             
                                 <tr>
@@ -1313,16 +1439,16 @@
             
                                 <tr>
                                     <td><strong>Guinea</strong></td>
-                                    <td>6</td>
+                                    <td>5</td>
                                     <td>19</td>
-                                    <td>68.4%</td>
+                                    <td>73.7%</td>
                                 </tr>
             
                                 <tr>
                                     <td><strong>Habla+</strong></td>
-                                    <td>4</td>
-                                    <td>13</td>
-                                    <td>69.2%</td>
+                                    <td>3</td>
+                                    <td>12</td>
+                                    <td>75.0%</td>
                                 </tr>
             
                                 <tr>
@@ -1357,7 +1483,7 @@
                         </div>
         
                         <div class="section-box">
-                            <h2>⏳ Pendientes por Revisar (27)</h2>
+                            <h2>⏳ Pendientes por Revisar (23)</h2>
                             <table>
                                 <tr>
                                     <th>ID Issue</th>
@@ -1412,21 +1538,11 @@
                                 <tr>
                                     <td><strong>CE2-1493</strong></td>
                                     <td>Dashboard de reportes B2C muestra marzo en cero</td>
-                                    <td>Backlog</td>
+                                    <td>Planning</td>
                                     <td>Finanzas</td>
                                     <td>CE2</td>
                                     <td>Alex Estrada</td>
                                     <td><a href="https://linear.app/guinea/issue/CE2-1493" target="_blank" style="color: #d3c5ff; text-decoration: none;">Abrir →</a></td>
-                                </tr>
-                
-                                <tr>
-                                    <td><strong>CE2-1617</strong></td>
-                                    <td>Exportar CSV falla en portabilidad de Guinea</td>
-                                    <td>In Progress</td>
-                                    <td>Guinea</td>
-                                    <td>CE2</td>
-                                    <td>Farialis Martinez</td>
-                                    <td><a href="https://linear.app/guinea/issue/CE2-1617" target="_blank" style="color: #d3c5ff; text-decoration: none;">Abrir →</a></td>
                                 </tr>
                 
                                 <tr>
@@ -1447,16 +1563,6 @@
                                     <td>CE2</td>
                                     <td>Patrick Bolaños</td>
                                     <td><a href="https://linear.app/guinea/issue/CE2-1487" target="_blank" style="color: #d3c5ff; text-decoration: none;">Abrir →</a></td>
-                                </tr>
-                
-                                <tr>
-                                    <td><strong>CE2-1486</strong></td>
-                                    <td>Renovación automática falla y desactiva suscripción Cuy</td>
-                                    <td>Planning</td>
-                                    <td>Cuy</td>
-                                    <td>CE2</td>
-                                    <td>Leandro Ramirez</td>
-                                    <td><a href="https://linear.app/guinea/issue/CE2-1486" target="_blank" style="color: #d3c5ff; text-decoration: none;">Abrir →</a></td>
                                 </tr>
                 
                                 <tr>
@@ -1550,16 +1656,6 @@
                                 </tr>
                 
                                 <tr>
-                                    <td><strong>CE2-1619</strong></td>
-                                    <td>Dar seguimiento a reactivación de líneas Habla+</td>
-                                    <td>In Progress</td>
-                                    <td>Habla+</td>
-                                    <td>CE2</td>
-                                    <td>Alex Estrada</td>
-                                    <td><a href="https://linear.app/guinea/issue/CE2-1619" target="_blank" style="color: #d3c5ff; text-decoration: none;">Abrir →</a></td>
-                                </tr>
-                
-                                <tr>
                                     <td><strong>CE2-1443</strong></td>
                                     <td>Atribución incorrecta de activación de extranjero a peruano</td>
                                     <td>Backlog</td>
@@ -1620,16 +1716,6 @@
                                 </tr>
                 
                                 <tr>
-                                    <td><strong>CE2-1377</strong></td>
-                                    <td>Recarga por Yape no impacta en línea Fimo (Caso especial)</td>
-                                    <td>In Progress</td>
-                                    <td>Fimo</td>
-                                    <td>CE2</td>
-                                    <td>Leandro Ramirez</td>
-                                    <td><a href="https://linear.app/guinea/issue/CE2-1377" target="_blank" style="color: #d3c5ff; text-decoration: none;">Abrir →</a></td>
-                                </tr>
-                
-                                <tr>
                                     <td><strong>CE2-1615</strong></td>
                                     <td>Enviar correo por interrupción temporal de RENIEC</td>
                                     <td>In Review</td>
@@ -1670,8 +1756,8 @@
         
                     <div class="tab-content active" id="tab-Mayo">
                         <div class="month-summary">
-                            <strong>Mayo 2026:</strong> 43 issues totales
-                            | <strong>Pendientes: 20</strong>
+                            <strong>Mayo 2026:</strong> 47 issues totales
+                            | <strong>Pendientes: 21</strong>
                         </div>
 
                         <h3>📊 Resumen</h3>
@@ -1679,25 +1765,25 @@
                         <div class="progress-container">
                             <div class="progress-header">
                                 <h4>Progreso General</h4>
-                                <span class="progress-percentage">53%</span>
+                                <span class="progress-percentage">55%</span>
                             </div>
                             <div class="progress-bar">
-                                <div class="progress-fill" style="width: 53%"></div>
+                                <div class="progress-fill" style="width: 55%"></div>
                             </div>
                         </div>
 
                         <div class="metrics">
                             <div class="metric-card">
                                 <div class="label">Total Issues</div>
-                                <div class="value">43</div>
+                                <div class="value">47</div>
                             </div>
                             <div class="metric-card ce2">
                                 <div class="label">CE2 Issues Total</div>
-                                <div class="value">43</div>
+                                <div class="value">47</div>
                             </div>
                             <div class="metric-card">
                                 <div class="label">🔥 In Progress</div>
-                                <div class="value">3</div>
+                                <div class="value">2</div>
                             </div>
                             <div class="metric-card">
                                 <div class="label">🏷️ Sin Label</div>
@@ -1709,11 +1795,11 @@
                             </div>
                             <div class="metric-card">
                                 <div class="label">✅ Cerrados</div>
-                                <div class="value">23</div>
+                                <div class="value">26</div>
                             </div>
                             <div class="metric-card">
                                 <div class="label">⏳ Pendientes</div>
-                                <div class="value">20</div>
+                                <div class="value">21</div>
                             </div>
                         </div>
 
@@ -1726,12 +1812,12 @@
                                     <div class="product-stats">
                                         <div class="stat">
                                             <span class="stat-label">Total</span>
-                                            <span class="stat-value">13</span>
+                                            <span class="stat-value">12</span>
                                         </div>
             
                                         <div class="stat">
                                             <span class="stat-label">Pendientes</span>
-                                            <span class="stat-value pending">7</span>
+                                            <span class="stat-value pending">6</span>
                                         </div>
                 
                                     </div>
@@ -1742,14 +1828,41 @@
                                     <div class="product-stats">
                                         <div class="stat">
                                             <span class="stat-label">Total</span>
-                                            <span class="stat-value">6</span>
+                                            <span class="stat-value">8</span>
                                         </div>
             
                                         <div class="stat">
                                             <span class="stat-label">Pendientes</span>
-                                            <span class="stat-value pending">3</span>
+                                            <span class="stat-value pending">5</span>
                                         </div>
                 
+                                    </div>
+                                </div>
+            
+                                <div class="product-card">
+                                    <div class="product-name">Habla+</div>
+                                    <div class="product-stats">
+                                        <div class="stat">
+                                            <span class="stat-label">Total</span>
+                                            <span class="stat-value">4</span>
+                                        </div>
+            
+                                        <div class="stat">
+                                            <span class="stat-label">Pendientes</span>
+                                            <span class="stat-value pending">2</span>
+                                        </div>
+                
+                                    </div>
+                                </div>
+            
+                                <div class="product-card">
+                                    <div class="product-name">Fimo</div>
+                                    <div class="product-stats">
+                                        <div class="stat">
+                                            <span class="stat-label">Total</span>
+                                            <span class="stat-value">4</span>
+                                        </div>
+            
                                     </div>
                                 </div>
             
@@ -1763,7 +1876,23 @@
             
                                         <div class="stat">
                                             <span class="stat-label">Pendientes</span>
-                                            <span class="stat-value pending">3</span>
+                                            <span class="stat-value pending">2</span>
+                                        </div>
+                
+                                    </div>
+                                </div>
+            
+                                <div class="product-card">
+                                    <div class="product-name">Finanzas</div>
+                                    <div class="product-stats">
+                                        <div class="stat">
+                                            <span class="stat-label">Total</span>
+                                            <span class="stat-value">3</span>
+                                        </div>
+            
+                                        <div class="stat">
+                                            <span class="stat-label">Pendientes</span>
+                                            <span class="stat-value pending">1</span>
                                         </div>
                 
                                     </div>
@@ -1780,33 +1909,6 @@
                                         <div class="stat">
                                             <span class="stat-label">Pendientes</span>
                                             <span class="stat-value pending">1</span>
-                                        </div>
-                
-                                    </div>
-                                </div>
-            
-                                <div class="product-card">
-                                    <div class="product-name">Fimo</div>
-                                    <div class="product-stats">
-                                        <div class="stat">
-                                            <span class="stat-label">Total</span>
-                                            <span class="stat-value">3</span>
-                                        </div>
-            
-                                    </div>
-                                </div>
-            
-                                <div class="product-card">
-                                    <div class="product-name">Habla+</div>
-                                    <div class="product-stats">
-                                        <div class="stat">
-                                            <span class="stat-label">Total</span>
-                                            <span class="stat-value">3</span>
-                                        </div>
-            
-                                        <div class="stat">
-                                            <span class="stat-label">Pendientes</span>
-                                            <span class="stat-value pending">2</span>
                                         </div>
                 
                                     </div>
@@ -1841,17 +1943,6 @@
                                             <span class="stat-value pending">1</span>
                                         </div>
                 
-                                    </div>
-                                </div>
-            
-                                <div class="product-card">
-                                    <div class="product-name">Finanzas</div>
-                                    <div class="product-stats">
-                                        <div class="stat">
-                                            <span class="stat-label">Total</span>
-                                            <span class="stat-value">2</span>
-                                        </div>
-            
                                     </div>
                                 </div>
             
@@ -1906,7 +1997,7 @@
                                     <th>CE2</th>
                                     <th>Total</th>
                                 </tr>
-        <tr><td>Backlog</td><td>0</td><td>8</td><td>8</td></tr><tr><td>Closed</td><td>0</td><td>23</td><td>23</td></tr><tr><td>In Progress</td><td>0</td><td>3</td><td>3</td></tr><tr><td>In Review</td><td>0</td><td>2</td><td>2</td></tr><tr><td>Planning</td><td>0</td><td>6</td><td>6</td></tr><tr><td>Triage</td><td>0</td><td>1</td><td>1</td></tr>
+        <tr><td>Backlog</td><td>0</td><td>10</td><td>10</td></tr><tr><td>Closed</td><td>0</td><td>26</td><td>26</td></tr><tr><td>In Progress</td><td>0</td><td>2</td><td>2</td></tr><tr><td>In Review</td><td>0</td><td>3</td><td>3</td></tr><tr><td>Planning</td><td>0</td><td>5</td><td>5</td></tr><tr><td>Triage</td><td>0</td><td>1</td><td>1</td></tr>
                             </table>
                         </div>
 
@@ -1936,37 +2027,37 @@
             
                                 <tr>
                                     <td><strong>Cuy</strong></td>
-                                    <td>7</td>
-                                    <td>13</td>
-                                    <td>46.2%</td>
+                                    <td>6</td>
+                                    <td>12</td>
+                                    <td>50.0%</td>
                                 </tr>
             
                                 <tr>
                                     <td><strong>Fimo</strong></td>
                                     <td>0</td>
-                                    <td>3</td>
+                                    <td>4</td>
                                     <td>100.0%</td>
                                 </tr>
             
                                 <tr>
                                     <td><strong>Finanzas</strong></td>
-                                    <td>0</td>
-                                    <td>2</td>
-                                    <td>100.0%</td>
+                                    <td>1</td>
+                                    <td>3</td>
+                                    <td>66.7%</td>
                                 </tr>
             
                                 <tr>
                                     <td><strong>Guinea</strong></td>
-                                    <td>3</td>
-                                    <td>6</td>
-                                    <td>50.0%</td>
+                                    <td>5</td>
+                                    <td>8</td>
+                                    <td>37.5%</td>
                                 </tr>
             
                                 <tr>
                                     <td><strong>Habla+</strong></td>
                                     <td>2</td>
-                                    <td>3</td>
-                                    <td>33.3%</td>
+                                    <td>4</td>
+                                    <td>50.0%</td>
                                 </tr>
             
                                 <tr>
@@ -1985,9 +2076,9 @@
             
                                 <tr>
                                     <td><strong>PeruSim+</strong></td>
-                                    <td>3</td>
+                                    <td>2</td>
                                     <td>4</td>
-                                    <td>25.0%</td>
+                                    <td>50.0%</td>
                                 </tr>
             
                                 <tr>
@@ -2001,7 +2092,7 @@
                         </div>
         
                         <div class="section-box">
-                            <h2>⏳ Pendientes por Revisar (20)</h2>
+                            <h2>⏳ Pendientes por Revisar (21)</h2>
                             <table>
                                 <tr>
                                     <th>ID Issue</th>
@@ -2014,13 +2105,33 @@
                                 </tr>
             
                                 <tr>
-                                    <td><strong>CE2-1856</strong></td>
-                                    <td>PeruSIM - Apagado de Reportes LEGACY de PeruSIM POS y Efectivo</td>
-                                    <td>In Progress</td>
-                                    <td>PeruSim+</td>
+                                    <td><strong>CE2-1863</strong></td>
+                                    <td>Guinea - Requerimiento de Victor sobre minutos entrantes y salientes</td>
+                                    <td>Planning</td>
+                                    <td>Guinea</td>
                                     <td>CE2</td>
                                     <td>Patrick Bolaños</td>
-                                    <td><a href="https://linear.app/guinea/issue/CE2-1856" target="_blank" style="color: #d3c5ff; text-decoration: none;">Abrir →</a></td>
+                                    <td><a href="https://linear.app/guinea/issue/CE2-1863" target="_blank" style="color: #d3c5ff; text-decoration: none;">Abrir →</a></td>
+                                </tr>
+                
+                                <tr>
+                                    <td><strong>CE2-1862</strong></td>
+                                    <td>Guinea - Cantidad y minutos de llamadas por marca</td>
+                                    <td>In Review</td>
+                                    <td>Guinea</td>
+                                    <td>CE2</td>
+                                    <td>Patrick Bolaños</td>
+                                    <td><a href="https://linear.app/guinea/issue/CE2-1862" target="_blank" style="color: #d3c5ff; text-decoration: none;">Abrir →</a></td>
+                                </tr>
+                
+                                <tr>
+                                    <td><strong>CE2-1860</strong></td>
+                                    <td>Regularizar boleta faltante pendiente en Finanzas</td>
+                                    <td>Backlog</td>
+                                    <td>Finanzas</td>
+                                    <td>CE2</td>
+                                    <td>Alex Estrada</td>
+                                    <td><a href="https://linear.app/guinea/issue/CE2-1860" target="_blank" style="color: #d3c5ff; text-decoration: none;">Abrir →</a></td>
                                 </tr>
                 
                                 <tr>
@@ -2039,7 +2150,7 @@
                                     <td>Backlog</td>
                                     <td>PeruSim+</td>
                                     <td>CE2</td>
-                                    <td>Leandro Ramirez</td>
+                                    <td>Patrick Bolaños</td>
                                     <td><a href="https://linear.app/guinea/issue/CE2-1596" target="_blank" style="color: #d3c5ff; text-decoration: none;">Abrir →</a></td>
                                 </tr>
                 
@@ -2099,7 +2210,7 @@
                                     <td>Planning</td>
                                     <td>Cuy</td>
                                     <td>CE2</td>
-                                    <td>Leandro Ramirez</td>
+                                    <td>Alberto Pereda</td>
                                     <td><a href="https://linear.app/guinea/issue/CE2-1587" target="_blank" style="color: #d3c5ff; text-decoration: none;">Abrir →</a></td>
                                 </tr>
                 
@@ -2131,16 +2242,6 @@
                                     <td>CE2</td>
                                     <td>Alex Estrada</td>
                                     <td><a href="https://linear.app/guinea/issue/CE2-1840" target="_blank" style="color: #d3c5ff; text-decoration: none;">Abrir →</a></td>
-                                </tr>
-                
-                                <tr>
-                                    <td><strong>CE2-1843</strong></td>
-                                    <td>La suscripción de 974288836 no se mantiene</td>
-                                    <td>Planning</td>
-                                    <td>Cuy</td>
-                                    <td>CE2</td>
-                                    <td>Leandro Ramirez</td>
-                                    <td><a href="https://linear.app/guinea/issue/CE2-1843" target="_blank" style="color: #d3c5ff; text-decoration: none;">Abrir →</a></td>
                                 </tr>
                 
                                 <tr>
@@ -2196,7 +2297,7 @@
                                 <tr>
                                     <td><strong>CE2-1845</strong></td>
                                     <td>BOP no muestra resultados al filtrar abril</td>
-                                    <td>Planning</td>
+                                    <td>Backlog</td>
                                     <td>Guinea</td>
                                     <td>CE2</td>
                                     <td>Alex Estrada</td>
@@ -2266,13 +2367,13 @@
         
                     <div class="tab-content " id="tab-Febrero_projects">
                         <div class="month-summary">
-                            <strong>Febrero 2026:</strong> 27 proyectos creados
+                            <strong>Febrero 2026:</strong> 24 proyectos creados
                         </div>
 
                         <div class="metrics">
                             <div class="metric-card">
                                 <div class="label">Total CE2</div>
-                                <div class="value">27</div>
+                                <div class="value">24</div>
                             </div>
                             <div class="metric-card">
                                 <div class="label">En Progreso</div>
@@ -2285,7 +2386,7 @@
         
                             <div class="metric-card">
                                 <div class="label">✅ Completados</div>
-                                <div class="value">22</div>
+                                <div class="value">19</div>
                             </div>
         
                             <div class="metric-card">
@@ -2302,7 +2403,7 @@
                                     <th>Estado</th>
                                     <th>Total</th>
                                 </tr>
-        <tr><td>backlog</td><td>2</td></tr><tr><td>canceled</td><td>1</td></tr><tr><td>completed</td><td>22</td></tr><tr><td>started</td><td>3</td></tr>
+        <tr><td>backlog</td><td>2</td></tr><tr><td>canceled</td><td>1</td></tr><tr><td>completed</td><td>19</td></tr><tr><td>started</td><td>3</td></tr>
                             </table>
                         </div>
                     </div>
@@ -2390,13 +2491,13 @@
         
                     <div class="tab-content active" id="tab-Mayo_projects">
                         <div class="month-summary">
-                            <strong>Mayo 2026:</strong> 9 proyectos creados
+                            <strong>Mayo 2026:</strong> 14 proyectos creados
                         </div>
 
                         <div class="metrics">
                             <div class="metric-card">
                                 <div class="label">Total CE2</div>
-                                <div class="value">9</div>
+                                <div class="value">14</div>
                             </div>
                             <div class="metric-card">
                                 <div class="label">En Progreso</div>
@@ -2404,7 +2505,7 @@
                             </div>
                             <div class="metric-card">
                                 <div class="label">Pendientes</div>
-                                <div class="value">8</div>
+                                <div class="value">13</div>
                             </div>
         
                         </div>
@@ -2416,7 +2517,7 @@
                                     <th>Estado</th>
                                     <th>Total</th>
                                 </tr>
-        <tr><td>backlog</td><td>8</td></tr><tr><td>started</td><td>1</td></tr>
+        <tr><td>backlog</td><td>11</td></tr><tr><td>planned</td><td>2</td></tr><tr><td>started</td><td>1</td></tr>
                             </table>
                         </div>
                     </div>
@@ -2425,7 +2526,7 @@
 
                 <div class="timestamp">
                     <strong>📊 Continuity Engineering</strong><br>
-                    Actualizado: 2026-05-12 13:53:56 UTC
+                    Actualizado: 2026-05-12 19:20:45 UTC
                 </div>
             </div>
         </div>
