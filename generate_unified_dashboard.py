@@ -39,12 +39,16 @@ def get_projects():
     query = """
     {
       projects(
-        first: 100
+        first: 150
       ) {
         nodes {
           id
           name
           state
+          status {
+            name
+            type
+          }
           progress
           lead {name}
           createdAt
@@ -254,7 +258,12 @@ def calculate_project_metrics(projects):
     from datetime import datetime as dt
 
     # Contar proyectos válidos (excluyendo canceled y discarded)
-    valid_projects = [p for p in projects if p.get("state") not in ["canceled", "Discarded"]]
+    def is_valid_project(p):
+        state = p.get("state", "")
+        state_lower = str(state).lower() if state else ""
+        return state_lower not in ["canceled", "discarded"]
+
+    valid_projects = [p for p in projects if is_valid_project(p)]
 
     metrics = {
         "total_projects": len(valid_projects),  # Sin cancelados/descartados
@@ -279,35 +288,46 @@ def calculate_project_metrics(projects):
 
     for project in projects:
         state = project.get("state", "Unknown")
+        state_lower = str(state).lower() if state else ""
+
+        # Obtener el status.name si está disponible (tiene más información que state)
+        status_obj = project.get("status", {})
+        status_name = status_obj.get("name", state) if isinstance(status_obj, dict) else state
+        status_name_lower = str(status_name).lower() if status_name else ""
+
         lead = project.get("lead", {}).get("name", "Unassigned") if project.get("lead") else "Unassigned"
         progress = project.get("progress", 0)
         name = project.get("name", "Unknown")
         created_at = project.get("createdAt", "")
         teams = project.get("teams", {}).get("nodes", [])
 
-        # Contar In Progress (Linear usa "started" para In Progress)
-        if state in ["In Progress", "started"]:
-            metrics["in_progress"] += 1
+        # Usar status_name si está disponible, sino usar state
+        state_to_display = status_name if status_name != state else state
+
+        # Contar In Progress (Linear usa "started" para In Progress, o status "In Progress")
+        if status_name_lower in ["in progress"] or state_lower in ["in progress", "started"]:
+            if status_name_lower != "blocked":  # No contar si está bloqueado
+                metrics["in_progress"] += 1
 
         # Contar completados
-        if state in ["Closed", "completed"]:
+        if state_lower in ["closed", "completed"]:
             metrics["completed"] += 1
 
         # Contar cancelados
-        if state in ["canceled", "Discarded"]:
+        if state_lower in ["canceled", "discarded"]:
             metrics["canceled"] += 1
 
-        # Contar bloqueados
-        if state in ["Blocked", "blocked"]:
+        # Contar bloqueados (ahora con status.name)
+        if status_name_lower == "blocked":
             metrics["blocked"] += 1
 
         # Contar pendientes de CE2 (proyectos en Backlog o Planned, sin incluir In Progress)
         is_ce2 = any(t.get("key") == "CE2" for t in teams)
-        if is_ce2 and state in ["backlog", "Backlog", "planned", "Planned"]:
+        if is_ce2 and state_lower in ["backlog", "planned"]:
             metrics["pending_ce2"] += 1
 
         # Contar cerrados de 2026
-        if state == "Closed" and created_at:
+        if state_lower == "closed" and created_at:
             try:
                 created_year = int(created_at.split("-")[0])
                 if created_year == current_year:
@@ -315,7 +335,7 @@ def calculate_project_metrics(projects):
             except:
                 pass
 
-        metrics["by_state"][state] = metrics["by_state"].get(state, 0) + 1
+        metrics["by_state"][state_to_display] = metrics["by_state"].get(state_to_display, 0) + 1
         metrics["by_lead"][lead] = metrics["by_lead"].get(lead, 0) + 1
 
         if progress <= 25:
@@ -329,7 +349,7 @@ def calculate_project_metrics(projects):
 
         metrics["projects_list"].append({
             "name": name,
-            "state": state,
+            "state": state_to_display,
             "lead": lead,
             "progress": progress
         })
@@ -398,10 +418,15 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
     # Generar filas de tabla
     status_rows = ""
     states_order = ["Backlog", "Planned", "In Progress", "Blocked", "In Review", "Canceled", "Archived"]
+
+    # Crear un mapeo case-insensitive de los estados encontrados
+    states_map = {}
+    for state, count in projects_by_state.items():
+        states_map[state.lower()] = count
+
     for state in states_order:
-        count = projects_by_state.get(state, 0)
-        if count == 0:
-            continue
+        state_lower = state.lower()
+        count = states_map.get(state_lower, 0)
         status_rows += '        <tr class="hover:bg-surface-container-highest/50 transition-colors group">\n'
         status_rows += '            <td class="px-6 py-4 flex items-center gap-3">\n'
         status_rows += '                <span class="h-2 w-2 rounded-full bg-secondary"></span>\n'
