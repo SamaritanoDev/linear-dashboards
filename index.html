@@ -164,13 +164,13 @@
                     <div class="tab-content" data-purpose="projects-data" id="tab-projects">
                         <div class="flex items-center gap-2 mb-6">
                             <span class="h-2 w-2 rounded-full bg-primary"></span>
-                            <span class="text-sm font-medium text-on-surface-variant uppercase tracking-widest">Mayo 2026: 14 proyectos creados</span>
+                            <span class="text-sm font-medium text-on-surface-variant uppercase tracking-widest">Mayo 2026: 15 proyectos creados</span>
                         </div>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
         <div class="glacier-card p-6 rounded-xl">
             <span class="text-on-surface-variant text-xs font-bold uppercase mb-2 tracking-tighter">Total CE2</span>
-            <span class="text-4xl font-bold text-white" id="metric-total">14</span>
+            <span class="text-4xl font-bold text-white" id="metric-total">15</span>
         </div>
         <div class="glacier-card p-6 rounded-xl">
             <span class="text-on-surface-variant text-xs font-bold uppercase mb-2 tracking-tighter">En Progreso</span>
@@ -178,7 +178,7 @@
         </div>
         <div class="glacier-card p-6 rounded-xl">
             <span class="text-on-surface-variant text-xs font-bold uppercase mb-2 tracking-tighter">Pendientes</span>
-            <span class="text-4xl font-bold text-secondary" id="metric-pending">13</span>
+            <span class="text-4xl font-bold text-secondary" id="metric-pending">14</span>
         </div>
         <div class="glacier-card p-6 rounded-xl">
             <span class="text-on-surface-variant text-xs font-bold uppercase mb-2 tracking-tighter">Bloqueados</span>
@@ -195,8 +195,8 @@
     <div class="glacier-card p-4 rounded-xl brand-card" data-brand="Cuy">
         <div class="text-primary font-bold text-sm mb-3 border-b border-outline-variant/20 pb-2">Cuy</div>
         <div class="grid grid-cols-2 gap-2">
-            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-white brand-total">3</span></div>
-            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary brand-pending">3</span></div>
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-white brand-total">4</span></div>
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary brand-pending">4</span></div>
         </div>
     </div>
     <div class="glacier-card p-4 rounded-xl brand-card" data-brand="PeruSim">
@@ -293,49 +293,49 @@
                 <span class="h-2 w-2 rounded-full bg-secondary"></span>
                 <span class="text-on-surface group-hover:text-white transition-colors capitalize">Backlog</span>
             </td>
-            <td class="px-6 py-4 text-right font-semibold text-on-surface">24</td>
+            <td class="px-6 py-4 text-right font-semibold text-on-surface" id="status-backlog">12</td>
         </tr>
         <tr class="hover:bg-surface-container-highest/50 transition-colors group">
             <td class="px-6 py-4 flex items-center gap-3">
                 <span class="h-2 w-2 rounded-full bg-secondary"></span>
                 <span class="text-on-surface group-hover:text-white transition-colors capitalize">Planned</span>
             </td>
-            <td class="px-6 py-4 text-right font-semibold text-on-surface">3</td>
+            <td class="px-6 py-4 text-right font-semibold text-on-surface" id="status-planned">2</td>
         </tr>
         <tr class="hover:bg-surface-container-highest/50 transition-colors group">
             <td class="px-6 py-4 flex items-center gap-3">
                 <span class="h-2 w-2 rounded-full bg-secondary"></span>
                 <span class="text-on-surface group-hover:text-white transition-colors capitalize">In Progress</span>
             </td>
-            <td class="px-6 py-4 text-right font-semibold text-on-surface">4</td>
+            <td class="px-6 py-4 text-right font-semibold text-on-surface" id="status-in-progress">1</td>
         </tr>
         <tr class="hover:bg-surface-container-highest/50 transition-colors group">
             <td class="px-6 py-4 flex items-center gap-3">
                 <span class="h-2 w-2 rounded-full bg-secondary"></span>
                 <span class="text-on-surface group-hover:text-white transition-colors capitalize">Blocked</span>
             </td>
-            <td class="px-6 py-4 text-right font-semibold text-on-surface">3</td>
+            <td class="px-6 py-4 text-right font-semibold text-on-surface" id="status-blocked">0</td>
         </tr>
         <tr class="hover:bg-surface-container-highest/50 transition-colors group">
             <td class="px-6 py-4 flex items-center gap-3">
                 <span class="h-2 w-2 rounded-full bg-secondary"></span>
                 <span class="text-on-surface group-hover:text-white transition-colors capitalize">In Review</span>
             </td>
-            <td class="px-6 py-4 text-right font-semibold text-on-surface">7</td>
+            <td class="px-6 py-4 text-right font-semibold text-on-surface" id="status-in-review">0</td>
         </tr>
         <tr class="hover:bg-surface-container-highest/50 transition-colors group">
             <td class="px-6 py-4 flex items-center gap-3">
                 <span class="h-2 w-2 rounded-full bg-secondary"></span>
                 <span class="text-on-surface group-hover:text-white transition-colors capitalize">Canceled</span>
             </td>
-            <td class="px-6 py-4 text-right font-semibold text-on-surface">6</td>
+            <td class="px-6 py-4 text-right font-semibold text-on-surface" id="status-canceled">0</td>
         </tr>
         <tr class="hover:bg-surface-container-highest/50 transition-colors group">
             <td class="px-6 py-4 flex items-center gap-3">
                 <span class="h-2 w-2 rounded-full bg-secondary"></span>
                 <span class="text-on-surface group-hover:text-white transition-colors capitalize">Archived</span>
             </td>
-            <td class="px-6 py-4 text-right font-semibold text-on-surface">1</td>
+            <td class="px-6 py-4 text-right font-semibold text-on-surface" id="status-archived">0</td>
         </tr>
                                     </tbody>
                                 </table>
@@ -1914,13 +1914,15 @@
                 
                 
                 
+                
+                
                 </section>
             </main>
         </div>
 
         <script data-purpose="ui-interactions">
             // Datos de todos los meses desde el servidor
-            const monthsData = {"Enero": {"total_projects": 21, "in_progress": 0, "pending_ce2": 4, "blocked": 0, "by_state": {"Completed": 14, "In Review": 2, "Backlog": 3, "Planned": 1, "Archived": 1, "Canceled": 1}, "brands": {"Cuy": {"total": 3, "pending": 1}, "PeruSim": {"total": 3, "pending": 2}, "Habla+": {"total": 5, "pending": 2}, "Wings": {"total": 1, "pending": 1}, "Fimo": {"total": 0, "pending": 0}, "Guinea": {"total": 1, "pending": 0}, "B2B": {"total": 1, "pending": 0}, "Partner": {"total": 0, "pending": 0}, "Legales": {"total": 0, "pending": 0}, "Finanzas": {"total": 0, "pending": 0}, "Airalo": {"total": 2, "pending": 1}}}, "Febrero": {"total_projects": 36, "in_progress": 1, "pending_ce2": 2, "blocked": 2, "by_state": {"Completed": 27, "Backlog": 2, "In Progress": 1, "Blocked": 2, "In Review": 4, "Canceled": 3}, "brands": {"Cuy": {"total": 6, "pending": 1}, "PeruSim": {"total": 3, "pending": 2}, "Habla+": {"total": 3, "pending": 2}, "Wings": {"total": 4, "pending": 0}, "Fimo": {"total": 4, "pending": 0}, "Guinea": {"total": 1, "pending": 0}, "B2B": {"total": 5, "pending": 0}, "Partner": {"total": 1, "pending": 0}, "Legales": {"total": 0, "pending": 0}, "Finanzas": {"total": 2, "pending": 0}, "Airalo": {"total": 2, "pending": 0}}}, "Marzo": {"total_projects": 26, "in_progress": 2, "pending_ce2": 2, "blocked": 1, "by_state": {"Canceled": 2, "In Review": 1, "Completed": 20, "In Progress": 2, "Backlog": 2, "Blocked": 1}, "brands": {"Cuy": {"total": 8, "pending": 3}, "PeruSim": {"total": 2, "pending": 0}, "Habla+": {"total": 5, "pending": 1}, "Wings": {"total": 0, "pending": 0}, "Fimo": {"total": 2, "pending": 0}, "Guinea": {"total": 5, "pending": 1}, "B2B": {"total": 1, "pending": 0}, "Partner": {"total": 0, "pending": 0}, "Legales": {"total": 0, "pending": 0}, "Finanzas": {"total": 1, "pending": 0}, "Airalo": {"total": 3, "pending": 0}}}, "Abril": {"total_projects": 10, "in_progress": 0, "pending_ce2": 6, "blocked": 0, "by_state": {"Backlog": 6, "Completed": 4}, "brands": {"Cuy": {"total": 1, "pending": 0}, "PeruSim": {"total": 0, "pending": 0}, "Habla+": {"total": 0, "pending": 0}, "Wings": {"total": 1, "pending": 0}, "Fimo": {"total": 1, "pending": 0}, "Guinea": {"total": 0, "pending": 0}, "B2B": {"total": 0, "pending": 0}, "Partner": {"total": 0, "pending": 0}, "Legales": {"total": 0, "pending": 0}, "Finanzas": {"total": 4, "pending": 1}, "Airalo": {"total": 1, "pending": 1}}}, "Mayo": {"total_projects": 14, "in_progress": 1, "pending_ce2": 13, "blocked": 0, "by_state": {"Backlog": 11, "Planned": 2, "In Progress": 1}, "brands": {"Cuy": {"total": 3, "pending": 3}, "PeruSim": {"total": 1, "pending": 1}, "Habla+": {"total": 2, "pending": 2}, "Wings": {"total": 0, "pending": 0}, "Fimo": {"total": 0, "pending": 0}, "Guinea": {"total": 2, "pending": 2}, "B2B": {"total": 0, "pending": 0}, "Partner": {"total": 0, "pending": 0}, "Legales": {"total": 0, "pending": 0}, "Finanzas": {"total": 1, "pending": 1}, "Airalo": {"total": 0, "pending": 0}}}};
+            const monthsData = {"Enero": {"total_projects": 20, "in_progress": 0, "pending_ce2": 4, "blocked": 0, "by_state": {"Completed": 13, "In Review": 2, "Backlog": 3, "Planned": 1, "Archived": 1, "Canceled": 1}, "brands": {"Cuy": {"total": 2, "pending": 1}, "PeruSim": {"total": 2, "pending": 2}, "Habla+": {"total": 5, "pending": 2}, "Wings": {"total": 1, "pending": 1}, "Fimo": {"total": 0, "pending": 0}, "Guinea": {"total": 1, "pending": 0}, "B2B": {"total": 1, "pending": 0}, "Partner": {"total": 0, "pending": 0}, "Legales": {"total": 0, "pending": 0}, "Finanzas": {"total": 0, "pending": 0}, "Airalo": {"total": 2, "pending": 1}}}, "Febrero": {"total_projects": 36, "in_progress": 1, "pending_ce2": 2, "blocked": 2, "by_state": {"Completed": 27, "Backlog": 2, "In Progress": 1, "Blocked": 2, "In Review": 4, "Canceled": 3}, "brands": {"Cuy": {"total": 6, "pending": 1}, "PeruSim": {"total": 3, "pending": 2}, "Habla+": {"total": 3, "pending": 2}, "Wings": {"total": 4, "pending": 0}, "Fimo": {"total": 4, "pending": 0}, "Guinea": {"total": 1, "pending": 0}, "B2B": {"total": 5, "pending": 0}, "Partner": {"total": 1, "pending": 0}, "Legales": {"total": 0, "pending": 0}, "Finanzas": {"total": 2, "pending": 0}, "Airalo": {"total": 2, "pending": 0}}}, "Marzo": {"total_projects": 26, "in_progress": 2, "pending_ce2": 2, "blocked": 1, "by_state": {"Canceled": 2, "In Review": 1, "Completed": 20, "In Progress": 2, "Backlog": 2, "Blocked": 1}, "brands": {"Cuy": {"total": 8, "pending": 3}, "PeruSim": {"total": 2, "pending": 0}, "Habla+": {"total": 5, "pending": 1}, "Wings": {"total": 0, "pending": 0}, "Fimo": {"total": 2, "pending": 0}, "Guinea": {"total": 5, "pending": 1}, "B2B": {"total": 1, "pending": 0}, "Partner": {"total": 0, "pending": 0}, "Legales": {"total": 0, "pending": 0}, "Finanzas": {"total": 1, "pending": 0}, "Airalo": {"total": 3, "pending": 0}}}, "Abril": {"total_projects": 10, "in_progress": 0, "pending_ce2": 6, "blocked": 0, "by_state": {"Backlog": 6, "Completed": 4}, "brands": {"Cuy": {"total": 1, "pending": 0}, "PeruSim": {"total": 0, "pending": 0}, "Habla+": {"total": 0, "pending": 0}, "Wings": {"total": 1, "pending": 0}, "Fimo": {"total": 1, "pending": 0}, "Guinea": {"total": 0, "pending": 0}, "B2B": {"total": 0, "pending": 0}, "Partner": {"total": 0, "pending": 0}, "Legales": {"total": 0, "pending": 0}, "Finanzas": {"total": 4, "pending": 1}, "Airalo": {"total": 1, "pending": 1}}}, "Mayo": {"total_projects": 15, "in_progress": 1, "pending_ce2": 14, "blocked": 0, "by_state": {"Backlog": 12, "Planned": 2, "In Progress": 1}, "brands": {"Cuy": {"total": 4, "pending": 4}, "PeruSim": {"total": 1, "pending": 1}, "Habla+": {"total": 2, "pending": 2}, "Wings": {"total": 0, "pending": 0}, "Fimo": {"total": 0, "pending": 0}, "Guinea": {"total": 2, "pending": 2}, "B2B": {"total": 0, "pending": 0}, "Partner": {"total": 0, "pending": 0}, "Legales": {"total": 0, "pending": 0}, "Finanzas": {"total": 1, "pending": 1}, "Airalo": {"total": 0, "pending": 0}}}};
 
             function switchSection(section) {
                 document.getElementById('projects').style.display = section === 'projects' ? 'block' : 'none';
@@ -1938,6 +1940,25 @@
                 document.getElementById('metric-progress').textContent = data.in_progress;
                 document.getElementById('metric-pending').textContent = data.pending_ce2;
                 document.getElementById('metric-blocked').textContent = data.blocked;
+
+                // Actualizar tabla Por Estado
+                const byState = data.by_state || {};
+                const statesOrder = ['backlog', 'planned', 'in progress', 'blocked', 'in review', 'canceled', 'archived'];
+                statesOrder.forEach(state => {
+                    const stateId = state.replace(' ', '-');
+                    const statusElement = document.getElementById('status-' + stateId);
+                    if (statusElement) {
+                        // Buscar en byState con diferentes capitalizaciones
+                        let count = 0;
+                        for (const key in byState) {
+                            if (key.toLowerCase() === state.toLowerCase()) {
+                                count = byState[key];
+                                break;
+                            }
+                        }
+                        statusElement.textContent = count;
+                    }
+                });
 
                 // Actualizar tarjetas de marcas
                 document.querySelectorAll('.brand-card').forEach(card => {

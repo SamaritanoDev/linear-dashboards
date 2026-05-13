@@ -415,24 +415,25 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
                 projects_by_state[state] = 0
             projects_by_state[state] += count
 
-    # Generar filas de tabla
+    # Generar filas de tabla con IDs dinámicos
     status_rows = ""
     states_order = ["Backlog", "Planned", "In Progress", "Blocked", "In Review", "Canceled", "Archived"]
 
-    # Crear un mapeo case-insensitive de los estados encontrados
-    states_map = {}
-    for state, count in projects_by_state.items():
-        states_map[state.lower()] = count
+    # Crear un mapeo case-insensitive de los estados encontrados en el mes actual
+    current_states_map = {}
+    for state, count in current_month_projects.get("by_state", {}).items():
+        current_states_map[state.lower()] = count
 
     for state in states_order:
         state_lower = state.lower()
-        count = states_map.get(state_lower, 0)
+        count = current_states_map.get(state_lower, 0)
+        state_id = state_lower.replace(" ", "-")
         status_rows += '        <tr class="hover:bg-surface-container-highest/50 transition-colors group">\n'
         status_rows += '            <td class="px-6 py-4 flex items-center gap-3">\n'
         status_rows += '                <span class="h-2 w-2 rounded-full bg-secondary"></span>\n'
         status_rows += '                <span class="text-on-surface group-hover:text-white transition-colors capitalize">' + state + '</span>\n'
         status_rows += '            </td>\n'
-        status_rows += '            <td class="px-6 py-4 text-right font-semibold text-on-surface">' + str(count) + '</td>\n'
+        status_rows += '            <td class="px-6 py-4 text-right font-semibold text-on-surface" id="status-' + state_id + '">' + str(count) + '</td>\n'
         status_rows += '        </tr>\n'
 
     # Generar botones de meses
@@ -715,6 +716,25 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
                 document.getElementById('metric-progress').textContent = data.in_progress;
                 document.getElementById('metric-pending').textContent = data.pending_ce2;
                 document.getElementById('metric-blocked').textContent = data.blocked;
+
+                // Actualizar tabla Por Estado
+                const byState = data.by_state || {};
+                const statesOrder = ['backlog', 'planned', 'in progress', 'blocked', 'in review', 'canceled', 'archived'];
+                statesOrder.forEach(state => {
+                    const stateId = state.replace(' ', '-');
+                    const statusElement = document.getElementById('status-' + stateId);
+                    if (statusElement) {
+                        // Buscar en byState con diferentes capitalizaciones
+                        let count = 0;
+                        for (const key in byState) {
+                            if (key.toLowerCase() === state.toLowerCase()) {
+                                count = byState[key];
+                                break;
+                            }
+                        }
+                        statusElement.textContent = count;
+                    }
+                });
 
                 // Actualizar tarjetas de marcas
                 document.querySelectorAll('.brand-card').forEach(card => {
