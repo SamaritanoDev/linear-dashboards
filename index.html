@@ -1,551 +1,302 @@
-
     <!DOCTYPE html>
-    <html>
+    <html class="dark" lang="es">
     <head>
-        <meta charset="utf-8">
-        <title>Linear Dashboard - Continuity Engineering</title>
-        <style>
-            * {
-                margin: 0;
-                padding: 0;
-                box-sizing: border-box;
+        <meta charset="utf-8"/>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+        <title>Proyectos CE - Continuity Engineering Dashboard</title>
+        <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+        <script id="tailwind-config">
+            tailwind.config = {
+                darkMode: "class",
+                theme: {
+                    extend: {
+                        "colors": {
+                            "surface-dim": "#0f1524",
+                            "surface-bright": "#1a2438",
+                            "surface": "#0f1524",
+                            "on-tertiary-fixed-variant": "#4d2a73",
+                            "on-tertiary-container": "#e8d0ff",
+                            "inverse-on-surface": "#0a0e1a",
+                            "outline-variant": "#2a3a48",
+                            "primary-fixed-dim": "#7dd3fc",
+                            "on-secondary-fixed": "#0d1f2b",
+                            "surface-container": "#141c2e",
+                            "inverse-surface": "#e0e8f0",
+                            "tertiary-fixed": "#e8d0ff",
+                            "on-secondary-container": "#c0d8e8",
+                            "on-primary-fixed": "#001f2e",
+                            "primary-fixed": "#c8eaff",
+                            "on-tertiary": "#1a002e",
+                            "error": "#ff6b6b",
+                            "on-surface-variant": "#a0b4c4",
+                            "secondary-fixed": "#c0d8e8",
+                            "surface-container-lowest": "#0a0e1a",
+                            "tertiary-container": "#3d2060",
+                            "surface-tint": "#7dd3fc",
+                            "surface-container-high": "#1a2438",
+                            "surface-variant": "#1a2438",
+                            "on-surface": "#e0e8f0",
+                            "background": "#0a0e1a",
+                            "on-error": "#1a0000",
+                            "outline": "#4a6070",
+                            "on-error-container": "#ffb3b3",
+                            "on-primary-container": "#c8eaff",
+                            "tertiary-fixed-dim": "#c8a0f0",
+                            "tertiary": "#c8a0f0",
+                            "secondary-fixed-dim": "#88b4cc",
+                            "on-secondary": "#001f2e",
+                            "primary-container": "#0e4d6e",
+                            "error-container": "#3d1414",
+                            "inverse-primary": "#0a4c6e",
+                            "on-secondary-fixed-variant": "#2a4a5e",
+                            "secondary": "#88b4cc",
+                            "primary": "#7dd3fc",
+                            "surface-container-highest": "#202c42",
+                            "on-primary": "#001f2e",
+                            "secondary-container": "#1a3a4e",
+                            "on-background": "#e0e8f0",
+                            "on-tertiary-fixed": "#1a002e",
+                            "surface-container-low": "#111828",
+                            "on-primary-fixed-variant": "#004d73"
+                        },
+                        "borderRadius": {
+                            "DEFAULT": "0.5rem",
+                            "lg": "1rem",
+                            "xl": "1.5rem",
+                            "full": "9999px"
+                        },
+                        "fontFamily": {
+                            "headline": ["Inter", "sans-serif"],
+                            "display": ["Inter", "sans-serif"],
+                            "body": ["Inter", "sans-serif"],
+                            "label": ["Inter", "sans-serif"]
+                        }
+                    },
+                },
             }
+        </script>
+        <style data-purpose="layout-and-theme">
             body {
-                font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-                background: #0a0e1a;
-                color: #e0e0e0;
+                font-family: 'Inter', sans-serif;
+                background-color: #0a0e1a;
+                color: #e0e8f0;
             }
-            .container {
-                display: flex;
-                min-height: 100vh;
+            .glacier-surface {
+                background-color: #0f1524;
+                border: 1px solid rgba(74, 96, 112, 0.3);
             }
-            .drawer {
-                width: 200px;
-                background: rgba(15, 21, 36, 0.6);
-                backdrop-filter: blur(16px);
-                border-right: 1px solid rgba(125, 211, 252, 0.1);
-                color: white;
-                padding: 15px;
-                box-shadow: 0 0 30px rgba(125, 211, 252, 0.05);
-                position: fixed;
-                height: 100vh;
-                overflow-y: auto;
+            .glacier-card {
+                background-color: #141c2e;
+                border: 1px solid rgba(125, 211, 252, 0.1);
+                transition: all 0.3s ease;
             }
-            .drawer h2 {
-                font-size: 14px;
-                margin-bottom: 15px;
-                padding-bottom: 8px;
-                border-bottom: 2px solid rgba(125, 211, 252, 0.3);
-                font-weight: 600;
+            .glacier-card:hover {
+                border-color: #7dd3fc;
+                background-color: #1a2438;
             }
             .drawer-item {
-                padding: 10px 12px;
-                margin-bottom: 6px;
-                cursor: pointer;
-                border-radius: 6px;
-                border-left: 3px solid transparent;
                 transition: all 0.2s;
-                font-size: 13px;
-                background: rgba(125, 211, 252, 0.05);
-                border: 1px solid rgba(125, 211, 252, 0.1);
-            }
-            .drawer-item:hover {
-                background: rgba(125, 211, 252, 0.1);
-                border-color: rgba(125, 211, 252, 0.2);
-                box-shadow: 0 0 15px rgba(125, 211, 252, 0.1);
             }
             .drawer-item.active {
-                background: rgba(125, 211, 252, 0.2);
-                border-left-color: #7dd3fc;
-                box-shadow: 0 0 20px rgba(125, 211, 252, 0.15);
-            }
-            .content {
-                flex: 1;
-                margin-left: 200px;
-                padding: 30px;
-            }
-            .section {
-                display: none;
-            }
-            .section.active {
-                display: block;
-            }
-            h1 {
-                color: #ffffff;
-                margin-bottom: 20px;
-            }
-            .note {
-                background: rgba(15, 21, 36, 0.6);
-                backdrop-filter: blur(16px);
-                padding: 12px;
-                border-left: 4px solid #7dd3fc;
-                border: 1px solid rgba(125, 211, 252, 0.2);
-                border-left: 4px solid #7dd3fc;
-                margin-bottom: 20px;
-                border-radius: 8px;
+                background-color: rgba(125, 211, 252, 0.1);
                 color: #7dd3fc;
-                box-shadow: 0 0 20px rgba(125, 211, 252, 0.05);
-            }
-            .disclaimer {
-                background: rgba(15, 21, 36, 0.6);
-                backdrop-filter: blur(16px);
-                padding: 15px;
-                border-left: 4px solid #c8a0f0;
-                border: 1px solid rgba(200, 160, 240, 0.2);
-                border-left: 4px solid #c8a0f0;
-                margin-bottom: 20px;
-                border-radius: 8px;
-                font-size: 13px;
-                color: #c8a0f0;
-                box-shadow: 0 0 20px rgba(200, 160, 240, 0.05);
-            }
-            .disclaimer strong {
-                display: block;
-                margin-bottom: 8px;
-            }
-            .disclaimer-item {
-                margin: 5px 0;
-            }
-            .tabs {
-                display: flex;
-                gap: 10px;
-                margin-bottom: 20px;
-                border-bottom: 2px solid #333;
-                flex-wrap: wrap;
-            }
-            .tab-button {
-                background: none;
-                border: none;
-                padding: 12px 16px;
-                cursor: pointer;
-                font-size: 14px;
-                font-weight: 500;
-                color: #999;
-                border-bottom: 3px solid transparent;
-                transition: all 0.2s;
-            }
-            .tab-button:hover {
-                color: #7dd3fc;
-                border-bottom-color: rgba(125, 211, 252, 0.3);
-            }
-            .tab-button.active {
-                color: #7dd3fc;
-                border-bottom-color: #7dd3fc;
-                box-shadow: 0 2px 10px rgba(125, 211, 252, 0.1);
-            }
-            .tab-content {
-                display: none;
-            }
-            .tab-content.active {
-                display: block;
-            }
-            .month-summary {
-                background: rgba(15, 21, 36, 0.6);
-                backdrop-filter: blur(16px);
-                padding: 15px;
-                border-left: 4px solid #7dd3fc;
-                border: 1px solid rgba(125, 211, 252, 0.2);
-                border-left: 4px solid #7dd3fc;
-                border-radius: 8px;
-                margin-bottom: 20px;
-                font-size: 14px;
-                color: #7dd3fc;
-                box-shadow: 0 0 20px rgba(125, 211, 252, 0.05);
-            }
-            .metrics {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-                gap: 15px;
-                margin-bottom: 30px;
-            }
-            .metric-card {
-                background: rgba(15, 21, 36, 0.6);
-                backdrop-filter: blur(16px);
-                padding: 15px;
-                border-radius: 12px;
-                box-shadow: 0 0 30px rgba(125, 211, 252, 0.05);
-                border: 1px solid rgba(125, 211, 252, 0.15);
-                text-align: center;
-                transition: all 0.3s ease;
-            }
-            .metric-card:hover {
-                background: rgba(15, 21, 36, 0.75);
-                border-color: rgba(125, 211, 252, 0.3);
-                box-shadow: 0 0 30px rgba(125, 211, 252, 0.1);
-            }
-            .metric-card.ce1 {
-                border-left-color: #ff687a;
-            }
-            .metric-card.ce2 {
-                border-left-color: #04ffb0;
-            }
-            .value {
-                font-size: 28px;
-                font-weight: bold;
-                color: #7dd3fc;
-                margin: 8px 0;
-            }
-            .metric-card.ce1 .value {
-                color: #7dd3fc;
-            }
-            .metric-card.ce2 .value {
-                color: #7dd3fc;
-            }
-            .label {
-                color: #aaa;
-                font-size: 12px;
-            }
-            .progress-container {
-                background: rgba(15, 21, 36, 0.6);
-                backdrop-filter: blur(16px);
-                padding: 20px;
-                border-radius: 12px;
-                box-shadow: 0 0 30px rgba(125, 211, 252, 0.05);
-                border: 1px solid rgba(125, 211, 252, 0.15);
-                margin-bottom: 30px;
-            }
-            .progress-header {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                margin-bottom: 12px;
-            }
-            .progress-header h4 {
-                margin: 0;
-                color: #ffffff;
-                font-size: 14px;
-            }
-            .progress-percentage {
-                font-size: 18px;
-                font-weight: bold;
-                color: #7dd3fc;
-            }
-            .progress-bar {
-                width: 100%;
-                height: 24px;
-                background: rgba(125, 211, 252, 0.1);
-                border-radius: 12px;
-                overflow: hidden;
-                position: relative;
-                border: 1px solid rgba(125, 211, 252, 0.2);
-            }
-            .progress-fill {
-                height: 100%;
-                background: linear-gradient(90deg, #7dd3fc, #c8a0f0);
-                border-radius: 12px;
-                display: flex;
-                align-items: center;
-                justify-content: flex-end;
-                padding-right: 8px;
-                color: #0a0e1a;
-                font-size: 11px;
-                font-weight: 600;
-                transition: width 0.3s ease;
-                box-shadow: 0 0 20px rgba(125, 211, 252, 0.3);
-            }
-            .section-box {
-                background: rgba(15, 21, 36, 0.6);
-                backdrop-filter: blur(16px);
-                padding: 20px;
-                border-radius: 12px;
-                margin-bottom: 20px;
-                box-shadow: 0 0 30px rgba(125, 211, 252, 0.05);
-                border: 1px solid rgba(125, 211, 252, 0.15);
-            }
-            .section-box h2 {
-                margin-top: 0;
-                margin-bottom: 25px;
-                color: #ffffff;
-                border-bottom: 2px solid rgba(125, 211, 252, 0.3);
-                padding-bottom: 15px;
-                font-weight: 600;
-            }
-            table {
-                width: 100%;
-                border-collapse: collapse;
-            }
-            th, td {
-                padding: 12px;
-                text-align: left;
-                border-bottom: 1px solid #333;
-                color: #e0e0e0;
-            }
-            th {
-                background: #2a2a2a;
-                font-weight: 600;
-                color: #ffffff;
-            }
-            .timestamp {
-                text-align: center;
-                color: #666;
-                font-size: 12px;
-                margin-top: 20px;
-            }
-            .product-summary {
-                display: grid;
-                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-                gap: 25px;
-                margin-bottom: 10px;
-            }
-            .product-card {
-                background: rgba(15, 21, 36, 0.6);
-                backdrop-filter: blur(16px);
-                border: 1px solid rgba(125, 211, 252, 0.15);
-                border-radius: 12px;
-                padding: 15px;
-                transition: all 0.3s ease;
-                box-shadow: 0 0 20px rgba(125, 211, 252, 0.03);
-            }
-            .product-card:hover {
-                background: rgba(15, 21, 36, 0.75);
-                border-color: rgba(125, 211, 252, 0.3);
-                box-shadow: 0 0 30px rgba(125, 211, 252, 0.1);
-            }
-            .product-name {
-                font-weight: 600;
-                color: #ffffff;
-                margin-bottom: 12px;
-                font-size: 13px;
-            }
-            .product-stats {
-                display: flex;
-                justify-content: space-between;
-                gap: 10px;
-            }
-            .stat {
-                flex: 1;
-                text-align: center;
-            }
-            .stat-label {
-                display: block;
-                color: #999;
-                font-size: 11px;
-                margin-bottom: 4px;
-                text-transform: uppercase;
-                letter-spacing: 0.5px;
-            }
-            .stat-value {
-                display: block;
-                font-size: 16px;
-                font-weight: bold;
-                color: #7dd3fc;
-            }
-            .stat-value.pending {
-                color: #c8a0f0;
-            }
-            .stat-value.closed {
-                color: #7dd3fc;
-            }
-            .theme-toggle {
-                padding: 10px 12px;
-                margin-bottom: 15px;
-                cursor: pointer;
-                border-radius: 8px;
-                background: rgba(125, 211, 252, 0.1);
-                border: 1px solid rgba(125, 211, 252, 0.2);
-                color: #7dd3fc;
-                font-size: 14px;
-                font-weight: 500;
-                transition: all 0.2s;
-                text-align: center;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                gap: 8px;
-            }
-            .theme-toggle:hover {
-                background: rgba(125, 211, 252, 0.15);
-                border-color: rgba(125, 211, 252, 0.3);
-                color: #7dd3fc;
-                box-shadow: 0 0 20px rgba(125, 211, 252, 0.1);
-            }
-            /* MODO CLARO - GLACIER */
-            body.light-mode {
-                background: linear-gradient(135deg, #f8fafc 0%, #f0f4f8 100%);
-                color: #1a1a1a;
-            }
-            body.light-mode .drawer {
-                background: rgba(248, 250, 252, 0.7);
-                backdrop-filter: blur(16px);
-                color: #1a1a1a;
-                box-shadow: 0 0 30px rgba(125, 211, 252, 0.05);
-                border-right: 1px solid rgba(125, 211, 252, 0.15);
-            }
-            body.light-mode .drawer h2 {
-                border-bottom-color: rgba(125, 211, 252, 0.3);
-                color: #1a1a1a;
-                font-weight: 600;
-            }
-            body.light-mode .drawer-item {
-                color: #555;
-                background: rgba(125, 211, 252, 0.08);
-                border: 1px solid rgba(125, 211, 252, 0.12);
-            }
-            body.light-mode .drawer-item:hover {
-                background: rgba(125, 211, 252, 0.15);
-                color: #0a5f8f;
-                border-color: rgba(125, 211, 252, 0.25);
-                box-shadow: 0 0 15px rgba(125, 211, 252, 0.1);
-            }
-            body.light-mode .drawer-item.active {
-                background: rgba(125, 211, 252, 0.25);
-                color: #0a5f8f;
-                border-left-color: #7dd3fc;
-                box-shadow: 0 0 20px rgba(125, 211, 252, 0.15);
-            }
-            body.light-mode .content {
-                background: linear-gradient(135deg, #f8fafc 0%, #f0f4f8 100%);
-            }
-            body.light-mode h1, body.light-mode h2, body.light-mode h3, body.light-mode h4 {
-                color: #1a1a1a;
-                font-weight: 600;
-            }
-            body.light-mode .section-box {
-                background: rgba(248, 250, 252, 0.6);
-                backdrop-filter: blur(16px);
-                border: 1px solid rgba(125, 211, 252, 0.15);
-                box-shadow: 0 0 30px rgba(125, 211, 252, 0.05);
-            }
-            body.light-mode .metric-card {
-                background: rgba(248, 250, 252, 0.6);
-                backdrop-filter: blur(16px);
-                border: 1px solid rgba(125, 211, 252, 0.15);
-                box-shadow: 0 0 20px rgba(125, 211, 252, 0.03);
-            }
-            body.light-mode .metric-card:hover {
-                background: rgba(248, 250, 252, 0.75);
-                border-color: rgba(125, 211, 252, 0.3);
-                box-shadow: 0 0 30px rgba(125, 211, 252, 0.1);
-            }
-            body.light-mode .note {
-                background: rgba(125, 211, 252, 0.08);
-                backdrop-filter: blur(16px);
-                color: #0a5f8f;
-                border-left: 4px solid #7dd3fc;
-                border: 1px solid rgba(125, 211, 252, 0.2);
-                border-left: 4px solid #7dd3fc;
-                box-shadow: 0 0 20px rgba(125, 211, 252, 0.05);
-            }
-            body.light-mode .disclaimer {
-                background: rgba(200, 160, 240, 0.08);
-                backdrop-filter: blur(16px);
-                color: #6b4c99;
-                border-left: 4px solid #c8a0f0;
-                border: 1px solid rgba(200, 160, 240, 0.2);
-                border-left: 4px solid #c8a0f0;
-                box-shadow: 0 0 20px rgba(200, 160, 240, 0.05);
-            }
-            body.light-mode table {
-                color: #1a1a1a;
-            }
-            body.light-mode th {
-                background: rgba(125, 211, 252, 0.1);
-                color: #1a1a1a;
-                border-bottom-color: rgba(125, 211, 252, 0.2);
-                font-weight: 700;
-            }
-            body.light-mode td {
-                color: #1a1a1a;
-                border-bottom-color: rgba(125, 211, 252, 0.1);
-                font-weight: 500;
-            }
-            body.light-mode .product-card {
-                background: rgba(248, 250, 252, 0.6);
-                backdrop-filter: blur(16px);
-                border: 1px solid rgba(125, 211, 252, 0.15);
-                box-shadow: 0 0 20px rgba(125, 211, 252, 0.03);
-            }
-            body.light-mode .product-card:hover {
-                border-color: rgba(125, 211, 252, 0.3);
-                background: rgba(248, 250, 252, 0.75);
-                box-shadow: 0 0 30px rgba(125, 211, 252, 0.1);
-            }
-            body.light-mode .tab-button {
-                color: #888;
-            }
-            body.light-mode .tab-button:hover {
-                color: #7dd3fc;
-                border-bottom-color: rgba(125, 211, 252, 0.3);
-            }
-            body.light-mode .tab-button.active {
-                color: #7dd3fc;
-                border-bottom-color: #7dd3fc;
-                box-shadow: 0 2px 10px rgba(125, 211, 252, 0.1);
-            }
-            body.light-mode .progress-container {
-                background: rgba(248, 250, 252, 0.6);
-                backdrop-filter: blur(16px);
-                border: 1px solid rgba(125, 211, 252, 0.15);
-                box-shadow: 0 0 30px rgba(125, 211, 252, 0.05);
-            }
-            body.light-mode .progress-bar {
-                background: rgba(125, 211, 252, 0.1);
-                border: 1px solid rgba(125, 211, 252, 0.2);
-            }
-            body.light-mode .progress-fill {
-                background: linear-gradient(90deg, #7dd3fc, #c8a0f0);
-                color: #0a0e1a;
-            }
-            body.light-mode .progress-percentage {
-                color: #7dd3fc;
-            }
-            body.light-mode .theme-toggle {
-                background: rgba(125, 211, 252, 0.1);
-                border-color: rgba(125, 211, 252, 0.2);
-                color: #7dd3fc;
-            }
-            body.light-mode .theme-toggle:hover {
-                background: rgba(125, 211, 252, 0.15);
-                border-color: rgba(125, 211, 252, 0.3);
-                color: #7dd3fc;
-                box-shadow: 0 0 20px rgba(125, 211, 252, 0.1);
-            }
-            body.light-mode .product-name {
-                color: #0a5f8f;
-                font-weight: 700;
-            }
-            body.light-mode .stat-value {
-                color: #7dd3fc;
-            }
-            body.light-mode .stat-label {
-                color: #888;
-            }
-            body.light-mode .value {
-                color: #7dd3fc;
-            }
-            body.light-mode .month-summary {
-                background: rgba(125, 211, 252, 0.08);
-                backdrop-filter: blur(16px);
-                color: #0a5f8f;
-                border-left: 4px solid #7dd3fc;
-                border: 1px solid rgba(125, 211, 252, 0.2);
-                border-left: 4px solid #7dd3fc;
-                box-shadow: 0 0 20px rgba(125, 211, 252, 0.05);
-            }
-            @media (max-width: 768px) {
-                .drawer {
-                    width: 100%;
-                    height: auto;
-                    position: relative;
-                }
-                .content {
-                    margin-left: 0;
-                }
+                border-right: 3px solid #7dd3fc;
             }
         </style>
     </head>
-    <body>
-        <div class="container">
-            <div class="drawer">
-                <h2>📊 Dashboard</h2>
-                <button class="theme-toggle" onclick="toggleTheme()">🌙 Modo Claro</button>
-                <div class="drawer-item active" onclick="switchSection('issues')">Issues CE</div>
-                <div class="drawer-item" onclick="switchSection('projects')">Proyectos CE</div>
-            </div>
+    <body class="min-h-screen bg-background text-on-surface">
+        <div class="flex min-h-screen">
+            <aside class="w-64 glacier-surface border-r border-outline-variant fixed h-full z-10 flex flex-col" data-purpose="navigation-sidebar">
+                <div class="p-6">
+                    <h2 class="text-xs font-bold uppercase tracking-widest text-primary mb-8 flex items-center gap-2">
+                        <span class="material-symbols-outlined text-xl">grid_view</span>
+                        Dashboard
+                    </h2>
+                    <nav class="space-y-2">
+                        <div class="drawer-item flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer hover:bg-surface-variant text-on-surface-variant font-medium text-sm" onclick="switchSection('issues')">
+                            <span class="material-symbols-outlined text-lg">bug_report</span>
+                            Issues CE
+                        </div>
+                        <div class="drawer-item active flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer font-medium text-sm" onclick="switchSection('projects')">
+                            <span class="material-symbols-outlined text-lg">inventory_2</span>
+                            Proyectos CE
+                        </div>
+                    </nav>
+                </div>
+                <div class="mt-auto p-6">
+                    <div class="bg-surface-container rounded-xl p-4 border border-outline-variant/30">
+                        <p class="text-xs text-primary font-semibold mb-1 uppercase tracking-tighter">Continuity Eng.</p>
+                        <p class="text-[10px] text-on-surface-variant">v2.4.0 Glacier Stable</p>
+                    </div>
+                </div>
+            </aside>
 
-            <div class="content">
-    
-                <div id="issues" class="section active">
+            <main class="flex-1 ml-64 p-8 lg:p-12" data-purpose="dashboard-content">
+                <section class="max-w-6xl mx-auto" id="projects">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
+                        <div>
+                            <h1 class="text-4xl font-bold text-white tracking-tight flex items-center gap-3">
+                                <span class="material-symbols-outlined text-primary text-4xl">inventory_2</span>
+                                Proyectos CE
+                            </h1>
+                            <p class="text-on-surface-variant mt-2">Seguimiento de iniciativas de continuidad de ingeniería</p>
+                        </div>
+                        <div class="glacier-surface px-4 py-2 rounded-xl border border-primary/20 flex items-center gap-3 text-sm">
+                            <span class="material-symbols-outlined text-primary animate-pulse">sync</span>
+                            <span class="text-on-surface-variant">Live Data Active</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-surface-container border-l-4 border-primary p-4 rounded-r-xl mb-10 flex items-start gap-4">
+                        <span class="material-symbols-outlined text-primary mt-0.5">info</span>
+                        <p class="text-sm text-on-primary-container leading-relaxed"><strong class="text-primary">Nota:</strong> Los Pendientes son la suma de los estados Backlog, Planned, In progress, Blocked e In Review. No cuenta cancelados, ni archivados, ni completados.</p>
+                    </div>
+
+                    <div class="flex items-center gap-2 mb-8 overflow-x-auto pb-2" data-purpose="month-navigation">
+    <button class="px-5 py-2.5 rounded-full text-sm text-on-surface-variant hover:text-white hover:bg-surface-container transition-all font-medium whitespace-nowrap" data-month="Enero">Enero 2026</button>
+    <button class="px-5 py-2.5 rounded-full text-sm text-on-surface-variant hover:text-white hover:bg-surface-container transition-all font-medium whitespace-nowrap" data-month="Febrero">Febrero 2026</button>
+    <button class="px-5 py-2.5 rounded-full text-sm text-on-surface-variant hover:text-white hover:bg-surface-container transition-all font-medium whitespace-nowrap" data-month="Marzo">Marzo 2026</button>
+    <button class="px-5 py-2.5 rounded-full text-sm text-on-surface-variant hover:text-white hover:bg-surface-container transition-all font-medium whitespace-nowrap" data-month="Abril">Abril 2026</button>
+    <button class="px-5 py-2.5 rounded-full text-sm text-primary bg-primary/10 border border-primary/30 shadow-lg shadow-primary/5 font-semibold whitespace-nowrap" data-month="Mayo">Mayo 2026</button>
+                    </div>
+
+                    <div class="tab-content" data-purpose="projects-data" id="tab-projects">
+                        <div class="flex items-center gap-2 mb-6">
+                            <span class="h-2 w-2 rounded-full bg-primary"></span>
+                            <span class="text-sm font-medium text-on-surface-variant uppercase tracking-widest">Mayo 2026: 14 proyectos creados</span>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
+        <div class="glacier-card p-6 rounded-xl flex flex-col items-center justify-center text-center">
+            <span class="text-on-surface-variant text-xs font-bold uppercase mb-2 tracking-tighter">Total CE2</span>
+            <span class="text-4xl font-bold text-white">14</span>
+        </div>
+        <div class="glacier-card p-6 rounded-xl flex flex-col items-center justify-center text-center">
+            <span class="text-on-surface-variant text-xs font-bold uppercase mb-2 tracking-tighter">En Progreso</span>
+            <span class="text-4xl font-bold text-primary">1</span>
+        </div>
+        <div class="glacier-card p-6 rounded-xl flex flex-col items-center justify-center text-center">
+            <span class="text-on-surface-variant text-xs font-bold uppercase mb-2 tracking-tighter">Pendientes</span>
+            <span class="text-4xl font-bold text-secondary">13</span>
+        </div>
+        <div class="glacier-card p-6 rounded-xl flex flex-col items-center justify-center text-center">
+            <span class="text-on-surface-variant text-xs font-bold uppercase mb-2 tracking-tighter">Bloqueados</span>
+            <span class="text-4xl font-bold text-error/60">0</span>
+        </div>
+                        </div>
+
+                        <div class="mb-10">
+                            <h2 class="text-xl font-bold text-white flex items-center gap-2 mb-6">
+                                <span class="material-symbols-outlined text-primary">branding_watermark</span>
+                                Proyectos por Marca
+                            </h2>
+                            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
+    <div class="glacier-card p-4 rounded-xl">
+        <div class="text-primary font-bold text-sm mb-3 border-b border-outline-variant/20 pb-2">Cuy</div>
+        <div class="grid grid-cols-2 gap-2">
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-white">0</span></div>
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary">0</span></div>
+        </div>
+    </div>
+    <div class="glacier-card p-4 rounded-xl">
+        <div class="text-primary font-bold text-sm mb-3 border-b border-outline-variant/20 pb-2">PeruSim</div>
+        <div class="grid grid-cols-2 gap-2">
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-white">0</span></div>
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary">0</span></div>
+        </div>
+    </div>
+    <div class="glacier-card p-4 rounded-xl">
+        <div class="text-primary font-bold text-sm mb-3 border-b border-outline-variant/20 pb-2">Habla+</div>
+        <div class="grid grid-cols-2 gap-2">
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-white">0</span></div>
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary">0</span></div>
+        </div>
+    </div>
+    <div class="glacier-card p-4 rounded-xl">
+        <div class="text-primary font-bold text-sm mb-3 border-b border-outline-variant/20 pb-2">Wings</div>
+        <div class="grid grid-cols-2 gap-2">
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-white">0</span></div>
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary">0</span></div>
+        </div>
+    </div>
+    <div class="glacier-card p-4 rounded-xl">
+        <div class="text-primary font-bold text-sm mb-3 border-b border-outline-variant/20 pb-2">Fimo</div>
+        <div class="grid grid-cols-2 gap-2">
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-white">0</span></div>
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary">0</span></div>
+        </div>
+    </div>
+    <div class="glacier-card p-4 rounded-xl">
+        <div class="text-primary font-bold text-sm mb-3 border-b border-outline-variant/20 pb-2">Guinea</div>
+        <div class="grid grid-cols-2 gap-2">
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-white">0</span></div>
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary">0</span></div>
+        </div>
+    </div>
+    <div class="glacier-card p-4 rounded-xl">
+        <div class="text-primary font-bold text-sm mb-3 border-b border-outline-variant/20 pb-2">B2B</div>
+        <div class="grid grid-cols-2 gap-2">
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-white">0</span></div>
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary">0</span></div>
+        </div>
+    </div>
+    <div class="glacier-card p-4 rounded-xl">
+        <div class="text-primary font-bold text-sm mb-3 border-b border-outline-variant/20 pb-2">Partner</div>
+        <div class="grid grid-cols-2 gap-2">
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-white">0</span></div>
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary">0</span></div>
+        </div>
+    </div>
+    <div class="glacier-card p-4 rounded-xl">
+        <div class="text-primary font-bold text-sm mb-3 border-b border-outline-variant/20 pb-2">Legales</div>
+        <div class="grid grid-cols-2 gap-2">
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-white">0</span></div>
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary">0</span></div>
+        </div>
+    </div>
+    <div class="glacier-card p-4 rounded-xl">
+        <div class="text-primary font-bold text-sm mb-3 border-b border-outline-variant/20 pb-2">Finanzas</div>
+        <div class="grid grid-cols-2 gap-2">
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-white">0</span></div>
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary">0</span></div>
+        </div>
+    </div>
+    <div class="glacier-card p-4 rounded-xl">
+        <div class="text-primary font-bold text-sm mb-3 border-b border-outline-variant/20 pb-2">Airalo</div>
+        <div class="grid grid-cols-2 gap-2">
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-white">0</span></div>
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary">0</span></div>
+        </div>
+    </div>
+                            </div>
+                        </div>
+
+                        <div class="glacier-surface p-8 rounded-2xl shadow-xl shadow-black/40" data-purpose="status-table-container">
+                            <div class="flex items-center justify-between mb-8">
+                                <h2 class="text-xl font-bold text-white flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-primary">bar_chart</span>
+                                    Por Estado
+                                </h2>
+                            </div>
+                            <div class="overflow-hidden rounded-xl border border-outline-variant/30">
+                                <table aria-label="Desglose de proyectos por estado" class="w-full text-left">
+                                    <thead>
+                                        <tr class="bg-surface-container-high">
+                                            <th class="px-6 py-4 text-xs font-bold text-primary uppercase tracking-widest">Estado</th>
+                                            <th class="px-6 py-4 text-xs font-bold text-primary uppercase tracking-widest text-right">Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-outline-variant/20">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="issues" style="display: none;">
+<div id="issues" class="section active">
                     <h1>📌 Issues Sin Proyecto CE</h1>
 
                     <div class="note">
@@ -2103,6 +1854,32 @@
 
             // Initialize theme on page load
             initTheme();
+        </script>
+    </body>
+    </html>
+   
+                </section>
+            </main>
+        </div>
+
+        <script data-purpose="ui-interactions">
+            function switchSection(section) {
+                document.getElementById('projects').style.display = section === 'projects' ? 'block' : 'none';
+                document.getElementById('issues').style.display = section === 'issues' ? 'block' : 'none';
+                document.querySelectorAll('.drawer-item').forEach(item => item.classList.remove('active'));
+                event.target.closest('.drawer-item').classList.add('active');
+            }
+
+            document.querySelectorAll('[data-month]').forEach(button => {
+                button.addEventListener('click', () => {
+                    document.querySelectorAll('[data-month]').forEach(btn => {
+                        btn.classList.remove('text-primary', 'bg-primary/10', 'border-primary/30', 'shadow-lg', 'shadow-primary/5', 'font-semibold');
+                        btn.classList.add('text-on-surface-variant', 'font-medium');
+                    });
+                    button.classList.add('text-primary', 'bg-primary/10', 'border-primary/30', 'shadow-lg', 'shadow-primary/5', 'font-semibold');
+                    button.classList.remove('text-on-surface-variant', 'font-medium');
+                });
+            });
         </script>
     </body>
     </html>

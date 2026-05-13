@@ -331,1004 +331,322 @@ def calculate_project_metrics(projects):
 
     return metrics
 
-def generate_html(all_months_projects_metrics, all_months_metrics):
-    """Genera HTML unificado con drawer menu"""
 
-    html = """
-    <!DOCTYPE html>
-    <html>
+def generate_html(all_months_projects_metrics, all_months_metrics):
+    """Genera HTML con Tailwind CSS - Proyectos CE coincide con oscuro.html/claro.html"""
+
+    # Leer archivo existente para extraer sección de Issues CE
+    original = ""
+    try:
+        with open("index.html", "r") as f:
+            original = f.read()
+    except FileNotFoundError:
+        pass
+
+    # Obtener datos del mes actual
+    current_month_projects = all_months_projects_metrics[-1] if all_months_projects_metrics else {"total_projects": 0, "in_progress": 0, "pending_ce2": 0, "by_state": {}, "month": "Mayo"}
+
+    # Contar totales por estado
+    projects_by_state = {}
+    for month_data in all_months_projects_metrics:
+        for state, count in month_data.get("by_state", {}).items():
+            if state not in projects_by_state:
+                projects_by_state[state] = 0
+            projects_by_state[state] += count
+
+    # Generar filas de tabla
+    status_rows = ""
+    states_order = ["Backlog", "Planned", "In Progress", "Blocked", "In Review", "Canceled", "Archived"]
+    for state in states_order:
+        count = projects_by_state.get(state, 0)
+        if count == 0:
+            continue
+        status_rows += '        <tr class="hover:bg-surface-container-highest/50 transition-colors group">\n'
+        status_rows += '            <td class="px-6 py-4 flex items-center gap-3">\n'
+        status_rows += '                <span class="h-2 w-2 rounded-full bg-secondary"></span>\n'
+        status_rows += '                <span class="text-on-surface group-hover:text-white transition-colors capitalize">' + state + '</span>\n'
+        status_rows += '            </td>\n'
+        status_rows += '            <td class="px-6 py-4 text-right font-semibold text-on-surface">' + str(count) + '</td>\n'
+        status_rows += '        </tr>\n'
+
+    # Generar botones de meses
+    month_buttons = ""
+    months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo"]
+    for i, month in enumerate(months):
+        is_active = (i == len(months) - 1)
+        classes = 'text-primary bg-primary/10 border border-primary/30 shadow-lg shadow-primary/5 font-semibold' if is_active else 'text-on-surface-variant hover:text-white hover:bg-surface-container transition-all font-medium'
+        month_buttons += '    <button class="px-5 py-2.5 rounded-full text-sm ' + classes + ' whitespace-nowrap" data-month="' + month + '">' + month + ' 2026</button>\n'
+
+    # Generar tarjetas de marcas
+    brands = ["Cuy", "PeruSim", "Habla+", "Wings", "Fimo", "Guinea", "B2B", "Partner", "Legales", "Finanzas", "Airalo"]
+    brands_cards = ""
+    for brand in brands:
+        brands_cards += '    <div class="glacier-card p-4 rounded-xl">\n'
+        brands_cards += '        <div class="text-primary font-bold text-sm mb-3 border-b border-outline-variant/20 pb-2">' + brand + '</div>\n'
+        brands_cards += '        <div class="grid grid-cols-2 gap-2">\n'
+        brands_cards += '            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-white">0</span></div>\n'
+        brands_cards += '            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary">0</span></div>\n'
+        brands_cards += '        </div>\n'
+        brands_cards += '    </div>\n'
+
+    # Generar tarjetas de métricas
+    total = current_month_projects.get("total_projects", 0)
+    in_progress = current_month_projects.get("in_progress", 0)
+    pending = current_month_projects.get("pending_ce2", 0)
+    metrics_cards = '        <div class="glacier-card p-6 rounded-xl flex flex-col items-center justify-center text-center">\n'
+    metrics_cards += '            <span class="text-on-surface-variant text-xs font-bold uppercase mb-2 tracking-tighter">Total CE2</span>\n'
+    metrics_cards += '            <span class="text-4xl font-bold text-white">' + str(total) + '</span>\n'
+    metrics_cards += '        </div>\n'
+    metrics_cards += '        <div class="glacier-card p-6 rounded-xl flex flex-col items-center justify-center text-center">\n'
+    metrics_cards += '            <span class="text-on-surface-variant text-xs font-bold uppercase mb-2 tracking-tighter">En Progreso</span>\n'
+    metrics_cards += '            <span class="text-4xl font-bold text-primary">' + str(in_progress) + '</span>\n'
+    metrics_cards += '        </div>\n'
+    metrics_cards += '        <div class="glacier-card p-6 rounded-xl flex flex-col items-center justify-center text-center">\n'
+    metrics_cards += '            <span class="text-on-surface-variant text-xs font-bold uppercase mb-2 tracking-tighter">Pendientes</span>\n'
+    metrics_cards += '            <span class="text-4xl font-bold text-secondary">' + str(pending) + '</span>\n'
+    metrics_cards += '        </div>\n'
+    metrics_cards += '        <div class="glacier-card p-6 rounded-xl flex flex-col items-center justify-center text-center">\n'
+    metrics_cards += '            <span class="text-on-surface-variant text-xs font-bold uppercase mb-2 tracking-tighter">Bloqueados</span>\n'
+    metrics_cards += '            <span class="text-4xl font-bold text-error/60">0</span>\n'
+    metrics_cards += '        </div>\n'
+
+    # Obtener sección de Issues CE
+    issues_section_start = original.find('<div id="issues"')
+    issues_section_end = original.find('</section>', issues_section_start)
+    issues_section = original[issues_section_start:issues_section_end] if issues_section_start != -1 else ""
+
+    month_text = current_month_projects.get("month", "Mayo")
+
+    html = """    <!DOCTYPE html>
+    <html class="dark" lang="es">
     <head>
-        <meta charset="utf-8">
-        <title>Linear Dashboard - Continuity Engineering</title>
-        <style>
-            * {
-                margin: 0;
-                padding: 0;
-                box-sizing: border-box;
+        <meta charset="utf-8"/>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+        <title>Proyectos CE - Continuity Engineering Dashboard</title>
+        <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+        <script id="tailwind-config">
+            tailwind.config = {
+                darkMode: "class",
+                theme: {
+                    extend: {
+                        "colors": {
+                            "surface-dim": "#0f1524",
+                            "surface-bright": "#1a2438",
+                            "surface": "#0f1524",
+                            "on-tertiary-fixed-variant": "#4d2a73",
+                            "on-tertiary-container": "#e8d0ff",
+                            "inverse-on-surface": "#0a0e1a",
+                            "outline-variant": "#2a3a48",
+                            "primary-fixed-dim": "#7dd3fc",
+                            "on-secondary-fixed": "#0d1f2b",
+                            "surface-container": "#141c2e",
+                            "inverse-surface": "#e0e8f0",
+                            "tertiary-fixed": "#e8d0ff",
+                            "on-secondary-container": "#c0d8e8",
+                            "on-primary-fixed": "#001f2e",
+                            "primary-fixed": "#c8eaff",
+                            "on-tertiary": "#1a002e",
+                            "error": "#ff6b6b",
+                            "on-surface-variant": "#a0b4c4",
+                            "secondary-fixed": "#c0d8e8",
+                            "surface-container-lowest": "#0a0e1a",
+                            "tertiary-container": "#3d2060",
+                            "surface-tint": "#7dd3fc",
+                            "surface-container-high": "#1a2438",
+                            "surface-variant": "#1a2438",
+                            "on-surface": "#e0e8f0",
+                            "background": "#0a0e1a",
+                            "on-error": "#1a0000",
+                            "outline": "#4a6070",
+                            "on-error-container": "#ffb3b3",
+                            "on-primary-container": "#c8eaff",
+                            "tertiary-fixed-dim": "#c8a0f0",
+                            "tertiary": "#c8a0f0",
+                            "secondary-fixed-dim": "#88b4cc",
+                            "on-secondary": "#001f2e",
+                            "primary-container": "#0e4d6e",
+                            "error-container": "#3d1414",
+                            "inverse-primary": "#0a4c6e",
+                            "on-secondary-fixed-variant": "#2a4a5e",
+                            "secondary": "#88b4cc",
+                            "primary": "#7dd3fc",
+                            "surface-container-highest": "#202c42",
+                            "on-primary": "#001f2e",
+                            "secondary-container": "#1a3a4e",
+                            "on-background": "#e0e8f0",
+                            "on-tertiary-fixed": "#1a002e",
+                            "surface-container-low": "#111828",
+                            "on-primary-fixed-variant": "#004d73"
+                        },
+                        "borderRadius": {
+                            "DEFAULT": "0.5rem",
+                            "lg": "1rem",
+                            "xl": "1.5rem",
+                            "full": "9999px"
+                        },
+                        "fontFamily": {
+                            "headline": ["Inter", "sans-serif"],
+                            "display": ["Inter", "sans-serif"],
+                            "body": ["Inter", "sans-serif"],
+                            "label": ["Inter", "sans-serif"]
+                        }
+                    },
+                },
             }
+        </script>
+        <style data-purpose="layout-and-theme">
             body {
-                font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-                background: #0a0e1a;
-                color: #e0e0e0;
+                font-family: 'Inter', sans-serif;
+                background-color: #0a0e1a;
+                color: #e0e8f0;
             }
-            .container {
-                display: flex;
-                min-height: 100vh;
+            .glacier-surface {
+                background-color: #0f1524;
+                border: 1px solid rgba(74, 96, 112, 0.3);
             }
-            .drawer {
-                width: 200px;
-                background: rgba(15, 21, 36, 0.6);
-                backdrop-filter: blur(16px);
-                border-right: 1px solid rgba(125, 211, 252, 0.1);
-                color: white;
-                padding: 15px;
-                box-shadow: 0 0 30px rgba(125, 211, 252, 0.05);
-                position: fixed;
-                height: 100vh;
-                overflow-y: auto;
+            .glacier-card {
+                background-color: #141c2e;
+                border: 1px solid rgba(125, 211, 252, 0.1);
+                transition: all 0.3s ease;
             }
-            .drawer h2 {
-                font-size: 14px;
-                margin-bottom: 15px;
-                padding-bottom: 8px;
-                border-bottom: 2px solid rgba(125, 211, 252, 0.3);
-                font-weight: 600;
+            .glacier-card:hover {
+                border-color: #7dd3fc;
+                background-color: #1a2438;
             }
             .drawer-item {
-                padding: 10px 12px;
-                margin-bottom: 6px;
-                cursor: pointer;
-                border-radius: 6px;
-                border-left: 3px solid transparent;
                 transition: all 0.2s;
-                font-size: 13px;
-                background: rgba(125, 211, 252, 0.05);
-                border: 1px solid rgba(125, 211, 252, 0.1);
-            }
-            .drawer-item:hover {
-                background: rgba(125, 211, 252, 0.1);
-                border-color: rgba(125, 211, 252, 0.2);
-                box-shadow: 0 0 15px rgba(125, 211, 252, 0.1);
             }
             .drawer-item.active {
-                background: rgba(125, 211, 252, 0.2);
-                border-left-color: #7dd3fc;
-                box-shadow: 0 0 20px rgba(125, 211, 252, 0.15);
-            }
-            .content {
-                flex: 1;
-                margin-left: 200px;
-                padding: 30px;
-            }
-            .section {
-                display: none;
-            }
-            .section.active {
-                display: block;
-            }
-            h1 {
-                color: #ffffff;
-                margin-bottom: 20px;
-            }
-            .note {
-                background: rgba(15, 21, 36, 0.6);
-                backdrop-filter: blur(16px);
-                padding: 12px;
-                border-left: 4px solid #7dd3fc;
-                border: 1px solid rgba(125, 211, 252, 0.2);
-                border-left: 4px solid #7dd3fc;
-                margin-bottom: 20px;
-                border-radius: 8px;
+                background-color: rgba(125, 211, 252, 0.1);
                 color: #7dd3fc;
-                box-shadow: 0 0 20px rgba(125, 211, 252, 0.05);
-            }
-            .disclaimer {
-                background: rgba(15, 21, 36, 0.6);
-                backdrop-filter: blur(16px);
-                padding: 15px;
-                border-left: 4px solid #c8a0f0;
-                border: 1px solid rgba(200, 160, 240, 0.2);
-                border-left: 4px solid #c8a0f0;
-                margin-bottom: 20px;
-                border-radius: 8px;
-                font-size: 13px;
-                color: #c8a0f0;
-                box-shadow: 0 0 20px rgba(200, 160, 240, 0.05);
-            }
-            .disclaimer strong {
-                display: block;
-                margin-bottom: 8px;
-            }
-            .disclaimer-item {
-                margin: 5px 0;
-            }
-            .tabs {
-                display: flex;
-                gap: 10px;
-                margin-bottom: 20px;
-                border-bottom: 2px solid #333;
-                flex-wrap: wrap;
-            }
-            .tab-button {
-                background: none;
-                border: none;
-                padding: 12px 16px;
-                cursor: pointer;
-                font-size: 14px;
-                font-weight: 500;
-                color: #999;
-                border-bottom: 3px solid transparent;
-                transition: all 0.2s;
-            }
-            .tab-button:hover {
-                color: #7dd3fc;
-                border-bottom-color: rgba(125, 211, 252, 0.3);
-            }
-            .tab-button.active {
-                color: #7dd3fc;
-                border-bottom-color: #7dd3fc;
-                box-shadow: 0 2px 10px rgba(125, 211, 252, 0.1);
-            }
-            .tab-content {
-                display: none;
-            }
-            .tab-content.active {
-                display: block;
-            }
-            .month-summary {
-                background: rgba(15, 21, 36, 0.6);
-                backdrop-filter: blur(16px);
-                padding: 15px;
-                border-left: 4px solid #7dd3fc;
-                border: 1px solid rgba(125, 211, 252, 0.2);
-                border-left: 4px solid #7dd3fc;
-                border-radius: 8px;
-                margin-bottom: 20px;
-                font-size: 14px;
-                color: #7dd3fc;
-                box-shadow: 0 0 20px rgba(125, 211, 252, 0.05);
-            }
-            .metrics {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-                gap: 15px;
-                margin-bottom: 30px;
-            }
-            .metric-card {
-                background: rgba(15, 21, 36, 0.6);
-                backdrop-filter: blur(16px);
-                padding: 15px;
-                border-radius: 12px;
-                box-shadow: 0 0 30px rgba(125, 211, 252, 0.05);
-                border: 1px solid rgba(125, 211, 252, 0.15);
-                text-align: center;
-                transition: all 0.3s ease;
-            }
-            .metric-card:hover {
-                background: rgba(15, 21, 36, 0.75);
-                border-color: rgba(125, 211, 252, 0.3);
-                box-shadow: 0 0 30px rgba(125, 211, 252, 0.1);
-            }
-            .metric-card.ce1 {
-                border-left-color: #ff687a;
-            }
-            .metric-card.ce2 {
-                border-left-color: #04ffb0;
-            }
-            .value {
-                font-size: 28px;
-                font-weight: bold;
-                color: #7dd3fc;
-                margin: 8px 0;
-            }
-            .metric-card.ce1 .value {
-                color: #7dd3fc;
-            }
-            .metric-card.ce2 .value {
-                color: #7dd3fc;
-            }
-            .label {
-                color: #aaa;
-                font-size: 12px;
-            }
-            .progress-container {
-                background: rgba(15, 21, 36, 0.6);
-                backdrop-filter: blur(16px);
-                padding: 20px;
-                border-radius: 12px;
-                box-shadow: 0 0 30px rgba(125, 211, 252, 0.05);
-                border: 1px solid rgba(125, 211, 252, 0.15);
-                margin-bottom: 30px;
-            }
-            .progress-header {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                margin-bottom: 12px;
-            }
-            .progress-header h4 {
-                margin: 0;
-                color: #ffffff;
-                font-size: 14px;
-            }
-            .progress-percentage {
-                font-size: 18px;
-                font-weight: bold;
-                color: #7dd3fc;
-            }
-            .progress-bar {
-                width: 100%;
-                height: 24px;
-                background: rgba(125, 211, 252, 0.1);
-                border-radius: 12px;
-                overflow: hidden;
-                position: relative;
-                border: 1px solid rgba(125, 211, 252, 0.2);
-            }
-            .progress-fill {
-                height: 100%;
-                background: linear-gradient(90deg, #7dd3fc, #c8a0f0);
-                border-radius: 12px;
-                display: flex;
-                align-items: center;
-                justify-content: flex-end;
-                padding-right: 8px;
-                color: #0a0e1a;
-                font-size: 11px;
-                font-weight: 600;
-                transition: width 0.3s ease;
-                box-shadow: 0 0 20px rgba(125, 211, 252, 0.3);
-            }
-            .section-box {
-                background: rgba(15, 21, 36, 0.6);
-                backdrop-filter: blur(16px);
-                padding: 20px;
-                border-radius: 12px;
-                margin-bottom: 20px;
-                box-shadow: 0 0 30px rgba(125, 211, 252, 0.05);
-                border: 1px solid rgba(125, 211, 252, 0.15);
-            }
-            .section-box h2 {
-                margin-top: 0;
-                margin-bottom: 25px;
-                color: #ffffff;
-                border-bottom: 2px solid rgba(125, 211, 252, 0.3);
-                padding-bottom: 15px;
-                font-weight: 600;
-            }
-            table {
-                width: 100%;
-                border-collapse: collapse;
-            }
-            th, td {
-                padding: 12px;
-                text-align: left;
-                border-bottom: 1px solid #333;
-                color: #e0e0e0;
-            }
-            th {
-                background: #2a2a2a;
-                font-weight: 600;
-                color: #ffffff;
-            }
-            .timestamp {
-                text-align: center;
-                color: #666;
-                font-size: 12px;
-                margin-top: 20px;
-            }
-            .product-summary {
-                display: grid;
-                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-                gap: 25px;
-                margin-bottom: 10px;
-            }
-            .product-card {
-                background: rgba(15, 21, 36, 0.6);
-                backdrop-filter: blur(16px);
-                border: 1px solid rgba(125, 211, 252, 0.15);
-                border-radius: 12px;
-                padding: 15px;
-                transition: all 0.3s ease;
-                box-shadow: 0 0 20px rgba(125, 211, 252, 0.03);
-            }
-            .product-card:hover {
-                background: rgba(15, 21, 36, 0.75);
-                border-color: rgba(125, 211, 252, 0.3);
-                box-shadow: 0 0 30px rgba(125, 211, 252, 0.1);
-            }
-            .product-name {
-                font-weight: 600;
-                color: #ffffff;
-                margin-bottom: 12px;
-                font-size: 13px;
-            }
-            .product-stats {
-                display: flex;
-                justify-content: space-between;
-                gap: 10px;
-            }
-            .stat {
-                flex: 1;
-                text-align: center;
-            }
-            .stat-label {
-                display: block;
-                color: #999;
-                font-size: 11px;
-                margin-bottom: 4px;
-                text-transform: uppercase;
-                letter-spacing: 0.5px;
-            }
-            .stat-value {
-                display: block;
-                font-size: 16px;
-                font-weight: bold;
-                color: #7dd3fc;
-            }
-            .stat-value.pending {
-                color: #c8a0f0;
-            }
-            .stat-value.closed {
-                color: #7dd3fc;
-            }
-            .theme-toggle {
-                padding: 10px 12px;
-                margin-bottom: 15px;
-                cursor: pointer;
-                border-radius: 8px;
-                background: rgba(125, 211, 252, 0.1);
-                border: 1px solid rgba(125, 211, 252, 0.2);
-                color: #7dd3fc;
-                font-size: 14px;
-                font-weight: 500;
-                transition: all 0.2s;
-                text-align: center;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                gap: 8px;
-            }
-            .theme-toggle:hover {
-                background: rgba(125, 211, 252, 0.15);
-                border-color: rgba(125, 211, 252, 0.3);
-                color: #7dd3fc;
-                box-shadow: 0 0 20px rgba(125, 211, 252, 0.1);
-            }
-            /* MODO CLARO - GLACIER */
-            body.light-mode {
-                background: linear-gradient(135deg, #f8fafc 0%, #f0f4f8 100%);
-                color: #1a1a1a;
-            }
-            body.light-mode .drawer {
-                background: rgba(248, 250, 252, 0.7);
-                backdrop-filter: blur(16px);
-                color: #1a1a1a;
-                box-shadow: 0 0 30px rgba(125, 211, 252, 0.05);
-                border-right: 1px solid rgba(125, 211, 252, 0.15);
-            }
-            body.light-mode .drawer h2 {
-                border-bottom-color: rgba(125, 211, 252, 0.3);
-                color: #1a1a1a;
-                font-weight: 600;
-            }
-            body.light-mode .drawer-item {
-                color: #555;
-                background: rgba(125, 211, 252, 0.08);
-                border: 1px solid rgba(125, 211, 252, 0.12);
-            }
-            body.light-mode .drawer-item:hover {
-                background: rgba(125, 211, 252, 0.15);
-                color: #0a5f8f;
-                border-color: rgba(125, 211, 252, 0.25);
-                box-shadow: 0 0 15px rgba(125, 211, 252, 0.1);
-            }
-            body.light-mode .drawer-item.active {
-                background: rgba(125, 211, 252, 0.25);
-                color: #0a5f8f;
-                border-left-color: #7dd3fc;
-                box-shadow: 0 0 20px rgba(125, 211, 252, 0.15);
-            }
-            body.light-mode .content {
-                background: linear-gradient(135deg, #f8fafc 0%, #f0f4f8 100%);
-            }
-            body.light-mode h1, body.light-mode h2, body.light-mode h3, body.light-mode h4 {
-                color: #1a1a1a;
-                font-weight: 600;
-            }
-            body.light-mode .section-box {
-                background: rgba(248, 250, 252, 0.6);
-                backdrop-filter: blur(16px);
-                border: 1px solid rgba(125, 211, 252, 0.15);
-                box-shadow: 0 0 30px rgba(125, 211, 252, 0.05);
-            }
-            body.light-mode .metric-card {
-                background: rgba(248, 250, 252, 0.6);
-                backdrop-filter: blur(16px);
-                border: 1px solid rgba(125, 211, 252, 0.15);
-                box-shadow: 0 0 20px rgba(125, 211, 252, 0.03);
-            }
-            body.light-mode .metric-card:hover {
-                background: rgba(248, 250, 252, 0.75);
-                border-color: rgba(125, 211, 252, 0.3);
-                box-shadow: 0 0 30px rgba(125, 211, 252, 0.1);
-            }
-            body.light-mode .note {
-                background: rgba(125, 211, 252, 0.08);
-                backdrop-filter: blur(16px);
-                color: #0a5f8f;
-                border-left: 4px solid #7dd3fc;
-                border: 1px solid rgba(125, 211, 252, 0.2);
-                border-left: 4px solid #7dd3fc;
-                box-shadow: 0 0 20px rgba(125, 211, 252, 0.05);
-            }
-            body.light-mode .disclaimer {
-                background: rgba(200, 160, 240, 0.08);
-                backdrop-filter: blur(16px);
-                color: #6b4c99;
-                border-left: 4px solid #c8a0f0;
-                border: 1px solid rgba(200, 160, 240, 0.2);
-                border-left: 4px solid #c8a0f0;
-                box-shadow: 0 0 20px rgba(200, 160, 240, 0.05);
-            }
-            body.light-mode table {
-                color: #1a1a1a;
-            }
-            body.light-mode th {
-                background: rgba(125, 211, 252, 0.1);
-                color: #1a1a1a;
-                border-bottom-color: rgba(125, 211, 252, 0.2);
-                font-weight: 700;
-            }
-            body.light-mode td {
-                color: #1a1a1a;
-                border-bottom-color: rgba(125, 211, 252, 0.1);
-                font-weight: 500;
-            }
-            body.light-mode .product-card {
-                background: rgba(248, 250, 252, 0.6);
-                backdrop-filter: blur(16px);
-                border: 1px solid rgba(125, 211, 252, 0.15);
-                box-shadow: 0 0 20px rgba(125, 211, 252, 0.03);
-            }
-            body.light-mode .product-card:hover {
-                border-color: rgba(125, 211, 252, 0.3);
-                background: rgba(248, 250, 252, 0.75);
-                box-shadow: 0 0 30px rgba(125, 211, 252, 0.1);
-            }
-            body.light-mode .tab-button {
-                color: #888;
-            }
-            body.light-mode .tab-button:hover {
-                color: #7dd3fc;
-                border-bottom-color: rgba(125, 211, 252, 0.3);
-            }
-            body.light-mode .tab-button.active {
-                color: #7dd3fc;
-                border-bottom-color: #7dd3fc;
-                box-shadow: 0 2px 10px rgba(125, 211, 252, 0.1);
-            }
-            body.light-mode .progress-container {
-                background: rgba(248, 250, 252, 0.6);
-                backdrop-filter: blur(16px);
-                border: 1px solid rgba(125, 211, 252, 0.15);
-                box-shadow: 0 0 30px rgba(125, 211, 252, 0.05);
-            }
-            body.light-mode .progress-bar {
-                background: rgba(125, 211, 252, 0.1);
-                border: 1px solid rgba(125, 211, 252, 0.2);
-            }
-            body.light-mode .progress-fill {
-                background: linear-gradient(90deg, #7dd3fc, #c8a0f0);
-                color: #0a0e1a;
-            }
-            body.light-mode .progress-percentage {
-                color: #7dd3fc;
-            }
-            body.light-mode .theme-toggle {
-                background: rgba(125, 211, 252, 0.1);
-                border-color: rgba(125, 211, 252, 0.2);
-                color: #7dd3fc;
-            }
-            body.light-mode .theme-toggle:hover {
-                background: rgba(125, 211, 252, 0.15);
-                border-color: rgba(125, 211, 252, 0.3);
-                color: #7dd3fc;
-                box-shadow: 0 0 20px rgba(125, 211, 252, 0.1);
-            }
-            body.light-mode .product-name {
-                color: #0a5f8f;
-                font-weight: 700;
-            }
-            body.light-mode .stat-value {
-                color: #7dd3fc;
-            }
-            body.light-mode .stat-label {
-                color: #888;
-            }
-            body.light-mode .value {
-                color: #7dd3fc;
-            }
-            body.light-mode .month-summary {
-                background: rgba(125, 211, 252, 0.08);
-                backdrop-filter: blur(16px);
-                color: #0a5f8f;
-                border-left: 4px solid #7dd3fc;
-                border: 1px solid rgba(125, 211, 252, 0.2);
-                border-left: 4px solid #7dd3fc;
-                box-shadow: 0 0 20px rgba(125, 211, 252, 0.05);
-            }
-            @media (max-width: 768px) {
-                .drawer {
-                    width: 100%;
-                    height: auto;
-                    position: relative;
-                }
-                .content {
-                    margin-left: 0;
-                }
+                border-right: 3px solid #7dd3fc;
             }
         </style>
     </head>
-    <body>
-        <div class="container">
-            <div class="drawer">
-                <h2>📊 Dashboard</h2>
-                <button class="theme-toggle" onclick="toggleTheme()">🌙 Modo Claro</button>
-                <div class="drawer-item active" onclick="switchSection('issues')">Issues CE</div>
-                <div class="drawer-item" onclick="switchSection('projects')">Proyectos CE</div>
-            </div>
-
-            <div class="content">
-    """
-
-    # SECCIÓN ISSUES
-    html += """
-                <div id="issues" class="section active">
-                    <h1>📌 Issues Sin Proyecto CE</h1>
-
-                    <div class="note">
-                        <strong>ℹ️ Nota:</strong> Solo se muestran issues que NO pertenecen a ningún proyecto.
-                        Los issues asociados a proyectos se ven en la sección "Proyectos".
-                    </div>
-
-                    <div class="disclaimer">
-                        <strong>📌 Definición de "Pendientes":</strong>
-                        <div class="disclaimer-item">✓ Se cuentan: Triage, Planning, Backlog, In Progress, In Review, Blocked</div>
-                        <div class="disclaimer-item">✗ NO se cuentan: Closed, Discarded</div>
-                    </div>
-
-                    <div class="tabs">
-    """
-
-    months_order = ["Enero", "Febrero", "Marzo", "Abril", "Mayo"]
-    for month in months_order:
-        active = "active" if month == "Mayo" else ""
-        html += f'<button class="tab-button {active}" onclick="switchTab(\'{month}\')">{month} 2026</button>'
-
-    html += """
-                    </div>
-    """
-
-    for month_data in all_months_metrics:
-        month_name = month_data["month"]
-        active = "active" if month_name == "Mayo" else ""
-        pending_total = sum(month_data["pending_by_product"].values())
-
-        html += f"""
-                    <div class="tab-content {active}" id="tab-{month_name}">
-                        <div class="month-summary">
-                            <strong>{month_name} 2026:</strong> {month_data["total_issues"]} issues totales
-                            | <strong>Pendientes: {pending_total}</strong>
+    <body class="min-h-screen bg-background text-on-surface">
+        <div class="flex min-h-screen">
+            <aside class="w-64 glacier-surface border-r border-outline-variant fixed h-full z-10 flex flex-col" data-purpose="navigation-sidebar">
+                <div class="p-6">
+                    <h2 class="text-xs font-bold uppercase tracking-widest text-primary mb-8 flex items-center gap-2">
+                        <span class="material-symbols-outlined text-xl">grid_view</span>
+                        Dashboard
+                    </h2>
+                    <nav class="space-y-2">
+                        <div class="drawer-item flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer hover:bg-surface-variant text-on-surface-variant font-medium text-sm" onclick="switchSection('issues')">
+                            <span class="material-symbols-outlined text-lg">bug_report</span>
+                            Issues CE
                         </div>
-
-                        <h3>📊 Resumen</h3>
-
-                        <div class="progress-container">
-                            <div class="progress-header">
-                                <h4>Progreso General</h4>
-                                <span class="progress-percentage">{int((month_data["closed"] / month_data["total_issues"] * 100) if month_data["total_issues"] > 0 else 0)}%</span>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: {int((month_data["closed"] / month_data["total_issues"] * 100) if month_data["total_issues"] > 0 else 0)}%"></div>
-                            </div>
+                        <div class="drawer-item active flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer font-medium text-sm" onclick="switchSection('projects')">
+                            <span class="material-symbols-outlined text-lg">inventory_2</span>
+                            Proyectos CE
                         </div>
-
-                        <div class="metrics">
-                            <div class="metric-card">
-                                <div class="label">Total Issues</div>
-                                <div class="value">{month_data["total_issues"]}</div>
-                            </div>
-                            <div class="metric-card ce2">
-                                <div class="label">CE2 Issues Total</div>
-                                <div class="value">{month_data["by_team"]["CE2"]}</div>
-                            </div>
-                            <div class="metric-card">
-                                <div class="label">🔥 In Progress</div>
-                                <div class="value">{month_data["active_issues"]}</div>
-                            </div>
-                            <div class="metric-card">
-                                <div class="label">🏷️ Sin Label</div>
-                                <div class="value">{month_data["backlog_untracked"]}</div>
-                            </div>
-                            <div class="metric-card">
-                                <div class="label">🚫 Bloqueados</div>
-                                <div class="value">{month_data["blocked"]}</div>
-                            </div>
-                            <div class="metric-card">
-                                <div class="label">✅ Cerrados</div>
-                                <div class="value">{month_data["closed"]}</div>
-                            </div>
-                            <div class="metric-card">
-                                <div class="label">⏳ Pendientes</div>
-                                <div class="value">{pending_total}</div>
-                            </div>
-                        </div>
-
-                        <div class="section-box" style="margin-bottom: 20px;">
-                            <h2>📦 Resumen por Producto (Total vs Pendientes)</h2>
-                            <div class="product-summary">
-        """
-
-        # Generar resumen por producto (ordenado por total de mayor a menor)
-        for product, total in sorted(month_data["by_product"].items(), key=lambda x: x[1], reverse=True):
-            pending = month_data["pending_by_product"].get(product, 0)
-
-            html += f"""
-                                <div class="product-card">
-                                    <div class="product-name">{product}</div>
-                                    <div class="product-stats">
-                                        <div class="stat">
-                                            <span class="stat-label">Total</span>
-                                            <span class="stat-value">{total}</span>
-                                        </div>
-            """
-
-            # Solo mostrar Pendientes si hay
-            if pending > 0:
-                html += f"""
-                                        <div class="stat">
-                                            <span class="stat-label">Pendientes</span>
-                                            <span class="stat-value pending">{pending}</span>
-                                        </div>
-                """
-
-            html += """
-                                    </div>
-                                </div>
-            """
-
-        html += """
-                            </div>
-                        </div>
-
-                        <div class="disclaimer" style="margin-top: 20px;">
-                            <strong>📌 Nota sobre los totales:</strong>
-                            <div class="disclaimer-item">Pendientes + Cerrados = Issues considerados (con etiqueta de producto)</div>
-                            <div class="disclaimer-item">Los issues en estado "Discarded" se excluyen y no se cuentan en ninguna categoría</div>
-                            <div class="disclaimer-item">"Sin Label" muestra issues que no tienen etiqueta de producto - NO se incluyen en el total hasta etiquetarlos</div>
-                        </div>
-
-                        <div class="section-box">
-                            <h2>📊 Por Estado (Desglose por Team)</h2>
-                            <table>
-                                <tr>
-                                    <th>Estado</th>
-                                    <th>CE1</th>
-                                    <th>CE2</th>
-                                    <th>Total</th>
-                                </tr>
-        """
-
-        for state in sorted(month_data["by_state"].keys()):
-            count = month_data["by_state"][state]
-            ce1_count = month_data["by_state_by_team"].get(f"CE1_{state}", 0)
-            ce2_count = month_data["by_state_by_team"].get(f"CE2_{state}", 0)
-            html += f"<tr><td>{state}</td><td>{ce1_count}</td><td>{ce2_count}</td><td>{count}</td></tr>"
-
-        html += """
-                            </table>
-                        </div>
-
-                        <div class="section-box">
-                            <h2>🏢 Por Producto (Pendientes vs Total)</h2>
-                            <table>
-                                <tr>
-                                    <th>Producto</th>
-                                    <th>Pendientes</th>
-                                    <th>Total</th>
-                                    <th>Completado %</th>
-                                </tr>
-        """
-
-        for product in sorted(month_data["by_product"].keys()):
-            total = month_data["by_product"][product]
-            pending = month_data["pending_by_product"].get(product, 0)
-            closed = total - pending
-            closed_pct = (closed / total * 100) if total > 0 else 0
-
-            html += f"""
-                                <tr>
-                                    <td><strong>{product}</strong></td>
-                                    <td>{pending}</td>
-                                    <td>{total}</td>
-                                    <td>{closed_pct:.1f}%</td>
-                                </tr>
-            """
-
-        html += """
-                            </table>
-                        </div>
-        """
-
-        # Agregar tabla de Pendientes (con etiqueta)
-        if month_data["pending_issues_list"]:
-            html += f"""
-                        <div class="section-box">
-                            <h2>⏳ Pendientes por Revisar ({len(month_data["pending_issues_list"])})</h2>
-                            <table>
-                                <tr>
-                                    <th>ID Issue</th>
-                                    <th>Título</th>
-                                    <th>Estado</th>
-                                    <th>Producto</th>
-                                    <th>Team</th>
-                                    <th>Asignado a</th>
-                                    <th>Link</th>
-                                </tr>
-            """
-            for issue in month_data["pending_issues_list"]:
-                issue_id = issue["id"]
-                title = issue["title"]
-                state = issue["state"]
-                products = issue["products"]
-                team = issue["team"]
-                assignee = issue.get("assignee", "Sin asignar")
-                link = f'<a href="https://linear.app/guinea/issue/{issue_id}" target="_blank" style="color: #d3c5ff; text-decoration: none;">Abrir →</a>'
-
-                html += f"""
-                                <tr>
-                                    <td><strong>{issue_id}</strong></td>
-                                    <td>{title}</td>
-                                    <td>{state}</td>
-                                    <td>{products}</td>
-                                    <td>{team}</td>
-                                    <td>{assignee}</td>
-                                    <td>{link}</td>
-                                </tr>
-                """
-
-            html += """
-                            </table>
-                        </div>
-            """
-
-        # Agregar tabla de issues sin etiqueta
-        if month_data["untracked_issues_list"]:
-            html += f"""
-                        <div class="section-box">
-                            <h2>🏷️ Sin Label por Etiquetar ({len(month_data["untracked_issues_list"])})</h2>
-                            <table>
-                                <tr>
-                                    <th>ID Issue</th>
-                                    <th>Título</th>
-                                    <th>Estado</th>
-                                    <th>Team</th>
-                                    <th>Asignado a</th>
-                                    <th>Link</th>
-                                </tr>
-            """
-            for issue in month_data["untracked_issues_list"]:
-                issue_id = issue["id"]
-                title = issue["title"]
-                state = issue["state"]
-                team = issue["team"]
-                assignee = issue.get("assignee", "Sin asignar")
-                link = f'<a href="https://linear.app/guinea/issue/{issue_id}" target="_blank" style="color: #d3c5ff; text-decoration: none;">Abrir →</a>'
-
-                html += f"""
-                                <tr>
-                                    <td><strong>{issue_id}</strong></td>
-                                    <td>{title}</td>
-                                    <td>{state}</td>
-                                    <td>{team}</td>
-                                    <td>{assignee}</td>
-                                    <td>{link}</td>
-                                </tr>
-                """
-
-            html += """
-                            </table>
-                        </div>
-            """
-
-        html += """
-                    </div>
-        """
-
-    html += """
+                    </nav>
                 </div>
-    """
-
-    # SECCIÓN PROYECTOS
-    html += """
-                <div id="projects" class="section">
-                    <h1>📦 Proyectos CE</h1>
-
-                    <div class="note">
-                        <strong>ℹ️ Nota:</strong> Proyectos del equipo Continuity Engineering con sus métricas de estado.
+                <div class="mt-auto p-6">
+                    <div class="bg-surface-container rounded-xl p-4 border border-outline-variant/30">
+                        <p class="text-xs text-primary font-semibold mb-1 uppercase tracking-tighter">Continuity Eng.</p>
+                        <p class="text-[10px] text-on-surface-variant">v2.4.0 Glacier Stable</p>
                     </div>
-
-                    <div class="tabs">
-    """
-
-    months_order = ["Enero", "Febrero", "Marzo", "Abril", "Mayo"]
-    for month in months_order:
-        active = "active" if month == "Mayo" else ""
-        html += f'<button class="tab-button {active}" onclick="switchTab(\'{month}_projects\')">{month} 2026</button>'
-
-    html += """
-                    </div>
-    """
-
-    for month_data in all_months_projects_metrics:
-        month_name = month_data["month"]
-        active = "active" if month_name == "Mayo" else ""
-
-        html += f"""
-                    <div class="tab-content {active}" id="tab-{month_name}_projects">
-                        <div class="month-summary">
-                            <strong>{month_name} 2026:</strong> {month_data["total_projects"]} proyectos creados
-                        </div>
-
-                        <div class="metrics">
-                            <div class="metric-card">
-                                <div class="label">Total CE2</div>
-                                <div class="value">{month_data["total_projects"]}</div>
-                            </div>
-                            <div class="metric-card">
-                                <div class="label">En Progreso</div>
-                                <div class="value">{month_data["in_progress"]}</div>
-                            </div>
-                            <div class="metric-card">
-                                <div class="label">Pendientes</div>
-                                <div class="value">{month_data["pending_ce2"]}</div>
-                            </div>
-        """
-
-        # Mostrar Completados solo si hay
-        if month_data["completed"] > 0:
-            html += f"""
-                            <div class="metric-card">
-                                <div class="label">✅ Completados</div>
-                                <div class="value">{month_data["completed"]}</div>
-                            </div>
-        """
-
-        # Mostrar Cancelados solo si hay
-        canceled_count = month_data.get("canceled", 0)
-        if canceled_count > 0:
-            html += f"""
-                            <div class="metric-card">
-                                <div class="label">⛔ Cancelados</div>
-                                <div class="value">{canceled_count}</div>
-                            </div>
-        """
-
-        html += """
-                        </div>
-
-                        <div class="section-box">
-                            <h2>📊 Por Estado</h2>
-                            <table style="width: 100%; border-collapse: collapse;">
-                                <thead>
-                                    <tr style="background: #141c2e; border-bottom: 1px solid rgba(125, 211, 252, 0.2);">
-                                        <th style="padding: 12px; text-align: left; color: #e0e8f0; font-weight: 600;">Estado</th>
-                                        <th style="padding: 12px; text-align: left; color: #e0e8f0; font-weight: 600;">Total</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-        """
-
-        for state in sorted(month_data["by_state"].keys()):
-            count = month_data["by_state"][state]
-            html += f'<tr style="border-bottom: 1px solid rgba(74, 96, 112, 0.2); transition: background 0.2s;" onmouseover="this.style.background = \'rgba(125, 211, 252, 0.05)\';" onmouseout="this.style.background = \'transparent\'"><td style="padding: 12px;">{state}</td><td style="padding: 12px; font-weight: 600;">{count}</td></tr>'
-
-        html += """
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-        """
-
-    html += f"""
                 </div>
+            </aside>
 
-                <div class="timestamp">
-                    <strong>📊 Continuity Engineering</strong><br>
-                    Actualizado: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')} UTC
-                </div>
-            </div>
+            <main class="flex-1 ml-64 p-8 lg:p-12" data-purpose="dashboard-content">
+                <section class="max-w-6xl mx-auto" id="projects">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
+                        <div>
+                            <h1 class="text-4xl font-bold text-white tracking-tight flex items-center gap-3">
+                                <span class="material-symbols-outlined text-primary text-4xl">inventory_2</span>
+                                Proyectos CE
+                            </h1>
+                            <p class="text-on-surface-variant mt-2">Seguimiento de iniciativas de continuidad de ingeniería</p>
+                        </div>
+                        <div class="glacier-surface px-4 py-2 rounded-xl border border-primary/20 flex items-center gap-3 text-sm">
+                            <span class="material-symbols-outlined text-primary animate-pulse">sync</span>
+                            <span class="text-on-surface-variant">Live Data Active</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-surface-container border-l-4 border-primary p-4 rounded-r-xl mb-10 flex items-start gap-4">
+                        <span class="material-symbols-outlined text-primary mt-0.5">info</span>
+                        <p class="text-sm text-on-primary-container leading-relaxed"><strong class="text-primary">Nota:</strong> Los Pendientes son la suma de los estados Backlog, Planned, In progress, Blocked e In Review. No cuenta cancelados, ni archivados, ni completados.</p>
+                    </div>
+
+                    <div class="flex items-center gap-2 mb-8 overflow-x-auto pb-2" data-purpose="month-navigation">
+""" + month_buttons + """                    </div>
+
+                    <div class="tab-content" data-purpose="projects-data" id="tab-projects">
+                        <div class="flex items-center gap-2 mb-6">
+                            <span class="h-2 w-2 rounded-full bg-primary"></span>
+                            <span class="text-sm font-medium text-on-surface-variant uppercase tracking-widest">""" + month_text + """ 2026: """ + str(total) + """ proyectos creados</span>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
+""" + metrics_cards + """                        </div>
+
+                        <div class="mb-10">
+                            <h2 class="text-xl font-bold text-white flex items-center gap-2 mb-6">
+                                <span class="material-symbols-outlined text-primary">branding_watermark</span>
+                                Proyectos por Marca
+                            </h2>
+                            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
+""" + brands_cards + """                            </div>
+                        </div>
+
+                        <div class="glacier-surface p-8 rounded-2xl shadow-xl shadow-black/40" data-purpose="status-table-container">
+                            <div class="flex items-center justify-between mb-8">
+                                <h2 class="text-xl font-bold text-white flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-primary">bar_chart</span>
+                                    Por Estado
+                                </h2>
+                            </div>
+                            <div class="overflow-hidden rounded-xl border border-outline-variant/30">
+                                <table aria-label="Desglose de proyectos por estado" class="w-full text-left">
+                                    <thead>
+                                        <tr class="bg-surface-container-high">
+                                            <th class="px-6 py-4 text-xs font-bold text-primary uppercase tracking-widest">Estado</th>
+                                            <th class="px-6 py-4 text-xs font-bold text-primary uppercase tracking-widest text-right">Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-outline-variant/20">
+""" + status_rows + """                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="issues" style="display: none;">
+""" + issues_section + """
+                </section>
+            </main>
         </div>
 
-        <script>
-            // Initialize theme from localStorage
-            function initTheme() {{
-                const savedTheme = localStorage.getItem('theme');
-                if (savedTheme === 'light') {{
-                    document.body.classList.add('light-mode');
-                    updateToggleButton(true);
-                }}
-            }}
+        <script data-purpose="ui-interactions">
+            function switchSection(section) {
+                document.getElementById('projects').style.display = section === 'projects' ? 'block' : 'none';
+                document.getElementById('issues').style.display = section === 'issues' ? 'block' : 'none';
+                document.querySelectorAll('.drawer-item').forEach(item => item.classList.remove('active'));
+                event.target.closest('.drawer-item').classList.add('active');
+            }
 
-            // Toggle theme
-            function toggleTheme() {{
-                const body = document.body;
-                const isLightMode = body.classList.toggle('light-mode');
-
-                // Save preference
-                localStorage.setItem('theme', isLightMode ? 'light' : 'dark');
-                updateToggleButton(isLightMode);
-            }}
-
-            // Update toggle button text
-            function updateToggleButton(isLightMode) {{
-                const btn = document.querySelector('.theme-toggle');
-                if (btn) {{
-                    btn.textContent = isLightMode ? '☀️ Modo Oscuro' : '🌙 Modo Claro';
-                }}
-            }}
-
-            function switchSection(sectionId) {{
-                // Hide all sections
-                const sections = document.querySelectorAll('.section');
-                sections.forEach(s => s.classList.remove('active'));
-
-                // Remove active from drawer items
-                const items = document.querySelectorAll('.drawer-item');
-                items.forEach(i => i.classList.remove('active'));
-
-                // Show selected section
-                const section = document.getElementById(sectionId);
-                if (section) {{
-                    section.classList.add('active');
-                }}
-
-                // Add active to clicked item
-                event.target.classList.add('active');
-            }}
-
-            function switchTab(monthIdentifier) {{
-                // Get the active section
-                const activeSection = document.querySelector('.section.active');
-                if (!activeSection) return;
-
-                // Hide all tabs in this section
-                const tabs = activeSection.querySelectorAll('.tab-content');
-                tabs.forEach(tab => tab.classList.remove('active'));
-
-                // Remove active from buttons in this section
-                const buttons = activeSection.querySelectorAll('.tab-button');
-                buttons.forEach(btn => btn.classList.remove('active'));
-
-                // Show selected tab
-                const selectedTab = document.getElementById('tab-' + monthIdentifier);
-                if (selectedTab) {{
-                    selectedTab.classList.add('active');
-                }}
-
-                // Add active to clicked button
-                event.target.classList.add('active');
-            }}
-
-            // Initialize theme on page load
-            initTheme();
+            document.querySelectorAll('[data-month]').forEach(button => {
+                button.addEventListener('click', () => {
+                    document.querySelectorAll('[data-month]').forEach(btn => {
+                        btn.classList.remove('text-primary', 'bg-primary/10', 'border-primary/30', 'shadow-lg', 'shadow-primary/5', 'font-semibold');
+                        btn.classList.add('text-on-surface-variant', 'font-medium');
+                    });
+                    button.classList.add('text-primary', 'bg-primary/10', 'border-primary/30', 'shadow-lg', 'shadow-primary/5', 'font-semibold');
+                    button.classList.remove('text-on-surface-variant', 'font-medium');
+                });
+            });
         </script>
     </body>
     </html>
     """
 
     return html
+
 
 if __name__ == "__main__":
     print("🔄 Generando dashboard unificado...\n")
