@@ -1220,18 +1220,22 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
 
                         <div class="section-box">
                             <h2>📊 Por Estado</h2>
-                            <table>
-                                <tr>
-                                    <th>Estado</th>
-                                    <th>Total</th>
-                                </tr>
+                            <table style="width: 100%; border-collapse: collapse;">
+                                <thead>
+                                    <tr style="background: #141c2e; border-bottom: 1px solid rgba(125, 211, 252, 0.2);">
+                                        <th style="padding: 12px; text-align: left; color: #e0e8f0; font-weight: 600;">Estado</th>
+                                        <th style="padding: 12px; text-align: left; color: #e0e8f0; font-weight: 600;">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
         """
 
         for state in sorted(month_data["by_state"].keys()):
             count = month_data["by_state"][state]
-            html += f"<tr><td>{state}</td><td>{count}</td></tr>"
+            html += f'<tr style="border-bottom: 1px solid rgba(74, 96, 112, 0.2); transition: background 0.2s;" onmouseover="this.style.background = \'rgba(125, 211, 252, 0.05)\';" onmouseout="this.style.background = \'transparent\'"><td style="padding: 12px;">{state}</td><td style="padding: 12px; font-weight: 600;">{count}</td></tr>'
 
         html += """
+                                </tbody>
                             </table>
                         </div>
                     </div>
