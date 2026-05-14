@@ -731,7 +731,7 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
                             </div>
                         </div>
 
-                        <div class="glacier-surface p-8 rounded-2xl shadow-xl shadow-black/40" data-purpose="status-table-container">
+                        <div class="glacier-card p-8 rounded-2xl shadow-xl shadow-black/40" data-purpose="status-table-container">
                             <div class="flex items-center justify-between mb-8">
                                 <h2 class="text-xl font-bold text-on-surface flex items-center gap-2">
                                     <span class="material-symbols-outlined text-primary">bar_chart</span>
