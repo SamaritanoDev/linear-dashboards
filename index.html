@@ -172,11 +172,13 @@
             .dark .text-tertiary-fixed { color: #e8d0ff; }
             .dark .text-on-tertiary { color: #1a002e; }
             .dark .hover\:bg-surface-variant:hover { background-color: #1a2438; }
+            .dark .text-primary { color: #7dd3fc; }
+            .dark .text-on-primary-container { color: #a0d8f7; }
         </style>
     </head>
     <body class="min-h-screen bg-background text-on-surface">
         <div class="flex min-h-screen">
-            <aside class="w-64 glacier-surface border-r border-outline-variant fixed h-full z-10 flex flex-col" data-purpose="navigation-sidebar">
+            <aside class="w-48 glacier-surface border-r border-outline-variant fixed h-full z-10 flex flex-col" data-purpose="navigation-sidebar">
                 <div class="p-6">
                     <h2 class="text-xs font-bold uppercase tracking-widest text-primary mb-8 flex items-center gap-2">
                         <span class="material-symbols-outlined text-xl">grid_view</span>
@@ -201,7 +203,7 @@
                 </div>
             </aside>
 
-            <main class="flex-1 ml-64 p-8 lg:p-12" data-purpose="dashboard-content">
+            <main class="flex-1 ml-48 p-8 lg:p-12" data-purpose="dashboard-content">
                 <section class="max-w-6xl mx-auto" id="projects">
                     <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
                         <div>
@@ -239,29 +241,29 @@
                     <div class="tab-content" data-purpose="projects-data" id="tab-projects">
                         <div class="flex items-center gap-2 mb-6">
                             <span class="h-2 w-2 rounded-full bg-primary"></span>
-                            <span class="text-sm font-medium text-on-surface-variant uppercase tracking-widest" id="month-header">Mayo 2026: 17 proyectos creados</span>
+                            <span class="text-sm font-medium text-on-surface-variant uppercase tracking-widest" id="month-header">Mayo 2026: 18 proyectos creados</span>
                         </div>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-10">
-        <div class="glacier-card p-6 rounded-xl flex items-center justify-between">
+        <div class="glacier-card w-full px-12 py-8 rounded-xl flex items-center justify-center gap-3">
             <span class="text-on-surface-variant text-xs font-bold uppercase tracking-tighter">Total</span>
-            <span class="text-4xl font-bold text-on-surface" id="metric-total">17</span>
+            <span class="text-5xl font-bold text-on-surface" id="metric-total">18</span>
         </div>
-        <div class="glacier-card p-6 rounded-xl flex items-center justify-between">
+        <div class="glacier-card w-full px-12 py-8 rounded-xl flex items-center justify-center gap-3">
             <span class="text-on-surface-variant text-xs font-bold uppercase tracking-tighter">En Progreso</span>
-            <span class="text-4xl font-bold text-primary" id="metric-progress">1</span>
+            <span class="text-5xl font-bold text-primary" id="metric-progress">1</span>
         </div>
-        <div class="glacier-card p-6 rounded-xl flex items-center justify-between">
+        <div class="glacier-card w-full px-12 py-8 rounded-xl flex items-center justify-center gap-3">
             <span class="text-on-surface-variant text-xs font-bold uppercase tracking-tighter">Pendientes</span>
-            <span class="text-4xl font-bold text-secondary" id="metric-pending">16</span>
+            <span class="text-5xl font-bold text-secondary" id="metric-pending">16</span>
         </div>
-        <div class="glacier-card p-6 rounded-xl flex items-center justify-between">
+        <div class="glacier-card w-full px-12 py-8 rounded-xl flex items-center justify-center gap-3">
             <span class="text-on-surface-variant text-xs font-bold uppercase tracking-tighter">Bloqueados</span>
-            <span class="text-4xl font-bold text-error/60" id="metric-blocked">0</span>
+            <span class="text-5xl font-bold text-error/60" id="metric-blocked">0</span>
         </div>
-        <div class="glacier-card p-6 rounded-xl border-tertiary border-2 flex items-center justify-between">
-            <span class="text-tertiary text-xs font-bold uppercase tracking-tighter">Completados</span>
-            <span class="text-4xl font-bold text-tertiary" id="metric-completed">0</span>
+        <div class="glacier-card w-full px-12 py-8 rounded-xl border-tertiary border-2 flex items-center justify-center gap-3">
+            <span class="text-tertiary text-xs font-bold uppercase tracking-tighter">Cerrados</span>
+            <span class="text-5xl font-bold text-tertiary" id="metric-completed">1</span>
         </div>
                         </div>
 
@@ -296,12 +298,12 @@
     <div class="glacier-card p-6 rounded-xl brand-card" data-brand="Habla+" style="display: block;">
         <div class="flex flex-col items-center">
             <div class="text-primary font-bold text-sm border-b border-outline-variant/20 pb-3 w-full text-center">Habla+</div>
-            <div class="text-3xl text-tertiary font-bold mt-3 brand-percentage text-center w-full">0%</div>
+            <div class="text-3xl text-tertiary font-bold mt-3 brand-percentage text-center w-full">33%</div>
             <div class="text-sm text-tertiary font-semibold text-center w-full brand-completed-label">completado</div>
         </div>
         <div class="grid grid-cols-2 gap-2 mt-4">
             <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-on-surface brand-total">3</span></div>
-            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary brand-pending">3</span></div>
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary brand-pending">2</span></div>
         </div>
     </div>
     <div class="glacier-card p-6 rounded-xl brand-card" data-brand="Wings" style="display: none;">
@@ -366,8 +368,8 @@
             <div class="text-sm text-tertiary font-semibold text-center w-full brand-completed-label">completado</div>
         </div>
         <div class="grid grid-cols-2 gap-2 mt-4">
-            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-on-surface brand-total">1</span></div>
-            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary brand-pending">1</span></div>
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-on-surface brand-total">2</span></div>
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary brand-pending">2</span></div>
         </div>
     </div>
     <div class="glacier-card p-6 rounded-xl brand-card" data-brand="Finanzas" style="display: block;">
@@ -2097,6 +2099,18 @@
                 
                 
                 
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
                 </section>
             </main>
         </div>
@@ -2133,7 +2147,7 @@
             // ========== END THEME TOGGLE ==========
 
             // Datos de todos los meses desde el servidor
-            const monthsData = {"Enero": {"total_projects": 20, "in_progress": 0, "pending_ce2": 4, "blocked": 0, "completed": 16, "by_state": {"Completed": 13, "In Review": 2, "Backlog": 3, "Planned": 1, "Archived": 1, "Canceled": 1}, "brands": {"Cuy": {"total": 2, "pending": 1, "completed": 1}, "PeruSim": {"total": 3, "pending": 2, "completed": 1}, "Habla+": {"total": 7, "pending": 2, "completed": 5}, "Wings": {"total": 1, "pending": 1, "completed": 0}, "Fimo": {"total": 0, "pending": 0, "completed": 0}, "Guinea": {"total": 5, "pending": 1, "completed": 4}, "B2B": {"total": 1, "pending": 0, "completed": 1}, "Partner": {"total": 0, "pending": 0, "completed": 0}, "Legales": {"total": 0, "pending": 0, "completed": 0}, "Finanzas": {"total": 0, "pending": 0, "completed": 0}, "Airalo": {"total": 1, "pending": 0, "completed": 1}, "Sin clasificar": {"total": 0, "pending": 0, "completed": 0}}}, "Febrero": {"total_projects": 36, "in_progress": 1, "pending_ce2": 2, "blocked": 2, "completed": 31, "by_state": {"Completed": 27, "Backlog": 2, "In Progress": 1, "Blocked": 2, "In Review": 4, "Canceled": 3}, "brands": {"Cuy": {"total": 11, "pending": 3, "completed": 8}, "PeruSim": {"total": 5, "pending": 3, "completed": 2}, "Habla+": {"total": 5, "pending": 3, "completed": 2}, "Wings": {"total": 4, "pending": 0, "completed": 4}, "Fimo": {"total": 3, "pending": 0, "completed": 3}, "Guinea": {"total": 2, "pending": 0, "completed": 2}, "B2B": {"total": 4, "pending": 0, "completed": 4}, "Partner": {"total": 0, "pending": 0, "completed": 0}, "Legales": {"total": 0, "pending": 0, "completed": 0}, "Finanzas": {"total": 0, "pending": 0, "completed": 0}, "Airalo": {"total": 2, "pending": 0, "completed": 2}, "Sin clasificar": {"total": 0, "pending": 0, "completed": 0}}}, "Marzo": {"total_projects": 26, "in_progress": 2, "pending_ce2": 2, "blocked": 1, "completed": 21, "by_state": {"Canceled": 2, "In Review": 1, "Completed": 20, "In Progress": 2, "Backlog": 2, "Blocked": 1}, "brands": {"Cuy": {"total": 9, "pending": 3, "completed": 6}, "PeruSim": {"total": 2, "pending": 0, "completed": 2}, "Habla+": {"total": 5, "pending": 1, "completed": 4}, "Wings": {"total": 0, "pending": 0, "completed": 0}, "Fimo": {"total": 1, "pending": 1, "completed": 0}, "Guinea": {"total": 6, "pending": 1, "completed": 5}, "B2B": {"total": 0, "pending": 0, "completed": 0}, "Partner": {"total": 0, "pending": 0, "completed": 0}, "Legales": {"total": 0, "pending": 0, "completed": 0}, "Finanzas": {"total": 0, "pending": 0, "completed": 0}, "Airalo": {"total": 3, "pending": 0, "completed": 3}, "Sin clasificar": {"total": 0, "pending": 0, "completed": 0}}}, "Abril": {"total_projects": 10, "in_progress": 0, "pending_ce2": 6, "blocked": 0, "completed": 4, "by_state": {"Backlog": 6, "Completed": 4}, "brands": {"Cuy": {"total": 1, "pending": 0, "completed": 1}, "PeruSim": {"total": 0, "pending": 0, "completed": 0}, "Habla+": {"total": 2, "pending": 1, "completed": 1}, "Wings": {"total": 1, "pending": 0, "completed": 1}, "Fimo": {"total": 1, "pending": 0, "completed": 1}, "Guinea": {"total": 3, "pending": 3, "completed": 0}, "B2B": {"total": 0, "pending": 0, "completed": 0}, "Partner": {"total": 0, "pending": 0, "completed": 0}, "Legales": {"total": 0, "pending": 0, "completed": 0}, "Finanzas": {"total": 1, "pending": 1, "completed": 0}, "Airalo": {"total": 1, "pending": 1, "completed": 0}, "Sin clasificar": {"total": 0, "pending": 0, "completed": 0}}}, "Mayo": {"total_projects": 17, "in_progress": 1, "pending_ce2": 16, "blocked": 0, "completed": 0, "by_state": {"Backlog": 14, "Planned": 2, "In Progress": 1}, "brands": {"Cuy": {"total": 6, "pending": 6, "completed": 0}, "PeruSim": {"total": 1, "pending": 1, "completed": 0}, "Habla+": {"total": 3, "pending": 3, "completed": 0}, "Wings": {"total": 0, "pending": 0, "completed": 0}, "Fimo": {"total": 0, "pending": 0, "completed": 0}, "Guinea": {"total": 5, "pending": 5, "completed": 0}, "B2B": {"total": 0, "pending": 0, "completed": 0}, "Partner": {"total": 0, "pending": 0, "completed": 0}, "Legales": {"total": 1, "pending": 1, "completed": 0}, "Finanzas": {"total": 1, "pending": 1, "completed": 0}, "Airalo": {"total": 0, "pending": 0, "completed": 0}, "Sin clasificar": {"total": 0, "pending": 0, "completed": 0}}}};
+            const monthsData = {"Enero": {"total_projects": 20, "in_progress": 0, "pending_ce2": 4, "blocked": 0, "completed": 16, "by_state": {"Completed": 13, "In Review": 2, "Backlog": 3, "Planned": 1, "Archived": 1}, "brands": {"Cuy": {"total": 2, "pending": 1, "completed": 1}, "PeruSim": {"total": 3, "pending": 2, "completed": 1}, "Habla+": {"total": 7, "pending": 2, "completed": 5}, "Wings": {"total": 1, "pending": 1, "completed": 0}, "Fimo": {"total": 0, "pending": 0, "completed": 0}, "Guinea": {"total": 5, "pending": 1, "completed": 4}, "B2B": {"total": 1, "pending": 0, "completed": 1}, "Partner": {"total": 0, "pending": 0, "completed": 0}, "Legales": {"total": 0, "pending": 0, "completed": 0}, "Finanzas": {"total": 0, "pending": 0, "completed": 0}, "Airalo": {"total": 1, "pending": 0, "completed": 1}, "Sin clasificar": {"total": 0, "pending": 0, "completed": 0}}}, "Febrero": {"total_projects": 36, "in_progress": 1, "pending_ce2": 2, "blocked": 2, "completed": 31, "by_state": {"Completed": 27, "Backlog": 2, "In Progress": 1, "Blocked": 2, "In Review": 4, "Canceled": 3}, "brands": {"Cuy": {"total": 11, "pending": 3, "completed": 8}, "PeruSim": {"total": 5, "pending": 3, "completed": 2}, "Habla+": {"total": 5, "pending": 3, "completed": 2}, "Wings": {"total": 4, "pending": 0, "completed": 4}, "Fimo": {"total": 3, "pending": 0, "completed": 3}, "Guinea": {"total": 2, "pending": 0, "completed": 2}, "B2B": {"total": 4, "pending": 0, "completed": 4}, "Partner": {"total": 0, "pending": 0, "completed": 0}, "Legales": {"total": 0, "pending": 0, "completed": 0}, "Finanzas": {"total": 0, "pending": 0, "completed": 0}, "Airalo": {"total": 2, "pending": 0, "completed": 2}, "Sin clasificar": {"total": 0, "pending": 0, "completed": 0}}}, "Marzo": {"total_projects": 26, "in_progress": 1, "pending_ce2": 2, "blocked": 2, "completed": 21, "by_state": {"In Review": 1, "Completed": 20, "Blocked": 2, "Backlog": 2, "In Progress": 1}, "brands": {"Cuy": {"total": 9, "pending": 3, "completed": 6}, "PeruSim": {"total": 2, "pending": 0, "completed": 2}, "Habla+": {"total": 5, "pending": 1, "completed": 4}, "Wings": {"total": 0, "pending": 0, "completed": 0}, "Fimo": {"total": 1, "pending": 1, "completed": 0}, "Guinea": {"total": 6, "pending": 1, "completed": 5}, "B2B": {"total": 0, "pending": 0, "completed": 0}, "Partner": {"total": 0, "pending": 0, "completed": 0}, "Legales": {"total": 0, "pending": 0, "completed": 0}, "Finanzas": {"total": 0, "pending": 0, "completed": 0}, "Airalo": {"total": 3, "pending": 0, "completed": 3}, "Sin clasificar": {"total": 0, "pending": 0, "completed": 0}}}, "Abril": {"total_projects": 10, "in_progress": 0, "pending_ce2": 6, "blocked": 0, "completed": 4, "by_state": {"Backlog": 6, "Completed": 4}, "brands": {"Cuy": {"total": 1, "pending": 0, "completed": 1}, "PeruSim": {"total": 0, "pending": 0, "completed": 0}, "Habla+": {"total": 2, "pending": 1, "completed": 1}, "Wings": {"total": 1, "pending": 0, "completed": 1}, "Fimo": {"total": 1, "pending": 0, "completed": 1}, "Guinea": {"total": 3, "pending": 3, "completed": 0}, "B2B": {"total": 0, "pending": 0, "completed": 0}, "Partner": {"total": 0, "pending": 0, "completed": 0}, "Legales": {"total": 0, "pending": 0, "completed": 0}, "Finanzas": {"total": 1, "pending": 1, "completed": 0}, "Airalo": {"total": 1, "pending": 1, "completed": 0}, "Sin clasificar": {"total": 0, "pending": 0, "completed": 0}}}, "Mayo": {"total_projects": 18, "in_progress": 1, "pending_ce2": 16, "blocked": 0, "completed": 1, "by_state": {"Backlog": 14, "In Progress": 1, "Planned": 2, "Completed": 1}, "brands": {"Cuy": {"total": 6, "pending": 6, "completed": 0}, "PeruSim": {"total": 1, "pending": 1, "completed": 0}, "Habla+": {"total": 3, "pending": 2, "completed": 1}, "Wings": {"total": 0, "pending": 0, "completed": 0}, "Fimo": {"total": 0, "pending": 0, "completed": 0}, "Guinea": {"total": 5, "pending": 5, "completed": 0}, "B2B": {"total": 0, "pending": 0, "completed": 0}, "Partner": {"total": 0, "pending": 0, "completed": 0}, "Legales": {"total": 2, "pending": 2, "completed": 0}, "Finanzas": {"total": 1, "pending": 1, "completed": 0}, "Airalo": {"total": 0, "pending": 0, "completed": 0}, "Sin clasificar": {"total": 0, "pending": 0, "completed": 0}}}};
 
             function switchSection(section) {
                 document.getElementById('projects').style.display = section === 'projects' ? 'block' : 'none';

@@ -519,25 +519,25 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
     pending = current_month_projects.get("pending_ce2", 0)
     blocked = current_month_projects.get("blocked", 0)
     completed = current_month_projects.get("completed", 0)
-    metrics_cards = '        <div class="glacier-card p-6 rounded-xl flex items-center justify-between">\n'
+    metrics_cards = '        <div class="glacier-card w-full px-12 py-8 rounded-xl flex items-center justify-center gap-3">\n'
     metrics_cards += '            <span class="text-on-surface-variant text-xs font-bold uppercase tracking-tighter">Total</span>\n'
-    metrics_cards += '            <span class="text-4xl font-bold text-on-surface" id="metric-total">' + str(total) + '</span>\n'
+    metrics_cards += '            <span class="text-5xl font-bold text-on-surface" id="metric-total">' + str(total) + '</span>\n'
     metrics_cards += '        </div>\n'
-    metrics_cards += '        <div class="glacier-card p-6 rounded-xl flex items-center justify-between">\n'
+    metrics_cards += '        <div class="glacier-card w-full px-12 py-8 rounded-xl flex items-center justify-center gap-3">\n'
     metrics_cards += '            <span class="text-on-surface-variant text-xs font-bold uppercase tracking-tighter">En Progreso</span>\n'
-    metrics_cards += '            <span class="text-4xl font-bold text-primary" id="metric-progress">' + str(in_progress) + '</span>\n'
+    metrics_cards += '            <span class="text-5xl font-bold text-primary" id="metric-progress">' + str(in_progress) + '</span>\n'
     metrics_cards += '        </div>\n'
-    metrics_cards += '        <div class="glacier-card p-6 rounded-xl flex items-center justify-between">\n'
+    metrics_cards += '        <div class="glacier-card w-full px-12 py-8 rounded-xl flex items-center justify-center gap-3">\n'
     metrics_cards += '            <span class="text-on-surface-variant text-xs font-bold uppercase tracking-tighter">Pendientes</span>\n'
-    metrics_cards += '            <span class="text-4xl font-bold text-secondary" id="metric-pending">' + str(pending) + '</span>\n'
+    metrics_cards += '            <span class="text-5xl font-bold text-secondary" id="metric-pending">' + str(pending) + '</span>\n'
     metrics_cards += '        </div>\n'
-    metrics_cards += '        <div class="glacier-card p-6 rounded-xl flex items-center justify-between">\n'
+    metrics_cards += '        <div class="glacier-card w-full px-12 py-8 rounded-xl flex items-center justify-center gap-3">\n'
     metrics_cards += '            <span class="text-on-surface-variant text-xs font-bold uppercase tracking-tighter">Bloqueados</span>\n'
-    metrics_cards += '            <span class="text-4xl font-bold text-error/60" id="metric-blocked">' + str(blocked) + '</span>\n'
+    metrics_cards += '            <span class="text-5xl font-bold text-error/60" id="metric-blocked">' + str(blocked) + '</span>\n'
     metrics_cards += '        </div>\n'
-    metrics_cards += '        <div class="glacier-card p-6 rounded-xl border-tertiary border-2 flex items-center justify-between">\n'
-    metrics_cards += '            <span class="text-tertiary text-xs font-bold uppercase tracking-tighter">Completados</span>\n'
-    metrics_cards += '            <span class="text-4xl font-bold text-tertiary" id="metric-completed">' + str(completed) + '</span>\n'
+    metrics_cards += '        <div class="glacier-card w-full px-12 py-8 rounded-xl border-tertiary border-2 flex items-center justify-center gap-3">\n'
+    metrics_cards += '            <span class="text-tertiary text-xs font-bold uppercase tracking-tighter">Cerrados</span>\n'
+    metrics_cards += '            <span class="text-5xl font-bold text-tertiary" id="metric-completed">' + str(completed) + '</span>\n'
     metrics_cards += '        </div>\n'
 
     # Obtener sección de Issues CE
@@ -724,11 +724,13 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
             .dark .text-tertiary-fixed { color: #e8d0ff; }
             .dark .text-on-tertiary { color: #1a002e; }
             .dark .hover\\:bg-surface-variant:hover { background-color: #1a2438; }
+            .dark .text-primary { color: #7dd3fc; }
+            .dark .text-on-primary-container { color: #a0d8f7; }
         </style>
     </head>
     <body class="min-h-screen bg-background text-on-surface">
         <div class="flex min-h-screen">
-            <aside class="w-64 glacier-surface border-r border-outline-variant fixed h-full z-10 flex flex-col" data-purpose="navigation-sidebar">
+            <aside class="w-48 glacier-surface border-r border-outline-variant fixed h-full z-10 flex flex-col" data-purpose="navigation-sidebar">
                 <div class="p-6">
                     <h2 class="text-xs font-bold uppercase tracking-widest text-primary mb-8 flex items-center gap-2">
                         <span class="material-symbols-outlined text-xl">grid_view</span>
@@ -753,7 +755,7 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
                 </div>
             </aside>
 
-            <main class="flex-1 ml-64 p-8 lg:p-12" data-purpose="dashboard-content">
+            <main class="flex-1 ml-48 p-8 lg:p-12" data-purpose="dashboard-content">
                 <section class="max-w-6xl mx-auto" id="projects">
                     <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
                         <div>
