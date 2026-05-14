@@ -154,9 +154,17 @@
             .dark .bg-surface-container { background-color: #141c2e; }
             .dark .bg-surface-container-low { background-color: #111828; }
             .dark .bg-surface-container-lowest { background-color: #0a0e1a; }
-            .dark .bg-surface-container-high { background-color: #1a2438; }
+            .dark .bg-surface-container-high { background-color: #1a2438 !important; }
             .dark .bg-surface-container-highest { background-color: #202c42; }
-            .dark .hover\:bg-surface-container-highest\/50:hover { background-color: rgba(32, 44, 66, 0.5); }
+            /* Table styling for dark mode - Por Estado */
+            .dark .glacier-card table { background-color: transparent !important; }
+            .dark .glacier-card table thead { background-color: #0f1524 !important; }
+            .dark .glacier-card table thead tr { background-color: #0f1524 !important; }
+            .dark .glacier-card table thead tr th { background-color: #0f1524 !important; color: #7dd3fc !important; }
+            .dark .glacier-card table thead tr:hover { background-color: #0f1524 !important; }
+            .dark .glacier-card table thead th:hover { background-color: #0f1524 !important; }
+            .dark .glacier-card table tbody tr { transition: background-color 0.2s ease; }
+            .dark .glacier-card table tbody tr:hover { background-color: #0f1524 !important; }
             .dark .bg-surface-dim { background-color: #0f1524; }
             .dark .bg-surface-variant { background-color: #1a2438; }
             .dark .border-outline-variant { border-color: #2a3a48; }
@@ -171,7 +179,6 @@
             .dark .bg-tertiary-fixed { background-color: #e8d0ff; }
             .dark .text-tertiary-fixed { color: #e8d0ff; }
             .dark .text-on-tertiary { color: #1a002e; }
-            .dark .hover\:bg-surface-variant:hover { background-color: #1a2438; }
             .dark .text-primary { color: #7dd3fc; }
             .dark .text-on-primary-container { color: #a0d8f7; }
         </style>
@@ -251,11 +258,11 @@
         </div>
         <div class="glacier-card w-full px-12 py-8 rounded-xl flex items-center justify-center gap-3">
             <span class="text-on-surface-variant text-xs font-bold uppercase tracking-tighter">En Progreso</span>
-            <span class="text-5xl font-bold text-primary" id="metric-progress">1</span>
+            <span class="text-5xl font-bold text-primary" id="metric-progress">2</span>
         </div>
         <div class="glacier-card w-full px-12 py-8 rounded-xl flex items-center justify-center gap-3">
             <span class="text-on-surface-variant text-xs font-bold uppercase tracking-tighter">Pendientes</span>
-            <span class="text-5xl font-bold text-secondary" id="metric-pending">16</span>
+            <span class="text-5xl font-bold text-secondary" id="metric-pending">15</span>
         </div>
         <div class="glacier-card w-full px-12 py-8 rounded-xl flex items-center justify-center gap-3">
             <span class="text-on-surface-variant text-xs font-bold uppercase tracking-tighter">Bloqueados</span>
@@ -433,7 +440,7 @@
                 <span class="h-2 w-2 rounded-full bg-secondary"></span>
                 <span class="text-on-surface font-medium capitalize">Backlog</span>
             </td>
-            <td class="px-6 py-4 text-right font-semibold text-on-surface" id="status-backlog">14</td>
+            <td class="px-6 py-4 text-right font-semibold text-on-surface" id="status-backlog">13</td>
         </tr>
         <tr class="hover:bg-surface-container-highest/50 transition-colors group">
             <td class="px-6 py-4 flex items-center gap-3">
@@ -447,7 +454,7 @@
                 <span class="h-2 w-2 rounded-full bg-secondary"></span>
                 <span class="text-on-surface font-medium capitalize">In Progress</span>
             </td>
-            <td class="px-6 py-4 text-right font-semibold text-on-surface" id="status-in-progress">1</td>
+            <td class="px-6 py-4 text-right font-semibold text-on-surface" id="status-in-progress">2</td>
         </tr>
         <tr class="hover:bg-surface-container-highest/50 transition-colors group">
             <td class="px-6 py-4 flex items-center gap-3">
@@ -2111,6 +2118,20 @@
                 
                 
                 
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
                 </section>
             </main>
         </div>
@@ -2147,7 +2168,7 @@
             // ========== END THEME TOGGLE ==========
 
             // Datos de todos los meses desde el servidor
-            const monthsData = {"Enero": {"total_projects": 20, "in_progress": 0, "pending_ce2": 4, "blocked": 0, "completed": 16, "by_state": {"Completed": 13, "In Review": 2, "Backlog": 3, "Planned": 1, "Archived": 1}, "brands": {"Cuy": {"total": 2, "pending": 1, "completed": 1}, "PeruSim": {"total": 3, "pending": 2, "completed": 1}, "Habla+": {"total": 7, "pending": 2, "completed": 5}, "Wings": {"total": 1, "pending": 1, "completed": 0}, "Fimo": {"total": 0, "pending": 0, "completed": 0}, "Guinea": {"total": 5, "pending": 1, "completed": 4}, "B2B": {"total": 1, "pending": 0, "completed": 1}, "Partner": {"total": 0, "pending": 0, "completed": 0}, "Legales": {"total": 0, "pending": 0, "completed": 0}, "Finanzas": {"total": 0, "pending": 0, "completed": 0}, "Airalo": {"total": 1, "pending": 0, "completed": 1}, "Sin clasificar": {"total": 0, "pending": 0, "completed": 0}}}, "Febrero": {"total_projects": 36, "in_progress": 1, "pending_ce2": 2, "blocked": 2, "completed": 31, "by_state": {"Completed": 27, "Backlog": 2, "In Progress": 1, "Blocked": 2, "In Review": 4, "Canceled": 3}, "brands": {"Cuy": {"total": 11, "pending": 3, "completed": 8}, "PeruSim": {"total": 5, "pending": 3, "completed": 2}, "Habla+": {"total": 5, "pending": 3, "completed": 2}, "Wings": {"total": 4, "pending": 0, "completed": 4}, "Fimo": {"total": 3, "pending": 0, "completed": 3}, "Guinea": {"total": 2, "pending": 0, "completed": 2}, "B2B": {"total": 4, "pending": 0, "completed": 4}, "Partner": {"total": 0, "pending": 0, "completed": 0}, "Legales": {"total": 0, "pending": 0, "completed": 0}, "Finanzas": {"total": 0, "pending": 0, "completed": 0}, "Airalo": {"total": 2, "pending": 0, "completed": 2}, "Sin clasificar": {"total": 0, "pending": 0, "completed": 0}}}, "Marzo": {"total_projects": 26, "in_progress": 1, "pending_ce2": 2, "blocked": 2, "completed": 21, "by_state": {"In Review": 1, "Completed": 20, "Blocked": 2, "Backlog": 2, "In Progress": 1}, "brands": {"Cuy": {"total": 9, "pending": 3, "completed": 6}, "PeruSim": {"total": 2, "pending": 0, "completed": 2}, "Habla+": {"total": 5, "pending": 1, "completed": 4}, "Wings": {"total": 0, "pending": 0, "completed": 0}, "Fimo": {"total": 1, "pending": 1, "completed": 0}, "Guinea": {"total": 6, "pending": 1, "completed": 5}, "B2B": {"total": 0, "pending": 0, "completed": 0}, "Partner": {"total": 0, "pending": 0, "completed": 0}, "Legales": {"total": 0, "pending": 0, "completed": 0}, "Finanzas": {"total": 0, "pending": 0, "completed": 0}, "Airalo": {"total": 3, "pending": 0, "completed": 3}, "Sin clasificar": {"total": 0, "pending": 0, "completed": 0}}}, "Abril": {"total_projects": 10, "in_progress": 0, "pending_ce2": 6, "blocked": 0, "completed": 4, "by_state": {"Backlog": 6, "Completed": 4}, "brands": {"Cuy": {"total": 1, "pending": 0, "completed": 1}, "PeruSim": {"total": 0, "pending": 0, "completed": 0}, "Habla+": {"total": 2, "pending": 1, "completed": 1}, "Wings": {"total": 1, "pending": 0, "completed": 1}, "Fimo": {"total": 1, "pending": 0, "completed": 1}, "Guinea": {"total": 3, "pending": 3, "completed": 0}, "B2B": {"total": 0, "pending": 0, "completed": 0}, "Partner": {"total": 0, "pending": 0, "completed": 0}, "Legales": {"total": 0, "pending": 0, "completed": 0}, "Finanzas": {"total": 1, "pending": 1, "completed": 0}, "Airalo": {"total": 1, "pending": 1, "completed": 0}, "Sin clasificar": {"total": 0, "pending": 0, "completed": 0}}}, "Mayo": {"total_projects": 18, "in_progress": 1, "pending_ce2": 16, "blocked": 0, "completed": 1, "by_state": {"Backlog": 14, "In Progress": 1, "Planned": 2, "Completed": 1}, "brands": {"Cuy": {"total": 6, "pending": 6, "completed": 0}, "PeruSim": {"total": 1, "pending": 1, "completed": 0}, "Habla+": {"total": 3, "pending": 2, "completed": 1}, "Wings": {"total": 0, "pending": 0, "completed": 0}, "Fimo": {"total": 0, "pending": 0, "completed": 0}, "Guinea": {"total": 5, "pending": 5, "completed": 0}, "B2B": {"total": 0, "pending": 0, "completed": 0}, "Partner": {"total": 0, "pending": 0, "completed": 0}, "Legales": {"total": 2, "pending": 2, "completed": 0}, "Finanzas": {"total": 1, "pending": 1, "completed": 0}, "Airalo": {"total": 0, "pending": 0, "completed": 0}, "Sin clasificar": {"total": 0, "pending": 0, "completed": 0}}}};
+            const monthsData = {"Enero": {"total_projects": 20, "in_progress": 0, "pending_ce2": 4, "blocked": 0, "completed": 16, "by_state": {"Completed": 13, "In Review": 2, "Backlog": 3, "Planned": 1, "Archived": 1}, "brands": {"Cuy": {"total": 2, "pending": 1, "completed": 1}, "PeruSim": {"total": 3, "pending": 2, "completed": 1}, "Habla+": {"total": 7, "pending": 2, "completed": 5}, "Wings": {"total": 1, "pending": 1, "completed": 0}, "Fimo": {"total": 0, "pending": 0, "completed": 0}, "Guinea": {"total": 5, "pending": 1, "completed": 4}, "B2B": {"total": 1, "pending": 0, "completed": 1}, "Partner": {"total": 0, "pending": 0, "completed": 0}, "Legales": {"total": 0, "pending": 0, "completed": 0}, "Finanzas": {"total": 0, "pending": 0, "completed": 0}, "Airalo": {"total": 1, "pending": 0, "completed": 1}, "Sin clasificar": {"total": 0, "pending": 0, "completed": 0}}}, "Febrero": {"total_projects": 36, "in_progress": 1, "pending_ce2": 2, "blocked": 2, "completed": 31, "by_state": {"Completed": 27, "Backlog": 2, "In Progress": 1, "Blocked": 2, "In Review": 4, "Canceled": 3}, "brands": {"Cuy": {"total": 11, "pending": 3, "completed": 8}, "PeruSim": {"total": 5, "pending": 3, "completed": 2}, "Habla+": {"total": 5, "pending": 3, "completed": 2}, "Wings": {"total": 4, "pending": 0, "completed": 4}, "Fimo": {"total": 3, "pending": 0, "completed": 3}, "Guinea": {"total": 2, "pending": 0, "completed": 2}, "B2B": {"total": 4, "pending": 0, "completed": 4}, "Partner": {"total": 0, "pending": 0, "completed": 0}, "Legales": {"total": 0, "pending": 0, "completed": 0}, "Finanzas": {"total": 0, "pending": 0, "completed": 0}, "Airalo": {"total": 2, "pending": 0, "completed": 2}, "Sin clasificar": {"total": 0, "pending": 0, "completed": 0}}}, "Marzo": {"total_projects": 26, "in_progress": 0, "pending_ce2": 2, "blocked": 2, "completed": 22, "by_state": {"In Review": 1, "Completed": 21, "Blocked": 2, "Backlog": 2}, "brands": {"Cuy": {"total": 9, "pending": 3, "completed": 6}, "PeruSim": {"total": 2, "pending": 0, "completed": 2}, "Habla+": {"total": 5, "pending": 1, "completed": 4}, "Wings": {"total": 0, "pending": 0, "completed": 0}, "Fimo": {"total": 1, "pending": 1, "completed": 0}, "Guinea": {"total": 6, "pending": 0, "completed": 6}, "B2B": {"total": 0, "pending": 0, "completed": 0}, "Partner": {"total": 0, "pending": 0, "completed": 0}, "Legales": {"total": 0, "pending": 0, "completed": 0}, "Finanzas": {"total": 0, "pending": 0, "completed": 0}, "Airalo": {"total": 3, "pending": 0, "completed": 3}, "Sin clasificar": {"total": 0, "pending": 0, "completed": 0}}}, "Abril": {"total_projects": 10, "in_progress": 0, "pending_ce2": 6, "blocked": 0, "completed": 4, "by_state": {"Backlog": 6, "Completed": 4}, "brands": {"Cuy": {"total": 1, "pending": 0, "completed": 1}, "PeruSim": {"total": 0, "pending": 0, "completed": 0}, "Habla+": {"total": 2, "pending": 1, "completed": 1}, "Wings": {"total": 1, "pending": 0, "completed": 1}, "Fimo": {"total": 1, "pending": 0, "completed": 1}, "Guinea": {"total": 3, "pending": 3, "completed": 0}, "B2B": {"total": 0, "pending": 0, "completed": 0}, "Partner": {"total": 0, "pending": 0, "completed": 0}, "Legales": {"total": 0, "pending": 0, "completed": 0}, "Finanzas": {"total": 1, "pending": 1, "completed": 0}, "Airalo": {"total": 1, "pending": 1, "completed": 0}, "Sin clasificar": {"total": 0, "pending": 0, "completed": 0}}}, "Mayo": {"total_projects": 18, "in_progress": 2, "pending_ce2": 15, "blocked": 0, "completed": 1, "by_state": {"Backlog": 13, "In Progress": 2, "Planned": 2, "Completed": 1}, "brands": {"Cuy": {"total": 6, "pending": 6, "completed": 0}, "PeruSim": {"total": 1, "pending": 1, "completed": 0}, "Habla+": {"total": 3, "pending": 2, "completed": 1}, "Wings": {"total": 0, "pending": 0, "completed": 0}, "Fimo": {"total": 0, "pending": 0, "completed": 0}, "Guinea": {"total": 5, "pending": 5, "completed": 0}, "B2B": {"total": 0, "pending": 0, "completed": 0}, "Partner": {"total": 0, "pending": 0, "completed": 0}, "Legales": {"total": 2, "pending": 2, "completed": 0}, "Finanzas": {"total": 1, "pending": 1, "completed": 0}, "Airalo": {"total": 0, "pending": 0, "completed": 0}, "Sin clasificar": {"total": 0, "pending": 0, "completed": 0}}}};
 
             function switchSection(section) {
                 document.getElementById('projects').style.display = section === 'projects' ? 'block' : 'none';
@@ -2239,6 +2260,27 @@
                     updateMonthData(month);
                 });
             });
+
+            // ========== FIX TABLE HEADER ON HOVER ==========
+            const tables = document.querySelectorAll('.glacier-card table');
+            tables.forEach(table => {
+                const thead = table.querySelector('thead');
+                if (thead) {
+                    // Maintain header background on hover
+                    table.addEventListener('mouseenter', () => {
+                        if (document.documentElement.classList.contains('dark')) {
+                            thead.style.backgroundColor = '#1a2438';
+                            thead.style.backgroundColorImportant = '#1a2438 !important';
+                        }
+                    });
+                    table.addEventListener('mouseleave', () => {
+                        if (document.documentElement.classList.contains('dark')) {
+                            thead.style.backgroundColor = '#1a2438';
+                        }
+                    });
+                }
+            });
+            // ========== END TABLE HEADER FIX ==========
         </script>
     </body>
     </html>

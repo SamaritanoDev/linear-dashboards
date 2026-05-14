@@ -706,17 +706,9 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
             .dark .bg-surface-container { background-color: #141c2e; }
             .dark .bg-surface-container-low { background-color: #111828; }
             .dark .bg-surface-container-lowest { background-color: #0a0e1a; }
-            .dark .bg-surface-container-high { background-color: #1a2438 !important; }
+            .dark .bg-surface-container-high { background-color: #1a2438; }
             .dark .bg-surface-container-highest { background-color: #202c42; }
-            /* Table styling for dark mode - Por Estado */
-            .dark .glacier-card table { background-color: transparent !important; }
-            .dark .glacier-card table thead { background-color: #0f1524 !important; }
-            .dark .glacier-card table thead tr { background-color: #0f1524 !important; }
-            .dark .glacier-card table thead tr th { background-color: #0f1524 !important; color: #7dd3fc !important; }
-            .dark .glacier-card table thead tr:hover { background-color: #0f1524 !important; }
-            .dark .glacier-card table thead th:hover { background-color: #0f1524 !important; }
-            .dark .glacier-card table tbody tr { transition: background-color 0.2s ease; }
-            .dark .glacier-card table tbody tr:hover { background-color: #0f1524 !important; }
+            .dark .hover\:bg-surface-container-highest\/50:hover { background-color: rgba(32, 44, 66, 0.5); }
             .dark .bg-surface-dim { background-color: #0f1524; }
             .dark .bg-surface-variant { background-color: #1a2438; }
             .dark .border-outline-variant { border-color: #2a3a48; }
@@ -731,6 +723,7 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
             .dark .bg-tertiary-fixed { background-color: #e8d0ff; }
             .dark .text-tertiary-fixed { color: #e8d0ff; }
             .dark .text-on-tertiary { color: #1a002e; }
+            .dark .hover\\:bg-surface-variant:hover { background-color: #1a2438; }
             .dark .text-primary { color: #7dd3fc; }
             .dark .text-on-primary-container { color: #a0d8f7; }
         </style>
@@ -967,27 +960,6 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
                     updateMonthData(month);
                 });
             });
-
-            // ========== FIX TABLE HEADER ON HOVER ==========
-            const tables = document.querySelectorAll('.glacier-card table');
-            tables.forEach(table => {
-                const thead = table.querySelector('thead');
-                if (thead) {
-                    // Maintain header background on hover
-                    table.addEventListener('mouseenter', () => {
-                        if (document.documentElement.classList.contains('dark')) {
-                            thead.style.backgroundColor = '#1a2438';
-                            thead.style.backgroundColorImportant = '#1a2438 !important';
-                        }
-                    });
-                    table.addEventListener('mouseleave', () => {
-                        if (document.documentElement.classList.contains('dark')) {
-                            thead.style.backgroundColor = '#1a2438';
-                        }
-                    });
-                }
-            });
-            // ========== END TABLE HEADER FIX ==========
         </script>
     </body>
     </html>
