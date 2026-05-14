@@ -473,12 +473,12 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
         state_lower = state.lower()
         count = current_states_map.get(state_lower, 0)
         state_id = state_lower.replace(" ", "-")
-        status_rows += '        <tr class="hover:bg-surface-container-highest/50 transition-colors group">\n'
+        status_rows += '        <tr class="hover:bg-surface-container/50 transition-colors group">\n'
         status_rows += '            <td class="px-6 py-4 flex items-center gap-3">\n'
         status_rows += '                <span class="h-2 w-2 rounded-full bg-secondary"></span>\n'
-        status_rows += '                <span class="text-on-surface group-hover:text-primary transition-colors capitalize">' + state + '</span>\n'
+        status_rows += '                <span class="text-on-surface font-medium capitalize">' + state + '</span>\n'
         status_rows += '            </td>\n'
-        status_rows += '            <td class="px-6 py-4 text-right font-semibold text-on-surface" id="status-' + state_id + '">' + str(count) + '</td>\n'
+        status_rows += '            <td class="px-6 py-4 text-right font-bold text-on-surface" id="status-' + state_id + '">' + str(count) + '</td>\n'
         status_rows += '        </tr>\n'
 
     # Generar botones de meses
@@ -738,7 +738,7 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
                                     Por Estado
                                 </h2>
                             </div>
-                            <div class="overflow-hidden rounded-xl border border-outline-variant/30">
+                            <div class="overflow-hidden rounded-xl border border-outline-variant/50">
                                 <table aria-label="Desglose de proyectos por estado" class="w-full text-left">
                                     <thead>
                                         <tr class="bg-surface-container-high">
@@ -746,7 +746,7 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
                                             <th class="px-6 py-4 text-xs font-bold text-primary uppercase tracking-widest text-right">Total</th>
                                         </tr>
                                     </thead>
-                                    <tbody class="divide-y divide-outline-variant/20">
+                                    <tbody class="divide-y divide-outline-variant/30">
 """ + status_rows + """                                    </tbody>
                                 </table>
                             </div>
