@@ -476,7 +476,7 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
         status_rows += '        <tr class="hover:bg-surface-container-highest/50 transition-colors group">\n'
         status_rows += '            <td class="px-6 py-4 flex items-center gap-3">\n'
         status_rows += '                <span class="h-2 w-2 rounded-full bg-secondary"></span>\n'
-        status_rows += '                <span class="text-on-surface group-hover:text-white transition-colors capitalize">' + state + '</span>\n'
+        status_rows += '                <span class="text-on-surface group-hover:text-primary transition-colors capitalize">' + state + '</span>\n'
         status_rows += '            </td>\n'
         status_rows += '            <td class="px-6 py-4 text-right font-semibold text-on-surface" id="status-' + state_id + '">' + str(count) + '</td>\n'
         status_rows += '        </tr>\n'
@@ -486,7 +486,7 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
     months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo"]
     for i, month in enumerate(months):
         is_active = (i == len(months) - 1)
-        classes = 'text-primary bg-primary/10 border border-primary/30 shadow-lg shadow-primary/5 font-semibold' if is_active else 'text-on-surface-variant hover:text-white hover:bg-surface-container transition-all font-medium'
+        classes = 'text-primary bg-primary/10 border border-primary/30 shadow-lg shadow-primary/5 font-semibold' if is_active else 'text-on-surface-variant hover:text-primary hover:bg-surface-container transition-all font-medium'
         month_buttons += '    <button class="px-5 py-2.5 rounded-full text-sm ' + classes + ' whitespace-nowrap" data-month="' + month + '">' + month + ' 2026</button>\n'
 
     # Generar tarjetas de marcas con datos actuales
@@ -508,7 +508,7 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
         brands_cards += '            <div class="text-sm text-tertiary font-semibold text-center w-full brand-completed-label">completado</div>\n'
         brands_cards += '        </div>\n'
         brands_cards += '        <div class="grid grid-cols-2 gap-2 mt-4">\n'
-        brands_cards += '            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-white brand-total">' + str(total) + '</span></div>\n'
+        brands_cards += '            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-on-surface brand-total">' + str(total) + '</span></div>\n'
         brands_cards += '            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary brand-pending">' + str(pending) + '</span></div>\n'
         brands_cards += '        </div>\n'
         brands_cards += '    </div>\n'
@@ -521,7 +521,7 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
     completed = current_month_projects.get("completed", 0)
     metrics_cards = '        <div class="glacier-card p-6 rounded-xl flex items-center justify-between">\n'
     metrics_cards += '            <span class="text-on-surface-variant text-xs font-bold uppercase tracking-tighter">Total</span>\n'
-    metrics_cards += '            <span class="text-4xl font-bold text-white" id="metric-total">' + str(total) + '</span>\n'
+    metrics_cards += '            <span class="text-4xl font-bold text-on-surface" id="metric-total">' + str(total) + '</span>\n'
     metrics_cards += '        </div>\n'
     metrics_cards += '        <div class="glacier-card p-6 rounded-xl flex items-center justify-between">\n'
     metrics_cards += '            <span class="text-on-surface-variant text-xs font-bold uppercase tracking-tighter">En Progreso</span>\n'
@@ -689,7 +689,7 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
                 <section class="max-w-6xl mx-auto" id="projects">
                     <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
                         <div>
-                            <h1 class="text-4xl font-bold text-white tracking-tight flex items-center gap-3">
+                            <h1 class="text-4xl font-bold text-on-surface tracking-tight flex items-center gap-3">
                                 <span class="material-symbols-outlined text-primary text-4xl">inventory_2</span>
                                 Proyectos CE
                             </h1>
@@ -719,7 +719,7 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
 """ + metrics_cards + """                        </div>
 
                         <div class="mb-10">
-                            <h2 class="text-xl font-bold text-white flex items-center gap-2 mb-6">
+                            <h2 class="text-xl font-bold text-on-surface flex items-center gap-2 mb-6">
                                 <span class="material-symbols-outlined text-primary">branding_watermark</span>
                                 Proyectos por Marca
                             </h2>
@@ -733,7 +733,7 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
 
                         <div class="glacier-surface p-8 rounded-2xl shadow-xl shadow-black/40" data-purpose="status-table-container">
                             <div class="flex items-center justify-between mb-8">
-                                <h2 class="text-xl font-bold text-white flex items-center gap-2">
+                                <h2 class="text-xl font-bold text-on-surface flex items-center gap-2">
                                     <span class="material-symbols-outlined text-primary">bar_chart</span>
                                     Por Estado
                                 </h2>
