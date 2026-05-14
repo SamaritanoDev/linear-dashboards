@@ -701,7 +701,7 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
                         </div>
                     </div>
 
-                    <div class="bg-surface-container border-l-4 border-primary p-4 rounded-r-xl mb-10 flex items-start gap-4">
+                    <div class="bg-primary/10 border-l-4 border-primary p-4 rounded-r-xl mb-10 flex items-start gap-4">
                         <span class="material-symbols-outlined text-primary mt-0.5">info</span>
                         <p class="text-sm text-on-primary-container leading-relaxed"><strong class="text-primary">Nota:</strong> Los Pendientes son la suma de los estados Backlog, Planned, In progress, Blocked e In Review. No cuenta cancelados, ni archivados, ni completados.</p>
                     </div>
