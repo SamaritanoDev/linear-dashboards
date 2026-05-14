@@ -52,6 +52,11 @@ def get_projects():
           progress
           lead {name}
           createdAt
+          labels(first: 10) {
+            nodes {
+              name
+            }
+          }
           teams(first: 5) {
             nodes {
               key
@@ -347,12 +352,16 @@ def calculate_project_metrics(projects):
         else:
             metrics["progress_distribution"]["75-100%"] += 1
 
-        metrics["projects_list"].append({
-            "name": name,
-            "state": state_to_display,
-            "lead": lead,
-            "progress": progress
-        })
+        # Solo agregar proyectos válidos a la lista (mismo filtro que total_projects)
+        if is_valid_project(project):
+            labels = project.get("labels", {}).get("nodes", []) if isinstance(project.get("labels"), dict) else []
+            metrics["projects_list"].append({
+                "name": name,
+                "state": state_to_display,
+                "lead": lead,
+                "progress": progress,
+                "labels": labels
+            })
 
     return metrics
 
@@ -370,7 +379,7 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
         pass
 
     # Extraer datos de marcas de los nombres de proyectos
-    brands = ["Cuy", "PeruSim", "Habla+", "Wings", "Fimo", "Guinea", "B2B", "Partner", "Legales", "Finanzas", "Airalo"]
+    brands = ["Cuy", "PeruSim", "Habla+", "Wings", "Fimo", "Guinea", "B2B", "Partner", "Legales", "Finanzas", "Airalo", "Sin clasificar"]
 
     # Generar datos de todos los meses para JavaScript
     months_data = {}
@@ -378,24 +387,60 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
         month_name = month_data.get("month", "")
         projects_list = month_data.get("projects_list", [])
 
-        # Contar proyectos por marca basándose en los nombres
-        brands_count = {brand: {"total": 0, "pending": 0} for brand in brands}
+        # Contar proyectos por marca basándose en los nombres y labels
+        brands_count = {brand: {"total": 0, "pending": 0, "completed": 0} for brand in brands}
         for project in projects_list:
             project_name = project.get("name", "")
-            # Buscar coincidencias de marca en el nombre
-            for brand in brands:
-                if brand.lower() in project_name.lower():
+            state = project.get("state", "").lower()
+            is_pending = state not in ["closed", "completed", "canceled", "discarded"]
+            # labels puede ser una lista directa o un diccionario con "nodes"
+            labels_data = project.get("labels", [])
+            if isinstance(labels_data, dict):
+                labels = labels_data.get("nodes", [])
+            else:
+                labels = labels_data if isinstance(labels_data, list) else []
+            label_names = [l.get("name", "").lower() if isinstance(l, dict) else str(l).lower() for l in labels] if labels else []
+
+            # Buscar coincidencias de marca en el nombre o labels
+            found_brand = False
+            for brand in brands[:-1]:  # Excluir "Sin clasificar" del loop
+                brand_lower = brand.lower()
+                # Buscar en nombre
+                if brand_lower in project_name.lower():
                     brands_count[brand]["total"] += 1
-                    state = project.get("state", "").lower()
-                    # Contar como pendiente si no está cerrado
-                    if state not in ["closed", "completed", "canceled", "discarded"]:
+                    if is_pending:
                         brands_count[brand]["pending"] += 1
+                    else:
+                        brands_count[brand]["completed"] += 1
+                    found_brand = True
+                    break  # Solo contar en la primera marca encontrada
+                # Buscar en labels
+                for label in label_names:
+                    if brand_lower in label:
+                        brands_count[brand]["total"] += 1
+                        if is_pending:
+                            brands_count[brand]["pending"] += 1
+                        else:
+                            brands_count[brand]["completed"] += 1
+                        found_brand = True
+                        break
+                if found_brand:
+                    break
+
+            # Si no encontró marca, contar en "Sin clasificar"
+            if not found_brand:
+                brands_count["Sin clasificar"]["total"] += 1
+                if is_pending:
+                    brands_count["Sin clasificar"]["pending"] += 1
+                else:
+                    brands_count["Sin clasificar"]["completed"] += 1
 
         months_data[month_name] = {
             "total_projects": month_data.get("total_projects", 0),
             "in_progress": month_data.get("in_progress", 0),
             "pending_ce2": month_data.get("pending_ce2", 0),
             "blocked": month_data.get("blocked", 0),
+            "completed": month_data.get("completed", 0),
             "by_state": month_data.get("by_state", {}),
             "brands": brands_count
         }
@@ -445,15 +490,24 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
         month_buttons += '    <button class="px-5 py-2.5 rounded-full text-sm ' + classes + ' whitespace-nowrap" data-month="' + month + '">' + month + ' 2026</button>\n'
 
     # Generar tarjetas de marcas con datos actuales
-    current_brands = current_data.get("brands", {brand: {"total": 0, "pending": 0} for brand in brands})
+    current_brands = current_data.get("brands", {brand: {"total": 0, "pending": 0, "completed": 0} for brand in brands})
     brands_cards = ""
     for brand in brands:
-        brand_data = current_brands.get(brand, {"total": 0, "pending": 0})
+        brand_data = current_brands.get(brand, {"total": 0, "pending": 0, "completed": 0})
         total = brand_data.get("total", 0)
         pending = brand_data.get("pending", 0)
-        brands_cards += '    <div class="glacier-card p-4 rounded-xl brand-card" data-brand="' + brand + '">\n'
-        brands_cards += '        <div class="text-primary font-bold text-sm mb-3 border-b border-outline-variant/20 pb-2">' + brand + '</div>\n'
-        brands_cards += '        <div class="grid grid-cols-2 gap-2">\n'
+        completed = brand_data.get("completed", 0)
+        # Calcular porcentaje de completados
+        completed_percentage = int((completed / total) * 100) if total > 0 else 0
+        # Generar tarjeta para TODAS las marcas (JavaScript controlará visibilidad)
+        display_style = 'block' if (total > 0 or pending > 0) else 'none'
+        brands_cards += '    <div class="glacier-card p-6 rounded-xl brand-card" data-brand="' + brand + '" style="display: ' + display_style + ';">\n'
+        brands_cards += '        <div class="flex flex-col items-center">\n'
+        brands_cards += '            <div class="text-primary font-bold text-sm border-b border-outline-variant/20 pb-3 w-full text-center">' + brand + '</div>\n'
+        brands_cards += '            <div class="text-3xl text-tertiary font-bold mt-3 brand-percentage text-center w-full">' + str(completed_percentage) + '%</div>\n'
+        brands_cards += '            <div class="text-sm text-tertiary font-semibold text-center w-full brand-completed-label">completado</div>\n'
+        brands_cards += '        </div>\n'
+        brands_cards += '        <div class="grid grid-cols-2 gap-2 mt-4">\n'
         brands_cards += '            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-white brand-total">' + str(total) + '</span></div>\n'
         brands_cards += '            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary brand-pending">' + str(pending) + '</span></div>\n'
         brands_cards += '        </div>\n'
@@ -464,21 +518,26 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
     in_progress = current_month_projects.get("in_progress", 0)
     pending = current_month_projects.get("pending_ce2", 0)
     blocked = current_month_projects.get("blocked", 0)
-    metrics_cards = '        <div class="glacier-card p-6 rounded-xl">\n'
-    metrics_cards += '            <span class="text-on-surface-variant text-xs font-bold uppercase mb-2 tracking-tighter">Total CE2</span>\n'
+    completed = current_month_projects.get("completed", 0)
+    metrics_cards = '        <div class="glacier-card p-6 rounded-xl flex items-center justify-between">\n'
+    metrics_cards += '            <span class="text-on-surface-variant text-xs font-bold uppercase tracking-tighter">Total</span>\n'
     metrics_cards += '            <span class="text-4xl font-bold text-white" id="metric-total">' + str(total) + '</span>\n'
     metrics_cards += '        </div>\n'
-    metrics_cards += '        <div class="glacier-card p-6 rounded-xl">\n'
-    metrics_cards += '            <span class="text-on-surface-variant text-xs font-bold uppercase mb-2 tracking-tighter">En Progreso</span>\n'
+    metrics_cards += '        <div class="glacier-card p-6 rounded-xl flex items-center justify-between">\n'
+    metrics_cards += '            <span class="text-on-surface-variant text-xs font-bold uppercase tracking-tighter">En Progreso</span>\n'
     metrics_cards += '            <span class="text-4xl font-bold text-primary" id="metric-progress">' + str(in_progress) + '</span>\n'
     metrics_cards += '        </div>\n'
-    metrics_cards += '        <div class="glacier-card p-6 rounded-xl">\n'
-    metrics_cards += '            <span class="text-on-surface-variant text-xs font-bold uppercase mb-2 tracking-tighter">Pendientes</span>\n'
+    metrics_cards += '        <div class="glacier-card p-6 rounded-xl flex items-center justify-between">\n'
+    metrics_cards += '            <span class="text-on-surface-variant text-xs font-bold uppercase tracking-tighter">Pendientes</span>\n'
     metrics_cards += '            <span class="text-4xl font-bold text-secondary" id="metric-pending">' + str(pending) + '</span>\n'
     metrics_cards += '        </div>\n'
-    metrics_cards += '        <div class="glacier-card p-6 rounded-xl">\n'
-    metrics_cards += '            <span class="text-on-surface-variant text-xs font-bold uppercase mb-2 tracking-tighter">Bloqueados</span>\n'
+    metrics_cards += '        <div class="glacier-card p-6 rounded-xl flex items-center justify-between">\n'
+    metrics_cards += '            <span class="text-on-surface-variant text-xs font-bold uppercase tracking-tighter">Bloqueados</span>\n'
     metrics_cards += '            <span class="text-4xl font-bold text-error/60" id="metric-blocked">' + str(blocked) + '</span>\n'
+    metrics_cards += '        </div>\n'
+    metrics_cards += '        <div class="glacier-card p-6 rounded-xl border-tertiary border-2 flex items-center justify-between">\n'
+    metrics_cards += '            <span class="text-tertiary text-xs font-bold uppercase tracking-tighter">Completados</span>\n'
+    metrics_cards += '            <span class="text-4xl font-bold text-tertiary" id="metric-completed">' + str(completed) + '</span>\n'
     metrics_cards += '        </div>\n'
 
     # Obtener sección de Issues CE
@@ -652,10 +711,10 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
                     <div class="tab-content" data-purpose="projects-data" id="tab-projects">
                         <div class="flex items-center gap-2 mb-6">
                             <span class="h-2 w-2 rounded-full bg-primary"></span>
-                            <span class="text-sm font-medium text-on-surface-variant uppercase tracking-widest">""" + month_text + """ 2026: """ + str(total) + """ proyectos creados</span>
+                            <span class="text-sm font-medium text-on-surface-variant uppercase tracking-widest" id="month-header">""" + month_text + """ 2026: """ + str(total) + """ proyectos creados</span>
                         </div>
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-10">
 """ + metrics_cards + """                        </div>
 
                         <div class="mb-10">
@@ -663,8 +722,12 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
                                 <span class="material-symbols-outlined text-primary">branding_watermark</span>
                                 Proyectos por Marca
                             </h2>
-                            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
+                            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 mb-4">
 """ + brands_cards + """                            </div>
+                            <div id="unclassified-disclaimer" class="bg-tertiary/10 border border-tertiary/30 rounded-lg p-3 text-xs text-on-surface-variant flex items-start gap-2">
+                                <span class="material-symbols-outlined text-tertiary text-sm flex-shrink-0">info</span>
+                                <span><span class="text-tertiary font-semibold">Sin clasificar:</span> Proyectos que no contienen ningún nombre de marca en su título y no pueden asignarse automáticamente a una categoría específica.</span>
+                            </div>
                         </div>
 
                         <div class="glacier-surface p-8 rounded-2xl shadow-xl shadow-black/40" data-purpose="status-table-container">
@@ -711,11 +774,15 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
                 const data = monthsData[monthName];
                 if (!data) return;
 
+                // Actualizar encabezado del mes
+                document.getElementById('month-header').textContent = monthName + ' 2026: ' + data.total_projects + ' proyectos creados';
+
                 // Actualizar métricas
                 document.getElementById('metric-total').textContent = data.total_projects;
                 document.getElementById('metric-progress').textContent = data.in_progress;
                 document.getElementById('metric-pending').textContent = data.pending_ce2;
                 document.getElementById('metric-blocked').textContent = data.blocked;
+                document.getElementById('metric-completed').textContent = data.completed;
 
                 // Actualizar tabla Por Estado
                 const byState = data.by_state || {};
@@ -737,14 +804,37 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
                 });
 
                 // Actualizar tarjetas de marcas
+                let hasUnclassified = false;
                 document.querySelectorAll('.brand-card').forEach(card => {
                     const brand = card.getAttribute('data-brand');
                     const brandData = data.brands[brand];
                     if (brandData) {
-                        card.querySelector('.brand-total').textContent = brandData.total;
-                        card.querySelector('.brand-pending').textContent = brandData.pending;
+                        const total = brandData.total || 0;
+                        const pending = brandData.pending || 0;
+                        const completed = brandData.completed || 0;
+                        card.querySelector('.brand-total').textContent = total;
+                        card.querySelector('.brand-pending').textContent = pending;
+                        // Calcular y actualizar porcentaje
+                        const percentage = total > 0 ? Math.round((completed / total) * 100) : 0;
+                        card.querySelector('.brand-percentage').textContent = percentage + '%';
+                        // Mostrar u ocultar según si tiene datos
+                        if (total > 0 || pending > 0) {
+                            card.style.display = 'block';
+                            // Detectar si hay "Sin clasificar"
+                            if (brand === 'Sin clasificar') {
+                                hasUnclassified = true;
+                            }
+                        } else {
+                            card.style.display = 'none';
+                        }
                     }
                 });
+
+                // Mostrar u ocultar disclaimer de Sin clasificar
+                const unclassifiedDisclaimer = document.getElementById('unclassified-disclaimer');
+                if (unclassifiedDisclaimer) {
+                    unclassifiedDisclaimer.style.display = hasUnclassified ? 'flex' : 'none';
+                }
             }
 
             document.querySelectorAll('[data-month]').forEach(button => {
