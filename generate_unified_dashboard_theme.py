@@ -366,6 +366,288 @@ def calculate_project_metrics(projects):
     return metrics
 
 
+def generate_index_html():
+    """Genera la página principal con navegación"""
+    return """<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Continuity Engineering Dashboard</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary": "#7dd3fc",
+                        "outline": "#70787d",
+                        "background": "#fdfcff",
+                        "surface": "#f9f9fc",
+                        "on-surface": "#191c1e",
+                        "on-surface-variant": "#40484c",
+                        "surface-container": "#f0f1f4",
+                        "tertiary": "#6b528d",
+                        "tertiary-fixed-dim": "#c8a0f0"
+                    }
+                }
+            }
+        };
+    </script>
+    <style data-purpose="layout-and-theme">
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fdfcff;
+            color: #191c1e;
+        }
+        .glacier-surface {
+            background-color: #f0f1f4;
+            border: 1px solid rgba(112, 120, 125, 0.2);
+        }
+        .glacier-card {
+            background-color: #ffffff;
+            border: 1px solid rgba(125, 211, 252, 0.1);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        .glacier-card:hover {
+            border-color: #7dd3fc;
+            box-shadow: 0 4px 12px rgba(125, 211, 252, 0.08);
+            transform: translateY(-2px);
+        }
+        /* Dark Mode */
+        .dark {
+            background-color: #0a0e1a;
+            color: #e0e8f0;
+        }
+        .dark body {
+            background-color: #0a0e1a;
+            color: #e0e8f0;
+        }
+        .dark .glacier-surface {
+            background-color: #0f1524;
+            border: 1px solid rgba(74, 96, 112, 0.3);
+        }
+        .dark .glacier-card {
+            background-color: #141c2e;
+            border: 1px solid rgba(125, 211, 252, 0.1);
+        }
+        .dark .glacier-card:hover {
+            background-color: #1a2438;
+            border-color: #7dd3fc;
+        }
+        .dark .text-on-surface { color: #e0e8f0; }
+        .dark .text-on-surface-variant { color: #a0b4c4; }
+        .dark .text-primary { color: #7dd3fc; }
+        .dark .bg-surface { background-color: #0f1524; }
+        .dark .bg-surface-container { background-color: #141c2e; }
+    </style>
+</head>
+<body class="min-h-screen bg-background text-on-surface">
+    <div class="min-h-screen flex items-center justify-center p-4">
+        <div class="max-w-2xl w-full">
+            <div class="glacier-surface p-12 rounded-3xl border border-outline">
+                <div class="flex items-center gap-4 mb-8">
+                    <span class="material-symbols-outlined text-5xl text-primary">dashboard</span>
+                    <div>
+                        <h1 class="text-4xl font-bold text-on-surface">CE Dashboard</h1>
+                        <p class="text-on-surface-variant">Continuity Engineering</p>
+                    </div>
+                </div>
+
+                <p class="text-on-surface-variant mb-8 text-lg">Selecciona una sección para continuar:</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+                    <a href="proyectos-ce.html" class="glacier-card p-8 rounded-2xl group cursor-pointer">
+                        <div class="flex items-start gap-4">
+                            <span class="material-symbols-outlined text-4xl text-primary group-hover:scale-110 transition-transform">inventory_2</span>
+                            <div class="flex-1">
+                                <h2 class="text-xl font-bold text-on-surface mb-2">Proyectos CE</h2>
+                                <p class="text-sm text-on-surface-variant">Seguimiento de iniciativas de continuidad de ingeniería</p>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="issues-ce.html" class="glacier-card p-8 rounded-2xl group cursor-pointer">
+                        <div class="flex items-start gap-4">
+                            <span class="material-symbols-outlined text-4xl text-primary group-hover:scale-110 transition-transform">bug_report</span>
+                            <div class="flex-1">
+                                <h2 class="text-xl font-bold text-on-surface mb-2">Issues CE</h2>
+                                <p class="text-sm text-on-surface-variant">Gestión de tareas y problemas sin asignar</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="flex items-center justify-between">
+                    <button id="theme-toggle" class="glacier-surface px-4 py-2 rounded-xl border border-primary/20 flex items-center gap-2 text-sm cursor-pointer hover:border-primary/40 transition-all" title="Cambiar tema">
+                        <span class="material-symbols-outlined text-primary" id="theme-icon">light_mode</span>
+                        <span class="text-on-surface-variant hidden sm:inline" id="theme-label">Modo Claro</span>
+                    </button>
+                    <div class="text-xs text-on-surface-variant">v2.4.0 Glacier</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Theme toggle
+        const toggleTheme = () => {
+            const html = document.documentElement;
+            html.classList.toggle('dark');
+            const isDark = html.classList.contains('dark');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            updateThemeUI();
+        }
+
+        const updateThemeUI = () => {
+            const isDark = document.documentElement.classList.contains('dark');
+            document.getElementById('theme-icon').textContent = isDark ? 'dark_mode' : 'light_mode';
+            document.getElementById('theme-label').textContent = isDark ? 'Modo Oscuro' : 'Modo Claro';
+        }
+
+        // Initialize theme
+        if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        }
+        updateThemeUI();
+
+        document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+    </script>
+</body>
+</html>
+"""
+
+
+def generate_issues_ce_html(all_months_metrics):
+    """Genera la página de Issues CE"""
+    # Crear botones de meses para Issues
+    months_issues_buttons = ""
+    months_names = ["Enero", "Febrero", "Marzo", "Abril", "Mayo"]
+    months_data = all_months_metrics
+
+    for idx, (month_data, month_name) in enumerate(zip(months_data, months_names)):
+        active_class = "text-primary bg-primary/10 border-primary/30 shadow-lg shadow-primary/5 font-semibold" if idx == 4 else "text-on-surface-variant font-medium"
+        months_issues_buttons += f'            <button data-month="{month_name}" class="px-4 py-2 rounded-lg border border-outline-variant transition-all {active_class}">{month_name}</button>\n'
+
+    # Este es un placeholder - en producción, necesitarías generar las tablas de issues
+    issues_content_placeholder = '<div class="text-center text-on-surface-variant py-12"><p>Contenido de Issues CE en desarrollo</p></div>'
+
+    return f"""<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Issues CE - Continuity Engineering Dashboard</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {{
+            darkMode: "class",
+            theme: {{
+                extend: {{
+                    "colors": {{
+                        "primary": "#7dd3fc",
+                        "outline": "#70787d",
+                        "background": "#fdfcff",
+                        "surface": "#f9f9fc",
+                        "on-surface": "#191c1e",
+                        "on-surface-variant": "#40484c",
+                        "surface-container": "#f0f1f4",
+                        "tertiary": "#6b528d"
+                    }}
+                }}
+            }}
+        }};
+    </script>
+    <style data-purpose="layout-and-theme">
+        body {{
+            font-family: 'Inter', sans-serif;
+            background-color: #fdfcff;
+            color: #191c1e;
+        }}
+        .glacier-surface {{
+            background-color: #f0f1f4;
+            border: 1px solid rgba(112, 120, 125, 0.2);
+        }}
+        /* Dark Mode */
+        .dark {{
+            background-color: #0a0e1a;
+            color: #e0e8f0;
+        }}
+        .dark body {{
+            background-color: #0a0e1a;
+        }}
+        .dark .glacier-surface {{
+            background-color: #0f1524;
+            border: 1px solid rgba(74, 96, 112, 0.3);
+        }}
+        .dark .text-on-surface {{ color: #e0e8f0; }}
+        .dark .text-on-surface-variant {{ color: #a0b4c4; }}
+    </style>
+</head>
+<body class="min-h-screen bg-background text-on-surface">
+    <div class="min-h-screen flex flex-col">
+        <header class="glacier-surface border-b border-outline-variant p-6">
+            <div class="max-w-6xl mx-auto flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <a href="index.html" class="flex items-center gap-2 hover:opacity-80 transition-opacity">
+                        <span class="material-symbols-outlined text-primary text-3xl">home</span>
+                        <span class="text-sm text-on-surface-variant">Volver</span>
+                    </a>
+                </div>
+                <h1 class="text-3xl font-bold text-on-surface flex items-center gap-3">
+                    <span class="material-symbols-outlined text-primary">bug_report</span>
+                    Issues CE
+                </h1>
+                <button id="theme-toggle" class="glacier-surface px-4 py-2 rounded-xl border border-primary/20 flex items-center gap-2 text-sm cursor-pointer hover:border-primary/40 transition-all" title="Cambiar tema">
+                    <span class="material-symbols-outlined text-primary" id="theme-icon">light_mode</span>
+                </button>
+            </div>
+        </header>
+
+        <main class="flex-1 p-8 lg:p-12">
+            <div class="max-w-6xl mx-auto">
+                <div class="flex items-center gap-2 mb-8 overflow-x-auto pb-2">
+{months_issues_buttons}                </div>
+
+                <div class="glacier-surface p-8 rounded-2xl">
+                    {issues_content_placeholder}
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Theme toggle
+        const toggleTheme = () => {{
+            const html = document.documentElement;
+            html.classList.toggle('dark');
+            const isDark = html.classList.contains('dark');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            updateThemeUI();
+        }}
+
+        const updateThemeUI = () => {{
+            const isDark = document.documentElement.classList.contains('dark');
+            document.getElementById('theme-icon').textContent = isDark ? 'dark_mode' : 'light_mode';
+        }}
+
+        // Initialize theme
+        if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {{
+            document.documentElement.classList.add('dark');
+        }}
+        updateThemeUI();
+
+        document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+    </script>
+</body>
+</html>
+"""
+
+
 def generate_html(all_months_projects_metrics, all_months_metrics):
     """Genera HTML con Tailwind CSS - Proyectos CE coincide con oscuro.html/claro.html"""
     import json
@@ -1027,7 +1309,20 @@ if __name__ == "__main__":
         pending_total = sum(metrics['pending_by_product'].values())
         print(f"📈 {month_name}: {metrics['total_issues']} issues CE | Pendientes: {pending_total}")
 
-    html = generate_html(all_months_projects_metrics, all_months_metrics)
+    # Generar index.html (página principal)
+    index_html = generate_index_html()
     with open("index.html", "w") as f:
-        f.write(html)
-    print("\n✅ Dashboard unificado generado (Tema Claro/Oscuro): index.html")
+        f.write(index_html)
+    print("\n✅ Página principal generada: index.html")
+
+    # Generar proyectos-ce.html
+    html_proyectos = generate_html(all_months_projects_metrics, all_months_metrics)
+    with open("proyectos-ce.html", "w") as f:
+        f.write(html_proyectos)
+    print("✅ Página de Proyectos CE generada: proyectos-ce.html")
+
+    # Generar issues-ce.html
+    html_issues = generate_issues_ce_html(all_months_metrics)
+    with open("issues-ce.html", "w") as f:
+        f.write(html_issues)
+    print("✅ Página de Issues CE generada: issues-ce.html")
