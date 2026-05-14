@@ -473,12 +473,12 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
         state_lower = state.lower()
         count = current_states_map.get(state_lower, 0)
         state_id = state_lower.replace(" ", "-")
-        status_rows += '        <tr class="hover:bg-surface-container/50 transition-colors group">\n'
+        status_rows += '        <tr class="hover:bg-surface-container-highest/50 transition-colors group">\n'
         status_rows += '            <td class="px-6 py-4 flex items-center gap-3">\n'
         status_rows += '                <span class="h-2 w-2 rounded-full bg-secondary"></span>\n'
         status_rows += '                <span class="text-on-surface font-medium capitalize">' + state + '</span>\n'
         status_rows += '            </td>\n'
-        status_rows += '            <td class="px-6 py-4 text-right font-bold text-on-surface" id="status-' + state_id + '">' + str(count) + '</td>\n'
+        status_rows += '            <td class="px-6 py-4 text-right font-semibold text-on-surface" id="status-' + state_id + '">' + str(count) + '</td>\n'
         status_rows += '        </tr>\n'
 
     # Generar botones de meses
@@ -666,23 +666,64 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
                 color: #e0e8f0;
             }
             .dark .glacier-surface {
-                background-color: rgba(15, 21, 36, 0.6);
-                border: 1px solid rgba(125, 211, 252, 0.1);
+                background-color: #0f1524;
+                border: 1px solid rgba(74, 96, 112, 0.3);
             }
             .dark .glacier-card {
                 background-color: #141c2e;
                 border: 1px solid rgba(125, 211, 252, 0.1);
-                box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+                transition: all 0.3s ease;
             }
             .dark .glacier-card:hover {
                 border-color: #7dd3fc;
-                box-shadow: 0 4px 12px rgba(125, 211, 252, 0.12);
+                background-color: #1a2438;
             }
             .dark .drawer-item.active {
-                background-color: rgba(125, 211, 252, 0.15);
+                background-color: rgba(125, 211, 252, 0.1);
                 color: #7dd3fc;
                 border-right: 3px solid #7dd3fc;
             }
+            /* Dark Mode Tailwind Color Overrides */
+            .dark {
+                --color-background: #0a0e1a;
+                --color-surface: #0f1524;
+                --color-surface-container: #141c2e;
+                --color-surface-container-low: #111828;
+                --color-surface-container-lowest: #0a0e1a;
+                --color-surface-container-high: #1a2438;
+                --color-surface-container-highest: #202c42;
+                --color-surface-dim: #0f1524;
+                --color-surface-bright: #1a2438;
+                --color-surface-variant: #1a2438;
+                --color-on-surface: #e0e8f0;
+                --color-on-surface-variant: #a0b4c4;
+                --color-on-background: #e0e8f0;
+                --color-outline: #4a6070;
+                --color-outline-variant: #2a3a48;
+            }
+            .dark .bg-background { background-color: #0a0e1a; }
+            .dark .bg-surface { background-color: #0f1524; }
+            .dark .bg-surface-container { background-color: #141c2e; }
+            .dark .bg-surface-container-low { background-color: #111828; }
+            .dark .bg-surface-container-lowest { background-color: #0a0e1a; }
+            .dark .bg-surface-container-high { background-color: #1a2438; }
+            .dark .bg-surface-container-highest { background-color: #202c42; }
+            .dark .hover\:bg-surface-container-highest\/50:hover { background-color: rgba(32, 44, 66, 0.5); }
+            .dark .bg-surface-dim { background-color: #0f1524; }
+            .dark .bg-surface-variant { background-color: #1a2438; }
+            .dark .border-outline-variant { border-color: #2a3a48; }
+            .dark .border-outline { border-color: #4a6070; }
+            .dark .text-on-surface { color: #e0e8f0; }
+            .dark .text-on-surface-variant { color: #a0b4c4; }
+            .dark .text-on-background { color: #e0e8f0; }
+            .dark .bg-tertiary { background-color: #c8a0f0; }
+            .dark .text-tertiary { color: #c8a0f0; }
+            .dark .bg-tertiary-container { background-color: #3d2060; }
+            .dark .text-tertiary-container { color: #3d2060; }
+            .dark .bg-tertiary-fixed { background-color: #e8d0ff; }
+            .dark .text-tertiary-fixed { color: #e8d0ff; }
+            .dark .text-on-tertiary { color: #1a002e; }
+            .dark .hover\\:bg-surface-variant:hover { background-color: #1a2438; }
         </style>
     </head>
     <body class="min-h-screen bg-background text-on-surface">
