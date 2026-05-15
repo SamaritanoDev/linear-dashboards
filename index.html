@@ -231,6 +231,28 @@
             .dark .text-on-tertiary { color: #1a002e; }
             .dark .text-primary { color: #7dd3fc; }
             .dark .text-on-primary-container { color: #a0d8f7; }
+            /* Light mode table backgrounds for Issues CE tab */
+            html:not(.dark) #issues .glacier-surface {
+                background-color: #ffffff !important;
+                color: #191c1e !important;
+            }
+            /* Light mode - table rows styling - no changes on hover/click */
+            html:not(.dark) #issues .glacier-surface table tbody tr {
+                user-select: none;
+            }
+            html:not(.dark) #issues .glacier-surface table tbody tr td {
+                color: #191c1e !important;
+                background-color: transparent !important;
+                font-weight: bold !important;
+            }
+            html:not(.dark) #issues .glacier-surface table tbody tr:hover td {
+                color: #191c1e !important;
+                background-color: transparent !important;
+            }
+            /* Dark mode table hover for Issues CE tab */
+            .dark #issues .glacier-surface table tbody tr:hover {
+                background-color: #1a2438 !important;
+            }
         </style>
     </head>
     <body class="min-h-screen bg-background text-on-surface">
