@@ -104,6 +104,50 @@
                 color: #7dd3fc;
                 border-right: 3px solid #7dd3fc;
             }
+            /* Light mode info boxes for Issues CE */
+            .issues-info-note {
+                background-color: #c8eaff;
+                color: #003d66;
+            }
+            .issues-info-note strong {
+                color: #0099cc;
+            }
+            .issues-pending-note {
+                background-color: #eddffd;
+                color: #440055;
+            }
+            .issues-pending-note strong {
+                color: #6b528c;
+            }
+            /* Dark mode info boxes for Issues CE */
+            .dark .issues-info-note {
+                background-color: #1a3a52 !important;
+                color: #7dd3fc !important;
+                border-left-color: #7dd3fc !important;
+            }
+            .dark .issues-info-note strong {
+                color: #7dd3fc !important;
+            }
+            .dark .issues-info-note p {
+                color: #7dd3fc !important;
+            }
+            .dark .issues-pending-note {
+                background-color: #1c1331 !important;
+                color: #e8d0ff !important;
+                border-left-color: #c8a0f0 !important;
+            }
+            .dark .issues-pending-note strong {
+                color: #c8a0f0 !important;
+            }
+            .dark .issues-pending-note p {
+                color: #e8d0ff !important;
+            }
+            .dark .issues-pending-note span {
+                color: #e8d0ff !important;
+            }
+            .dark .issues-pending-note div span {
+                color: #e8d0ff !important;
+            }
             /* Dark Mode Styles */
             .dark {
                 background-color: #0a0e1a;
@@ -125,6 +169,9 @@
             .dark .glacier-card:hover {
                 border-color: #7dd3fc;
                 background-color: #1a2438;
+            }
+            .dark .drawer-item:hover {
+                background-color: #141c2e;
             }
             .dark .drawer-item.active {
                 background-color: rgba(125, 211, 252, 0.1);
@@ -203,6 +250,10 @@
                     </nav>
                 </div>
                 <div class="mt-auto p-6">
+                    <button id="theme-toggle" class="w-full glacier-surface px-4 py-3 rounded-xl border border-primary/20 flex items-center justify-center gap-2 text-sm cursor-pointer hover:border-primary/40 transition-all mb-4" title="Cambiar tema">
+                        <span class="material-symbols-outlined text-primary" id="theme-icon">light_mode</span>
+                        <span class="text-on-surface-variant text-xs font-medium" id="theme-label">Modo Claro</span>
+                    </button>
                     <div class="bg-surface-container rounded-xl p-4 border border-outline-variant/30">
                         <p class="text-xs text-primary font-semibold mb-1 uppercase tracking-tighter">Continuity Eng.</p>
                         <p class="text-[10px] text-on-surface-variant">v2.4.0 Glacier Stable</p>
@@ -221,10 +272,6 @@
                             <p class="text-on-surface-variant mt-2">Seguimiento de iniciativas de continuidad de ingeniería</p>
                         </div>
                         <div class="flex items-center gap-4">
-                            <button id="theme-toggle" class="glacier-surface px-4 py-2 rounded-xl border border-primary/20 flex items-center gap-2 text-sm cursor-pointer hover:border-primary/40 transition-all" title="Cambiar tema">
-                                <span class="material-symbols-outlined text-primary" id="theme-icon">light_mode</span>
-                                <span class="text-on-surface-variant hidden sm:inline" id="theme-label">Modo Claro</span>
-                            </button>
                             <div class="glacier-surface px-4 py-2 rounded-xl border border-primary/20 flex items-center gap-3 text-sm">
                                 <span class="material-symbols-outlined text-primary animate-pulse">sync</span>
                                 <span class="text-on-surface-variant">Live Data Active</span>
@@ -440,14 +487,14 @@
                 <span class="h-2 w-2 rounded-full bg-secondary"></span>
                 <span class="text-on-surface font-medium capitalize">Backlog</span>
             </td>
-            <td class="px-6 py-4 text-right font-semibold text-on-surface" id="status-backlog">13</td>
+            <td class="px-6 py-4 text-right font-semibold text-on-surface" id="status-backlog">12</td>
         </tr>
         <tr class="hover:bg-surface-container-highest/50 transition-colors group">
             <td class="px-6 py-4 flex items-center gap-3">
                 <span class="h-2 w-2 rounded-full bg-secondary"></span>
                 <span class="text-on-surface font-medium capitalize">Planned</span>
             </td>
-            <td class="px-6 py-4 text-right font-semibold text-on-surface" id="status-planned">2</td>
+            <td class="px-6 py-4 text-right font-semibold text-on-surface" id="status-planned">3</td>
         </tr>
         <tr class="hover:bg-surface-container-highest/50 transition-colors group">
             <td class="px-6 py-4 flex items-center gap-3">
@@ -492,1646 +539,524 @@
                 </section>
 
                 <section id="issues" style="display: none;">
-<div id="issues" class="section active">
-                    <h1>📌 Issues Sin Proyecto CE</h1>
+<div class="max-w-6xl mx-auto">
+    <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
+        <div>
+            <h1 class="text-4xl font-bold text-on-surface tracking-tight flex items-center gap-3">
+                <span class="material-symbols-outlined text-primary text-4xl">bug_report</span>
+                Issues Sin Proyecto CE
+            </h1>
+            <p class="text-on-surface-variant mt-2">Seguimiento de incidencias operativas no vinculadas a proyectos</p>
+        </div>
+    </div>
 
-                    <div class="note">
-                        <strong>ℹ️ Nota:</strong> Solo se muestran issues que NO pertenecen a ningún proyecto.
-                        Los issues asociados a proyectos se ven en la sección "Proyectos".
-                    </div>
+    <div class="issues-info-note border-l-4 border-primary p-4 rounded-r-xl mb-6 flex items-start gap-4">
+        <span class="material-symbols-outlined text-primary mt-0.5">info</span>
+        <p class="text-sm text-on-surface leading-relaxed"><strong class="text-primary">Nota:</strong> Solo se muestran issues que NO pertenecen a ningún proyecto. Los issues asociados a proyectos se ven en la sección "Proyectos".</p>
+    </div>
+    <div class="issues-pending-note border-l-4 border-tertiary p-4 rounded-r-xl mb-10 flex items-start gap-4">
+        <span class="material-symbols-outlined text-tertiary mt-0.5">assignment_late</span>
+        <div class="text-sm text-on-surface leading-relaxed">
+            <strong class="text-tertiary block mb-1">Definición de "Pendientes":</strong>
+            <div class="flex flex-wrap gap-x-4 gap-y-1">
+                <span class="">✓ Triage, Planning, Backlog, In Progress, In Review, Blocked</span>
+                <span class="opacity-70">✗ NO se cuentan: Closed, Discarded</span>
+            </div>
+        </div>
+    </div>
 
-                    <div class="disclaimer">
-                        <strong>📌 Definición de "Pendientes":</strong>
-                        <div class="disclaimer-item">✓ Se cuentan: Triage, Planning, Backlog, In Progress, In Review, Blocked</div>
-                        <div class="disclaimer-item">✗ NO se cuentan: Closed, Discarded</div>
-                    </div>
+    <div class="flex items-center gap-2 mb-8 overflow-x-auto pb-2" data-purpose="month-navigation">
+    <button class="px-5 py-2.5 rounded-full text-sm text-on-surface-variant font-medium hover:text-on-surface hover:bg-surface-container transition-all whitespace-nowrap" data-month="Enero">Enero 2026</button>
+    <button class="px-5 py-2.5 rounded-full text-sm text-on-surface-variant font-medium hover:text-on-surface hover:bg-surface-container transition-all whitespace-nowrap" data-month="Febrero">Febrero 2026</button>
+    <button class="px-5 py-2.5 rounded-full text-sm text-on-surface-variant font-medium hover:text-on-surface hover:bg-surface-container transition-all whitespace-nowrap" data-month="Marzo">Marzo 2026</button>
+    <button class="px-5 py-2.5 rounded-full text-sm text-on-surface-variant font-medium hover:text-on-surface hover:bg-surface-container transition-all whitespace-nowrap" data-month="Abril">Abril 2026</button>
+    <button class="px-5 py-2.5 rounded-full text-sm text-primary bg-primary/10 border border-primary/30 shadow-lg shadow-primary/5 font-semibold transition-all whitespace-nowrap" data-month="Mayo">Mayo 2026</button>
+    </div>
 
-                    <div class="tabs">
-    <button class="tab-button " onclick="switchTab('Enero')">Enero 2026</button><button class="tab-button " onclick="switchTab('Febrero')">Febrero 2026</button><button class="tab-button " onclick="switchTab('Marzo')">Marzo 2026</button><button class="tab-button " onclick="switchTab('Abril')">Abril 2026</button><button class="tab-button active" onclick="switchTab('Mayo')">Mayo 2026</button>
-                    </div>
-    
-                    <div class="tab-content " id="tab-Enero">
-                        <div class="month-summary">
-                            <strong>Enero 2026:</strong> 31 issues totales
-                            | <strong>Pendientes: 0</strong>
-                        </div>
+    <div class="tab-content" id="tab-issues" data-month="Mayo">
+        <div class="flex items-center gap-2 mb-6">
+            <span class="h-2 w-2 rounded-full bg-primary"></span>
+            <span class="text-sm font-medium text-on-surface-variant uppercase tracking-widest">Mayo 2026: 58 issues totales | Pendientes: 29</span>
+        </div>
 
-                        <h3>📊 Resumen</h3>
-
-                        <div class="progress-container">
-                            <div class="progress-header">
-                                <h4>Progreso General</h4>
-                                <span class="progress-percentage">100%</span>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 100%"></div>
-                            </div>
-                        </div>
-
-                        <div class="metrics">
-                            <div class="metric-card">
-                                <div class="label">Total Issues</div>
-                                <div class="value">31</div>
-                            </div>
-                            <div class="metric-card ce2">
-                                <div class="label">CE2 Issues Total</div>
-                                <div class="value">31</div>
-                            </div>
-                            <div class="metric-card">
-                                <div class="label">🔥 In Progress</div>
-                                <div class="value">0</div>
-                            </div>
-                            <div class="metric-card">
-                                <div class="label">🏷️ Sin Label</div>
-                                <div class="value">0</div>
-                            </div>
-                            <div class="metric-card">
-                                <div class="label">🚫 Bloqueados</div>
-                                <div class="value">0</div>
-                            </div>
-                            <div class="metric-card">
-                                <div class="label">✅ Cerrados</div>
-                                <div class="value">31</div>
-                            </div>
-                            <div class="metric-card">
-                                <div class="label">⏳ Pendientes</div>
-                                <div class="value">0</div>
-                            </div>
-                        </div>
-
-                        <div class="section-box" style="margin-bottom: 20px;">
-                            <h2>📦 Resumen por Producto (Total vs Pendientes)</h2>
-                            <div class="product-summary">
-        
-                                <div class="product-card">
-                                    <div class="product-name">Fimo</div>
-                                    <div class="product-stats">
-                                        <div class="stat">
-                                            <span class="stat-label">Total</span>
-                                            <span class="stat-value">1</span>
-                                        </div>
-            
-                                    </div>
-                                </div>
-            
-                                <div class="product-card">
-                                    <div class="product-name">Wings</div>
-                                    <div class="product-stats">
-                                        <div class="stat">
-                                            <span class="stat-label">Total</span>
-                                            <span class="stat-value">1</span>
-                                        </div>
-            
-                                    </div>
-                                </div>
-            
-                            </div>
-                        </div>
-
-                        <div class="disclaimer" style="margin-top: 20px;">
-                            <strong>📌 Nota sobre los totales:</strong>
-                            <div class="disclaimer-item">Pendientes + Cerrados = Issues considerados (con etiqueta de producto)</div>
-                            <div class="disclaimer-item">Los issues en estado "Discarded" se excluyen y no se cuentan en ninguna categoría</div>
-                            <div class="disclaimer-item">"Sin Label" muestra issues que no tienen etiqueta de producto - NO se incluyen en el total hasta etiquetarlos</div>
-                        </div>
-
-                        <div class="section-box">
-                            <h2>📊 Por Estado (Desglose por Team)</h2>
-                            <table>
-                                <tr>
-                                    <th>Estado</th>
-                                    <th>CE1</th>
-                                    <th>CE2</th>
-                                    <th>Total</th>
-                                </tr>
-        <tr><td>Closed</td><td>0</td><td>31</td><td>31</td></tr>
-                            </table>
-                        </div>
-
-                        <div class="section-box">
-                            <h2>🏢 Por Producto (Pendientes vs Total)</h2>
-                            <table>
-                                <tr>
-                                    <th>Producto</th>
-                                    <th>Pendientes</th>
-                                    <th>Total</th>
-                                    <th>Completado %</th>
-                                </tr>
-        
-                                <tr>
-                                    <td><strong>Fimo</strong></td>
-                                    <td>0</td>
-                                    <td>1</td>
-                                    <td>100.0%</td>
-                                </tr>
-            
-                                <tr>
-                                    <td><strong>Wings</strong></td>
-                                    <td>0</td>
-                                    <td>1</td>
-                                    <td>100.0%</td>
-                                </tr>
-            
-                            </table>
-                        </div>
-        
-                    </div>
-        
-                    <div class="tab-content " id="tab-Febrero">
-                        <div class="month-summary">
-                            <strong>Febrero 2026:</strong> 146 issues totales
-                            | <strong>Pendientes: 0</strong>
-                        </div>
-
-                        <h3>📊 Resumen</h3>
-
-                        <div class="progress-container">
-                            <div class="progress-header">
-                                <h4>Progreso General</h4>
-                                <span class="progress-percentage">100%</span>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 100%"></div>
-                            </div>
-                        </div>
-
-                        <div class="metrics">
-                            <div class="metric-card">
-                                <div class="label">Total Issues</div>
-                                <div class="value">146</div>
-                            </div>
-                            <div class="metric-card ce2">
-                                <div class="label">CE2 Issues Total</div>
-                                <div class="value">146</div>
-                            </div>
-                            <div class="metric-card">
-                                <div class="label">🔥 In Progress</div>
-                                <div class="value">0</div>
-                            </div>
-                            <div class="metric-card">
-                                <div class="label">🏷️ Sin Label</div>
-                                <div class="value">0</div>
-                            </div>
-                            <div class="metric-card">
-                                <div class="label">🚫 Bloqueados</div>
-                                <div class="value">0</div>
-                            </div>
-                            <div class="metric-card">
-                                <div class="label">✅ Cerrados</div>
-                                <div class="value">146</div>
-                            </div>
-                            <div class="metric-card">
-                                <div class="label">⏳ Pendientes</div>
-                                <div class="value">0</div>
-                            </div>
-                        </div>
-
-                        <div class="section-box" style="margin-bottom: 20px;">
-                            <h2>📦 Resumen por Producto (Total vs Pendientes)</h2>
-                            <div class="product-summary">
-        
-                                <div class="product-card">
-                                    <div class="product-name">Habla+</div>
-                                    <div class="product-stats">
-                                        <div class="stat">
-                                            <span class="stat-label">Total</span>
-                                            <span class="stat-value">10</span>
-                                        </div>
-            
-                                    </div>
-                                </div>
-            
-                                <div class="product-card">
-                                    <div class="product-name">Airalo</div>
-                                    <div class="product-stats">
-                                        <div class="stat">
-                                            <span class="stat-label">Total</span>
-                                            <span class="stat-value">7</span>
-                                        </div>
-            
-                                    </div>
-                                </div>
-            
-                                <div class="product-card">
-                                    <div class="product-name">Fimo</div>
-                                    <div class="product-stats">
-                                        <div class="stat">
-                                            <span class="stat-label">Total</span>
-                                            <span class="stat-value">4</span>
-                                        </div>
-            
-                                    </div>
-                                </div>
-            
-                                <div class="product-card">
-                                    <div class="product-name">Wings</div>
-                                    <div class="product-stats">
-                                        <div class="stat">
-                                            <span class="stat-label">Total</span>
-                                            <span class="stat-value">3</span>
-                                        </div>
-            
-                                    </div>
-                                </div>
-            
-                                <div class="product-card">
-                                    <div class="product-name">Cuy</div>
-                                    <div class="product-stats">
-                                        <div class="stat">
-                                            <span class="stat-label">Total</span>
-                                            <span class="stat-value">2</span>
-                                        </div>
-            
-                                    </div>
-                                </div>
-            
-                                <div class="product-card">
-                                    <div class="product-name">Guinea</div>
-                                    <div class="product-stats">
-                                        <div class="stat">
-                                            <span class="stat-label">Total</span>
-                                            <span class="stat-value">1</span>
-                                        </div>
-            
-                                    </div>
-                                </div>
-            
-                            </div>
-                        </div>
-
-                        <div class="disclaimer" style="margin-top: 20px;">
-                            <strong>📌 Nota sobre los totales:</strong>
-                            <div class="disclaimer-item">Pendientes + Cerrados = Issues considerados (con etiqueta de producto)</div>
-                            <div class="disclaimer-item">Los issues en estado "Discarded" se excluyen y no se cuentan en ninguna categoría</div>
-                            <div class="disclaimer-item">"Sin Label" muestra issues que no tienen etiqueta de producto - NO se incluyen en el total hasta etiquetarlos</div>
-                        </div>
-
-                        <div class="section-box">
-                            <h2>📊 Por Estado (Desglose por Team)</h2>
-                            <table>
-                                <tr>
-                                    <th>Estado</th>
-                                    <th>CE1</th>
-                                    <th>CE2</th>
-                                    <th>Total</th>
-                                </tr>
-        <tr><td>Closed</td><td>0</td><td>146</td><td>146</td></tr>
-                            </table>
-                        </div>
-
-                        <div class="section-box">
-                            <h2>🏢 Por Producto (Pendientes vs Total)</h2>
-                            <table>
-                                <tr>
-                                    <th>Producto</th>
-                                    <th>Pendientes</th>
-                                    <th>Total</th>
-                                    <th>Completado %</th>
-                                </tr>
-        
-                                <tr>
-                                    <td><strong>Airalo</strong></td>
-                                    <td>0</td>
-                                    <td>7</td>
-                                    <td>100.0%</td>
-                                </tr>
-            
-                                <tr>
-                                    <td><strong>Cuy</strong></td>
-                                    <td>0</td>
-                                    <td>2</td>
-                                    <td>100.0%</td>
-                                </tr>
-            
-                                <tr>
-                                    <td><strong>Fimo</strong></td>
-                                    <td>0</td>
-                                    <td>4</td>
-                                    <td>100.0%</td>
-                                </tr>
-            
-                                <tr>
-                                    <td><strong>Guinea</strong></td>
-                                    <td>0</td>
-                                    <td>1</td>
-                                    <td>100.0%</td>
-                                </tr>
-            
-                                <tr>
-                                    <td><strong>Habla+</strong></td>
-                                    <td>0</td>
-                                    <td>10</td>
-                                    <td>100.0%</td>
-                                </tr>
-            
-                                <tr>
-                                    <td><strong>Wings</strong></td>
-                                    <td>0</td>
-                                    <td>3</td>
-                                    <td>100.0%</td>
-                                </tr>
-            
-                            </table>
-                        </div>
-        
-                    </div>
-        
-                    <div class="tab-content " id="tab-Marzo">
-                        <div class="month-summary">
-                            <strong>Marzo 2026:</strong> 231 issues totales
-                            | <strong>Pendientes: 0</strong>
-                        </div>
-
-                        <h3>📊 Resumen</h3>
-
-                        <div class="progress-container">
-                            <div class="progress-header">
-                                <h4>Progreso General</h4>
-                                <span class="progress-percentage">100%</span>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 100%"></div>
-                            </div>
-                        </div>
-
-                        <div class="metrics">
-                            <div class="metric-card">
-                                <div class="label">Total Issues</div>
-                                <div class="value">231</div>
-                            </div>
-                            <div class="metric-card ce2">
-                                <div class="label">CE2 Issues Total</div>
-                                <div class="value">231</div>
-                            </div>
-                            <div class="metric-card">
-                                <div class="label">🔥 In Progress</div>
-                                <div class="value">0</div>
-                            </div>
-                            <div class="metric-card">
-                                <div class="label">🏷️ Sin Label</div>
-                                <div class="value">0</div>
-                            </div>
-                            <div class="metric-card">
-                                <div class="label">🚫 Bloqueados</div>
-                                <div class="value">0</div>
-                            </div>
-                            <div class="metric-card">
-                                <div class="label">✅ Cerrados</div>
-                                <div class="value">231</div>
-                            </div>
-                            <div class="metric-card">
-                                <div class="label">⏳ Pendientes</div>
-                                <div class="value">0</div>
-                            </div>
-                        </div>
-
-                        <div class="section-box" style="margin-bottom: 20px;">
-                            <h2>📦 Resumen por Producto (Total vs Pendientes)</h2>
-                            <div class="product-summary">
-        
-                                <div class="product-card">
-                                    <div class="product-name">Cuy</div>
-                                    <div class="product-stats">
-                                        <div class="stat">
-                                            <span class="stat-label">Total</span>
-                                            <span class="stat-value">38</span>
-                                        </div>
-            
-                                    </div>
-                                </div>
-            
-                                <div class="product-card">
-                                    <div class="product-name">Habla+</div>
-                                    <div class="product-stats">
-                                        <div class="stat">
-                                            <span class="stat-label">Total</span>
-                                            <span class="stat-value">8</span>
-                                        </div>
-            
-                                    </div>
-                                </div>
-            
-                                <div class="product-card">
-                                    <div class="product-name">Wings</div>
-                                    <div class="product-stats">
-                                        <div class="stat">
-                                            <span class="stat-label">Total</span>
-                                            <span class="stat-value">5</span>
-                                        </div>
-            
-                                    </div>
-                                </div>
-            
-                                <div class="product-card">
-                                    <div class="product-name">Guinea</div>
-                                    <div class="product-stats">
-                                        <div class="stat">
-                                            <span class="stat-label">Total</span>
-                                            <span class="stat-value">4</span>
-                                        </div>
-            
-                                    </div>
-                                </div>
-            
-                                <div class="product-card">
-                                    <div class="product-name">Fimo</div>
-                                    <div class="product-stats">
-                                        <div class="stat">
-                                            <span class="stat-label">Total</span>
-                                            <span class="stat-value">2</span>
-                                        </div>
-            
-                                    </div>
-                                </div>
-            
-                                <div class="product-card">
-                                    <div class="product-name">Airalo</div>
-                                    <div class="product-stats">
-                                        <div class="stat">
-                                            <span class="stat-label">Total</span>
-                                            <span class="stat-value">2</span>
-                                        </div>
-            
-                                    </div>
-                                </div>
-            
-                                <div class="product-card">
-                                    <div class="product-name">PeruSim+</div>
-                                    <div class="product-stats">
-                                        <div class="stat">
-                                            <span class="stat-label">Total</span>
-                                            <span class="stat-value">1</span>
-                                        </div>
-            
-                                    </div>
-                                </div>
-            
-                                <div class="product-card">
-                                    <div class="product-name">Finanzas</div>
-                                    <div class="product-stats">
-                                        <div class="stat">
-                                            <span class="stat-label">Total</span>
-                                            <span class="stat-value">1</span>
-                                        </div>
-            
-                                    </div>
-                                </div>
-            
-                            </div>
-                        </div>
-
-                        <div class="disclaimer" style="margin-top: 20px;">
-                            <strong>📌 Nota sobre los totales:</strong>
-                            <div class="disclaimer-item">Pendientes + Cerrados = Issues considerados (con etiqueta de producto)</div>
-                            <div class="disclaimer-item">Los issues en estado "Discarded" se excluyen y no se cuentan en ninguna categoría</div>
-                            <div class="disclaimer-item">"Sin Label" muestra issues que no tienen etiqueta de producto - NO se incluyen en el total hasta etiquetarlos</div>
-                        </div>
-
-                        <div class="section-box">
-                            <h2>📊 Por Estado (Desglose por Team)</h2>
-                            <table>
-                                <tr>
-                                    <th>Estado</th>
-                                    <th>CE1</th>
-                                    <th>CE2</th>
-                                    <th>Total</th>
-                                </tr>
-        <tr><td>Closed</td><td>0</td><td>231</td><td>231</td></tr>
-                            </table>
-                        </div>
-
-                        <div class="section-box">
-                            <h2>🏢 Por Producto (Pendientes vs Total)</h2>
-                            <table>
-                                <tr>
-                                    <th>Producto</th>
-                                    <th>Pendientes</th>
-                                    <th>Total</th>
-                                    <th>Completado %</th>
-                                </tr>
-        
-                                <tr>
-                                    <td><strong>Airalo</strong></td>
-                                    <td>0</td>
-                                    <td>2</td>
-                                    <td>100.0%</td>
-                                </tr>
-            
-                                <tr>
-                                    <td><strong>Cuy</strong></td>
-                                    <td>0</td>
-                                    <td>38</td>
-                                    <td>100.0%</td>
-                                </tr>
-            
-                                <tr>
-                                    <td><strong>Fimo</strong></td>
-                                    <td>0</td>
-                                    <td>2</td>
-                                    <td>100.0%</td>
-                                </tr>
-            
-                                <tr>
-                                    <td><strong>Finanzas</strong></td>
-                                    <td>0</td>
-                                    <td>1</td>
-                                    <td>100.0%</td>
-                                </tr>
-            
-                                <tr>
-                                    <td><strong>Guinea</strong></td>
-                                    <td>0</td>
-                                    <td>4</td>
-                                    <td>100.0%</td>
-                                </tr>
-            
-                                <tr>
-                                    <td><strong>Habla+</strong></td>
-                                    <td>0</td>
-                                    <td>8</td>
-                                    <td>100.0%</td>
-                                </tr>
-            
-                                <tr>
-                                    <td><strong>PeruSim+</strong></td>
-                                    <td>0</td>
-                                    <td>1</td>
-                                    <td>100.0%</td>
-                                </tr>
-            
-                                <tr>
-                                    <td><strong>Wings</strong></td>
-                                    <td>0</td>
-                                    <td>5</td>
-                                    <td>100.0%</td>
-                                </tr>
-            
-                            </table>
-                        </div>
-        
-                    </div>
-        
-                    <div class="tab-content " id="tab-Abril">
-                        <div class="month-summary">
-                            <strong>Abril 2026:</strong> 157 issues totales
-                            | <strong>Pendientes: 22</strong>
-                        </div>
-
-                        <h3>📊 Resumen</h3>
-
-                        <div class="progress-container">
-                            <div class="progress-header">
-                                <h4>Progreso General</h4>
-                                <span class="progress-percentage">85%</span>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 85%"></div>
-                            </div>
-                        </div>
-
-                        <div class="metrics">
-                            <div class="metric-card">
-                                <div class="label">Total Issues</div>
-                                <div class="value">157</div>
-                            </div>
-                            <div class="metric-card ce2">
-                                <div class="label">CE2 Issues Total</div>
-                                <div class="value">157</div>
-                            </div>
-                            <div class="metric-card">
-                                <div class="label">🔥 In Progress</div>
-                                <div class="value">2</div>
-                            </div>
-                            <div class="metric-card">
-                                <div class="label">🏷️ Sin Label</div>
-                                <div class="value">1</div>
-                            </div>
-                            <div class="metric-card">
-                                <div class="label">🚫 Bloqueados</div>
-                                <div class="value">0</div>
-                            </div>
-                            <div class="metric-card">
-                                <div class="label">✅ Cerrados</div>
-                                <div class="value">135</div>
-                            </div>
-                            <div class="metric-card">
-                                <div class="label">⏳ Pendientes</div>
-                                <div class="value">22</div>
-                            </div>
-                        </div>
-
-                        <div class="section-box" style="margin-bottom: 20px;">
-                            <h2>📦 Resumen por Producto (Total vs Pendientes)</h2>
-                            <div class="product-summary">
-        
-                                <div class="product-card">
-                                    <div class="product-name">Cuy</div>
-                                    <div class="product-stats">
-                                        <div class="stat">
-                                            <span class="stat-label">Total</span>
-                                            <span class="stat-value">41</span>
-                                        </div>
-            
-                                        <div class="stat">
-                                            <span class="stat-label">Pendientes</span>
-                                            <span class="stat-value pending">7</span>
-                                        </div>
-                
-                                    </div>
-                                </div>
-            
-                                <div class="product-card">
-                                    <div class="product-name">Guinea</div>
-                                    <div class="product-stats">
-                                        <div class="stat">
-                                            <span class="stat-label">Total</span>
-                                            <span class="stat-value">19</span>
-                                        </div>
-            
-                                        <div class="stat">
-                                            <span class="stat-label">Pendientes</span>
-                                            <span class="stat-value pending">5</span>
-                                        </div>
-                
-                                    </div>
-                                </div>
-            
-                                <div class="product-card">
-                                    <div class="product-name">PeruSim+</div>
-                                    <div class="product-stats">
-                                        <div class="stat">
-                                            <span class="stat-label">Total</span>
-                                            <span class="stat-value">19</span>
-                                        </div>
-            
-                                        <div class="stat">
-                                            <span class="stat-label">Pendientes</span>
-                                            <span class="stat-value pending">1</span>
-                                        </div>
-                
-                                    </div>
-                                </div>
-            
-                                <div class="product-card">
-                                    <div class="product-name">Finanzas</div>
-                                    <div class="product-stats">
-                                        <div class="stat">
-                                            <span class="stat-label">Total</span>
-                                            <span class="stat-value">17</span>
-                                        </div>
-            
-                                        <div class="stat">
-                                            <span class="stat-label">Pendientes</span>
-                                            <span class="stat-value pending">4</span>
-                                        </div>
-                
-                                    </div>
-                                </div>
-            
-                                <div class="product-card">
-                                    <div class="product-name">Habla+</div>
-                                    <div class="product-stats">
-                                        <div class="stat">
-                                            <span class="stat-label">Total</span>
-                                            <span class="stat-value">12</span>
-                                        </div>
-            
-                                        <div class="stat">
-                                            <span class="stat-label">Pendientes</span>
-                                            <span class="stat-value pending">3</span>
-                                        </div>
-                
-                                    </div>
-                                </div>
-            
-                                <div class="product-card">
-                                    <div class="product-name">Wings</div>
-                                    <div class="product-stats">
-                                        <div class="stat">
-                                            <span class="stat-label">Total</span>
-                                            <span class="stat-value">10</span>
-                                        </div>
-            
-                                    </div>
-                                </div>
-            
-                                <div class="product-card">
-                                    <div class="product-name">B2B</div>
-                                    <div class="product-stats">
-                                        <div class="stat">
-                                            <span class="stat-label">Total</span>
-                                            <span class="stat-value">10</span>
-                                        </div>
-            
-                                        <div class="stat">
-                                            <span class="stat-label">Pendientes</span>
-                                            <span class="stat-value pending">1</span>
-                                        </div>
-                
-                                    </div>
-                                </div>
-            
-                                <div class="product-card">
-                                    <div class="product-name">Legales</div>
-                                    <div class="product-stats">
-                                        <div class="stat">
-                                            <span class="stat-label">Total</span>
-                                            <span class="stat-value">3</span>
-                                        </div>
-            
-                                    </div>
-                                </div>
-            
-                                <div class="product-card">
-                                    <div class="product-name">Airalo</div>
-                                    <div class="product-stats">
-                                        <div class="stat">
-                                            <span class="stat-label">Total</span>
-                                            <span class="stat-value">3</span>
-                                        </div>
-            
-                                    </div>
-                                </div>
-            
-                                <div class="product-card">
-                                    <div class="product-name">Fimo</div>
-                                    <div class="product-stats">
-                                        <div class="stat">
-                                            <span class="stat-label">Total</span>
-                                            <span class="stat-value">2</span>
-                                        </div>
-            
-                                    </div>
-                                </div>
-            
-                                <div class="product-card">
-                                    <div class="product-name">Partner</div>
-                                    <div class="product-stats">
-                                        <div class="stat">
-                                            <span class="stat-label">Total</span>
-                                            <span class="stat-value">1</span>
-                                        </div>
-            
-                                        <div class="stat">
-                                            <span class="stat-label">Pendientes</span>
-                                            <span class="stat-value pending">1</span>
-                                        </div>
-                
-                                    </div>
-                                </div>
-            
-                            </div>
-                        </div>
-
-                        <div class="disclaimer" style="margin-top: 20px;">
-                            <strong>📌 Nota sobre los totales:</strong>
-                            <div class="disclaimer-item">Pendientes + Cerrados = Issues considerados (con etiqueta de producto)</div>
-                            <div class="disclaimer-item">Los issues en estado "Discarded" se excluyen y no se cuentan en ninguna categoría</div>
-                            <div class="disclaimer-item">"Sin Label" muestra issues que no tienen etiqueta de producto - NO se incluyen en el total hasta etiquetarlos</div>
-                        </div>
-
-                        <div class="section-box">
-                            <h2>📊 Por Estado (Desglose por Team)</h2>
-                            <table>
-                                <tr>
-                                    <th>Estado</th>
-                                    <th>CE1</th>
-                                    <th>CE2</th>
-                                    <th>Total</th>
-                                </tr>
-        <tr><td>Backlog</td><td>0</td><td>8</td><td>8</td></tr><tr><td>Closed</td><td>0</td><td>135</td><td>135</td></tr><tr><td>In Progress</td><td>0</td><td>2</td><td>3</td></tr><tr><td>In Review</td><td>0</td><td>5</td><td>5</td></tr><tr><td>Planning</td><td>0</td><td>7</td><td>7</td></tr>
-                            </table>
-                        </div>
-
-                        <div class="section-box">
-                            <h2>🏢 Por Producto (Pendientes vs Total)</h2>
-                            <table>
-                                <tr>
-                                    <th>Producto</th>
-                                    <th>Pendientes</th>
-                                    <th>Total</th>
-                                    <th>Completado %</th>
-                                </tr>
-        
-                                <tr>
-                                    <td><strong>Airalo</strong></td>
-                                    <td>0</td>
-                                    <td>3</td>
-                                    <td>100.0%</td>
-                                </tr>
-            
-                                <tr>
-                                    <td><strong>B2B</strong></td>
-                                    <td>1</td>
-                                    <td>10</td>
-                                    <td>90.0%</td>
-                                </tr>
-            
-                                <tr>
-                                    <td><strong>Cuy</strong></td>
-                                    <td>7</td>
-                                    <td>41</td>
-                                    <td>82.9%</td>
-                                </tr>
-            
-                                <tr>
-                                    <td><strong>Fimo</strong></td>
-                                    <td>0</td>
-                                    <td>2</td>
-                                    <td>100.0%</td>
-                                </tr>
-            
-                                <tr>
-                                    <td><strong>Finanzas</strong></td>
-                                    <td>4</td>
-                                    <td>17</td>
-                                    <td>76.5%</td>
-                                </tr>
-            
-                                <tr>
-                                    <td><strong>Guinea</strong></td>
-                                    <td>5</td>
-                                    <td>19</td>
-                                    <td>73.7%</td>
-                                </tr>
-            
-                                <tr>
-                                    <td><strong>Habla+</strong></td>
-                                    <td>3</td>
-                                    <td>12</td>
-                                    <td>75.0%</td>
-                                </tr>
-            
-                                <tr>
-                                    <td><strong>Legales</strong></td>
-                                    <td>0</td>
-                                    <td>3</td>
-                                    <td>100.0%</td>
-                                </tr>
-            
-                                <tr>
-                                    <td><strong>Partner</strong></td>
-                                    <td>1</td>
-                                    <td>1</td>
-                                    <td>0.0%</td>
-                                </tr>
-            
-                                <tr>
-                                    <td><strong>PeruSim+</strong></td>
-                                    <td>1</td>
-                                    <td>19</td>
-                                    <td>94.7%</td>
-                                </tr>
-            
-                                <tr>
-                                    <td><strong>Wings</strong></td>
-                                    <td>0</td>
-                                    <td>10</td>
-                                    <td>100.0%</td>
-                                </tr>
-            
-                            </table>
-                        </div>
-        
-                        <div class="section-box">
-                            <h2>⏳ Pendientes por Revisar (22)</h2>
-                            <table>
-                                <tr>
-                                    <th>ID Issue</th>
-                                    <th>Título</th>
-                                    <th>Estado</th>
-                                    <th>Producto</th>
-                                    <th>Team</th>
-                                    <th>Asignado a</th>
-                                    <th>Link</th>
-                                </tr>
-            
-                                <tr>
-                                    <td><strong>CE2-1501</strong></td>
-                                    <td>Generar preactivación y boleta CMS para cliente</td>
-                                    <td>Planning</td>
-                                    <td>Cuy</td>
-                                    <td>CE2</td>
-                                    <td>Alex Estrada</td>
-                                    <td><a href="https://linear.app/guinea/issue/CE2-1501" target="_blank" style="color: #d3c5ff; text-decoration: none;">Abrir →</a></td>
-                                </tr>
-                
-                                <tr>
-                                    <td><strong>CE2-1499</strong></td>
-                                    <td>Recargas recientes no aparecen en historial de Cuy</td>
-                                    <td>Planning</td>
-                                    <td>Cuy</td>
-                                    <td>CE2</td>
-                                    <td>Lesly Samaritano</td>
-                                    <td><a href="https://linear.app/guinea/issue/CE2-1499" target="_blank" style="color: #d3c5ff; text-decoration: none;">Abrir →</a></td>
-                                </tr>
-                
-                                <tr>
-                                    <td><strong>CE2-1498</strong></td>
-                                    <td>Habilitar acceso a bd.gnmbl.net para Jorge Brenner</td>
-                                    <td>In Review</td>
-                                    <td>Finanzas</td>
-                                    <td>CE2</td>
-                                    <td>Daniel Alvarez</td>
-                                    <td><a href="https://linear.app/guinea/issue/CE2-1498" target="_blank" style="color: #d3c5ff; text-decoration: none;">Abrir →</a></td>
-                                </tr>
-                
-                                <tr>
-                                    <td><strong>CE2-1497</strong></td>
-                                    <td>CMS muestra portabilidad activa sin solicitud en curso</td>
-                                    <td>Backlog</td>
-                                    <td>Cuy</td>
-                                    <td>CE2</td>
-                                    <td>Farialis Martinez</td>
-                                    <td><a href="https://linear.app/guinea/issue/CE2-1497" target="_blank" style="color: #d3c5ff; text-decoration: none;">Abrir →</a></td>
-                                </tr>
-                
-                                <tr>
-                                    <td><strong>CE2-1493</strong></td>
-                                    <td>Dashboard de reportes B2C muestra marzo en cero</td>
-                                    <td>Planning</td>
-                                    <td>Finanzas</td>
-                                    <td>CE2</td>
-                                    <td>Alex Estrada</td>
-                                    <td><a href="https://linear.app/guinea/issue/CE2-1493" target="_blank" style="color: #d3c5ff; text-decoration: none;">Abrir →</a></td>
-                                </tr>
-                
-                                <tr>
-                                    <td><strong>CE2-1489</strong></td>
-                                    <td>Actualizar términos y condiciones de planes prepago Cuy</td>
-                                    <td>Planning</td>
-                                    <td>Cuy</td>
-                                    <td>CE2</td>
-                                    <td>Alex Estrada</td>
-                                    <td><a href="https://linear.app/guinea/issue/CE2-1489" target="_blank" style="color: #d3c5ff; text-decoration: none;">Abrir →</a></td>
-                                </tr>
-                
-                                <tr>
-                                    <td><strong>CE2-1487</strong></td>
-                                    <td>Generar reporte de tarifas Airalo para Cuy y PeruSIM</td>
-                                    <td>Backlog</td>
-                                    <td>Finanzas</td>
-                                    <td>CE2</td>
-                                    <td>Patrick Bolaños</td>
-                                    <td><a href="https://linear.app/guinea/issue/CE2-1487" target="_blank" style="color: #d3c5ff; text-decoration: none;">Abrir →</a></td>
-                                </tr>
-                
-                                <tr>
-                                    <td><strong>CE2-1607</strong></td>
-                                    <td>Diseñar framework de trabajo para squad operadores</td>
-                                    <td>Backlog</td>
-                                    <td>Guinea</td>
-                                    <td>CE2</td>
-                                    <td>Enrique Lezama</td>
-                                    <td><a href="https://linear.app/guinea/issue/CE2-1607" target="_blank" style="color: #d3c5ff; text-decoration: none;">Abrir →</a></td>
-                                </tr>
-                
-                                <tr>
-                                    <td><strong>CE2-1614</strong></td>
-                                    <td>BOP de ARPU B2B no cuadra con BD</td>
-                                    <td>In Review</td>
-                                    <td>B2B</td>
-                                    <td>CE2</td>
-                                    <td>Wilzon Mariño</td>
-                                    <td><a href="https://linear.app/guinea/issue/CE2-1614" target="_blank" style="color: #d3c5ff; text-decoration: none;">Abrir →</a></td>
-                                </tr>
-                
-                                <tr>
-                                    <td><strong>CE2-1841</strong></td>
-                                    <td>Mostrar precio por empresa en detalle de plan B2B</td>
-                                    <td>Backlog</td>
-                                    <td>Finanzas</td>
-                                    <td>CE2</td>
-                                    <td>Alex Estrada</td>
-                                    <td><a href="https://linear.app/guinea/issue/CE2-1841" target="_blank" style="color: #d3c5ff; text-decoration: none;">Abrir →</a></td>
-                                </tr>
-                
-                                <tr>
-                                    <td><strong>CE2-1480</strong></td>
-                                    <td>Eliminar ramas tras merge a main en repos de Flutter</td>
-                                    <td>Backlog</td>
-                                    <td>Guinea</td>
-                                    <td>CE2</td>
-                                    <td>Alberto Pereda</td>
-                                    <td><a href="https://linear.app/guinea/issue/CE2-1480" target="_blank" style="color: #d3c5ff; text-decoration: none;">Abrir →</a></td>
-                                </tr>
-                
-                                <tr>
-                                    <td><strong>CE2-1479</strong></td>
-                                    <td>Línea 51915138246 y 51919087631 activada a dos personas distintas</td>
-                                    <td>In Progress</td>
-                                    <td>Cuy</td>
-                                    <td>CE2</td>
-                                    <td>Lesly Samaritano</td>
-                                    <td><a href="https://linear.app/guinea/issue/CE2-1479" target="_blank" style="color: #d3c5ff; text-decoration: none;">Abrir →</a></td>
-                                </tr>
-                
-                                <tr>
-                                    <td><strong>CE2-1475</strong></td>
-                                    <td>Plan S/39.90 muestra RRSS incluidas en app Cuy</td>
-                                    <td>Planning</td>
-                                    <td>Cuy</td>
-                                    <td>CE2</td>
-                                    <td>Alberto Pereda</td>
-                                    <td><a href="https://linear.app/guinea/issue/CE2-1475" target="_blank" style="color: #d3c5ff; text-decoration: none;">Abrir →</a></td>
-                                </tr>
-                
-                                <tr>
-                                    <td><strong>CE2-1472</strong></td>
-                                    <td>Cuy - App Distribuidores - Nuevos Indicadores de Ventas</td>
-                                    <td>Backlog</td>
-                                    <td>Partner</td>
-                                    <td>CE2</td>
-                                    <td>Patrick Bolaños</td>
-                                    <td><a href="https://linear.app/guinea/issue/CE2-1472" target="_blank" style="color: #d3c5ff; text-decoration: none;">Abrir →</a></td>
-                                </tr>
-                
-                                <tr>
-                                    <td><strong>CE2-1471</strong></td>
-                                    <td>Corregir en la UI cuando una línea se reserva por otra marca</td>
-                                    <td>Backlog</td>
-                                    <td>Habla+</td>
-                                    <td>CE2</td>
-                                    <td>Alberto Pereda</td>
-                                    <td><a href="https://linear.app/guinea/issue/CE2-1471" target="_blank" style="color: #d3c5ff; text-decoration: none;">Abrir →</a></td>
-                                </tr>
-                
-                                <tr>
-                                    <td><strong>CE2-1618</strong></td>
-                                    <td>Crear ambiente de preproducción para planes Habla+ Cliente</td>
-                                    <td>In Progress</td>
-                                    <td>Habla+</td>
-                                    <td>CE2</td>
-                                    <td>Alberto Pereda</td>
-                                    <td><a href="https://linear.app/guinea/issue/CE2-1618" target="_blank" style="color: #d3c5ff; text-decoration: none;">Abrir →</a></td>
-                                </tr>
-                
-                                <tr>
-                                    <td><strong>CE2-1443</strong></td>
-                                    <td>Atribución incorrecta de activación de extranjero a peruano</td>
-                                    <td>Backlog</td>
-                                    <td>PeruSim+</td>
-                                    <td>CE2</td>
-                                    <td>Leandro Ramirez</td>
-                                    <td><a href="https://linear.app/guinea/issue/CE2-1443" target="_blank" style="color: #d3c5ff; text-decoration: none;">Abrir →</a></td>
-                                </tr>
-                
-                                <tr>
-                                    <td><strong>CE2-1844</strong></td>
-                                    <td>Error HTTP 401 al iniciar sesión en Guinea</td>
-                                    <td>Planning</td>
-                                    <td>Guinea</td>
-                                    <td>CE2</td>
-                                    <td>Alberto Pereda</td>
-                                    <td><a href="https://linear.app/guinea/issue/CE2-1844" target="_blank" style="color: #d3c5ff; text-decoration: none;">Abrir →</a></td>
-                                </tr>
-                
-                                <tr>
-                                    <td><strong>CE2-1402</strong></td>
-                                    <td>Habla+ | Creación de un FUNNEL Habla+ Dashboard</td>
-                                    <td>Planning</td>
-                                    <td>Habla+</td>
-                                    <td>CE2</td>
-                                    <td>Patrick Bolaños</td>
-                                    <td><a href="https://linear.app/guinea/issue/CE2-1402" target="_blank" style="color: #d3c5ff; text-decoration: none;">Abrir →</a></td>
-                                </tr>
-                
-                                <tr>
-                                    <td><strong>CE2-1400</strong></td>
-                                    <td>Enviar SMS antes de vencimiento e inactividad de línea</td>
-                                    <td>In Review</td>
-                                    <td>Cuy</td>
-                                    <td>CE2</td>
-                                    <td>Farialis Martinez</td>
-                                    <td><a href="https://linear.app/guinea/issue/CE2-1400" target="_blank" style="color: #d3c5ff; text-decoration: none;">Abrir →</a></td>
-                                </tr>
-                
-                                <tr>
-                                    <td><strong>CE2-1351</strong></td>
-                                    <td>Error al ejecutar reportes SIGEP automatizados desde BOP</td>
-                                    <td>In Review</td>
-                                    <td>Guinea</td>
-                                    <td>CE2</td>
-                                    <td>Daniel Alvarez</td>
-                                    <td><a href="https://linear.app/guinea/issue/CE2-1351" target="_blank" style="color: #d3c5ff; text-decoration: none;">Abrir →</a></td>
-                                </tr>
-                
-                                <tr>
-                                    <td><strong>CE2-1615</strong></td>
-                                    <td>Enviar correo por interrupción temporal de RENIEC</td>
-                                    <td>In Review</td>
-                                    <td>Guinea</td>
-                                    <td>CE2</td>
-                                    <td>Farialis Martinez</td>
-                                    <td><a href="https://linear.app/guinea/issue/CE2-1615" target="_blank" style="color: #d3c5ff; text-decoration: none;">Abrir →</a></td>
-                                </tr>
-                
-                            </table>
-                        </div>
-            
-                        <div class="section-box">
-                            <h2>🏷️ Sin Label por Etiquetar (1)</h2>
-                            <table>
-                                <tr>
-                                    <th>ID Issue</th>
-                                    <th>Título</th>
-                                    <th>Estado</th>
-                                    <th>Team</th>
-                                    <th>Asignado a</th>
-                                    <th>Link</th>
-                                </tr>
-            
-                                <tr>
-                                    <td><strong>CE2-1620</strong></td>
-                                    <td>MSID-331463-ERROR DE RECEPCIÓN DE SMS - WINGS</td>
-                                    <td>In Progress</td>
-                                    <td>CE2</td>
-                                    <td>Sin asignar</td>
-                                    <td><a href="https://linear.app/guinea/issue/CE2-1620" target="_blank" style="color: #d3c5ff; text-decoration: none;">Abrir →</a></td>
-                                </tr>
-                
-                            </table>
-                        </div>
-            
-                    </div>
-        
-                    <div class="tab-content active" id="tab-Mayo">
-                        <div class="month-summary">
-                            <strong>Mayo 2026:</strong> 0 issues totales
-                            | <strong>Pendientes: 0</strong>
-                        </div>
-
-                        <h3>📊 Resumen</h3>
-
-                        <div class="progress-container">
-                            <div class="progress-header">
-                                <h4>Progreso General</h4>
-                                <span class="progress-percentage">0%</span>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 0%"></div>
-                            </div>
-                        </div>
-
-                        <div class="metrics">
-                            <div class="metric-card">
-                                <div class="label">Total Issues</div>
-                                <div class="value">0</div>
-                            </div>
-                            <div class="metric-card ce2">
-                                <div class="label">CE2 Issues Total</div>
-                                <div class="value">0</div>
-                            </div>
-                            <div class="metric-card">
-                                <div class="label">🔥 In Progress</div>
-                                <div class="value">0</div>
-                            </div>
-                            <div class="metric-card">
-                                <div class="label">🏷️ Sin Label</div>
-                                <div class="value">0</div>
-                            </div>
-                            <div class="metric-card">
-                                <div class="label">🚫 Bloqueados</div>
-                                <div class="value">0</div>
-                            </div>
-                            <div class="metric-card">
-                                <div class="label">✅ Cerrados</div>
-                                <div class="value">0</div>
-                            </div>
-                            <div class="metric-card">
-                                <div class="label">⏳ Pendientes</div>
-                                <div class="value">0</div>
-                            </div>
-                        </div>
-
-                        <div class="section-box" style="margin-bottom: 20px;">
-                            <h2>📦 Resumen por Producto (Total vs Pendientes)</h2>
-                            <div class="product-summary">
-        
-                            </div>
-                        </div>
-
-                        <div class="disclaimer" style="margin-top: 20px;">
-                            <strong>📌 Nota sobre los totales:</strong>
-                            <div class="disclaimer-item">Pendientes + Cerrados = Issues considerados (con etiqueta de producto)</div>
-                            <div class="disclaimer-item">Los issues en estado "Discarded" se excluyen y no se cuentan en ninguna categoría</div>
-                            <div class="disclaimer-item">"Sin Label" muestra issues que no tienen etiqueta de producto - NO se incluyen en el total hasta etiquetarlos</div>
-                        </div>
-
-                        <div class="section-box">
-                            <h2>📊 Por Estado (Desglose por Team)</h2>
-                            <table>
-                                <tr>
-                                    <th>Estado</th>
-                                    <th>CE1</th>
-                                    <th>CE2</th>
-                                    <th>Total</th>
-                                </tr>
-        
-                            </table>
-                        </div>
-
-                        <div class="section-box">
-                            <h2>🏢 Por Producto (Pendientes vs Total)</h2>
-                            <table>
-                                <tr>
-                                    <th>Producto</th>
-                                    <th>Pendientes</th>
-                                    <th>Total</th>
-                                    <th>Completado %</th>
-                                </tr>
-        
-                            </table>
-                        </div>
-        
-                    </div>
-        
-                </div>
-    
-                <div id="projects" class="section">
-                    <h1>📦 Proyectos CE</h1>
-
-                    <div class="note">
-                        <strong>ℹ️ Nota:</strong> Proyectos del equipo Continuity Engineering con sus métricas de estado.
-                    </div>
-
-                    <div class="tabs">
-    <button class="tab-button " onclick="switchTab('Enero_projects')">Enero 2026</button><button class="tab-button " onclick="switchTab('Febrero_projects')">Febrero 2026</button><button class="tab-button " onclick="switchTab('Marzo_projects')">Marzo 2026</button><button class="tab-button " onclick="switchTab('Abril_projects')">Abril 2026</button><button class="tab-button active" onclick="switchTab('Mayo_projects')">Mayo 2026</button>
-                    </div>
-    
-                    <div class="tab-content " id="tab-Enero_projects">
-                        <div class="month-summary">
-                            <strong>Enero 2026:</strong> 0 proyectos creados
-                        </div>
-
-                        <div class="metrics">
-                            <div class="metric-card">
-                                <div class="label">Total CE2</div>
-                                <div class="value">0</div>
-                            </div>
-                            <div class="metric-card">
-                                <div class="label">En Progreso</div>
-                                <div class="value">0</div>
-                            </div>
-                            <div class="metric-card">
-                                <div class="label">Pendientes</div>
-                                <div class="value">0</div>
-                            </div>
-        
-                        </div>
-
-                        <div class="section-box">
-                            <h2>📊 Por Estado</h2>
-                            <table style="width: 100%; border-collapse: collapse;">
-                                <thead>
-                                    <tr style="background: #141c2e; border-bottom: 1px solid rgba(125, 211, 252, 0.2);">
-                                        <th style="padding: 12px; text-align: left; color: #e0e8f0; font-weight: 600;">Estado</th>
-                                        <th style="padding: 12px; text-align: left; color: #e0e8f0; font-weight: 600;">Total</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-        
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-        
-                    <div class="tab-content " id="tab-Febrero_projects">
-                        <div class="month-summary">
-                            <strong>Febrero 2026:</strong> 24 proyectos creados
-                        </div>
-
-                        <div class="metrics">
-                            <div class="metric-card">
-                                <div class="label">Total CE2</div>
-                                <div class="value">24</div>
-                            </div>
-                            <div class="metric-card">
-                                <div class="label">En Progreso</div>
-                                <div class="value">3</div>
-                            </div>
-                            <div class="metric-card">
-                                <div class="label">Pendientes</div>
-                                <div class="value">2</div>
-                            </div>
-        
-                            <div class="metric-card">
-                                <div class="label">✅ Completados</div>
-                                <div class="value">19</div>
-                            </div>
-        
-                            <div class="metric-card">
-                                <div class="label">⛔ Cancelados</div>
-                                <div class="value">1</div>
-                            </div>
-        
-                        </div>
-
-                        <div class="section-box">
-                            <h2>📊 Por Estado</h2>
-                            <table style="width: 100%; border-collapse: collapse;">
-                                <thead>
-                                    <tr style="background: #141c2e; border-bottom: 1px solid rgba(125, 211, 252, 0.2);">
-                                        <th style="padding: 12px; text-align: left; color: #e0e8f0; font-weight: 600;">Estado</th>
-                                        <th style="padding: 12px; text-align: left; color: #e0e8f0; font-weight: 600;">Total</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-        <tr style="border-bottom: 1px solid rgba(74, 96, 112, 0.2); transition: background 0.2s;" onmouseover="this.style.background = 'rgba(125, 211, 252, 0.05)';" onmouseout="this.style.background = 'transparent'"><td style="padding: 12px;">backlog</td><td style="padding: 12px; font-weight: 600;">2</td></tr><tr style="border-bottom: 1px solid rgba(74, 96, 112, 0.2); transition: background 0.2s;" onmouseover="this.style.background = 'rgba(125, 211, 252, 0.05)';" onmouseout="this.style.background = 'transparent'"><td style="padding: 12px;">canceled</td><td style="padding: 12px; font-weight: 600;">1</td></tr><tr style="border-bottom: 1px solid rgba(74, 96, 112, 0.2); transition: background 0.2s;" onmouseover="this.style.background = 'rgba(125, 211, 252, 0.05)';" onmouseout="this.style.background = 'transparent'"><td style="padding: 12px;">completed</td><td style="padding: 12px; font-weight: 600;">19</td></tr><tr style="border-bottom: 1px solid rgba(74, 96, 112, 0.2); transition: background 0.2s;" onmouseover="this.style.background = 'rgba(125, 211, 252, 0.05)';" onmouseout="this.style.background = 'transparent'"><td style="padding: 12px;">started</td><td style="padding: 12px; font-weight: 600;">3</td></tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-        
-                    <div class="tab-content " id="tab-Marzo_projects">
-                        <div class="month-summary">
-                            <strong>Marzo 2026:</strong> 26 proyectos creados
-                        </div>
-
-                        <div class="metrics">
-                            <div class="metric-card">
-                                <div class="label">Total CE2</div>
-                                <div class="value">26</div>
-                            </div>
-                            <div class="metric-card">
-                                <div class="label">En Progreso</div>
-                                <div class="value">3</div>
-                            </div>
-                            <div class="metric-card">
-                                <div class="label">Pendientes</div>
-                                <div class="value">2</div>
-                            </div>
-        
-                            <div class="metric-card">
-                                <div class="label">✅ Completados</div>
-                                <div class="value">21</div>
-                            </div>
-        
-                            <div class="metric-card">
-                                <div class="label">⛔ Cancelados</div>
-                                <div class="value">2</div>
-                            </div>
-        
-                        </div>
-
-                        <div class="section-box">
-                            <h2>📊 Por Estado</h2>
-                            <table style="width: 100%; border-collapse: collapse;">
-                                <thead>
-                                    <tr style="background: #141c2e; border-bottom: 1px solid rgba(125, 211, 252, 0.2);">
-                                        <th style="padding: 12px; text-align: left; color: #e0e8f0; font-weight: 600;">Estado</th>
-                                        <th style="padding: 12px; text-align: left; color: #e0e8f0; font-weight: 600;">Total</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-        <tr style="border-bottom: 1px solid rgba(74, 96, 112, 0.2); transition: background 0.2s;" onmouseover="this.style.background = 'rgba(125, 211, 252, 0.05)';" onmouseout="this.style.background = 'transparent'"><td style="padding: 12px;">backlog</td><td style="padding: 12px; font-weight: 600;">2</td></tr><tr style="border-bottom: 1px solid rgba(74, 96, 112, 0.2); transition: background 0.2s;" onmouseover="this.style.background = 'rgba(125, 211, 252, 0.05)';" onmouseout="this.style.background = 'transparent'"><td style="padding: 12px;">canceled</td><td style="padding: 12px; font-weight: 600;">2</td></tr><tr style="border-bottom: 1px solid rgba(74, 96, 112, 0.2); transition: background 0.2s;" onmouseover="this.style.background = 'rgba(125, 211, 252, 0.05)';" onmouseout="this.style.background = 'transparent'"><td style="padding: 12px;">completed</td><td style="padding: 12px; font-weight: 600;">21</td></tr><tr style="border-bottom: 1px solid rgba(74, 96, 112, 0.2); transition: background 0.2s;" onmouseover="this.style.background = 'rgba(125, 211, 252, 0.05)';" onmouseout="this.style.background = 'transparent'"><td style="padding: 12px;">started</td><td style="padding: 12px; font-weight: 600;">3</td></tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-        
-                    <div class="tab-content " id="tab-Abril_projects">
-                        <div class="month-summary">
-                            <strong>Abril 2026:</strong> 10 proyectos creados
-                        </div>
-
-                        <div class="metrics">
-                            <div class="metric-card">
-                                <div class="label">Total CE2</div>
-                                <div class="value">10</div>
-                            </div>
-                            <div class="metric-card">
-                                <div class="label">En Progreso</div>
-                                <div class="value">0</div>
-                            </div>
-                            <div class="metric-card">
-                                <div class="label">Pendientes</div>
-                                <div class="value">6</div>
-                            </div>
-        
-                            <div class="metric-card">
-                                <div class="label">✅ Completados</div>
-                                <div class="value">4</div>
-                            </div>
-        
-                        </div>
-
-                        <div class="section-box">
-                            <h2>📊 Por Estado</h2>
-                            <table style="width: 100%; border-collapse: collapse;">
-                                <thead>
-                                    <tr style="background: #141c2e; border-bottom: 1px solid rgba(125, 211, 252, 0.2);">
-                                        <th style="padding: 12px; text-align: left; color: #e0e8f0; font-weight: 600;">Estado</th>
-                                        <th style="padding: 12px; text-align: left; color: #e0e8f0; font-weight: 600;">Total</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-        <tr style="border-bottom: 1px solid rgba(74, 96, 112, 0.2); transition: background 0.2s;" onmouseover="this.style.background = 'rgba(125, 211, 252, 0.05)';" onmouseout="this.style.background = 'transparent'"><td style="padding: 12px;">backlog</td><td style="padding: 12px; font-weight: 600;">6</td></tr><tr style="border-bottom: 1px solid rgba(74, 96, 112, 0.2); transition: background 0.2s;" onmouseover="this.style.background = 'rgba(125, 211, 252, 0.05)';" onmouseout="this.style.background = 'transparent'"><td style="padding: 12px;">completed</td><td style="padding: 12px; font-weight: 600;">4</td></tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-        
-                    <div class="tab-content active" id="tab-Mayo_projects">
-                        <div class="month-summary">
-                            <strong>Mayo 2026:</strong> 14 proyectos creados
-                        </div>
-
-                        <div class="metrics">
-                            <div class="metric-card">
-                                <div class="label">Total CE2</div>
-                                <div class="value">14</div>
-                            </div>
-                            <div class="metric-card">
-                                <div class="label">En Progreso</div>
-                                <div class="value">1</div>
-                            </div>
-                            <div class="metric-card">
-                                <div class="label">Pendientes</div>
-                                <div class="value">13</div>
-                            </div>
-        
-                        </div>
-
-                        <div class="section-box">
-                            <h2>📊 Por Estado</h2>
-                            <table style="width: 100%; border-collapse: collapse;">
-                                <thead>
-                                    <tr style="background: #141c2e; border-bottom: 1px solid rgba(125, 211, 252, 0.2);">
-                                        <th style="padding: 12px; text-align: left; color: #e0e8f0; font-weight: 600;">Estado</th>
-                                        <th style="padding: 12px; text-align: left; color: #e0e8f0; font-weight: 600;">Total</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-        <tr style="border-bottom: 1px solid rgba(74, 96, 112, 0.2); transition: background 0.2s;" onmouseover="this.style.background = 'rgba(125, 211, 252, 0.05)';" onmouseout="this.style.background = 'transparent'"><td style="padding: 12px;">backlog</td><td style="padding: 12px; font-weight: 600;">11</td></tr><tr style="border-bottom: 1px solid rgba(74, 96, 112, 0.2); transition: background 0.2s;" onmouseover="this.style.background = 'rgba(125, 211, 252, 0.05)';" onmouseout="this.style.background = 'transparent'"><td style="padding: 12px;">planned</td><td style="padding: 12px; font-weight: 600;">2</td></tr><tr style="border-bottom: 1px solid rgba(74, 96, 112, 0.2); transition: background 0.2s;" onmouseover="this.style.background = 'rgba(125, 211, 252, 0.05)';" onmouseout="this.style.background = 'transparent'"><td style="padding: 12px;">started</td><td style="padding: 12px; font-weight: 600;">1</td></tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-        
-                </div>
-
-                <div class="timestamp">
-                    <strong>📊 Continuity Engineering</strong><br>
-                    Actualizado: 2026-05-13 11:06:56 UTC
-                </div>
+        <div class="glacier-card p-6 rounded-xl mb-10">
+            <div class="flex justify-between items-center mb-4">
+                <h4 class="text-sm font-bold text-on-surface">Progreso General</h4>
+                <span class="text-lg font-bold text-primary">50%</span>
+            </div>
+            <div class="w-full bg-surface-container rounded-full overflow-hidden h-6">
+                <div class="h-full rounded-full transition-all duration-1000" style="width: 50%; background: linear-gradient(90deg, rgb(125, 211, 252) 0%, rgb(186, 230, 253) 100%);"></div>
             </div>
         </div>
 
-        <script>
-            // Initialize theme from localStorage
-            function initTheme() {
-                const savedTheme = localStorage.getItem('theme');
-                if (savedTheme === 'light') {
-                    document.body.classList.add('light-mode');
-                    updateToggleButton(true);
-                }
-            }
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-10 lg:grid-cols-6">
+            <div class="bg-surface-container-low p-4 rounded-lg flex flex-col items-center justify-center text-center border border-outline-variant/20 shadow-sm">
+                <span class="text-on-surface-variant text-[10px] font-bold uppercase mb-2 tracking-widest">Total Issues</span>
+                <span class="text-3xl font-bold text-on-surface">58</span>
+            </div>
+            <div class="bg-surface-container-low p-4 rounded-lg flex flex-col items-center justify-center text-center border border-outline-variant/20 shadow-sm">
+                <span class="text-on-surface-variant text-[10px] font-bold uppercase mb-2 tracking-widest">En Progreso</span>
+                <span class="text-3xl font-bold text-primary">6</span>
+            </div>
+            <div class="bg-surface-container-low p-4 rounded-lg flex flex-col items-center justify-center text-center border border-outline-variant/20 shadow-sm">
+                <span class="text-on-surface-variant text-[10px] font-bold uppercase mb-2 tracking-widest">Pendientes</span>
+                <span class="text-3xl font-bold text-on-surface">29</span>
+            </div>
+            <div class="bg-surface-container-low p-4 rounded-lg flex flex-col items-center justify-center text-center border border-outline-variant/20 shadow-sm">
+                <span class="text-on-surface-variant text-[10px] font-bold uppercase mb-2 tracking-widest">Bloqueados</span>
+                <span class="text-3xl font-bold text-error">0</span>
+            </div>
+            <div class="bg-surface-container-low p-4 rounded-lg flex flex-col items-center justify-center text-center border border-outline-variant/20 shadow-sm">
+                <span class="text-on-surface-variant text-[10px] font-bold uppercase mb-2 tracking-widest">Sin Label</span>
+                <span class="text-3xl font-bold text-on-surface-variant">0</span>
+            </div>
+            <div class="bg-tertiary-container/30 p-4 rounded-lg flex flex-col items-center justify-center text-center border border-tertiary/20 shadow-sm">
+                <span class="text-tertiary text-[10px] font-bold uppercase mb-2 tracking-widest">Cerrados</span>
+                <span class="text-3xl font-bold text-tertiary">29</span>
+            </div>
+        </div>
 
-            // Toggle theme
-            function toggleTheme() {
-                const body = document.body;
-                const isLightMode = body.classList.toggle('light-mode');
+        <div class="mb-10">
+            <h2 class="text-xl font-bold text-on-surface flex items-center gap-2 mb-6">
+                <span class="material-symbols-outlined text-primary">inventory_2</span>
+                Resumen por Producto
+            </h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+    <div class="glacier-card p-5 rounded-xl flex flex-col gap-3">
+        <h3 class="text-sm font-bold text-on-surface">Airalo</h3>
+        <div class="flex justify-between items-center">
+            <div class="flex flex-col">
+                <span class="text-[10px] uppercase font-bold text-on-surface-variant tracking-tighter">Total</span>
+                <span class="text-xl font-bold text-on-surface">4</span>
+            </div>
+            <div class="flex flex-col text-right">
+                <span class="text-[10px] uppercase font-bold text-secondary tracking-tighter">Pendientes</span>
+                <span class="text-xl font-bold text-secondary">2</span>
+            </div>
+        </div>
+    </div>
+    <div class="glacier-card p-5 rounded-xl flex flex-col gap-3">
+        <h3 class="text-sm font-bold text-on-surface">B2B</h3>
+        <div class="flex justify-between items-center">
+            <div class="flex flex-col">
+                <span class="text-[10px] uppercase font-bold text-on-surface-variant tracking-tighter">Total</span>
+                <span class="text-xl font-bold text-on-surface">3</span>
+            </div>
+            <div class="flex flex-col text-right">
+                <span class="text-[10px] uppercase font-bold text-secondary tracking-tighter">Pendientes</span>
+                <span class="text-xl font-bold text-secondary">2</span>
+            </div>
+        </div>
+    </div>
+    <div class="glacier-card p-5 rounded-xl flex flex-col gap-3">
+        <h3 class="text-sm font-bold text-on-surface">Cuy</h3>
+        <div class="flex justify-between items-center">
+            <div class="flex flex-col">
+                <span class="text-[10px] uppercase font-bold text-on-surface-variant tracking-tighter">Total</span>
+                <span class="text-xl font-bold text-on-surface">16</span>
+            </div>
+            <div class="flex flex-col text-right">
+                <span class="text-[10px] uppercase font-bold text-secondary tracking-tighter">Pendientes</span>
+                <span class="text-xl font-bold text-secondary">10</span>
+            </div>
+        </div>
+    </div>
+    <div class="glacier-card p-5 rounded-xl flex flex-col gap-3">
+        <h3 class="text-sm font-bold text-on-surface">Fimo</h3>
+        <div class="flex justify-between items-center">
+            <div class="flex flex-col">
+                <span class="text-[10px] uppercase font-bold text-on-surface-variant tracking-tighter">Total</span>
+                <span class="text-xl font-bold text-on-surface">4</span>
+            </div>
+            <div class="flex flex-col text-right">
+                <span class="text-[10px] uppercase font-bold text-secondary tracking-tighter">Pendientes</span>
+                <span class="text-xl font-bold text-secondary">0</span>
+            </div>
+        </div>
+    </div>
+    <div class="glacier-card p-5 rounded-xl flex flex-col gap-3">
+        <h3 class="text-sm font-bold text-on-surface">Finanzas</h3>
+        <div class="flex justify-between items-center">
+            <div class="flex flex-col">
+                <span class="text-[10px] uppercase font-bold text-on-surface-variant tracking-tighter">Total</span>
+                <span class="text-xl font-bold text-on-surface">4</span>
+            </div>
+            <div class="flex flex-col text-right">
+                <span class="text-[10px] uppercase font-bold text-secondary tracking-tighter">Pendientes</span>
+                <span class="text-xl font-bold text-secondary">2</span>
+            </div>
+        </div>
+    </div>
+    <div class="glacier-card p-5 rounded-xl flex flex-col gap-3">
+        <h3 class="text-sm font-bold text-on-surface">Guinea</h3>
+        <div class="flex justify-between items-center">
+            <div class="flex flex-col">
+                <span class="text-[10px] uppercase font-bold text-on-surface-variant tracking-tighter">Total</span>
+                <span class="text-xl font-bold text-on-surface">9</span>
+            </div>
+            <div class="flex flex-col text-right">
+                <span class="text-[10px] uppercase font-bold text-secondary tracking-tighter">Pendientes</span>
+                <span class="text-xl font-bold text-secondary">5</span>
+            </div>
+        </div>
+    </div>
+    <div class="glacier-card p-5 rounded-xl flex flex-col gap-3">
+        <h3 class="text-sm font-bold text-on-surface">Habla+</h3>
+        <div class="flex justify-between items-center">
+            <div class="flex flex-col">
+                <span class="text-[10px] uppercase font-bold text-on-surface-variant tracking-tighter">Total</span>
+                <span class="text-xl font-bold text-on-surface">5</span>
+            </div>
+            <div class="flex flex-col text-right">
+                <span class="text-[10px] uppercase font-bold text-secondary tracking-tighter">Pendientes</span>
+                <span class="text-xl font-bold text-secondary">3</span>
+            </div>
+        </div>
+    </div>
+    <div class="glacier-card p-5 rounded-xl flex flex-col gap-3">
+        <h3 class="text-sm font-bold text-on-surface">Legales</h3>
+        <div class="flex justify-between items-center">
+            <div class="flex flex-col">
+                <span class="text-[10px] uppercase font-bold text-on-surface-variant tracking-tighter">Total</span>
+                <span class="text-xl font-bold text-on-surface">2</span>
+            </div>
+            <div class="flex flex-col text-right">
+                <span class="text-[10px] uppercase font-bold text-secondary tracking-tighter">Pendientes</span>
+                <span class="text-xl font-bold text-secondary">1</span>
+            </div>
+        </div>
+    </div>
+    <div class="glacier-card p-5 rounded-xl flex flex-col gap-3">
+        <h3 class="text-sm font-bold text-on-surface">Partner</h3>
+        <div class="flex justify-between items-center">
+            <div class="flex flex-col">
+                <span class="text-[10px] uppercase font-bold text-on-surface-variant tracking-tighter">Total</span>
+                <span class="text-xl font-bold text-on-surface">2</span>
+            </div>
+            <div class="flex flex-col text-right">
+                <span class="text-[10px] uppercase font-bold text-secondary tracking-tighter">Pendientes</span>
+                <span class="text-xl font-bold text-secondary">1</span>
+            </div>
+        </div>
+    </div>
+    <div class="glacier-card p-5 rounded-xl flex flex-col gap-3">
+        <h3 class="text-sm font-bold text-on-surface">PeruSim+</h3>
+        <div class="flex justify-between items-center">
+            <div class="flex flex-col">
+                <span class="text-[10px] uppercase font-bold text-on-surface-variant tracking-tighter">Total</span>
+                <span class="text-xl font-bold text-on-surface">5</span>
+            </div>
+            <div class="flex flex-col text-right">
+                <span class="text-[10px] uppercase font-bold text-secondary tracking-tighter">Pendientes</span>
+                <span class="text-xl font-bold text-secondary">3</span>
+            </div>
+        </div>
+    </div>
+    <div class="glacier-card p-5 rounded-xl flex flex-col gap-3">
+        <h3 class="text-sm font-bold text-on-surface">Wings</h3>
+        <div class="flex justify-between items-center">
+            <div class="flex flex-col">
+                <span class="text-[10px] uppercase font-bold text-on-surface-variant tracking-tighter">Total</span>
+                <span class="text-xl font-bold text-on-surface">3</span>
+            </div>
+            <div class="flex flex-col text-right">
+                <span class="text-[10px] uppercase font-bold text-secondary tracking-tighter">Pendientes</span>
+                <span class="text-xl font-bold text-secondary">0</span>
+            </div>
+        </div>
+    </div>
+            </div>
+        </div>
 
-                // Save preference
-                localStorage.setItem('theme', isLightMode ? 'light' : 'dark');
-                updateToggleButton(isLightMode);
-            }
+        <div class="glacier-surface p-8 rounded-2xl mb-10 shadow-xl shadow-black/40">
+            <div class="flex items-center justify-between mb-8">
+                <h2 class="text-xl font-bold text-on-surface flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary">bar_chart</span>
+                    Por Estado (Team)
+                </h2>
+            </div>
+            <div class="overflow-hidden rounded-xl border border-outline-variant/50">
+                <table class="w-full text-left">
+                    <thead>
+                        <tr class="bg-surface-container-high">
+                            <th class="px-6 py-4 text-xs font-bold text-primary uppercase tracking-widest">Estado</th>
+                            <th class="px-6 py-4 text-xs font-bold text-primary uppercase tracking-widest text-right">CE1</th>
+                            <th class="px-6 py-4 text-xs font-bold text-primary uppercase tracking-widest text-right">CE2</th>
+                            <th class="px-6 py-4 text-xs font-bold text-primary uppercase tracking-widest text-right">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-outline-variant/30">
+        <tr class="hover:bg-surface-container-highest/50 transition-colors">
+            <td class="px-6 py-4 text-sm text-on-surface">Backlog</td>
+            <td class="px-6 py-4 text-sm text-on-surface-variant text-right">0</td>
+            <td class="px-6 py-4 text-sm text-on-surface-variant text-right font-medium">14</td>
+            <td class="px-6 py-4 text-sm text-on-surface text-right font-bold">14</td>
+        </tr>
+        <tr class="hover:bg-surface-container-highest/50 transition-colors">
+            <td class="px-6 py-4 text-sm text-on-surface">Closed</td>
+            <td class="px-6 py-4 text-sm text-on-surface-variant text-right">0</td>
+            <td class="px-6 py-4 text-sm text-on-surface-variant text-right font-medium">29</td>
+            <td class="px-6 py-4 text-sm text-on-surface text-right font-bold">29</td>
+        </tr>
+        <tr class="hover:bg-surface-container-highest/50 transition-colors">
+            <td class="px-6 py-4 text-sm text-on-surface">In Progress</td>
+            <td class="px-6 py-4 text-sm text-on-surface-variant text-right">0</td>
+            <td class="px-6 py-4 text-sm text-on-surface-variant text-right font-medium">6</td>
+            <td class="px-6 py-4 text-sm text-on-surface text-right font-bold">6</td>
+        </tr>
+        <tr class="hover:bg-surface-container-highest/50 transition-colors">
+            <td class="px-6 py-4 text-sm text-on-surface">In Review</td>
+            <td class="px-6 py-4 text-sm text-on-surface-variant text-right">0</td>
+            <td class="px-6 py-4 text-sm text-on-surface-variant text-right font-medium">2</td>
+            <td class="px-6 py-4 text-sm text-on-surface text-right font-bold">2</td>
+        </tr>
+        <tr class="hover:bg-surface-container-highest/50 transition-colors">
+            <td class="px-6 py-4 text-sm text-on-surface">Planning</td>
+            <td class="px-6 py-4 text-sm text-on-surface-variant text-right">0</td>
+            <td class="px-6 py-4 text-sm text-on-surface-variant text-right font-medium">7</td>
+            <td class="px-6 py-4 text-sm text-on-surface text-right font-bold">7</td>
+        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
-            // Update toggle button text
-            function updateToggleButton(isLightMode) {
-                const btn = document.querySelector('.theme-toggle');
-                if (btn) {
-                    btn.textContent = isLightMode ? '☀️ Modo Oscuro' : '🌙 Modo Claro';
-                }
-            }
-
-            function switchSection(sectionId) {
-                // Hide all sections
-                const sections = document.querySelectorAll('.section');
-                sections.forEach(s => s.classList.remove('active'));
-
-                // Remove active from drawer items
-                const items = document.querySelectorAll('.drawer-item');
-                items.forEach(i => i.classList.remove('active'));
-
-                // Show selected section
-                const section = document.getElementById(sectionId);
-                if (section) {
-                    section.classList.add('active');
-                }
-
-                // Add active to clicked item
-                event.target.classList.add('active');
-            }
-
-            function switchTab(monthIdentifier) {
-                // Get the active section
-                const activeSection = document.querySelector('.section.active');
-                if (!activeSection) return;
-
-                // Hide all tabs in this section
-                const tabs = activeSection.querySelectorAll('.tab-content');
-                tabs.forEach(tab => tab.classList.remove('active'));
-
-                // Remove active from buttons in this section
-                const buttons = activeSection.querySelectorAll('.tab-button');
-                buttons.forEach(btn => btn.classList.remove('active'));
-
-                // Show selected tab
-                const selectedTab = document.getElementById('tab-' + monthIdentifier);
-                if (selectedTab) {
-                    selectedTab.classList.add('active');
-                }
-
-                // Add active to clicked button
-                event.target.classList.add('active');
-            }
-
-            // Initialize theme on page load
-            initTheme();
-        </script>
-    </body>
-    </html>
-   
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
+        <div class="glacier-surface p-8 rounded-2xl shadow-xl shadow-black/40">
+            <div class="flex items-center justify-between mb-8">
+                <h2 class="text-xl font-bold text-on-surface flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary">hourglass_empty</span>
+                    Pendientes por Revisar (29)
+                </h2>
+            </div>
+            <div class="overflow-x-auto rounded-xl border border-outline-variant/50">
+                <table class="w-full text-left">
+                    <thead>
+                        <tr class="bg-surface-container-high">
+                            <th class="px-6 py-4 text-xs font-bold text-primary uppercase tracking-widest">ID Issue</th>
+                            <th class="px-6 py-4 text-xs font-bold text-primary uppercase tracking-widest">Título</th>
+                            <th class="px-6 py-4 text-xs font-bold text-primary uppercase tracking-widest">Estado</th>
+                            <th class="px-6 py-4 text-xs font-bold text-primary uppercase tracking-widest">Producto</th>
+                            <th class="px-6 py-4 text-xs font-bold text-primary uppercase tracking-widest">Team</th>
+                            <th class="px-6 py-4 text-xs font-bold text-primary uppercase tracking-widest text-right">Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-outline-variant/30">
+        <tr class="hover:bg-surface-container-highest/50 transition-colors group">
+            <td class="px-6 py-4 text-sm font-bold text-on-surface">CE2-1911</td>
+            <td class="px-6 py-4 text-sm text-on-surface group-hover:text-white">Izipay no guarda mes ni año de expiración</td>
+            <td class="px-6 py-4 text-sm">
+                <span class="px-2 py-1 rounded-md bg-surface-container text-on-surface-variant text-xs font-medium">Backlog</span>
+            </td>
+            <td class="px-6 py-4 text-sm text-on-surface-variant">Habla+</td>
+            <td class="px-6 py-4 text-sm text-on-surface-variant">CE2</td>
+            <td class="px-6 py-4 text-right">
+                <a class="text-primary hover:underline text-sm font-medium flex items-center justify-end gap-1" href="https://linear.app/guinea/issue/CE2-1911" target="_blank">
+                    Abrir <span class="material-symbols-outlined text-xs">arrow_forward</span>
+                </a>
+            </td>
+        </tr>
+        <tr class="hover:bg-surface-container-highest/50 transition-colors group">
+            <td class="px-6 py-4 text-sm font-bold text-on-surface">CE2-1910</td>
+            <td class="px-6 py-4 text-sm text-on-surface group-hover:text-white">Pago Yape no visible bloquea preactivación de chip</td>
+            <td class="px-6 py-4 text-sm">
+                <span class="px-2 py-1 rounded-md bg-surface-container text-on-surface-variant text-xs font-medium">Planning</span>
+            </td>
+            <td class="px-6 py-4 text-sm text-on-surface-variant">Cuy</td>
+            <td class="px-6 py-4 text-sm text-on-surface-variant">CE2</td>
+            <td class="px-6 py-4 text-right">
+                <a class="text-primary hover:underline text-sm font-medium flex items-center justify-end gap-1" href="https://linear.app/guinea/issue/CE2-1910" target="_blank">
+                    Abrir <span class="material-symbols-outlined text-xs">arrow_forward</span>
+                </a>
+            </td>
+        </tr>
+        <tr class="hover:bg-surface-container-highest/50 transition-colors group">
+            <td class="px-6 py-4 text-sm font-bold text-on-surface">CE2-1898</td>
+            <td class="px-6 py-4 text-sm text-on-surface group-hover:text-white">Actualizar reporte B2B/IoT cada lunes</td>
+            <td class="px-6 py-4 text-sm">
+                <span class="px-2 py-1 rounded-md bg-surface-container text-on-surface-variant text-xs font-medium">Backlog</span>
+            </td>
+            <td class="px-6 py-4 text-sm text-on-surface-variant">B2B</td>
+            <td class="px-6 py-4 text-sm text-on-surface-variant">CE2</td>
+            <td class="px-6 py-4 text-right">
+                <a class="text-primary hover:underline text-sm font-medium flex items-center justify-end gap-1" href="https://linear.app/guinea/issue/CE2-1898" target="_blank">
+                    Abrir <span class="material-symbols-outlined text-xs">arrow_forward</span>
+                </a>
+            </td>
+        </tr>
+        <tr class="hover:bg-surface-container-highest/50 transition-colors group">
+            <td class="px-6 py-4 text-sm font-bold text-on-surface">CE2-1897</td>
+            <td class="px-6 py-4 text-sm text-on-surface group-hover:text-white">Airalo muestra eSIMs finalizados con paquetes acti...</td>
+            <td class="px-6 py-4 text-sm">
+                <span class="px-2 py-1 rounded-md bg-surface-container text-on-surface-variant text-xs font-medium">Backlog</span>
+            </td>
+            <td class="px-6 py-4 text-sm text-on-surface-variant">Airalo</td>
+            <td class="px-6 py-4 text-sm text-on-surface-variant">CE2</td>
+            <td class="px-6 py-4 text-right">
+                <a class="text-primary hover:underline text-sm font-medium flex items-center justify-end gap-1" href="https://linear.app/guinea/issue/CE2-1897" target="_blank">
+                    Abrir <span class="material-symbols-outlined text-xs">arrow_forward</span>
+                </a>
+            </td>
+        </tr>
+        <tr class="hover:bg-surface-container-highest/50 transition-colors group">
+            <td class="px-6 py-4 text-sm font-bold text-on-surface">CE2-1884</td>
+            <td class="px-6 py-4 text-sm text-on-surface group-hover:text-white">Regularizar transacciones y boletas de casos Yape ...</td>
+            <td class="px-6 py-4 text-sm">
+                <span class="px-2 py-1 rounded-md bg-surface-container text-on-surface-variant text-xs font-medium">Backlog</span>
+            </td>
+            <td class="px-6 py-4 text-sm text-on-surface-variant">Finanzas</td>
+            <td class="px-6 py-4 text-sm text-on-surface-variant">CE2</td>
+            <td class="px-6 py-4 text-right">
+                <a class="text-primary hover:underline text-sm font-medium flex items-center justify-end gap-1" href="https://linear.app/guinea/issue/CE2-1884" target="_blank">
+                    Abrir <span class="material-symbols-outlined text-xs">arrow_forward</span>
+                </a>
+            </td>
+        </tr>
+        <tr class="hover:bg-surface-container-highest/50 transition-colors group">
+            <td class="px-6 py-4 text-sm font-bold text-on-surface">CE2-1882</td>
+            <td class="px-6 py-4 text-sm text-on-surface group-hover:text-white">Extras de 1, 5 y 10 GB no aparecen en la app</td>
+            <td class="px-6 py-4 text-sm">
+                <span class="px-2 py-1 rounded-md bg-surface-container text-on-surface-variant text-xs font-medium">Backlog</span>
+            </td>
+            <td class="px-6 py-4 text-sm text-on-surface-variant">PeruSim+</td>
+            <td class="px-6 py-4 text-sm text-on-surface-variant">CE2</td>
+            <td class="px-6 py-4 text-right">
+                <a class="text-primary hover:underline text-sm font-medium flex items-center justify-end gap-1" href="https://linear.app/guinea/issue/CE2-1882" target="_blank">
+                    Abrir <span class="material-symbols-outlined text-xs">arrow_forward</span>
+                </a>
+            </td>
+        </tr>
+        <tr class="hover:bg-surface-container-highest/50 transition-colors group">
+            <td class="px-6 py-4 text-sm font-bold text-on-surface">CE2-1879</td>
+            <td class="px-6 py-4 text-sm text-on-surface group-hover:text-white">Registrar excepción en lista blanca para línea 927...</td>
+            <td class="px-6 py-4 text-sm">
+                <span class="px-2 py-1 rounded-md bg-tertiary-container/20 text-tertiary text-xs font-medium">In Review</span>
+            </td>
+            <td class="px-6 py-4 text-sm text-on-surface-variant">Guinea</td>
+            <td class="px-6 py-4 text-sm text-on-surface-variant">CE2</td>
+            <td class="px-6 py-4 text-right">
+                <a class="text-primary hover:underline text-sm font-medium flex items-center justify-end gap-1" href="https://linear.app/guinea/issue/CE2-1879" target="_blank">
+                    Abrir <span class="material-symbols-outlined text-xs">arrow_forward</span>
+                </a>
+            </td>
+        </tr>
+        <tr class="hover:bg-surface-container-highest/50 transition-colors group">
+            <td class="px-6 py-4 text-sm font-bold text-on-surface">CE2-1863</td>
+            <td class="px-6 py-4 text-sm text-on-surface group-hover:text-white">Guinea - Requerimiento de Victor sobre minutos ent...</td>
+            <td class="px-6 py-4 text-sm">
+                <span class="px-2 py-1 rounded-md bg-surface-container text-on-surface-variant text-xs font-medium">Planning</span>
+            </td>
+            <td class="px-6 py-4 text-sm text-on-surface-variant">Guinea</td>
+            <td class="px-6 py-4 text-sm text-on-surface-variant">CE2</td>
+            <td class="px-6 py-4 text-right">
+                <a class="text-primary hover:underline text-sm font-medium flex items-center justify-end gap-1" href="https://linear.app/guinea/issue/CE2-1863" target="_blank">
+                    Abrir <span class="material-symbols-outlined text-xs">arrow_forward</span>
+                </a>
+            </td>
+        </tr>
+        <tr class="hover:bg-surface-container-highest/50 transition-colors group">
+            <td class="px-6 py-4 text-sm font-bold text-on-surface">CE2-1860</td>
+            <td class="px-6 py-4 text-sm text-on-surface group-hover:text-white">Regularizar boleta faltante pendiente en Finanzas</td>
+            <td class="px-6 py-4 text-sm">
+                <span class="px-2 py-1 rounded-md bg-surface-container text-on-surface-variant text-xs font-medium">Backlog</span>
+            </td>
+            <td class="px-6 py-4 text-sm text-on-surface-variant">Finanzas</td>
+            <td class="px-6 py-4 text-sm text-on-surface-variant">CE2</td>
+            <td class="px-6 py-4 text-right">
+                <a class="text-primary hover:underline text-sm font-medium flex items-center justify-end gap-1" href="https://linear.app/guinea/issue/CE2-1860" target="_blank">
+                    Abrir <span class="material-symbols-outlined text-xs">arrow_forward</span>
+                </a>
+            </td>
+        </tr>
+        <tr class="hover:bg-surface-container-highest/50 transition-colors group">
+            <td class="px-6 py-4 text-sm font-bold text-on-surface">CE2-1613</td>
+            <td class="px-6 py-4 text-sm text-on-surface group-hover:text-white">Regularizar boleta del caso de recarga Yape</td>
+            <td class="px-6 py-4 text-sm">
+                <span class="px-2 py-1 rounded-md bg-surface-container text-on-surface-variant text-xs font-medium">Backlog</span>
+            </td>
+            <td class="px-6 py-4 text-sm text-on-surface-variant">Cuy</td>
+            <td class="px-6 py-4 text-sm text-on-surface-variant">CE2</td>
+            <td class="px-6 py-4 text-right">
+                <a class="text-primary hover:underline text-sm font-medium flex items-center justify-end gap-1" href="https://linear.app/guinea/issue/CE2-1613" target="_blank">
+                    Abrir <span class="material-symbols-outlined text-xs">arrow_forward</span>
+                </a>
+            </td>
+        </tr>
+        <tr class="hover:bg-surface-container-highest/50 transition-colors group">
+            <td class="px-6 py-4 text-sm font-bold text-on-surface">CE2-1612</td>
+            <td class="px-6 py-4 text-sm text-on-surface group-hover:text-white">Regularizar boleta pendiente de recarga Yape en Cu...</td>
+            <td class="px-6 py-4 text-sm">
+                <span class="px-2 py-1 rounded-md bg-surface-container text-on-surface-variant text-xs font-medium">Backlog</span>
+            </td>
+            <td class="px-6 py-4 text-sm text-on-surface-variant">Cuy</td>
+            <td class="px-6 py-4 text-sm text-on-surface-variant">CE2</td>
+            <td class="px-6 py-4 text-right">
+                <a class="text-primary hover:underline text-sm font-medium flex items-center justify-end gap-1" href="https://linear.app/guinea/issue/CE2-1612" target="_blank">
+                    Abrir <span class="material-symbols-outlined text-xs">arrow_forward</span>
+                </a>
+            </td>
+        </tr>
+        <tr class="hover:bg-surface-container-highest/50 transition-colors group">
+            <td class="px-6 py-4 text-sm font-bold text-on-surface">CE2-1610</td>
+            <td class="px-6 py-4 text-sm text-on-surface group-hover:text-white">Generar reporte semanal de activaciones B2B/IoT Gu...</td>
+            <td class="px-6 py-4 text-sm">
+                <span class="px-2 py-1 rounded-md bg-primary/10 text-primary text-xs font-medium">In Progress</span>
+            </td>
+            <td class="px-6 py-4 text-sm text-on-surface-variant">B2B</td>
+            <td class="px-6 py-4 text-sm text-on-surface-variant">CE2</td>
+            <td class="px-6 py-4 text-right">
+                <a class="text-primary hover:underline text-sm font-medium flex items-center justify-end gap-1" href="https://linear.app/guinea/issue/CE2-1610" target="_blank">
+                    Abrir <span class="material-symbols-outlined text-xs">arrow_forward</span>
+                </a>
+            </td>
+        </tr>
+        <tr class="hover:bg-surface-container-highest/50 transition-colors group">
+            <td class="px-6 py-4 text-sm font-bold text-on-surface">CE2-1600</td>
+            <td class="px-6 py-4 text-sm text-on-surface group-hover:text-white">Validar falla recurrente en renovación automática ...</td>
+            <td class="px-6 py-4 text-sm">
+                <span class="px-2 py-1 rounded-md bg-primary/10 text-primary text-xs font-medium">In Progress</span>
+            </td>
+            <td class="px-6 py-4 text-sm text-on-surface-variant">Cuy</td>
+            <td class="px-6 py-4 text-sm text-on-surface-variant">CE2</td>
+            <td class="px-6 py-4 text-right">
+                <a class="text-primary hover:underline text-sm font-medium flex items-center justify-end gap-1" href="https://linear.app/guinea/issue/CE2-1600" target="_blank">
+                    Abrir <span class="material-symbols-outlined text-xs">arrow_forward</span>
+                </a>
+            </td>
+        </tr>
+        <tr class="hover:bg-surface-container-highest/50 transition-colors group">
+            <td class="px-6 py-4 text-sm font-bold text-on-surface">CE2-1596</td>
+            <td class="px-6 py-4 text-sm text-on-surface group-hover:text-white">Activaciones nuevas de PeruSIM no llegan al dashbo...</td>
+            <td class="px-6 py-4 text-sm">
+                <span class="px-2 py-1 rounded-md bg-primary/10 text-primary text-xs font-medium">In Progress</span>
+            </td>
+            <td class="px-6 py-4 text-sm text-on-surface-variant">PeruSim+</td>
+            <td class="px-6 py-4 text-sm text-on-surface-variant">CE2</td>
+            <td class="px-6 py-4 text-right">
+                <a class="text-primary hover:underline text-sm font-medium flex items-center justify-end gap-1" href="https://linear.app/guinea/issue/CE2-1596" target="_blank">
+                    Abrir <span class="material-symbols-outlined text-xs">arrow_forward</span>
+                </a>
+            </td>
+        </tr>
+        <tr class="hover:bg-surface-container-highest/50 transition-colors group">
+            <td class="px-6 py-4 text-sm font-bold text-on-surface">CE2-1591</td>
+            <td class="px-6 py-4 text-sm text-on-surface group-hover:text-white">Validar bloqueo de IMEI pese a registro en lista b...</td>
+            <td class="px-6 py-4 text-sm">
+                <span class="px-2 py-1 rounded-md bg-tertiary-container/20 text-tertiary text-xs font-medium">In Review</span>
+            </td>
+            <td class="px-6 py-4 text-sm text-on-surface-variant">PeruSim+</td>
+            <td class="px-6 py-4 text-sm text-on-surface-variant">CE2</td>
+            <td class="px-6 py-4 text-right">
+                <a class="text-primary hover:underline text-sm font-medium flex items-center justify-end gap-1" href="https://linear.app/guinea/issue/CE2-1591" target="_blank">
+                    Abrir <span class="material-symbols-outlined text-xs">arrow_forward</span>
+                </a>
+            </td>
+        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
                 </section>
             </main>
         </div>
@@ -2168,7 +1093,7 @@
             // ========== END THEME TOGGLE ==========
 
             // Datos de todos los meses desde el servidor
-            const monthsData = {"Enero": {"total_projects": 20, "in_progress": 0, "pending_ce2": 4, "blocked": 0, "completed": 16, "by_state": {"Completed": 13, "In Review": 2, "Backlog": 3, "Planned": 1, "Archived": 1}, "brands": {"Cuy": {"total": 2, "pending": 1, "completed": 1}, "PeruSim": {"total": 3, "pending": 2, "completed": 1}, "Habla+": {"total": 7, "pending": 2, "completed": 5}, "Wings": {"total": 1, "pending": 1, "completed": 0}, "Fimo": {"total": 0, "pending": 0, "completed": 0}, "Guinea": {"total": 5, "pending": 1, "completed": 4}, "B2B": {"total": 1, "pending": 0, "completed": 1}, "Partner": {"total": 0, "pending": 0, "completed": 0}, "Legales": {"total": 0, "pending": 0, "completed": 0}, "Finanzas": {"total": 0, "pending": 0, "completed": 0}, "Airalo": {"total": 1, "pending": 0, "completed": 1}, "Sin clasificar": {"total": 0, "pending": 0, "completed": 0}}}, "Febrero": {"total_projects": 36, "in_progress": 1, "pending_ce2": 2, "blocked": 2, "completed": 31, "by_state": {"Completed": 27, "Backlog": 2, "In Progress": 1, "Blocked": 2, "In Review": 4, "Canceled": 3}, "brands": {"Cuy": {"total": 11, "pending": 3, "completed": 8}, "PeruSim": {"total": 5, "pending": 3, "completed": 2}, "Habla+": {"total": 5, "pending": 3, "completed": 2}, "Wings": {"total": 4, "pending": 0, "completed": 4}, "Fimo": {"total": 3, "pending": 0, "completed": 3}, "Guinea": {"total": 2, "pending": 0, "completed": 2}, "B2B": {"total": 4, "pending": 0, "completed": 4}, "Partner": {"total": 0, "pending": 0, "completed": 0}, "Legales": {"total": 0, "pending": 0, "completed": 0}, "Finanzas": {"total": 0, "pending": 0, "completed": 0}, "Airalo": {"total": 2, "pending": 0, "completed": 2}, "Sin clasificar": {"total": 0, "pending": 0, "completed": 0}}}, "Marzo": {"total_projects": 26, "in_progress": 0, "pending_ce2": 2, "blocked": 2, "completed": 22, "by_state": {"In Review": 1, "Completed": 21, "Blocked": 2, "Backlog": 2}, "brands": {"Cuy": {"total": 9, "pending": 3, "completed": 6}, "PeruSim": {"total": 2, "pending": 0, "completed": 2}, "Habla+": {"total": 5, "pending": 1, "completed": 4}, "Wings": {"total": 0, "pending": 0, "completed": 0}, "Fimo": {"total": 1, "pending": 1, "completed": 0}, "Guinea": {"total": 6, "pending": 0, "completed": 6}, "B2B": {"total": 0, "pending": 0, "completed": 0}, "Partner": {"total": 0, "pending": 0, "completed": 0}, "Legales": {"total": 0, "pending": 0, "completed": 0}, "Finanzas": {"total": 0, "pending": 0, "completed": 0}, "Airalo": {"total": 3, "pending": 0, "completed": 3}, "Sin clasificar": {"total": 0, "pending": 0, "completed": 0}}}, "Abril": {"total_projects": 10, "in_progress": 0, "pending_ce2": 6, "blocked": 0, "completed": 4, "by_state": {"Backlog": 6, "Completed": 4}, "brands": {"Cuy": {"total": 1, "pending": 0, "completed": 1}, "PeruSim": {"total": 0, "pending": 0, "completed": 0}, "Habla+": {"total": 2, "pending": 1, "completed": 1}, "Wings": {"total": 1, "pending": 0, "completed": 1}, "Fimo": {"total": 1, "pending": 0, "completed": 1}, "Guinea": {"total": 3, "pending": 3, "completed": 0}, "B2B": {"total": 0, "pending": 0, "completed": 0}, "Partner": {"total": 0, "pending": 0, "completed": 0}, "Legales": {"total": 0, "pending": 0, "completed": 0}, "Finanzas": {"total": 1, "pending": 1, "completed": 0}, "Airalo": {"total": 1, "pending": 1, "completed": 0}, "Sin clasificar": {"total": 0, "pending": 0, "completed": 0}}}, "Mayo": {"total_projects": 18, "in_progress": 2, "pending_ce2": 15, "blocked": 0, "completed": 1, "by_state": {"Backlog": 13, "In Progress": 2, "Planned": 2, "Completed": 1}, "brands": {"Cuy": {"total": 6, "pending": 6, "completed": 0}, "PeruSim": {"total": 1, "pending": 1, "completed": 0}, "Habla+": {"total": 3, "pending": 2, "completed": 1}, "Wings": {"total": 0, "pending": 0, "completed": 0}, "Fimo": {"total": 0, "pending": 0, "completed": 0}, "Guinea": {"total": 5, "pending": 5, "completed": 0}, "B2B": {"total": 0, "pending": 0, "completed": 0}, "Partner": {"total": 0, "pending": 0, "completed": 0}, "Legales": {"total": 2, "pending": 2, "completed": 0}, "Finanzas": {"total": 1, "pending": 1, "completed": 0}, "Airalo": {"total": 0, "pending": 0, "completed": 0}, "Sin clasificar": {"total": 0, "pending": 0, "completed": 0}}}};
+            const monthsData = {"Enero": {"total_projects": 20, "in_progress": 0, "pending_ce2": 4, "blocked": 0, "completed": 16, "by_state": {"Completed": 13, "In Review": 2, "Backlog": 3, "Planned": 1, "Archived": 1}, "brands": {"Cuy": {"total": 2, "pending": 1, "completed": 1}, "PeruSim": {"total": 3, "pending": 2, "completed": 1}, "Habla+": {"total": 7, "pending": 2, "completed": 5}, "Wings": {"total": 1, "pending": 1, "completed": 0}, "Fimo": {"total": 0, "pending": 0, "completed": 0}, "Guinea": {"total": 5, "pending": 1, "completed": 4}, "B2B": {"total": 1, "pending": 0, "completed": 1}, "Partner": {"total": 0, "pending": 0, "completed": 0}, "Legales": {"total": 0, "pending": 0, "completed": 0}, "Finanzas": {"total": 0, "pending": 0, "completed": 0}, "Airalo": {"total": 1, "pending": 0, "completed": 1}, "Sin clasificar": {"total": 0, "pending": 0, "completed": 0}}, "issues": {"total_issues": 31, "closed": 31, "by_state": {"Closed": 31}, "by_product": {"Fimo": 1, "Wings": 1}, "pending_by_product": {}, "by_state_by_team": {"CE2_Closed": 31}, "pending_issues_list": []}}, "Febrero": {"total_projects": 36, "in_progress": 1, "pending_ce2": 2, "blocked": 2, "completed": 31, "by_state": {"Completed": 27, "Backlog": 2, "In Progress": 1, "Blocked": 2, "In Review": 4, "Canceled": 3}, "brands": {"Cuy": {"total": 11, "pending": 3, "completed": 8}, "PeruSim": {"total": 5, "pending": 3, "completed": 2}, "Habla+": {"total": 5, "pending": 3, "completed": 2}, "Wings": {"total": 4, "pending": 0, "completed": 4}, "Fimo": {"total": 3, "pending": 0, "completed": 3}, "Guinea": {"total": 2, "pending": 0, "completed": 2}, "B2B": {"total": 4, "pending": 0, "completed": 4}, "Partner": {"total": 0, "pending": 0, "completed": 0}, "Legales": {"total": 0, "pending": 0, "completed": 0}, "Finanzas": {"total": 0, "pending": 0, "completed": 0}, "Airalo": {"total": 2, "pending": 0, "completed": 2}, "Sin clasificar": {"total": 0, "pending": 0, "completed": 0}}, "issues": {"total_issues": 146, "closed": 146, "by_state": {"Closed": 146}, "by_product": {"Airalo": 7, "Habla+": 10, "Wings": 3, "Fimo": 4, "Cuy": 2, "Guinea": 1}, "pending_by_product": {}, "by_state_by_team": {"CE2_Closed": 146}, "pending_issues_list": []}}, "Marzo": {"total_projects": 26, "in_progress": 0, "pending_ce2": 2, "blocked": 2, "completed": 22, "by_state": {"In Review": 1, "Completed": 21, "Blocked": 2, "Backlog": 2}, "brands": {"Cuy": {"total": 9, "pending": 3, "completed": 6}, "PeruSim": {"total": 2, "pending": 0, "completed": 2}, "Habla+": {"total": 5, "pending": 1, "completed": 4}, "Wings": {"total": 0, "pending": 0, "completed": 0}, "Fimo": {"total": 1, "pending": 1, "completed": 0}, "Guinea": {"total": 6, "pending": 0, "completed": 6}, "B2B": {"total": 0, "pending": 0, "completed": 0}, "Partner": {"total": 0, "pending": 0, "completed": 0}, "Legales": {"total": 0, "pending": 0, "completed": 0}, "Finanzas": {"total": 0, "pending": 0, "completed": 0}, "Airalo": {"total": 3, "pending": 0, "completed": 3}, "Sin clasificar": {"total": 0, "pending": 0, "completed": 0}}, "issues": {"total_issues": 231, "closed": 231, "by_state": {"Closed": 231}, "by_product": {"Cuy": 38, "PeruSim+": 1, "Habla+": 8, "Guinea": 4, "Fimo": 2, "Wings": 5, "Airalo": 2, "Finanzas": 1}, "pending_by_product": {}, "by_state_by_team": {"CE2_Closed": 231}, "pending_issues_list": []}}, "Abril": {"total_projects": 10, "in_progress": 0, "pending_ce2": 6, "blocked": 0, "completed": 4, "by_state": {"Backlog": 6, "Completed": 4}, "brands": {"Cuy": {"total": 1, "pending": 0, "completed": 1}, "PeruSim": {"total": 0, "pending": 0, "completed": 0}, "Habla+": {"total": 2, "pending": 1, "completed": 1}, "Wings": {"total": 1, "pending": 0, "completed": 1}, "Fimo": {"total": 1, "pending": 0, "completed": 1}, "Guinea": {"total": 3, "pending": 3, "completed": 0}, "B2B": {"total": 0, "pending": 0, "completed": 0}, "Partner": {"total": 0, "pending": 0, "completed": 0}, "Legales": {"total": 0, "pending": 0, "completed": 0}, "Finanzas": {"total": 1, "pending": 1, "completed": 0}, "Airalo": {"total": 1, "pending": 1, "completed": 0}, "Sin clasificar": {"total": 0, "pending": 0, "completed": 0}}, "issues": {"total_issues": 157, "closed": 135, "by_state": {"Closed": 135, "Planning": 9, "In Review": 4, "Backlog": 6, "In Progress": 1, "Blocked": 2}, "by_product": {"Finanzas": 17, "Habla+": 12, "Cuy": 41, "Guinea": 19, "Wings": 10, "B2B": 10, "Legales": 3, "Partner": 1, "PeruSim+": 19, "Airalo": 3, "Fimo": 2}, "pending_by_product": {"Cuy": 7, "Finanzas": 4, "Guinea": 5, "B2B": 1, "Partner": 1, "Habla+": 3, "PeruSim+": 1}, "by_state_by_team": {"CE2_Closed": 135, "CE2_Planning": 9, "CE2_In Review": 4, "CE2_Backlog": 6, "CE2_In Progress": 1, "CE2_Blocked": 2}, "pending_issues_list": [{"id": "CE2-1501", "title": "Generar preactivaci\u00f3n y boleta CMS para cliente", "state": "Planning", "team": "CE2", "products": "Cuy", "assignee": "Alex Estrada"}, {"id": "CE2-1499", "title": "Recargas recientes no aparecen en historial de Cuy", "state": "Planning", "team": "CE2", "products": "Cuy", "assignee": "Lesly Samaritano"}, {"id": "CE2-1498", "title": "Habilitar acceso a bd.gnmbl.net para Jorge Brenner", "state": "In Review", "team": "CE2", "products": "Finanzas", "assignee": "Daniel Alvarez"}, {"id": "CE2-1497", "title": "CMS muestra portabilidad activa sin solicitud en curso", "state": "Backlog", "team": "CE2", "products": "Cuy", "assignee": "Farialis Martinez"}, {"id": "CE2-1493", "title": "Dashboard de reportes B2C muestra marzo en cero", "state": "Planning", "team": "CE2", "products": "Finanzas", "assignee": "Alex Estrada"}, {"id": "CE2-1489", "title": "Actualizar t\u00e9rminos y condiciones de planes prepago Cuy", "state": "Planning", "team": "CE2", "products": "Cuy", "assignee": "Alex Estrada"}, {"id": "CE2-1487", "title": "Generar reporte de tarifas Airalo para Cuy y PeruSIM", "state": "Backlog", "team": "CE2", "products": "Finanzas", "assignee": "Patrick Bola\u00f1os"}, {"id": "CE2-1607", "title": "Dise\u00f1ar framework de trabajo para squad operadores", "state": "Backlog", "team": "CE2", "products": "Guinea", "assignee": "Enrique Lezama"}, {"id": "CE2-1614", "title": "BOP de ARPU B2B no cuadra con BD", "state": "Planning", "team": "CE2", "products": "B2B", "assignee": "Alex Estrada"}, {"id": "CE2-1841", "title": "Mostrar precio por empresa en detalle de plan B2B", "state": "Planning", "team": "CE2", "products": "Finanzas", "assignee": "Alex Estrada"}, {"id": "CE2-1480", "title": "Eliminar ramas tras merge a main en repos de Flutter", "state": "Backlog", "team": "CE2", "products": "Guinea", "assignee": "Alberto Pereda"}, {"id": "CE2-1479", "title": "L\u00ednea 51915138246 y 51919087631 activada a dos personas distintas", "state": "In Progress", "team": "CE2", "products": "Cuy", "assignee": "Lesly Samaritano"}, {"id": "CE2-1475", "title": "Plan S/39.90 muestra RRSS incluidas en app Cuy", "state": "Planning", "team": "CE2", "products": "Cuy", "assignee": "Alberto Pereda"}, {"id": "CE2-1472", "title": "Cuy - App Distribuidores - Nuevos Indicadores de Ventas", "state": "Backlog", "team": "CE2", "products": "Partner", "assignee": "Patrick Bola\u00f1os"}, {"id": "CE2-1471", "title": "Corregir en la UI cuando una l\u00ednea se reserva por otra marca", "state": "Blocked", "team": "CE2", "products": "Habla+", "assignee": "Alberto Pereda"}, {"id": "CE2-1618", "title": "Crear ambiente de preproducci\u00f3n para planes Habla+ Cliente", "state": "Blocked", "team": "CE2", "products": "Habla+", "assignee": "Alberto Pereda"}, {"id": "CE2-1443", "title": "Atribuci\u00f3n incorrecta de activaci\u00f3n de extranjero a peruano", "state": "Backlog", "team": "CE2", "products": "PeruSim+", "assignee": "Leandro Ramirez"}, {"id": "CE2-1844", "title": "Error HTTP 401 al iniciar sesi\u00f3n en Guinea", "state": "Planning", "team": "CE2", "products": "Guinea", "assignee": "Alberto Pereda"}, {"id": "CE2-1402", "title": "Habla+ | Creaci\u00f3n de un FUNNEL Habla+ Dashboard", "state": "Planning", "team": "CE2", "products": "Habla+", "assignee": "Patrick Bola\u00f1os"}, {"id": "CE2-1400", "title": "Enviar SMS antes de vencimiento e inactividad de l\u00ednea", "state": "In Review", "team": "CE2", "products": "Cuy", "assignee": "Farialis Martinez"}, {"id": "CE2-1351", "title": "Error al ejecutar reportes SIGEP automatizados desde BOP", "state": "In Review", "team": "CE2", "products": "Guinea", "assignee": "Daniel Alvarez"}, {"id": "CE2-1615", "title": "Enviar correo por interrupci\u00f3n temporal de RENIEC", "state": "In Review", "team": "CE2", "products": "Guinea", "assignee": "Farialis Martinez"}]}}, "Mayo": {"total_projects": 18, "in_progress": 2, "pending_ce2": 15, "blocked": 0, "completed": 1, "by_state": {"Backlog": 12, "In Progress": 2, "Planned": 3, "Completed": 1}, "brands": {"Cuy": {"total": 6, "pending": 6, "completed": 0}, "PeruSim": {"total": 1, "pending": 1, "completed": 0}, "Habla+": {"total": 3, "pending": 2, "completed": 1}, "Wings": {"total": 0, "pending": 0, "completed": 0}, "Fimo": {"total": 0, "pending": 0, "completed": 0}, "Guinea": {"total": 5, "pending": 5, "completed": 0}, "B2B": {"total": 0, "pending": 0, "completed": 0}, "Partner": {"total": 0, "pending": 0, "completed": 0}, "Legales": {"total": 2, "pending": 2, "completed": 0}, "Finanzas": {"total": 1, "pending": 1, "completed": 0}, "Airalo": {"total": 0, "pending": 0, "completed": 0}, "Sin clasificar": {"total": 0, "pending": 0, "completed": 0}}, "issues": {"total_issues": 58, "closed": 29, "by_state": {"Backlog": 14, "Planning": 7, "Closed": 29, "In Review": 2, "In Progress": 6}, "by_product": {"Habla+": 5, "Cuy": 16, "B2B": 3, "Airalo": 4, "Finanzas": 4, "Legales": 2, "PeruSim+": 5, "Guinea": 9, "Fimo": 4, "Wings": 3, "Partner": 2}, "pending_by_product": {"Habla+": 3, "Cuy": 10, "B2B": 2, "Airalo": 2, "Finanzas": 2, "PeruSim+": 3, "Guinea": 5, "Partner": 1, "Legales": 1}, "by_state_by_team": {"CE2_Backlog": 14, "CE2_Planning": 7, "CE2_Closed": 29, "CE2_In Review": 2, "CE2_In Progress": 6}, "pending_issues_list": [{"id": "CE2-1911", "title": "Izipay no guarda mes ni a\u00f1o de expiraci\u00f3n", "state": "Backlog", "team": "CE2", "products": "Habla+", "assignee": "Lesly Samaritano"}, {"id": "CE2-1910", "title": "Pago Yape no visible bloquea preactivaci\u00f3n de chip", "state": "Planning", "team": "CE2", "products": "Cuy", "assignee": "Alex Estrada"}, {"id": "CE2-1898", "title": "Actualizar reporte B2B/IoT cada lunes", "state": "Backlog", "team": "CE2", "products": "B2B", "assignee": "Patrick Bola\u00f1os"}, {"id": "CE2-1897", "title": "Airalo muestra eSIMs finalizados con paquetes activos", "state": "Backlog", "team": "CE2", "products": "Airalo", "assignee": "Farialis Martinez"}, {"id": "CE2-1884", "title": "Regularizar transacciones y boletas de casos Yape reportados", "state": "Backlog", "team": "CE2", "products": "Finanzas", "assignee": "Alex Estrada"}, {"id": "CE2-1882", "title": "Extras de 1, 5 y 10 GB no aparecen en la app", "state": "Backlog", "team": "CE2", "products": "PeruSim+", "assignee": "Alberto Pereda"}, {"id": "CE2-1879", "title": "Registrar excepci\u00f3n en lista blanca para l\u00ednea 927481804", "state": "In Review", "team": "CE2", "products": "Guinea", "assignee": "Alex Estrada"}, {"id": "CE2-1863", "title": "Guinea - Requerimiento de Victor sobre minutos entrantes y salientes", "state": "Planning", "team": "CE2", "products": "Guinea", "assignee": "Patrick Bola\u00f1os"}, {"id": "CE2-1860", "title": "Regularizar boleta faltante pendiente en Finanzas", "state": "Backlog", "team": "CE2", "products": "Finanzas", "assignee": "Alex Estrada"}, {"id": "CE2-1613", "title": "Regularizar boleta del caso de recarga Yape", "state": "Backlog", "team": "CE2", "products": "Cuy", "assignee": "Alex Estrada"}, {"id": "CE2-1612", "title": "Regularizar boleta pendiente de recarga Yape en Cuy", "state": "Backlog", "team": "CE2", "products": "Cuy", "assignee": "Alex Estrada"}, {"id": "CE2-1610", "title": "Generar reporte semanal de activaciones B2B/IoT Guinea", "state": "In Progress", "team": "CE2", "products": "B2B", "assignee": "Patrick Bola\u00f1os"}, {"id": "CE2-1600", "title": "Validar falla recurrente en renovaci\u00f3n autom\u00e1tica de plan", "state": "In Progress", "team": "CE2", "products": "Cuy", "assignee": "Alex Estrada"}, {"id": "CE2-1596", "title": "Activaciones nuevas de PeruSIM no llegan al dashboard", "state": "In Progress", "team": "CE2", "products": "PeruSim+", "assignee": "Patrick Bola\u00f1os"}, {"id": "CE2-1591", "title": "Validar bloqueo de IMEI pese a registro en lista blanca", "state": "In Review", "team": "CE2", "products": "PeruSim+", "assignee": "Alex Estrada"}, {"id": "CE2-1590", "title": "Publicar plan MODEM 80 GB solo en Almaceneros", "state": "Backlog", "team": "CE2", "products": "Habla+", "assignee": "Farialis Martinez"}, {"id": "CE2-1589", "title": "Crear perfil vendedor y CMS para dealer nuevo", "state": "Backlog", "team": "CE2", "products": "Partner", "assignee": "Alex Estrada"}, {"id": "CE2-1588", "title": "Registrar response de pasarela en user_transaction", "state": "Backlog", "team": "CE2", "products": "Cuy", "assignee": "Farialis Martinez"}, {"id": "CE2-1587", "title": "Error al reservar ICCID al cambiar tipo de activaci\u00f3n", "state": "Planning", "team": "CE2", "products": "Cuy", "assignee": "Alberto Pereda"}, {"id": "CE2-1586", "title": "L\u00ednea portada no muestra ICCID en sistemas internos", "state": "In Progress", "team": "CE2", "products": "Guinea", "assignee": "Farialis Martinez"}, {"id": "CE2-1837", "title": "Regularizar 85 l\u00edneas con boletas err\u00f3neas de CuyCash", "state": "Backlog", "team": "CE2", "products": "Cuy", "assignee": "Alex Estrada"}, {"id": "CE2-1840", "title": "Probar navegaci\u00f3n sin internet con l\u00ednea Habla+", "state": "Backlog", "team": "CE2", "products": "Habla+", "assignee": "Alex Estrada"}, {"id": "CE2-1846", "title": "Quitar firma de Mariano en respuesta a reclamos", "state": "Planning", "team": "CE2", "products": "Legales", "assignee": "Alex Estrada"}, {"id": "CE2-1836", "title": "L\u00ednea 51915148347 muestra dos perfiles activos en CMS", "state": "In Progress", "team": "CE2", "products": "Airalo", "assignee": "Farialis Martinez"}, {"id": "CE2-1578", "title": "Causa raiz: lineas compartidas entre usuarios - validacion de duplicidad faltante en activacion", "state": "In Progress", "team": "CE2", "products": "Cuy", "assignee": "Bot Tech"}, {"id": "CE2-1576", "title": "D\u00e9bito autom\u00e1tico no renueva l\u00edneas Cuy del cliente", "state": "Planning", "team": "CE2", "products": "Cuy", "assignee": "Leandro Ramirez"}, {"id": "CE2-1847", "title": "Dar seguimiento a mejoras de infraestructura de mensajer\u00eda", "state": "Planning", "team": "CE2", "products": "Guinea", "assignee": "Angel Crispin"}, {"id": "CE2-1845", "title": "BOP no muestra resultados al filtrar abril", "state": "Planning", "team": "CE2", "products": "Guinea", "assignee": "Alex Estrada"}, {"id": "CE2-1507", "title": "Portabilidades no reflejan datos en CMS ni CRM", "state": "Backlog", "team": "CE2", "products": "Cuy", "assignee": "Farialis Martinez"}]}}};
 
             function switchSection(section) {
                 document.getElementById('projects').style.display = section === 'projects' ? 'block' : 'none';
@@ -2244,6 +1169,93 @@
                 }
             }
 
+            function updateIssuesMonthData(monthName) {
+                const data = monthsData[monthName];
+                if (!data || !data.issues) return;
+
+                const issues = data.issues;
+
+                // Actualizar encabezado del mes
+                const totalIssues = issues.total_issues || 0;
+                const pendingIssues = Object.values(issues.pending_by_product || {}).reduce((a, b) => a + b, 0);
+                document.querySelector('#tab-issues .flex.items-center span:nth-of-type(2)').textContent = monthName + ' 2026: ' + totalIssues + ' issues totales | Pendientes: ' + pendingIssues;
+
+                // Actualizar progreso
+                const closedIssues = issues.closed || 0;
+                const progress = totalIssues > 0 ? Math.round((closedIssues / totalIssues) * 100) : 0;
+                document.querySelector('#tab-issues .text-lg.font-bold.text-primary').textContent = progress + '%';
+                const progressBar = document.querySelector('#tab-issues .h-full.rounded-full');
+                if (progressBar) {
+                    progressBar.style.width = progress + '%';
+                }
+
+                // Actualizar métricas de issues
+                const metricsElement = document.querySelectorAll('#tab-issues .bg-surface-container-low');
+                if (metricsElement.length > 0) {
+                    metricsElement[0].querySelector('span:last-child').textContent = totalIssues;
+                }
+                if (metricsElement.length > 1) {
+                    const inProgress = issues.by_state['In Progress'] || 0;
+                    metricsElement[1].querySelector('span:last-child').textContent = inProgress;
+                }
+                if (metricsElement.length > 2) {
+                    metricsElement[2].querySelector('span:last-child').textContent = pendingIssues;
+                }
+
+                // Actualizar tabla de estados por team
+                const statusRows = document.querySelectorAll('#tab-issues table tbody tr');
+                const statesByTeam = issues.by_state_by_team || {};
+
+                // Reorganizar datos
+                const statesDict = {};
+                for (const key in statesByTeam) {
+                    if (key.includes('_')) {
+                        const [team, state] = key.split('_');
+                        if (!statesDict[state]) {
+                            statesDict[state] = { CE1: 0, CE2: 0 };
+                        }
+                        statesDict[state][team] = statesByTeam[key];
+                    }
+                }
+
+                // Actualizar tabla
+                statusRows.forEach((row, index) => {
+                    const cells = row.querySelectorAll('td');
+                    const states = Object.keys(statesDict).sort();
+                    if (index < states.length) {
+                        const state = states[index];
+                        const counts = statesDict[state];
+                        if (cells.length >= 4) {
+                            cells[0].textContent = state;
+                            cells[1].textContent = counts.CE1 || 0;
+                            cells[2].textContent = counts.CE2 || 0;
+                            cells[3].textContent = (counts.CE1 || 0) + (counts.CE2 || 0);
+                        }
+                    }
+                });
+
+                // Actualizar tabla de issues pendientes
+                const pendingRows = document.querySelectorAll('#tab-issues table:last-of-type tbody tr');
+                const pendingList = issues.pending_issues_list || [];
+                pendingRows.forEach((row, index) => {
+                    if (index < pendingList.length) {
+                        const issue = pendingList[index];
+                        const cells = row.querySelectorAll('td');
+                        if (cells.length >= 6) {
+                            cells[0].textContent = issue.id || '';
+                            cells[1].textContent = (issue.title || '').substring(0, 50) + (issue.title && issue.title.length > 50 ? '...' : '');
+                            cells[2].querySelector('span').textContent = issue.state || '';
+                            cells[3].textContent = issue.products || '';
+                            cells[4].textContent = issue.team || '';
+                            const link = cells[5].querySelector('a');
+                            if (link) {
+                                link.href = 'https://linear.app/guinea/issue/' + (issue.id || '');
+                            }
+                        }
+                    }
+                });
+            }
+
             document.querySelectorAll('[data-month]').forEach(button => {
                 button.addEventListener('click', () => {
                     const month = button.getAttribute('data-month');
@@ -2258,6 +1270,7 @@
 
                     // Actualizar datos
                     updateMonthData(month);
+                    updateIssuesMonthData(month);
                 });
             });
 
