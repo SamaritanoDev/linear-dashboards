@@ -473,12 +473,12 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
         state_lower = state.lower()
         count = current_states_map.get(state_lower, 0)
         state_id = state_lower.replace(" ", "-")
-        status_rows += '        <tr class="hover:bg-surface-container-highest/50 transition-colors group">\n'
+        status_rows += '        <tr class="hover:bg-surface-container/50 transition-colors group">\n'
         status_rows += '            <td class="px-6 py-4 flex items-center gap-3">\n'
         status_rows += '                <span class="h-2 w-2 rounded-full bg-secondary"></span>\n'
-        status_rows += '                <span class="text-on-surface group-hover:text-white transition-colors capitalize">' + state + '</span>\n'
+        status_rows += '                <span class="text-on-surface font-medium capitalize">' + state + '</span>\n'
         status_rows += '            </td>\n'
-        status_rows += '            <td class="px-6 py-4 text-right font-semibold text-on-surface" id="status-' + state_id + '">' + str(count) + '</td>\n'
+        status_rows += '            <td class="px-6 py-4 text-right font-bold text-on-surface" id="status-' + state_id + '">' + str(count) + '</td>\n'
         status_rows += '        </tr>\n'
 
     # Generar botones de meses
@@ -486,7 +486,7 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
     months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo"]
     for i, month in enumerate(months):
         is_active = (i == len(months) - 1)
-        classes = 'text-primary bg-primary/10 border border-primary/30 shadow-lg shadow-primary/5 font-semibold' if is_active else 'text-on-surface-variant hover:text-white hover:bg-surface-container transition-all font-medium'
+        classes = 'text-primary bg-primary/10 border border-primary/30 shadow-lg shadow-primary/5 font-semibold' if is_active else 'text-on-surface-variant hover:text-primary hover:bg-surface-container transition-all font-medium'
         month_buttons += '    <button class="px-5 py-2.5 rounded-full text-sm ' + classes + ' whitespace-nowrap" data-month="' + month + '">' + month + ' 2026</button>\n'
 
     # Generar tarjetas de marcas con datos actuales
@@ -508,7 +508,7 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
         brands_cards += '            <div class="text-sm text-tertiary font-semibold text-center w-full brand-completed-label">completado</div>\n'
         brands_cards += '        </div>\n'
         brands_cards += '        <div class="grid grid-cols-2 gap-2 mt-4">\n'
-        brands_cards += '            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-white brand-total">' + str(total) + '</span></div>\n'
+        brands_cards += '            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-on-surface brand-total">' + str(total) + '</span></div>\n'
         brands_cards += '            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary brand-pending">' + str(pending) + '</span></div>\n'
         brands_cards += '        </div>\n'
         brands_cards += '    </div>\n'
@@ -521,7 +521,7 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
     completed = current_month_projects.get("completed", 0)
     metrics_cards = '        <div class="glacier-card p-6 rounded-xl flex items-center justify-between">\n'
     metrics_cards += '            <span class="text-on-surface-variant text-xs font-bold uppercase tracking-tighter">Total</span>\n'
-    metrics_cards += '            <span class="text-4xl font-bold text-white" id="metric-total">' + str(total) + '</span>\n'
+    metrics_cards += '            <span class="text-4xl font-bold text-on-surface" id="metric-total">' + str(total) + '</span>\n'
     metrics_cards += '        </div>\n'
     metrics_cards += '        <div class="glacier-card p-6 rounded-xl flex items-center justify-between">\n'
     metrics_cards += '            <span class="text-on-surface-variant text-xs font-bold uppercase tracking-tighter">En Progreso</span>\n'
@@ -551,7 +551,7 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
     month_text = current_month_projects.get("month", "Mayo")
 
     html = """    <!DOCTYPE html>
-    <html class="dark" lang="es">
+    <html lang="es">
     <head>
         <meta charset="utf-8"/>
         <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -564,53 +564,53 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
                 theme: {
                     extend: {
                         "colors": {
-                            "surface-dim": "#0f1524",
-                            "surface-bright": "#1a2438",
-                            "surface": "#0f1524",
-                            "on-tertiary-fixed-variant": "#4d2a73",
-                            "on-tertiary-container": "#e8d0ff",
-                            "inverse-on-surface": "#0a0e1a",
-                            "outline-variant": "#2a3a48",
                             "primary-fixed-dim": "#7dd3fc",
-                            "on-secondary-fixed": "#0d1f2b",
-                            "surface-container": "#141c2e",
-                            "inverse-surface": "#e0e8f0",
-                            "tertiary-fixed": "#e8d0ff",
-                            "on-secondary-container": "#c0d8e8",
-                            "on-primary-fixed": "#001f2e",
-                            "primary-fixed": "#c8eaff",
-                            "on-tertiary": "#1a002e",
-                            "error": "#ff6b6b",
-                            "on-surface-variant": "#a0b4c4",
                             "secondary-fixed": "#c0d8e8",
-                            "surface-container-lowest": "#0a0e1a",
-                            "tertiary-container": "#3d2060",
-                            "surface-tint": "#7dd3fc",
-                            "surface-container-high": "#1a2438",
-                            "surface-variant": "#1a2438",
-                            "on-surface": "#e0e8f0",
-                            "background": "#0a0e1a",
-                            "on-error": "#1a0000",
-                            "outline": "#4a6070",
-                            "on-error-container": "#ffb3b3",
-                            "on-primary-container": "#c8eaff",
-                            "tertiary-fixed-dim": "#c8a0f0",
-                            "tertiary": "#c8a0f0",
-                            "secondary-fixed-dim": "#88b4cc",
-                            "on-secondary": "#001f2e",
-                            "primary-container": "#0e4d6e",
-                            "error-container": "#3d1414",
-                            "inverse-primary": "#0a4c6e",
-                            "on-secondary-fixed-variant": "#2a4a5e",
-                            "secondary": "#88b4cc",
                             "primary": "#7dd3fc",
-                            "surface-container-highest": "#202c42",
-                            "on-primary": "#001f2e",
-                            "secondary-container": "#1a3a4e",
-                            "on-background": "#e0e8f0",
+                            "outline": "#70787d",
+                            "outline-variant": "#c0c7cd",
+                            "on-secondary": "#ffffff",
+                            "on-primary-fixed-variant": "#004d73",
+                            "on-error": "#ffffff",
+                            "surface-container-low": "#f7f9fc",
+                            "background": "#fdfcff",
+                            "surface-container-highest": "#e1e2e5",
+                            "inverse-primary": "#7dd3fc",
+                            "on-primary": "#ffffff",
+                            "surface-container-lowest": "#ffffff",
+                            "error": "#ba1a1a",
+                            "error-container": "#ffdad6",
+                            "on-tertiary": "#ffffff",
+                            "primary-fixed": "#c8eaff",
+                            "tertiary": "#6b528d",
+                            "tertiary-container": "#eddffd",
+                            "on-error-container": "#410002",
+                            "secondary-container": "#dce3e9",
+                            "on-tertiary-fixed-variant": "#4d2a73",
+                            "tertiary-fixed": "#e8d0ff",
+                            "surface-container-high": "#e7e8eb",
+                            "on-secondary-container": "#001e2f",
+                            "tertiary-fixed-dim": "#c8a0f0",
+                            "surface-tint": "#00668b",
+                            "on-secondary-fixed-variant": "#2a4a5e",
                             "on-tertiary-fixed": "#1a002e",
-                            "surface-container-low": "#111828",
-                            "on-primary-fixed-variant": "#004d73"
+                            "on-surface-variant": "#40484c",
+                            "on-tertiary-container": "#250a49",
+                            "on-primary-fixed": "#001f2e",
+                            "primary-container": "#c8eaff",
+                            "on-surface": "#191c1e",
+                            "inverse-surface": "#2e3133",
+                            "surface-variant": "#dde3ea",
+                            "surface-dim": "#d7dadf",
+                            "surface-container": "#f0f1f4",
+                            "on-background": "#191c1e",
+                            "secondary": "#4e616d",
+                            "inverse-on-surface": "#f0f1f3",
+                            "surface": "#f9f9fc",
+                            "secondary-fixed-dim": "#88b4cc",
+                            "surface-bright": "#f9f9fc",
+                            "on-secondary-fixed": "#0d1f2b",
+                            "on-primary-container": "#001f2e"
                         },
                         "borderRadius": {
                             "DEFAULT": "0.5rem",
@@ -631,27 +631,28 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
         <style data-purpose="layout-and-theme">
             body {
                 font-family: 'Inter', sans-serif;
-                background-color: #0a0e1a;
-                color: #e0e8f0;
+                background-color: #fdfcff;
+                color: #191c1e;
             }
             .glacier-surface {
-                background-color: #0f1524;
-                border: 1px solid rgba(74, 96, 112, 0.3);
+                background-color: #f0f1f4;
+                border: 1px solid rgba(112, 120, 125, 0.2);
             }
             .glacier-card {
-                background-color: #141c2e;
+                background-color: #ffffff;
                 border: 1px solid rgba(125, 211, 252, 0.1);
+                box-shadow: 0 1px 3px rgba(0,0,0,0.05);
                 transition: all 0.3s ease;
             }
             .glacier-card:hover {
                 border-color: #7dd3fc;
-                background-color: #1a2438;
+                box-shadow: 0 4px 12px rgba(125, 211, 252, 0.08);
             }
             .drawer-item {
                 transition: all 0.2s;
             }
             .drawer-item.active {
-                background-color: rgba(125, 211, 252, 0.1);
+                background-color: rgba(125, 211, 252, 0.08);
                 color: #7dd3fc;
                 border-right: 3px solid #7dd3fc;
             }
@@ -688,7 +689,7 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
                 <section class="max-w-6xl mx-auto" id="projects">
                     <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
                         <div>
-                            <h1 class="text-4xl font-bold text-white tracking-tight flex items-center gap-3">
+                            <h1 class="text-4xl font-bold text-on-surface tracking-tight flex items-center gap-3">
                                 <span class="material-symbols-outlined text-primary text-4xl">inventory_2</span>
                                 Proyectos CE
                             </h1>
@@ -700,7 +701,7 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
                         </div>
                     </div>
 
-                    <div class="bg-surface-container border-l-4 border-primary p-4 rounded-r-xl mb-10 flex items-start gap-4">
+                    <div class="bg-primary/10 border-l-4 border-primary p-4 rounded-r-xl mb-10 flex items-start gap-4">
                         <span class="material-symbols-outlined text-primary mt-0.5">info</span>
                         <p class="text-sm text-on-primary-container leading-relaxed"><strong class="text-primary">Nota:</strong> Los Pendientes son la suma de los estados Backlog, Planned, In progress, Blocked e In Review. No cuenta cancelados, ni archivados, ni completados.</p>
                     </div>
@@ -718,7 +719,7 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
 """ + metrics_cards + """                        </div>
 
                         <div class="mb-10">
-                            <h2 class="text-xl font-bold text-white flex items-center gap-2 mb-6">
+                            <h2 class="text-xl font-bold text-on-surface flex items-center gap-2 mb-6">
                                 <span class="material-symbols-outlined text-primary">branding_watermark</span>
                                 Proyectos por Marca
                             </h2>
@@ -730,14 +731,14 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
                             </div>
                         </div>
 
-                        <div class="glacier-surface p-8 rounded-2xl shadow-xl shadow-black/40" data-purpose="status-table-container">
+                        <div class="glacier-card p-8 rounded-2xl shadow-xl shadow-black/40" data-purpose="status-table-container">
                             <div class="flex items-center justify-between mb-8">
-                                <h2 class="text-xl font-bold text-white flex items-center gap-2">
+                                <h2 class="text-xl font-bold text-on-surface flex items-center gap-2">
                                     <span class="material-symbols-outlined text-primary">bar_chart</span>
                                     Por Estado
                                 </h2>
                             </div>
-                            <div class="overflow-hidden rounded-xl border border-outline-variant/30">
+                            <div class="overflow-hidden rounded-xl border border-outline-variant/50">
                                 <table aria-label="Desglose de proyectos por estado" class="w-full text-left">
                                     <thead>
                                         <tr class="bg-surface-container-high">
@@ -745,7 +746,7 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
                                             <th class="px-6 py-4 text-xs font-bold text-primary uppercase tracking-widest text-right">Total</th>
                                         </tr>
                                     </thead>
-                                    <tbody class="divide-y divide-outline-variant/20">
+                                    <tbody class="divide-y divide-outline-variant/30">
 """ + status_rows + """                                    </tbody>
                                 </table>
                             </div>
@@ -921,6 +922,6 @@ if __name__ == "__main__":
         print(f"📈 {month_name}: {metrics['total_issues']} issues CE | Pendientes: {pending_total}")
 
     html = generate_html(all_months_projects_metrics, all_months_metrics)
-    with open("index.html", "w") as f:
+    with open("index-light.html", "w") as f:
         f.write(html)
-    print("\n✅ Dashboard unificado generado: index.html")
+    print("\n✅ Dashboard unificado generado (Light Mode): index-light.html")
