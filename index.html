@@ -1,5 +1,5 @@
     <!DOCTYPE html>
-    <html lang="es">
+    <html class="dark" lang="es">
     <head>
         <meta charset="utf-8"/>
         <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -12,53 +12,53 @@
                 theme: {
                     extend: {
                         "colors": {
-                            "primary-fixed-dim": "#7dd3fc",
-                            "secondary-fixed": "#c0d8e8",
-                            "primary": "#7dd3fc",
-                            "outline": "#70787d",
-                            "outline-variant": "#c0c7cd",
-                            "on-secondary": "#ffffff",
-                            "on-primary-fixed-variant": "#004d73",
-                            "on-error": "#ffffff",
-                            "surface-container-low": "#f7f9fc",
-                            "background": "#fdfcff",
-                            "surface-container-highest": "#e1e2e5",
-                            "inverse-primary": "#7dd3fc",
-                            "on-primary": "#ffffff",
-                            "surface-container-lowest": "#ffffff",
-                            "error": "#ba1a1a",
-                            "error-container": "#ffdad6",
-                            "on-tertiary": "#ffffff",
-                            "primary-fixed": "#c8eaff",
-                            "tertiary": "#6b528d",
-                            "tertiary-container": "#eddffd",
-                            "on-error-container": "#410002",
-                            "secondary-container": "#dce3e9",
+                            "surface-dim": "#0f1524",
+                            "surface-bright": "#1a2438",
+                            "surface": "#0f1524",
                             "on-tertiary-fixed-variant": "#4d2a73",
-                            "tertiary-fixed": "#e8d0ff",
-                            "surface-container-high": "#e7e8eb",
-                            "on-secondary-container": "#001e2f",
-                            "tertiary-fixed-dim": "#c8a0f0",
-                            "surface-tint": "#00668b",
-                            "on-secondary-fixed-variant": "#2a4a5e",
-                            "on-tertiary-fixed": "#1a002e",
-                            "on-surface-variant": "#40484c",
-                            "on-tertiary-container": "#250a49",
-                            "on-primary-fixed": "#001f2e",
-                            "primary-container": "#c8eaff",
-                            "on-surface": "#191c1e",
-                            "inverse-surface": "#2e3133",
-                            "surface-variant": "#dde3ea",
-                            "surface-dim": "#d7dadf",
-                            "surface-container": "#f0f1f4",
-                            "on-background": "#191c1e",
-                            "secondary": "#4e616d",
-                            "inverse-on-surface": "#f0f1f3",
-                            "surface": "#f9f9fc",
-                            "secondary-fixed-dim": "#88b4cc",
-                            "surface-bright": "#f9f9fc",
+                            "on-tertiary-container": "#e8d0ff",
+                            "inverse-on-surface": "#0a0e1a",
+                            "outline-variant": "#2a3a48",
+                            "primary-fixed-dim": "#7dd3fc",
                             "on-secondary-fixed": "#0d1f2b",
-                            "on-primary-container": "#001f2e"
+                            "surface-container": "#141c2e",
+                            "inverse-surface": "#e0e8f0",
+                            "tertiary-fixed": "#e8d0ff",
+                            "on-secondary-container": "#c0d8e8",
+                            "on-primary-fixed": "#001f2e",
+                            "primary-fixed": "#c8eaff",
+                            "on-tertiary": "#1a002e",
+                            "error": "#ff6b6b",
+                            "on-surface-variant": "#a0b4c4",
+                            "secondary-fixed": "#c0d8e8",
+                            "surface-container-lowest": "#0a0e1a",
+                            "tertiary-container": "#3d2060",
+                            "surface-tint": "#7dd3fc",
+                            "surface-container-high": "#1a2438",
+                            "surface-variant": "#1a2438",
+                            "on-surface": "#e0e8f0",
+                            "background": "#0a0e1a",
+                            "on-error": "#1a0000",
+                            "outline": "#4a6070",
+                            "on-error-container": "#ffb3b3",
+                            "on-primary-container": "#c8eaff",
+                            "tertiary-fixed-dim": "#c8a0f0",
+                            "tertiary": "#c8a0f0",
+                            "secondary-fixed-dim": "#88b4cc",
+                            "on-secondary": "#001f2e",
+                            "primary-container": "#0e4d6e",
+                            "error-container": "#3d1414",
+                            "inverse-primary": "#0a4c6e",
+                            "on-secondary-fixed-variant": "#2a4a5e",
+                            "secondary": "#88b4cc",
+                            "primary": "#7dd3fc",
+                            "surface-container-highest": "#202c42",
+                            "on-primary": "#001f2e",
+                            "secondary-container": "#1a3a4e",
+                            "on-background": "#e0e8f0",
+                            "on-tertiary-fixed": "#1a002e",
+                            "surface-container-low": "#111828",
+                            "on-primary-fixed-variant": "#004d73"
                         },
                         "borderRadius": {
                             "DEFAULT": "0.5rem",
@@ -79,185 +79,35 @@
         <style data-purpose="layout-and-theme">
             body {
                 font-family: 'Inter', sans-serif;
-                background-color: #fdfcff;
-                color: #191c1e;
+                background-color: #0a0e1a;
+                color: #e0e8f0;
             }
             .glacier-surface {
-                background-color: #f0f1f4;
-                border: 1px solid rgba(112, 120, 125, 0.2);
+                background-color: #0f1524;
+                border: 1px solid rgba(74, 96, 112, 0.3);
             }
             .glacier-card {
-                background-color: #ffffff;
+                background-color: #141c2e;
                 border: 1px solid rgba(125, 211, 252, 0.1);
-                box-shadow: 0 1px 3px rgba(0,0,0,0.05);
                 transition: all 0.3s ease;
             }
             .glacier-card:hover {
                 border-color: #7dd3fc;
-                box-shadow: 0 4px 12px rgba(125, 211, 252, 0.08);
+                background-color: #1a2438;
             }
             .drawer-item {
                 transition: all 0.2s;
             }
             .drawer-item.active {
-                background-color: rgba(125, 211, 252, 0.08);
-                color: #7dd3fc;
-                border-right: 3px solid #7dd3fc;
-            }
-            /* Light mode info boxes for Issues CE */
-            .issues-info-note {
-                background-color: #c8eaff;
-                color: #003d66;
-            }
-            .issues-info-note strong {
-                color: #0099cc;
-            }
-            .issues-pending-note {
-                background-color: #eddffd;
-                color: #440055;
-            }
-            .issues-pending-note strong {
-                color: #6b528c;
-            }
-            /* Dark mode info boxes for Issues CE */
-            .dark .issues-info-note {
-                background-color: #1a3a52 !important;
-                color: #7dd3fc !important;
-                border-left-color: #7dd3fc !important;
-            }
-            .dark .issues-info-note strong {
-                color: #7dd3fc !important;
-            }
-            .dark .issues-info-note p {
-                color: #7dd3fc !important;
-            }
-            .dark .issues-pending-note {
-                background-color: #1c1331 !important;
-                color: #e8d0ff !important;
-                border-left-color: #c8a0f0 !important;
-            }
-            .dark .issues-pending-note strong {
-                color: #c8a0f0 !important;
-            }
-            .dark .issues-pending-note p {
-                color: #e8d0ff !important;
-            }
-            .dark .issues-pending-note span {
-                color: #e8d0ff !important;
-            }
-            .dark .issues-pending-note div span {
-                color: #e8d0ff !important;
-            }
-            /* Dark Mode Styles */
-            .dark {
-                background-color: #0a0e1a;
-                color: #e0e8f0;
-            }
-            .dark body {
-                background-color: #0a0e1a;
-                color: #e0e8f0;
-            }
-            .dark .glacier-surface {
-                background-color: #0f1524;
-                border: 1px solid rgba(74, 96, 112, 0.3);
-            }
-            .dark .glacier-card {
-                background-color: #141c2e;
-                border: 1px solid rgba(125, 211, 252, 0.1);
-                transition: all 0.3s ease;
-            }
-            .dark .glacier-card:hover {
-                border-color: #7dd3fc;
-                background-color: #1a2438;
-            }
-            .dark .drawer-item:hover {
-                background-color: #141c2e;
-            }
-            .dark .drawer-item.active {
                 background-color: rgba(125, 211, 252, 0.1);
                 color: #7dd3fc;
                 border-right: 3px solid #7dd3fc;
-            }
-            /* Dark Mode Tailwind Color Overrides */
-            .dark {
-                --color-background: #0a0e1a;
-                --color-surface: #0f1524;
-                --color-surface-container: #141c2e;
-                --color-surface-container-low: #111828;
-                --color-surface-container-lowest: #0a0e1a;
-                --color-surface-container-high: #1a2438;
-                --color-surface-container-highest: #202c42;
-                --color-surface-dim: #0f1524;
-                --color-surface-bright: #1a2438;
-                --color-surface-variant: #1a2438;
-                --color-on-surface: #e0e8f0;
-                --color-on-surface-variant: #a0b4c4;
-                --color-on-background: #e0e8f0;
-                --color-outline: #4a6070;
-                --color-outline-variant: #2a3a48;
-            }
-            .dark .bg-background { background-color: #0a0e1a; }
-            .dark .bg-surface { background-color: #0f1524; }
-            .dark .bg-surface-container { background-color: #141c2e; }
-            .dark .bg-surface-container-low { background-color: #111828; }
-            .dark .bg-surface-container-lowest { background-color: #0a0e1a; }
-            .dark .bg-surface-container-high { background-color: #1a2438 !important; }
-            .dark .bg-surface-container-highest { background-color: #202c42; }
-            /* Table styling for dark mode - Por Estado */
-            .dark .glacier-card table { background-color: transparent !important; }
-            .tab-content {
-                background-color: transparent !important;
-            }
-            .dark .glacier-card table thead { background-color: #0f1524 !important; }
-            .dark .glacier-card table thead tr { background-color: #0f1524 !important; }
-            .dark .glacier-card table thead tr th { background-color: #0f1524 !important; color: #7dd3fc !important; }
-            .dark .glacier-card table thead tr:hover { background-color: #0f1524 !important; }
-            .dark .glacier-card table thead th:hover { background-color: #0f1524 !important; }
-            .dark .glacier-card table tbody tr { transition: background-color 0.2s ease; }
-            .dark .glacier-card table tbody tr:hover { background-color: #0f1524 !important; }
-            .dark .bg-surface-dim { background-color: #0f1524; }
-            .dark .bg-surface-variant { background-color: #1a2438; }
-            .dark .border-outline-variant { border-color: #2a3a48; }
-            .dark .border-outline { border-color: #4a6070; }
-            .dark .text-on-surface { color: #e0e8f0; }
-            .dark .text-on-surface-variant { color: #a0b4c4; }
-            .dark .text-on-background { color: #e0e8f0; }
-            .dark .bg-tertiary { background-color: #c8a0f0; }
-            .dark .text-tertiary { color: #c8a0f0; }
-            .dark .bg-tertiary-container { background-color: #3d2060; }
-            .dark .text-tertiary-container { color: #3d2060; }
-            .dark .bg-tertiary-fixed { background-color: #e8d0ff; }
-            .dark .text-tertiary-fixed { color: #e8d0ff; }
-            .dark .text-on-tertiary { color: #1a002e; }
-            .dark .text-primary { color: #7dd3fc; }
-            .dark .text-on-primary-container { color: #a0d8f7; }
-            /* Light mode table backgrounds for Issues CE tab */
-            html:not(.dark) #issues .glacier-surface {
-                background-color: #ffffff !important;
-                color: #191c1e !important;
-            }
-            /* Light mode - table rows styling - no changes on hover/click */
-            html:not(.dark) #issues .glacier-surface table tbody tr {
-                user-select: none;
-            }
-            html:not(.dark) #issues .glacier-surface table tbody tr td {
-                color: #191c1e !important;
-                background-color: transparent !important;
-                font-weight: bold !important;
-            }
-            html:not(.dark) #issues .glacier-surface table tbody tr:hover td {
-                color: #191c1e !important;
-                background-color: transparent !important;
-            }
-            /* Dark mode table hover for Issues CE tab */
-            .dark #issues .glacier-surface table tbody tr:hover {
-                background-color: #1a2438 !important;
             }
         </style>
     </head>
     <body class="min-h-screen bg-background text-on-surface">
         <div class="flex min-h-screen">
-            <aside class="w-48 glacier-surface border-r border-outline-variant fixed h-full z-10 flex flex-col" data-purpose="navigation-sidebar">
+            <aside class="w-64 glacier-surface border-r border-outline-variant fixed h-full z-10 flex flex-col" data-purpose="navigation-sidebar">
                 <div class="p-6">
                     <h2 class="text-xs font-bold uppercase tracking-widest text-primary mb-8 flex items-center gap-2">
                         <span class="material-symbols-outlined text-xl">grid_view</span>
@@ -275,10 +125,6 @@
                     </nav>
                 </div>
                 <div class="mt-auto p-6">
-                    <button id="theme-toggle" class="w-full glacier-surface px-4 py-3 rounded-xl border border-primary/20 flex items-center justify-center gap-2 text-sm cursor-pointer hover:border-primary/40 transition-all mb-4" title="Cambiar tema">
-                        <span class="material-symbols-outlined text-primary" id="theme-icon">light_mode</span>
-                        <span class="text-on-surface-variant text-xs font-medium" id="theme-label">Modo Claro</span>
-                    </button>
                     <div class="bg-surface-container rounded-xl p-4 border border-outline-variant/30">
                         <p class="text-xs text-primary font-semibold mb-1 uppercase tracking-tighter">Continuity Eng.</p>
                         <p class="text-[10px] text-on-surface-variant">v2.4.0 Glacier Stable</p>
@@ -286,35 +132,33 @@
                 </div>
             </aside>
 
-            <main class="flex-1 ml-48 p-8 lg:p-12" data-purpose="dashboard-content">
+            <main class="flex-1 ml-64 p-8 lg:p-12" data-purpose="dashboard-content">
                 <section class="max-w-6xl mx-auto" id="projects">
                     <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
                         <div>
-                            <h1 class="text-4xl font-bold text-on-surface tracking-tight flex items-center gap-3">
+                            <h1 class="text-4xl font-bold text-white tracking-tight flex items-center gap-3">
                                 <span class="material-symbols-outlined text-primary text-4xl">inventory_2</span>
                                 Proyectos CE
                             </h1>
                             <p class="text-on-surface-variant mt-2">Seguimiento de iniciativas de continuidad de ingeniería</p>
                         </div>
-                        <div class="flex items-center gap-4">
-                            <div class="glacier-surface px-4 py-2 rounded-xl border border-primary/20 flex items-center gap-3 text-sm">
-                                <span class="material-symbols-outlined text-primary animate-pulse">sync</span>
-                                <span class="text-on-surface-variant">Live Data Active</span>
-                            </div>
+                        <div class="glacier-surface px-4 py-2 rounded-xl border border-primary/20 flex items-center gap-3 text-sm">
+                            <span class="material-symbols-outlined text-primary animate-pulse">sync</span>
+                            <span class="text-on-surface-variant">Live Data Active</span>
                         </div>
                     </div>
 
-                    <div class="bg-primary/10 border-l-4 border-primary p-4 rounded-r-xl mb-10 flex items-start gap-4">
+                    <div class="bg-surface-container border-l-4 border-primary p-4 rounded-r-xl mb-10 flex items-start gap-4">
                         <span class="material-symbols-outlined text-primary mt-0.5">info</span>
                         <p class="text-sm text-on-primary-container leading-relaxed"><strong class="text-primary">Nota:</strong> Los Pendientes son la suma de los estados Backlog, Planned, In progress, Blocked e In Review. No cuenta cancelados, ni archivados, ni completados.</p>
                     </div>
 
                     <div class="flex items-center gap-2 mb-8 overflow-x-auto pb-2" data-purpose="month-navigation">
-    <button class="px-5 py-2.5 rounded-full text-sm text-on-surface-variant hover:text-primary transition-all font-medium whitespace-nowrap" data-month="Enero">Enero</button>
-    <button class="px-5 py-2.5 rounded-full text-sm text-on-surface-variant hover:text-primary transition-all font-medium whitespace-nowrap" data-month="Febrero">Febrero</button>
-    <button class="px-5 py-2.5 rounded-full text-sm text-on-surface-variant hover:text-primary transition-all font-medium whitespace-nowrap" data-month="Marzo">Marzo</button>
-    <button class="px-5 py-2.5 rounded-full text-sm text-on-surface-variant hover:text-primary transition-all font-medium whitespace-nowrap" data-month="Abril">Abril</button>
-    <button class="px-5 py-2.5 rounded-full text-sm text-primary border-b-2 border-primary font-semibold whitespace-nowrap" data-month="Mayo">Mayo</button>
+    <button class="px-5 py-2.5 rounded-full text-sm text-on-surface-variant hover:text-white hover:bg-surface-container transition-all font-medium whitespace-nowrap" data-month="Enero">Enero 2026</button>
+    <button class="px-5 py-2.5 rounded-full text-sm text-on-surface-variant hover:text-white hover:bg-surface-container transition-all font-medium whitespace-nowrap" data-month="Febrero">Febrero 2026</button>
+    <button class="px-5 py-2.5 rounded-full text-sm text-on-surface-variant hover:text-white hover:bg-surface-container transition-all font-medium whitespace-nowrap" data-month="Marzo">Marzo 2026</button>
+    <button class="px-5 py-2.5 rounded-full text-sm text-on-surface-variant hover:text-white hover:bg-surface-container transition-all font-medium whitespace-nowrap" data-month="Abril">Abril 2026</button>
+    <button class="px-5 py-2.5 rounded-full text-sm text-primary bg-primary/10 border border-primary/30 shadow-lg shadow-primary/5 font-semibold whitespace-nowrap" data-month="Mayo">Mayo 2026</button>
                     </div>
 
                     <div class="tab-content" data-purpose="projects-data" id="tab-projects">
@@ -324,30 +168,30 @@
                         </div>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-10">
-        <div class="glacier-card w-full px-12 py-8 rounded-xl flex items-center justify-center gap-3">
+        <div class="glacier-card p-6 rounded-xl flex items-center justify-between">
             <span class="text-on-surface-variant text-xs font-bold uppercase tracking-tighter">Total</span>
-            <span class="text-5xl font-bold text-on-surface" id="metric-total">18</span>
+            <span class="text-4xl font-bold text-white" id="metric-total">18</span>
         </div>
-        <div class="glacier-card w-full px-12 py-8 rounded-xl flex items-center justify-center gap-3">
+        <div class="glacier-card p-6 rounded-xl flex items-center justify-between">
             <span class="text-on-surface-variant text-xs font-bold uppercase tracking-tighter">En Progreso</span>
-            <span class="text-5xl font-bold text-primary" id="metric-progress">2</span>
+            <span class="text-4xl font-bold text-primary" id="metric-progress">2</span>
         </div>
-        <div class="glacier-card w-full px-12 py-8 rounded-xl flex items-center justify-center gap-3">
+        <div class="glacier-card p-6 rounded-xl flex items-center justify-between">
             <span class="text-on-surface-variant text-xs font-bold uppercase tracking-tighter">Pendientes</span>
-            <span class="text-5xl font-bold text-secondary" id="metric-pending">15</span>
+            <span class="text-4xl font-bold text-secondary" id="metric-pending">15</span>
         </div>
-        <div class="glacier-card w-full px-12 py-8 rounded-xl flex items-center justify-center gap-3">
+        <div class="glacier-card p-6 rounded-xl flex items-center justify-between">
             <span class="text-on-surface-variant text-xs font-bold uppercase tracking-tighter">Bloqueados</span>
-            <span class="text-5xl font-bold text-error/60" id="metric-blocked">0</span>
+            <span class="text-4xl font-bold text-error/60" id="metric-blocked">0</span>
         </div>
-        <div class="glacier-card w-full px-12 py-8 rounded-xl border-tertiary border-2 flex items-center justify-center gap-3">
-            <span class="text-tertiary text-xs font-bold uppercase tracking-tighter">Cerrados</span>
-            <span class="text-5xl font-bold text-tertiary" id="metric-completed">1</span>
+        <div class="glacier-card p-6 rounded-xl border-tertiary border-2 flex items-center justify-between">
+            <span class="text-tertiary text-xs font-bold uppercase tracking-tighter">Completados</span>
+            <span class="text-4xl font-bold text-tertiary" id="metric-completed">1</span>
         </div>
                         </div>
 
                         <div class="mb-10">
-                            <h2 class="text-xl font-bold text-on-surface flex items-center gap-2 mb-6">
+                            <h2 class="text-xl font-bold text-white flex items-center gap-2 mb-6">
                                 <span class="material-symbols-outlined text-primary">branding_watermark</span>
                                 Proyectos por Marca
                             </h2>
@@ -359,8 +203,8 @@
             <div class="text-sm text-tertiary font-semibold text-center w-full brand-completed-label">completado</div>
         </div>
         <div class="grid grid-cols-2 gap-2 mt-4">
-            <div class="flex flex-col items-center justify-center"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-on-surface brand-total">6</span></div>
-            <div class="flex flex-col items-center justify-center"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary brand-pending">6</span></div>
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-white brand-total">6</span></div>
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary brand-pending">6</span></div>
         </div>
     </div>
     <div class="glacier-card p-6 rounded-xl brand-card" data-brand="PeruSim" style="display: block;">
@@ -370,8 +214,8 @@
             <div class="text-sm text-tertiary font-semibold text-center w-full brand-completed-label">completado</div>
         </div>
         <div class="grid grid-cols-2 gap-2 mt-4">
-            <div class="flex flex-col items-center justify-center"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-on-surface brand-total">1</span></div>
-            <div class="flex flex-col items-center justify-center"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary brand-pending">1</span></div>
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-white brand-total">1</span></div>
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary brand-pending">1</span></div>
         </div>
     </div>
     <div class="glacier-card p-6 rounded-xl brand-card" data-brand="Habla+" style="display: block;">
@@ -381,8 +225,8 @@
             <div class="text-sm text-tertiary font-semibold text-center w-full brand-completed-label">completado</div>
         </div>
         <div class="grid grid-cols-2 gap-2 mt-4">
-            <div class="flex flex-col items-center justify-center"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-on-surface brand-total">3</span></div>
-            <div class="flex flex-col items-center justify-center"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary brand-pending">2</span></div>
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-white brand-total">3</span></div>
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary brand-pending">2</span></div>
         </div>
     </div>
     <div class="glacier-card p-6 rounded-xl brand-card" data-brand="Wings" style="display: none;">
@@ -392,8 +236,8 @@
             <div class="text-sm text-tertiary font-semibold text-center w-full brand-completed-label">completado</div>
         </div>
         <div class="grid grid-cols-2 gap-2 mt-4">
-            <div class="flex flex-col items-center justify-center"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-on-surface brand-total">0</span></div>
-            <div class="flex flex-col items-center justify-center"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary brand-pending">0</span></div>
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-white brand-total">0</span></div>
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary brand-pending">0</span></div>
         </div>
     </div>
     <div class="glacier-card p-6 rounded-xl brand-card" data-brand="Fimo" style="display: none;">
@@ -403,8 +247,8 @@
             <div class="text-sm text-tertiary font-semibold text-center w-full brand-completed-label">completado</div>
         </div>
         <div class="grid grid-cols-2 gap-2 mt-4">
-            <div class="flex flex-col items-center justify-center"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-on-surface brand-total">0</span></div>
-            <div class="flex flex-col items-center justify-center"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary brand-pending">0</span></div>
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-white brand-total">0</span></div>
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary brand-pending">0</span></div>
         </div>
     </div>
     <div class="glacier-card p-6 rounded-xl brand-card" data-brand="Guinea" style="display: block;">
@@ -414,8 +258,8 @@
             <div class="text-sm text-tertiary font-semibold text-center w-full brand-completed-label">completado</div>
         </div>
         <div class="grid grid-cols-2 gap-2 mt-4">
-            <div class="flex flex-col items-center justify-center"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-on-surface brand-total">5</span></div>
-            <div class="flex flex-col items-center justify-center"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary brand-pending">5</span></div>
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-white brand-total">5</span></div>
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary brand-pending">5</span></div>
         </div>
     </div>
     <div class="glacier-card p-6 rounded-xl brand-card" data-brand="B2B" style="display: none;">
@@ -425,8 +269,8 @@
             <div class="text-sm text-tertiary font-semibold text-center w-full brand-completed-label">completado</div>
         </div>
         <div class="grid grid-cols-2 gap-2 mt-4">
-            <div class="flex flex-col items-center justify-center"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-on-surface brand-total">0</span></div>
-            <div class="flex flex-col items-center justify-center"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary brand-pending">0</span></div>
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-white brand-total">0</span></div>
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary brand-pending">0</span></div>
         </div>
     </div>
     <div class="glacier-card p-6 rounded-xl brand-card" data-brand="Partner" style="display: none;">
@@ -436,8 +280,8 @@
             <div class="text-sm text-tertiary font-semibold text-center w-full brand-completed-label">completado</div>
         </div>
         <div class="grid grid-cols-2 gap-2 mt-4">
-            <div class="flex flex-col items-center justify-center"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-on-surface brand-total">0</span></div>
-            <div class="flex flex-col items-center justify-center"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary brand-pending">0</span></div>
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-white brand-total">0</span></div>
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary brand-pending">0</span></div>
         </div>
     </div>
     <div class="glacier-card p-6 rounded-xl brand-card" data-brand="Legales" style="display: block;">
@@ -447,8 +291,8 @@
             <div class="text-sm text-tertiary font-semibold text-center w-full brand-completed-label">completado</div>
         </div>
         <div class="grid grid-cols-2 gap-2 mt-4">
-            <div class="flex flex-col items-center justify-center"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-on-surface brand-total">2</span></div>
-            <div class="flex flex-col items-center justify-center"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary brand-pending">2</span></div>
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-white brand-total">2</span></div>
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary brand-pending">2</span></div>
         </div>
     </div>
     <div class="glacier-card p-6 rounded-xl brand-card" data-brand="Finanzas" style="display: block;">
@@ -458,8 +302,8 @@
             <div class="text-sm text-tertiary font-semibold text-center w-full brand-completed-label">completado</div>
         </div>
         <div class="grid grid-cols-2 gap-2 mt-4">
-            <div class="flex flex-col items-center justify-center"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-on-surface brand-total">1</span></div>
-            <div class="flex flex-col items-center justify-center"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary brand-pending">1</span></div>
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-white brand-total">1</span></div>
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary brand-pending">1</span></div>
         </div>
     </div>
     <div class="glacier-card p-6 rounded-xl brand-card" data-brand="Airalo" style="display: none;">
@@ -469,8 +313,8 @@
             <div class="text-sm text-tertiary font-semibold text-center w-full brand-completed-label">completado</div>
         </div>
         <div class="grid grid-cols-2 gap-2 mt-4">
-            <div class="flex flex-col items-center justify-center"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-on-surface brand-total">0</span></div>
-            <div class="flex flex-col items-center justify-center"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary brand-pending">0</span></div>
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-white brand-total">0</span></div>
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary brand-pending">0</span></div>
         </div>
     </div>
     <div class="glacier-card p-6 rounded-xl brand-card" data-brand="Sin clasificar" style="display: none;">
@@ -480,8 +324,8 @@
             <div class="text-sm text-tertiary font-semibold text-center w-full brand-completed-label">completado</div>
         </div>
         <div class="grid grid-cols-2 gap-2 mt-4">
-            <div class="flex flex-col items-center justify-center"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-on-surface brand-total">0</span></div>
-            <div class="flex flex-col items-center justify-center"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary brand-pending">0</span></div>
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-white brand-total">0</span></div>
+            <div class="flex flex-col"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary brand-pending">0</span></div>
         </div>
     </div>
                             </div>
@@ -491,14 +335,14 @@
                             </div>
                         </div>
 
-                        <div class="glacier-card p-8 rounded-2xl shadow-xl shadow-black/40" data-purpose="status-table-container">
+                        <div class="glacier-surface p-8 rounded-2xl shadow-xl shadow-black/40" data-purpose="status-table-container">
                             <div class="flex items-center justify-between mb-8">
-                                <h2 class="text-xl font-bold text-on-surface flex items-center gap-2">
+                                <h2 class="text-xl font-bold text-white flex items-center gap-2">
                                     <span class="material-symbols-outlined text-primary">bar_chart</span>
                                     Por Estado
                                 </h2>
                             </div>
-                            <div class="overflow-hidden rounded-xl border border-outline-variant/50">
+                            <div class="overflow-hidden rounded-xl border border-outline-variant/30">
                                 <table aria-label="Desglose de proyectos por estado" class="w-full text-left">
                                     <thead>
                                         <tr class="bg-surface-container-high">
@@ -506,53 +350,53 @@
                                             <th class="px-6 py-4 text-xs font-bold text-primary uppercase tracking-widest text-right">Total</th>
                                         </tr>
                                     </thead>
-                                    <tbody class="divide-y divide-outline-variant/30">
+                                    <tbody class="divide-y divide-outline-variant/20">
         <tr class="hover:bg-surface-container-highest/50 transition-colors group">
             <td class="px-6 py-4 flex items-center gap-3">
                 <span class="h-2 w-2 rounded-full bg-secondary"></span>
-                <span class="text-on-surface font-medium capitalize">Backlog</span>
+                <span class="text-on-surface group-hover:text-white transition-colors capitalize">Backlog</span>
             </td>
             <td class="px-6 py-4 text-right font-semibold text-on-surface" id="status-backlog">12</td>
         </tr>
         <tr class="hover:bg-surface-container-highest/50 transition-colors group">
             <td class="px-6 py-4 flex items-center gap-3">
                 <span class="h-2 w-2 rounded-full bg-secondary"></span>
-                <span class="text-on-surface font-medium capitalize">Planned</span>
+                <span class="text-on-surface group-hover:text-white transition-colors capitalize">Planned</span>
             </td>
             <td class="px-6 py-4 text-right font-semibold text-on-surface" id="status-planned">3</td>
         </tr>
         <tr class="hover:bg-surface-container-highest/50 transition-colors group">
             <td class="px-6 py-4 flex items-center gap-3">
                 <span class="h-2 w-2 rounded-full bg-secondary"></span>
-                <span class="text-on-surface font-medium capitalize">In Progress</span>
+                <span class="text-on-surface group-hover:text-white transition-colors capitalize">In Progress</span>
             </td>
             <td class="px-6 py-4 text-right font-semibold text-on-surface" id="status-in-progress">2</td>
         </tr>
         <tr class="hover:bg-surface-container-highest/50 transition-colors group">
             <td class="px-6 py-4 flex items-center gap-3">
                 <span class="h-2 w-2 rounded-full bg-secondary"></span>
-                <span class="text-on-surface font-medium capitalize">Blocked</span>
+                <span class="text-on-surface group-hover:text-white transition-colors capitalize">Blocked</span>
             </td>
             <td class="px-6 py-4 text-right font-semibold text-on-surface" id="status-blocked">0</td>
         </tr>
         <tr class="hover:bg-surface-container-highest/50 transition-colors group">
             <td class="px-6 py-4 flex items-center gap-3">
                 <span class="h-2 w-2 rounded-full bg-secondary"></span>
-                <span class="text-on-surface font-medium capitalize">In Review</span>
+                <span class="text-on-surface group-hover:text-white transition-colors capitalize">In Review</span>
             </td>
             <td class="px-6 py-4 text-right font-semibold text-on-surface" id="status-in-review">0</td>
         </tr>
         <tr class="hover:bg-surface-container-highest/50 transition-colors group">
             <td class="px-6 py-4 flex items-center gap-3">
                 <span class="h-2 w-2 rounded-full bg-secondary"></span>
-                <span class="text-on-surface font-medium capitalize">Canceled</span>
+                <span class="text-on-surface group-hover:text-white transition-colors capitalize">Canceled</span>
             </td>
             <td class="px-6 py-4 text-right font-semibold text-on-surface" id="status-canceled">0</td>
         </tr>
         <tr class="hover:bg-surface-container-highest/50 transition-colors group">
             <td class="px-6 py-4 flex items-center gap-3">
                 <span class="h-2 w-2 rounded-full bg-secondary"></span>
-                <span class="text-on-surface font-medium capitalize">Archived</span>
+                <span class="text-on-surface group-hover:text-white transition-colors capitalize">Archived</span>
             </td>
             <td class="px-6 py-4 text-right font-semibold text-on-surface" id="status-archived">0</td>
         </tr>
@@ -564,746 +408,14 @@
                 </section>
 
                 <section id="issues" style="display: none;">
-<div class="max-w-6xl mx-auto">
-    <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
-        <div>
-            <h1 class="text-4xl font-bold text-on-surface tracking-tight flex items-center gap-3">
-                <span class="material-symbols-outlined text-primary text-4xl">bug_report</span>
-                Issues Sin Proyecto CE
-            </h1>
-            <p class="text-on-surface-variant mt-2">Seguimiento de incidencias operativas no vinculadas a proyectos</p>
-        </div>
-    </div>
 
-    <div class="issues-info-note border-l-4 border-primary p-4 rounded-r-xl mb-6 flex items-start gap-4">
-        <span class="material-symbols-outlined text-primary mt-0.5">info</span>
-        <p class="text-sm text-on-surface leading-relaxed"><strong class="text-primary">Nota:</strong> Solo se muestran issues que NO pertenecen a ningún proyecto. Los issues asociados a proyectos se ven en la sección "Proyectos".</p>
-    </div>
-    <div class="issues-pending-note border-l-4 border-tertiary p-4 rounded-r-xl mb-10 flex items-start gap-4">
-        <span class="material-symbols-outlined text-tertiary mt-0.5">assignment_late</span>
-        <div class="text-sm text-on-surface leading-relaxed">
-            <strong class="text-tertiary block mb-1">Definición de "Pendientes":</strong>
-            <div class="flex flex-wrap gap-x-4 gap-y-1">
-                <span class="">✓ Triage, Planning, Backlog, In Progress, In Review, Blocked</span>
-                <span class="opacity-70">✗ NO se cuentan: Closed, Discarded</span>
-            </div>
-        </div>
-    </div>
-
-    <div class="flex items-center gap-2 mb-8 overflow-x-auto pb-2" data-purpose="month-navigation">
-    <button class="px-5 py-2.5 rounded-full text-sm text-on-surface-variant font-medium hover:text-primary transition-all whitespace-nowrap" data-month="Enero">Enero</button>
-    <button class="px-5 py-2.5 rounded-full text-sm text-on-surface-variant font-medium hover:text-primary transition-all whitespace-nowrap" data-month="Febrero">Febrero</button>
-    <button class="px-5 py-2.5 rounded-full text-sm text-on-surface-variant font-medium hover:text-primary transition-all whitespace-nowrap" data-month="Marzo">Marzo</button>
-    <button class="px-5 py-2.5 rounded-full text-sm text-on-surface-variant font-medium hover:text-primary transition-all whitespace-nowrap" data-month="Abril">Abril</button>
-    <button class="px-5 py-2.5 rounded-full text-sm text-primary border-b-2 border-primary font-semibold transition-all whitespace-nowrap" data-month="Mayo">Mayo</button>
-    </div>
-
-    <div class="tab-content" id="tab-issues" data-month="Mayo">
-        <div class="flex items-center gap-2 mb-6">
-            <span class="h-2 w-2 rounded-full bg-primary"></span>
-            <span class="text-sm font-medium text-on-surface-variant uppercase tracking-widest">Mayo 2026: 58 issues totales | Pendientes: 29</span>
-        </div>
-
-        <div class="glacier-card p-6 rounded-xl mb-10">
-            <div class="flex justify-between items-center mb-4">
-                <h4 class="text-sm font-bold text-on-surface">Progreso General</h4>
-                <span class="text-lg font-bold text-primary">50%</span>
-            </div>
-            <div class="w-full bg-surface-container rounded-full overflow-hidden h-6">
-                <div class="h-full rounded-full transition-all duration-1000" style="width: 50%; background: linear-gradient(90deg, rgb(125, 211, 252) 0%, rgb(186, 230, 253) 100%);"></div>
-            </div>
-        </div>
-
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-10 lg:grid-cols-6">
-            <div class="bg-surface-container-low p-4 rounded-lg flex flex-col items-center justify-center text-center border border-outline-variant/20 shadow-sm">
-                <span class="text-on-surface-variant text-[10px] font-bold uppercase mb-2 tracking-widest">Total Issues</span>
-                <span class="text-3xl font-bold text-on-surface">58</span>
-            </div>
-            <div class="bg-surface-container-low p-4 rounded-lg flex flex-col items-center justify-center text-center border border-outline-variant/20 shadow-sm">
-                <span class="text-on-surface-variant text-[10px] font-bold uppercase mb-2 tracking-widest">En Progreso</span>
-                <span class="text-3xl font-bold text-primary">6</span>
-            </div>
-            <div class="bg-surface-container-low p-4 rounded-lg flex flex-col items-center justify-center text-center border border-outline-variant/20 shadow-sm">
-                <span class="text-on-surface-variant text-[10px] font-bold uppercase mb-2 tracking-widest">Pendientes</span>
-                <span class="text-3xl font-bold text-on-surface">29</span>
-            </div>
-            <div class="bg-surface-container-low p-4 rounded-lg flex flex-col items-center justify-center text-center border border-outline-variant/20 shadow-sm">
-                <span class="text-on-surface-variant text-[10px] font-bold uppercase mb-2 tracking-widest">Bloqueados</span>
-                <span class="text-3xl font-bold text-error">0</span>
-            </div>
-            <div class="bg-surface-container-low p-4 rounded-lg flex flex-col items-center justify-center text-center border border-outline-variant/20 shadow-sm">
-                <span class="text-on-surface-variant text-[10px] font-bold uppercase mb-2 tracking-widest">Sin Label</span>
-                <span class="text-3xl font-bold text-on-surface-variant">0</span>
-            </div>
-            <div class="bg-tertiary-container/30 p-4 rounded-lg flex flex-col items-center justify-center text-center border border-tertiary/20 shadow-sm">
-                <span class="text-tertiary text-[10px] font-bold uppercase mb-2 tracking-widest">Cerrados</span>
-                <span class="text-3xl font-bold text-tertiary">29</span>
-            </div>
-        </div>
-
-        <div class="mb-10">
-            <h2 class="text-xl font-bold text-on-surface flex items-center gap-2 mb-6">
-                <span class="material-symbols-outlined text-primary">inventory_2</span>
-                Resumen por Marca
-            </h2>
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 mb-4">
-    <div class="glacier-card p-6 rounded-xl brand-card" data-brand="Cuy" style="display: block;">
-        <div class="flex flex-col items-center">
-            <div class="text-primary font-bold text-sm border-b border-outline-variant/20 pb-3 w-full text-center">Cuy</div>
-            <div class="text-3xl text-tertiary font-bold mt-3 brand-percentage text-center w-full">0%</div>
-            <div class="text-sm text-tertiary font-semibold text-center w-full brand-completed-label">completado</div>
-        </div>
-        <div class="grid grid-cols-2 gap-2 mt-4">
-            <div class="flex flex-col items-center justify-center"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-on-surface brand-total">16</span></div>
-            <div class="flex flex-col items-center justify-center"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary brand-pending">10</span></div>
-        </div>
-    </div>
-    <div class="glacier-card p-6 rounded-xl brand-card" data-brand="PeruSim" style="display: block;">
-        <div class="flex flex-col items-center">
-            <div class="text-primary font-bold text-sm border-b border-outline-variant/20 pb-3 w-full text-center">PeruSim+</div>
-            <div class="text-3xl text-tertiary font-bold mt-3 brand-percentage text-center w-full">0%</div>
-            <div class="text-sm text-tertiary font-semibold text-center w-full brand-completed-label">completado</div>
-        </div>
-        <div class="grid grid-cols-2 gap-2 mt-4">
-            <div class="flex flex-col items-center justify-center"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-on-surface brand-total">5</span></div>
-            <div class="flex flex-col items-center justify-center"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary brand-pending">3</span></div>
-        </div>
-    </div>
-    <div class="glacier-card p-6 rounded-xl brand-card" data-brand="Habla+" style="display: block;">
-        <div class="flex flex-col items-center">
-            <div class="text-primary font-bold text-sm border-b border-outline-variant/20 pb-3 w-full text-center">Habla+</div>
-            <div class="text-3xl text-tertiary font-bold mt-3 brand-percentage text-center w-full">0%</div>
-            <div class="text-sm text-tertiary font-semibold text-center w-full brand-completed-label">completado</div>
-        </div>
-        <div class="grid grid-cols-2 gap-2 mt-4">
-            <div class="flex flex-col items-center justify-center"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-on-surface brand-total">5</span></div>
-            <div class="flex flex-col items-center justify-center"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary brand-pending">3</span></div>
-        </div>
-    </div>
-    <div class="glacier-card p-6 rounded-xl brand-card" data-brand="Wings" style="display: block;">
-        <div class="flex flex-col items-center">
-            <div class="text-primary font-bold text-sm border-b border-outline-variant/20 pb-3 w-full text-center">Wings</div>
-            <div class="text-3xl text-tertiary font-bold mt-3 brand-percentage text-center w-full">0%</div>
-            <div class="text-sm text-tertiary font-semibold text-center w-full brand-completed-label">completado</div>
-        </div>
-        <div class="grid grid-cols-2 gap-2 mt-4">
-            <div class="flex flex-col items-center justify-center"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-on-surface brand-total">3</span></div>
-            <div class="flex flex-col items-center justify-center"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary brand-pending">0</span></div>
-        </div>
-    </div>
-    <div class="glacier-card p-6 rounded-xl brand-card" data-brand="Fimo" style="display: none;">
-        <div class="flex flex-col items-center">
-            <div class="text-primary font-bold text-sm border-b border-outline-variant/20 pb-3 w-full text-center">Fimo</div>
-            <div class="text-3xl text-tertiary font-bold mt-3 brand-percentage text-center w-full">0%</div>
-            <div class="text-sm text-tertiary font-semibold text-center w-full brand-completed-label">completado</div>
-        </div>
-        <div class="grid grid-cols-2 gap-2 mt-4">
-            <div class="flex flex-col items-center justify-center"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-on-surface brand-total">0</span></div>
-            <div class="flex flex-col items-center justify-center"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary brand-pending">0</span></div>
-        </div>
-    </div>
-    <div class="glacier-card p-6 rounded-xl brand-card" data-brand="Guinea" style="display: block;">
-        <div class="flex flex-col items-center">
-            <div class="text-primary font-bold text-sm border-b border-outline-variant/20 pb-3 w-full text-center">Guinea</div>
-            <div class="text-3xl text-tertiary font-bold mt-3 brand-percentage text-center w-full">0%</div>
-            <div class="text-sm text-tertiary font-semibold text-center w-full brand-completed-label">completado</div>
-        </div>
-        <div class="grid grid-cols-2 gap-2 mt-4">
-            <div class="flex flex-col items-center justify-center"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-on-surface brand-total">9</span></div>
-            <div class="flex flex-col items-center justify-center"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary brand-pending">5</span></div>
-        </div>
-    </div>
-    <div class="glacier-card p-6 rounded-xl brand-card" data-brand="B2B" style="display: block;">
-        <div class="flex flex-col items-center">
-            <div class="text-primary font-bold text-sm border-b border-outline-variant/20 pb-3 w-full text-center">B2B</div>
-            <div class="text-3xl text-tertiary font-bold mt-3 brand-percentage text-center w-full">0%</div>
-            <div class="text-sm text-tertiary font-semibold text-center w-full brand-completed-label">completado</div>
-        </div>
-        <div class="grid grid-cols-2 gap-2 mt-4">
-            <div class="flex flex-col items-center justify-center"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-on-surface brand-total">3</span></div>
-            <div class="flex flex-col items-center justify-center"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary brand-pending">2</span></div>
-        </div>
-    </div>
-    <div class="glacier-card p-6 rounded-xl brand-card" data-brand="Partner" style="display: block;">
-        <div class="flex flex-col items-center">
-            <div class="text-primary font-bold text-sm border-b border-outline-variant/20 pb-3 w-full text-center">Partner</div>
-            <div class="text-3xl text-tertiary font-bold mt-3 brand-percentage text-center w-full">0%</div>
-            <div class="text-sm text-tertiary font-semibold text-center w-full brand-completed-label">completado</div>
-        </div>
-        <div class="grid grid-cols-2 gap-2 mt-4">
-            <div class="flex flex-col items-center justify-center"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-on-surface brand-total">2</span></div>
-            <div class="flex flex-col items-center justify-center"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary brand-pending">1</span></div>
-        </div>
-    </div>
-    <div class="glacier-card p-6 rounded-xl brand-card" data-brand="Legales" style="display: block;">
-        <div class="flex flex-col items-center">
-            <div class="text-primary font-bold text-sm border-b border-outline-variant/20 pb-3 w-full text-center">Legales</div>
-            <div class="text-3xl text-tertiary font-bold mt-3 brand-percentage text-center w-full">0%</div>
-            <div class="text-sm text-tertiary font-semibold text-center w-full brand-completed-label">completado</div>
-        </div>
-        <div class="grid grid-cols-2 gap-2 mt-4">
-            <div class="flex flex-col items-center justify-center"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-on-surface brand-total">2</span></div>
-            <div class="flex flex-col items-center justify-center"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary brand-pending">1</span></div>
-        </div>
-    </div>
-    <div class="glacier-card p-6 rounded-xl brand-card" data-brand="Finanzas" style="display: block;">
-        <div class="flex flex-col items-center">
-            <div class="text-primary font-bold text-sm border-b border-outline-variant/20 pb-3 w-full text-center">Finanzas</div>
-            <div class="text-3xl text-tertiary font-bold mt-3 brand-percentage text-center w-full">0%</div>
-            <div class="text-sm text-tertiary font-semibold text-center w-full brand-completed-label">completado</div>
-        </div>
-        <div class="grid grid-cols-2 gap-2 mt-4">
-            <div class="flex flex-col items-center justify-center"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-on-surface brand-total">4</span></div>
-            <div class="flex flex-col items-center justify-center"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary brand-pending">2</span></div>
-        </div>
-    </div>
-    <div class="glacier-card p-6 rounded-xl brand-card" data-brand="Airalo" style="display: block;">
-        <div class="flex flex-col items-center">
-            <div class="text-primary font-bold text-sm border-b border-outline-variant/20 pb-3 w-full text-center">Airalo</div>
-            <div class="text-3xl text-tertiary font-bold mt-3 brand-percentage text-center w-full">0%</div>
-            <div class="text-sm text-tertiary font-semibold text-center w-full brand-completed-label">completado</div>
-        </div>
-        <div class="grid grid-cols-2 gap-2 mt-4">
-            <div class="flex flex-col items-center justify-center"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-on-surface brand-total">4</span></div>
-            <div class="flex flex-col items-center justify-center"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary brand-pending">2</span></div>
-        </div>
-    </div>
-    <div class="glacier-card p-6 rounded-xl brand-card" data-brand="Sin clasificar" style="display: none;">
-        <div class="flex flex-col items-center">
-            <div class="text-primary font-bold text-sm border-b border-outline-variant/20 pb-3 w-full text-center">Sin clasificar</div>
-            <div class="text-3xl text-tertiary font-bold mt-3 brand-percentage text-center w-full">0%</div>
-            <div class="text-sm text-tertiary font-semibold text-center w-full brand-completed-label">completado</div>
-        </div>
-        <div class="grid grid-cols-2 gap-2 mt-4">
-            <div class="flex flex-col items-center justify-center"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Total</span><span class="text-lg font-bold text-on-surface brand-total">0</span></div>
-            <div class="flex flex-col items-center justify-center"><span class="text-[10px] text-on-surface-variant uppercase font-bold">Pend.</span><span class="text-lg font-bold text-secondary brand-pending">0</span></div>
-        </div>
-    </div>
-            </div>
-        </div>
-
-        <div class="glacier-surface p-8 rounded-2xl mb-10 shadow-xl shadow-black/40">
-            <div class="flex items-center justify-between mb-8">
-                <h2 class="text-xl font-bold text-on-surface flex items-center gap-2">
-                    <span class="material-symbols-outlined text-primary">bar_chart</span>
-                    Por Estado (Team)
-                </h2>
-            </div>
-            <div class="overflow-hidden rounded-xl border border-outline-variant/50">
-                <table class="w-full text-left">
-                    <thead>
-                        <tr class="bg-surface-container-high">
-                            <th class="px-6 py-4 text-xs font-bold text-primary uppercase tracking-widest">Estado</th>
-                            <th class="px-6 py-4 text-xs font-bold text-primary uppercase tracking-widest text-right">CE1</th>
-                            <th class="px-6 py-4 text-xs font-bold text-primary uppercase tracking-widest text-right">CE2</th>
-                            <th class="px-6 py-4 text-xs font-bold text-primary uppercase tracking-widest text-right">Total</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-outline-variant/30">
-        <tr class="hover:bg-surface-container-highest/50 transition-colors">
-            <td class="px-6 py-4 text-sm text-on-surface">Backlog</td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant text-right">0</td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant text-right font-medium">14</td>
-            <td class="px-6 py-4 text-sm text-on-surface text-right font-bold">14</td>
-        </tr>
-        <tr class="hover:bg-surface-container-highest/50 transition-colors">
-            <td class="px-6 py-4 text-sm text-on-surface">Closed</td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant text-right">0</td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant text-right font-medium">29</td>
-            <td class="px-6 py-4 text-sm text-on-surface text-right font-bold">29</td>
-        </tr>
-        <tr class="hover:bg-surface-container-highest/50 transition-colors">
-            <td class="px-6 py-4 text-sm text-on-surface">In Progress</td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant text-right">0</td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant text-right font-medium">6</td>
-            <td class="px-6 py-4 text-sm text-on-surface text-right font-bold">6</td>
-        </tr>
-        <tr class="hover:bg-surface-container-highest/50 transition-colors">
-            <td class="px-6 py-4 text-sm text-on-surface">In Review</td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant text-right">0</td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant text-right font-medium">2</td>
-            <td class="px-6 py-4 text-sm text-on-surface text-right font-bold">2</td>
-        </tr>
-        <tr class="hover:bg-surface-container-highest/50 transition-colors">
-            <td class="px-6 py-4 text-sm text-on-surface">Planning</td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant text-right">0</td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant text-right font-medium">7</td>
-            <td class="px-6 py-4 text-sm text-on-surface text-right font-bold">7</td>
-        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <div class="glacier-surface p-8 rounded-2xl shadow-xl shadow-black/40">
-            <div class="flex items-center justify-between mb-8">
-                <h2 class="text-xl font-bold text-on-surface flex items-center gap-2">
-                    <span class="material-symbols-outlined text-primary">hourglass_empty</span>
-                    Pendientes por Revisar (29)
-                </h2>
-            </div>
-            <div class="overflow-x-auto rounded-xl border border-outline-variant/50">
-                <table class="w-full text-left">
-                    <thead>
-                        <tr class="bg-surface-container-high">
-                            <th class="px-6 py-4 text-xs font-bold text-primary uppercase tracking-widest">ID Issue</th>
-                            <th class="px-6 py-4 text-xs font-bold text-primary uppercase tracking-widest">Título</th>
-                            <th class="px-6 py-4 text-xs font-bold text-primary uppercase tracking-widest">Estado</th>
-                            <th class="px-6 py-4 text-xs font-bold text-primary uppercase tracking-widest">Producto</th>
-                            <th class="px-6 py-4 text-xs font-bold text-primary uppercase tracking-widest">Team</th>
-                            <th class="px-6 py-4 text-xs font-bold text-primary uppercase tracking-widest text-right">Acción</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-outline-variant/30">
-        <tr class="hover:bg-surface-container-highest/50 transition-colors group">
-            <td class="px-6 py-4 text-sm font-bold text-on-surface">CE2-1911</td>
-            <td class="px-6 py-4 text-sm text-on-surface group-hover:text-white">Izipay no guarda mes ni año de expiración</td>
-            <td class="px-6 py-4 text-sm">
-                <span class="px-2 py-1 rounded-md bg-surface-container text-on-surface-variant text-xs font-medium">Backlog</span>
-            </td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant">Habla+</td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant">CE2</td>
-            <td class="px-6 py-4 text-right">
-                <a class="text-primary hover:underline text-sm font-medium flex items-center justify-end gap-1" href="https://linear.app/guinea/issue/CE2-1911" target="_blank">
-                    Abrir <span class="material-symbols-outlined text-xs">arrow_forward</span>
-                </a>
-            </td>
-        </tr>
-        <tr class="hover:bg-surface-container-highest/50 transition-colors group">
-            <td class="px-6 py-4 text-sm font-bold text-on-surface">CE2-1910</td>
-            <td class="px-6 py-4 text-sm text-on-surface group-hover:text-white">Pago Yape no visible bloquea preactivación de chip</td>
-            <td class="px-6 py-4 text-sm">
-                <span class="px-2 py-1 rounded-md bg-surface-container text-on-surface-variant text-xs font-medium">Planning</span>
-            </td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant">Cuy</td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant">CE2</td>
-            <td class="px-6 py-4 text-right">
-                <a class="text-primary hover:underline text-sm font-medium flex items-center justify-end gap-1" href="https://linear.app/guinea/issue/CE2-1910" target="_blank">
-                    Abrir <span class="material-symbols-outlined text-xs">arrow_forward</span>
-                </a>
-            </td>
-        </tr>
-        <tr class="hover:bg-surface-container-highest/50 transition-colors group">
-            <td class="px-6 py-4 text-sm font-bold text-on-surface">CE2-1898</td>
-            <td class="px-6 py-4 text-sm text-on-surface group-hover:text-white">Actualizar reporte B2B/IoT cada lunes</td>
-            <td class="px-6 py-4 text-sm">
-                <span class="px-2 py-1 rounded-md bg-surface-container text-on-surface-variant text-xs font-medium">Backlog</span>
-            </td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant">B2B</td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant">CE2</td>
-            <td class="px-6 py-4 text-right">
-                <a class="text-primary hover:underline text-sm font-medium flex items-center justify-end gap-1" href="https://linear.app/guinea/issue/CE2-1898" target="_blank">
-                    Abrir <span class="material-symbols-outlined text-xs">arrow_forward</span>
-                </a>
-            </td>
-        </tr>
-        <tr class="hover:bg-surface-container-highest/50 transition-colors group">
-            <td class="px-6 py-4 text-sm font-bold text-on-surface">CE2-1897</td>
-            <td class="px-6 py-4 text-sm text-on-surface group-hover:text-white">Airalo muestra eSIMs finalizados con paquetes acti...</td>
-            <td class="px-6 py-4 text-sm">
-                <span class="px-2 py-1 rounded-md bg-surface-container text-on-surface-variant text-xs font-medium">Backlog</span>
-            </td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant">Airalo</td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant">CE2</td>
-            <td class="px-6 py-4 text-right">
-                <a class="text-primary hover:underline text-sm font-medium flex items-center justify-end gap-1" href="https://linear.app/guinea/issue/CE2-1897" target="_blank">
-                    Abrir <span class="material-symbols-outlined text-xs">arrow_forward</span>
-                </a>
-            </td>
-        </tr>
-        <tr class="hover:bg-surface-container-highest/50 transition-colors group">
-            <td class="px-6 py-4 text-sm font-bold text-on-surface">CE2-1884</td>
-            <td class="px-6 py-4 text-sm text-on-surface group-hover:text-white">Regularizar transacciones y boletas de casos Yape ...</td>
-            <td class="px-6 py-4 text-sm">
-                <span class="px-2 py-1 rounded-md bg-surface-container text-on-surface-variant text-xs font-medium">Backlog</span>
-            </td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant">Finanzas</td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant">CE2</td>
-            <td class="px-6 py-4 text-right">
-                <a class="text-primary hover:underline text-sm font-medium flex items-center justify-end gap-1" href="https://linear.app/guinea/issue/CE2-1884" target="_blank">
-                    Abrir <span class="material-symbols-outlined text-xs">arrow_forward</span>
-                </a>
-            </td>
-        </tr>
-        <tr class="hover:bg-surface-container-highest/50 transition-colors group">
-            <td class="px-6 py-4 text-sm font-bold text-on-surface">CE2-1882</td>
-            <td class="px-6 py-4 text-sm text-on-surface group-hover:text-white">Extras de 1, 5 y 10 GB no aparecen en la app</td>
-            <td class="px-6 py-4 text-sm">
-                <span class="px-2 py-1 rounded-md bg-surface-container text-on-surface-variant text-xs font-medium">Backlog</span>
-            </td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant">PeruSim+</td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant">CE2</td>
-            <td class="px-6 py-4 text-right">
-                <a class="text-primary hover:underline text-sm font-medium flex items-center justify-end gap-1" href="https://linear.app/guinea/issue/CE2-1882" target="_blank">
-                    Abrir <span class="material-symbols-outlined text-xs">arrow_forward</span>
-                </a>
-            </td>
-        </tr>
-        <tr class="hover:bg-surface-container-highest/50 transition-colors group">
-            <td class="px-6 py-4 text-sm font-bold text-on-surface">CE2-1879</td>
-            <td class="px-6 py-4 text-sm text-on-surface group-hover:text-white">Registrar excepción en lista blanca para línea 927...</td>
-            <td class="px-6 py-4 text-sm">
-                <span class="px-2 py-1 rounded-md bg-tertiary-container/20 text-tertiary text-xs font-medium">In Review</span>
-            </td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant">Guinea</td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant">CE2</td>
-            <td class="px-6 py-4 text-right">
-                <a class="text-primary hover:underline text-sm font-medium flex items-center justify-end gap-1" href="https://linear.app/guinea/issue/CE2-1879" target="_blank">
-                    Abrir <span class="material-symbols-outlined text-xs">arrow_forward</span>
-                </a>
-            </td>
-        </tr>
-        <tr class="hover:bg-surface-container-highest/50 transition-colors group">
-            <td class="px-6 py-4 text-sm font-bold text-on-surface">CE2-1863</td>
-            <td class="px-6 py-4 text-sm text-on-surface group-hover:text-white">Guinea - Requerimiento de Victor sobre minutos ent...</td>
-            <td class="px-6 py-4 text-sm">
-                <span class="px-2 py-1 rounded-md bg-surface-container text-on-surface-variant text-xs font-medium">Planning</span>
-            </td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant">Guinea</td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant">CE2</td>
-            <td class="px-6 py-4 text-right">
-                <a class="text-primary hover:underline text-sm font-medium flex items-center justify-end gap-1" href="https://linear.app/guinea/issue/CE2-1863" target="_blank">
-                    Abrir <span class="material-symbols-outlined text-xs">arrow_forward</span>
-                </a>
-            </td>
-        </tr>
-        <tr class="hover:bg-surface-container-highest/50 transition-colors group">
-            <td class="px-6 py-4 text-sm font-bold text-on-surface">CE2-1860</td>
-            <td class="px-6 py-4 text-sm text-on-surface group-hover:text-white">Regularizar boleta faltante pendiente en Finanzas</td>
-            <td class="px-6 py-4 text-sm">
-                <span class="px-2 py-1 rounded-md bg-surface-container text-on-surface-variant text-xs font-medium">Backlog</span>
-            </td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant">Finanzas</td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant">CE2</td>
-            <td class="px-6 py-4 text-right">
-                <a class="text-primary hover:underline text-sm font-medium flex items-center justify-end gap-1" href="https://linear.app/guinea/issue/CE2-1860" target="_blank">
-                    Abrir <span class="material-symbols-outlined text-xs">arrow_forward</span>
-                </a>
-            </td>
-        </tr>
-        <tr class="hover:bg-surface-container-highest/50 transition-colors group">
-            <td class="px-6 py-4 text-sm font-bold text-on-surface">CE2-1613</td>
-            <td class="px-6 py-4 text-sm text-on-surface group-hover:text-white">Regularizar boleta del caso de recarga Yape</td>
-            <td class="px-6 py-4 text-sm">
-                <span class="px-2 py-1 rounded-md bg-surface-container text-on-surface-variant text-xs font-medium">Backlog</span>
-            </td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant">Cuy</td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant">CE2</td>
-            <td class="px-6 py-4 text-right">
-                <a class="text-primary hover:underline text-sm font-medium flex items-center justify-end gap-1" href="https://linear.app/guinea/issue/CE2-1613" target="_blank">
-                    Abrir <span class="material-symbols-outlined text-xs">arrow_forward</span>
-                </a>
-            </td>
-        </tr>
-        <tr class="hover:bg-surface-container-highest/50 transition-colors group">
-            <td class="px-6 py-4 text-sm font-bold text-on-surface">CE2-1612</td>
-            <td class="px-6 py-4 text-sm text-on-surface group-hover:text-white">Regularizar boleta pendiente de recarga Yape en Cu...</td>
-            <td class="px-6 py-4 text-sm">
-                <span class="px-2 py-1 rounded-md bg-surface-container text-on-surface-variant text-xs font-medium">Backlog</span>
-            </td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant">Cuy</td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant">CE2</td>
-            <td class="px-6 py-4 text-right">
-                <a class="text-primary hover:underline text-sm font-medium flex items-center justify-end gap-1" href="https://linear.app/guinea/issue/CE2-1612" target="_blank">
-                    Abrir <span class="material-symbols-outlined text-xs">arrow_forward</span>
-                </a>
-            </td>
-        </tr>
-        <tr class="hover:bg-surface-container-highest/50 transition-colors group">
-            <td class="px-6 py-4 text-sm font-bold text-on-surface">CE2-1610</td>
-            <td class="px-6 py-4 text-sm text-on-surface group-hover:text-white">Generar reporte semanal de activaciones B2B/IoT Gu...</td>
-            <td class="px-6 py-4 text-sm">
-                <span class="px-2 py-1 rounded-md bg-primary/10 text-primary text-xs font-medium">In Progress</span>
-            </td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant">B2B</td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant">CE2</td>
-            <td class="px-6 py-4 text-right">
-                <a class="text-primary hover:underline text-sm font-medium flex items-center justify-end gap-1" href="https://linear.app/guinea/issue/CE2-1610" target="_blank">
-                    Abrir <span class="material-symbols-outlined text-xs">arrow_forward</span>
-                </a>
-            </td>
-        </tr>
-        <tr class="hover:bg-surface-container-highest/50 transition-colors group">
-            <td class="px-6 py-4 text-sm font-bold text-on-surface">CE2-1600</td>
-            <td class="px-6 py-4 text-sm text-on-surface group-hover:text-white">Validar falla recurrente en renovación automática ...</td>
-            <td class="px-6 py-4 text-sm">
-                <span class="px-2 py-1 rounded-md bg-primary/10 text-primary text-xs font-medium">In Progress</span>
-            </td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant">Cuy</td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant">CE2</td>
-            <td class="px-6 py-4 text-right">
-                <a class="text-primary hover:underline text-sm font-medium flex items-center justify-end gap-1" href="https://linear.app/guinea/issue/CE2-1600" target="_blank">
-                    Abrir <span class="material-symbols-outlined text-xs">arrow_forward</span>
-                </a>
-            </td>
-        </tr>
-        <tr class="hover:bg-surface-container-highest/50 transition-colors group">
-            <td class="px-6 py-4 text-sm font-bold text-on-surface">CE2-1596</td>
-            <td class="px-6 py-4 text-sm text-on-surface group-hover:text-white">Activaciones nuevas de PeruSIM no llegan al dashbo...</td>
-            <td class="px-6 py-4 text-sm">
-                <span class="px-2 py-1 rounded-md bg-primary/10 text-primary text-xs font-medium">In Progress</span>
-            </td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant">PeruSim+</td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant">CE2</td>
-            <td class="px-6 py-4 text-right">
-                <a class="text-primary hover:underline text-sm font-medium flex items-center justify-end gap-1" href="https://linear.app/guinea/issue/CE2-1596" target="_blank">
-                    Abrir <span class="material-symbols-outlined text-xs">arrow_forward</span>
-                </a>
-            </td>
-        </tr>
-        <tr class="hover:bg-surface-container-highest/50 transition-colors group">
-            <td class="px-6 py-4 text-sm font-bold text-on-surface">CE2-1591</td>
-            <td class="px-6 py-4 text-sm text-on-surface group-hover:text-white">Validar bloqueo de IMEI pese a registro en lista b...</td>
-            <td class="px-6 py-4 text-sm">
-                <span class="px-2 py-1 rounded-md bg-tertiary-container/20 text-tertiary text-xs font-medium">In Review</span>
-            </td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant">PeruSim+</td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant">CE2</td>
-            <td class="px-6 py-4 text-right">
-                <a class="text-primary hover:underline text-sm font-medium flex items-center justify-end gap-1" href="https://linear.app/guinea/issue/CE2-1591" target="_blank">
-                    Abrir <span class="material-symbols-outlined text-xs">arrow_forward</span>
-                </a>
-            </td>
-        </tr>
-        <tr class="hover:bg-surface-container-highest/50 transition-colors group">
-            <td class="px-6 py-4 text-sm font-bold text-on-surface">CE2-1590</td>
-            <td class="px-6 py-4 text-sm text-on-surface group-hover:text-white">Publicar plan MODEM 80 GB solo en Almaceneros</td>
-            <td class="px-6 py-4 text-sm">
-                <span class="px-2 py-1 rounded-md bg-surface-container text-on-surface-variant text-xs font-medium">Backlog</span>
-            </td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant">Habla+</td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant">CE2</td>
-            <td class="px-6 py-4 text-right">
-                <a class="text-primary hover:underline text-sm font-medium flex items-center justify-end gap-1" href="https://linear.app/guinea/issue/CE2-1590" target="_blank">
-                    Abrir <span class="material-symbols-outlined text-xs">arrow_forward</span>
-                </a>
-            </td>
-        </tr>
-        <tr class="hover:bg-surface-container-highest/50 transition-colors group">
-            <td class="px-6 py-4 text-sm font-bold text-on-surface">CE2-1589</td>
-            <td class="px-6 py-4 text-sm text-on-surface group-hover:text-white">Crear perfil vendedor y CMS para dealer nuevo</td>
-            <td class="px-6 py-4 text-sm">
-                <span class="px-2 py-1 rounded-md bg-surface-container text-on-surface-variant text-xs font-medium">Backlog</span>
-            </td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant">Partner</td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant">CE2</td>
-            <td class="px-6 py-4 text-right">
-                <a class="text-primary hover:underline text-sm font-medium flex items-center justify-end gap-1" href="https://linear.app/guinea/issue/CE2-1589" target="_blank">
-                    Abrir <span class="material-symbols-outlined text-xs">arrow_forward</span>
-                </a>
-            </td>
-        </tr>
-        <tr class="hover:bg-surface-container-highest/50 transition-colors group">
-            <td class="px-6 py-4 text-sm font-bold text-on-surface">CE2-1588</td>
-            <td class="px-6 py-4 text-sm text-on-surface group-hover:text-white">Registrar response de pasarela en user_transaction</td>
-            <td class="px-6 py-4 text-sm">
-                <span class="px-2 py-1 rounded-md bg-surface-container text-on-surface-variant text-xs font-medium">Backlog</span>
-            </td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant">Cuy</td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant">CE2</td>
-            <td class="px-6 py-4 text-right">
-                <a class="text-primary hover:underline text-sm font-medium flex items-center justify-end gap-1" href="https://linear.app/guinea/issue/CE2-1588" target="_blank">
-                    Abrir <span class="material-symbols-outlined text-xs">arrow_forward</span>
-                </a>
-            </td>
-        </tr>
-        <tr class="hover:bg-surface-container-highest/50 transition-colors group">
-            <td class="px-6 py-4 text-sm font-bold text-on-surface">CE2-1587</td>
-            <td class="px-6 py-4 text-sm text-on-surface group-hover:text-white">Error al reservar ICCID al cambiar tipo de activac...</td>
-            <td class="px-6 py-4 text-sm">
-                <span class="px-2 py-1 rounded-md bg-surface-container text-on-surface-variant text-xs font-medium">Planning</span>
-            </td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant">Cuy</td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant">CE2</td>
-            <td class="px-6 py-4 text-right">
-                <a class="text-primary hover:underline text-sm font-medium flex items-center justify-end gap-1" href="https://linear.app/guinea/issue/CE2-1587" target="_blank">
-                    Abrir <span class="material-symbols-outlined text-xs">arrow_forward</span>
-                </a>
-            </td>
-        </tr>
-        <tr class="hover:bg-surface-container-highest/50 transition-colors group">
-            <td class="px-6 py-4 text-sm font-bold text-on-surface">CE2-1586</td>
-            <td class="px-6 py-4 text-sm text-on-surface group-hover:text-white">Línea portada no muestra ICCID en sistemas interno...</td>
-            <td class="px-6 py-4 text-sm">
-                <span class="px-2 py-1 rounded-md bg-primary/10 text-primary text-xs font-medium">In Progress</span>
-            </td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant">Guinea</td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant">CE2</td>
-            <td class="px-6 py-4 text-right">
-                <a class="text-primary hover:underline text-sm font-medium flex items-center justify-end gap-1" href="https://linear.app/guinea/issue/CE2-1586" target="_blank">
-                    Abrir <span class="material-symbols-outlined text-xs">arrow_forward</span>
-                </a>
-            </td>
-        </tr>
-        <tr class="hover:bg-surface-container-highest/50 transition-colors group">
-            <td class="px-6 py-4 text-sm font-bold text-on-surface">CE2-1837</td>
-            <td class="px-6 py-4 text-sm text-on-surface group-hover:text-white">Regularizar 85 líneas con boletas erróneas de CuyC...</td>
-            <td class="px-6 py-4 text-sm">
-                <span class="px-2 py-1 rounded-md bg-surface-container text-on-surface-variant text-xs font-medium">Backlog</span>
-            </td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant">Cuy</td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant">CE2</td>
-            <td class="px-6 py-4 text-right">
-                <a class="text-primary hover:underline text-sm font-medium flex items-center justify-end gap-1" href="https://linear.app/guinea/issue/CE2-1837" target="_blank">
-                    Abrir <span class="material-symbols-outlined text-xs">arrow_forward</span>
-                </a>
-            </td>
-        </tr>
-        <tr class="hover:bg-surface-container-highest/50 transition-colors group">
-            <td class="px-6 py-4 text-sm font-bold text-on-surface">CE2-1840</td>
-            <td class="px-6 py-4 text-sm text-on-surface group-hover:text-white">Probar navegación sin internet con línea Habla+</td>
-            <td class="px-6 py-4 text-sm">
-                <span class="px-2 py-1 rounded-md bg-surface-container text-on-surface-variant text-xs font-medium">Backlog</span>
-            </td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant">Habla+</td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant">CE2</td>
-            <td class="px-6 py-4 text-right">
-                <a class="text-primary hover:underline text-sm font-medium flex items-center justify-end gap-1" href="https://linear.app/guinea/issue/CE2-1840" target="_blank">
-                    Abrir <span class="material-symbols-outlined text-xs">arrow_forward</span>
-                </a>
-            </td>
-        </tr>
-        <tr class="hover:bg-surface-container-highest/50 transition-colors group">
-            <td class="px-6 py-4 text-sm font-bold text-on-surface">CE2-1846</td>
-            <td class="px-6 py-4 text-sm text-on-surface group-hover:text-white">Quitar firma de Mariano en respuesta a reclamos</td>
-            <td class="px-6 py-4 text-sm">
-                <span class="px-2 py-1 rounded-md bg-surface-container text-on-surface-variant text-xs font-medium">Planning</span>
-            </td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant">Legales</td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant">CE2</td>
-            <td class="px-6 py-4 text-right">
-                <a class="text-primary hover:underline text-sm font-medium flex items-center justify-end gap-1" href="https://linear.app/guinea/issue/CE2-1846" target="_blank">
-                    Abrir <span class="material-symbols-outlined text-xs">arrow_forward</span>
-                </a>
-            </td>
-        </tr>
-        <tr class="hover:bg-surface-container-highest/50 transition-colors group">
-            <td class="px-6 py-4 text-sm font-bold text-on-surface">CE2-1836</td>
-            <td class="px-6 py-4 text-sm text-on-surface group-hover:text-white">Línea 51915148347 muestra dos perfiles activos en ...</td>
-            <td class="px-6 py-4 text-sm">
-                <span class="px-2 py-1 rounded-md bg-primary/10 text-primary text-xs font-medium">In Progress</span>
-            </td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant">Airalo</td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant">CE2</td>
-            <td class="px-6 py-4 text-right">
-                <a class="text-primary hover:underline text-sm font-medium flex items-center justify-end gap-1" href="https://linear.app/guinea/issue/CE2-1836" target="_blank">
-                    Abrir <span class="material-symbols-outlined text-xs">arrow_forward</span>
-                </a>
-            </td>
-        </tr>
-        <tr class="hover:bg-surface-container-highest/50 transition-colors group">
-            <td class="px-6 py-4 text-sm font-bold text-on-surface">CE2-1578</td>
-            <td class="px-6 py-4 text-sm text-on-surface group-hover:text-white">Causa raiz: lineas compartidas entre usuarios - va...</td>
-            <td class="px-6 py-4 text-sm">
-                <span class="px-2 py-1 rounded-md bg-primary/10 text-primary text-xs font-medium">In Progress</span>
-            </td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant">Cuy</td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant">CE2</td>
-            <td class="px-6 py-4 text-right">
-                <a class="text-primary hover:underline text-sm font-medium flex items-center justify-end gap-1" href="https://linear.app/guinea/issue/CE2-1578" target="_blank">
-                    Abrir <span class="material-symbols-outlined text-xs">arrow_forward</span>
-                </a>
-            </td>
-        </tr>
-        <tr class="hover:bg-surface-container-highest/50 transition-colors group">
-            <td class="px-6 py-4 text-sm font-bold text-on-surface">CE2-1576</td>
-            <td class="px-6 py-4 text-sm text-on-surface group-hover:text-white">Débito automático no renueva líneas Cuy del client...</td>
-            <td class="px-6 py-4 text-sm">
-                <span class="px-2 py-1 rounded-md bg-surface-container text-on-surface-variant text-xs font-medium">Planning</span>
-            </td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant">Cuy</td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant">CE2</td>
-            <td class="px-6 py-4 text-right">
-                <a class="text-primary hover:underline text-sm font-medium flex items-center justify-end gap-1" href="https://linear.app/guinea/issue/CE2-1576" target="_blank">
-                    Abrir <span class="material-symbols-outlined text-xs">arrow_forward</span>
-                </a>
-            </td>
-        </tr>
-        <tr class="hover:bg-surface-container-highest/50 transition-colors group">
-            <td class="px-6 py-4 text-sm font-bold text-on-surface">CE2-1847</td>
-            <td class="px-6 py-4 text-sm text-on-surface group-hover:text-white">Dar seguimiento a mejoras de infraestructura de me...</td>
-            <td class="px-6 py-4 text-sm">
-                <span class="px-2 py-1 rounded-md bg-surface-container text-on-surface-variant text-xs font-medium">Planning</span>
-            </td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant">Guinea</td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant">CE2</td>
-            <td class="px-6 py-4 text-right">
-                <a class="text-primary hover:underline text-sm font-medium flex items-center justify-end gap-1" href="https://linear.app/guinea/issue/CE2-1847" target="_blank">
-                    Abrir <span class="material-symbols-outlined text-xs">arrow_forward</span>
-                </a>
-            </td>
-        </tr>
-        <tr class="hover:bg-surface-container-highest/50 transition-colors group">
-            <td class="px-6 py-4 text-sm font-bold text-on-surface">CE2-1845</td>
-            <td class="px-6 py-4 text-sm text-on-surface group-hover:text-white">BOP no muestra resultados al filtrar abril</td>
-            <td class="px-6 py-4 text-sm">
-                <span class="px-2 py-1 rounded-md bg-surface-container text-on-surface-variant text-xs font-medium">Planning</span>
-            </td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant">Guinea</td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant">CE2</td>
-            <td class="px-6 py-4 text-right">
-                <a class="text-primary hover:underline text-sm font-medium flex items-center justify-end gap-1" href="https://linear.app/guinea/issue/CE2-1845" target="_blank">
-                    Abrir <span class="material-symbols-outlined text-xs">arrow_forward</span>
-                </a>
-            </td>
-        </tr>
-        <tr class="hover:bg-surface-container-highest/50 transition-colors group">
-            <td class="px-6 py-4 text-sm font-bold text-on-surface">CE2-1507</td>
-            <td class="px-6 py-4 text-sm text-on-surface group-hover:text-white">Portabilidades no reflejan datos en CMS ni CRM</td>
-            <td class="px-6 py-4 text-sm">
-                <span class="px-2 py-1 rounded-md bg-surface-container text-on-surface-variant text-xs font-medium">Backlog</span>
-            </td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant">Cuy</td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant">CE2</td>
-            <td class="px-6 py-4 text-right">
-                <a class="text-primary hover:underline text-sm font-medium flex items-center justify-end gap-1" href="https://linear.app/guinea/issue/CE2-1507" target="_blank">
-                    Abrir <span class="material-symbols-outlined text-xs">arrow_forward</span>
-                </a>
-            </td>
-        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
                 </section>
             </main>
         </div>
 
         <script data-purpose="ui-interactions">
-            // ========== THEME TOGGLE ==========
-            const themeToggle = document.getElementById('theme-toggle');
-            const themeIcon = document.getElementById('theme-icon');
-            const themeLabel = document.getElementById('theme-label');
-            const htmlElement = document.documentElement;
-
-            // Restaurar preferencia de tema guardada
-            const savedTheme = localStorage.getItem('theme') || 'light';
-            if (savedTheme === 'dark') {
-                htmlElement.classList.add('dark');
-                updateThemeUI(true);
-            }
-
-            function updateThemeUI(isDark) {
-                if (isDark) {
-                    themeIcon.textContent = 'dark_mode';
-                    themeLabel.textContent = 'Modo Oscuro';
-                } else {
-                    themeIcon.textContent = 'light_mode';
-                    themeLabel.textContent = 'Modo Claro';
-                }
-            }
-
-            themeToggle.addEventListener('click', () => {
-                const isDark = htmlElement.classList.toggle('dark');
-                localStorage.setItem('theme', isDark ? 'dark' : 'light');
-                updateThemeUI(isDark);
-            });
-            // ========== END THEME TOGGLE ==========
-
             // Datos de todos los meses desde el servidor
-            const monthsData = {"Enero": {"total_projects": 20, "in_progress": 0, "pending_ce2": 4, "blocked": 0, "completed": 16, "by_state": {"Completed": 13, "In Review": 2, "Backlog": 3, "Planned": 1, "Archived": 1}, "brands": {"Cuy": {"total": 2, "pending": 1, "completed": 1}, "PeruSim": {"total": 3, "pending": 2, "completed": 1}, "Habla+": {"total": 7, "pending": 2, "completed": 5}, "Wings": {"total": 1, "pending": 1, "completed": 0}, "Fimo": {"total": 0, "pending": 0, "completed": 0}, "Guinea": {"total": 5, "pending": 1, "completed": 4}, "B2B": {"total": 1, "pending": 0, "completed": 1}, "Partner": {"total": 0, "pending": 0, "completed": 0}, "Legales": {"total": 0, "pending": 0, "completed": 0}, "Finanzas": {"total": 0, "pending": 0, "completed": 0}, "Airalo": {"total": 1, "pending": 0, "completed": 1}, "Sin clasificar": {"total": 0, "pending": 0, "completed": 0}}, "issues": {"total_issues": 0, "closed": 0, "by_state": {}, "by_product": {}, "pending_by_product": {}, "by_state_by_team": {}, "pending_issues_list": []}}, "Febrero": {"total_projects": 36, "in_progress": 1, "pending_ce2": 2, "blocked": 2, "completed": 31, "by_state": {"Completed": 27, "Backlog": 2, "In Progress": 1, "Blocked": 2, "In Review": 4, "Canceled": 3}, "brands": {"Cuy": {"total": 11, "pending": 3, "completed": 8}, "PeruSim": {"total": 5, "pending": 3, "completed": 2}, "Habla+": {"total": 5, "pending": 3, "completed": 2}, "Wings": {"total": 4, "pending": 0, "completed": 4}, "Fimo": {"total": 3, "pending": 0, "completed": 3}, "Guinea": {"total": 2, "pending": 0, "completed": 2}, "B2B": {"total": 4, "pending": 0, "completed": 4}, "Partner": {"total": 0, "pending": 0, "completed": 0}, "Legales": {"total": 0, "pending": 0, "completed": 0}, "Finanzas": {"total": 0, "pending": 0, "completed": 0}, "Airalo": {"total": 2, "pending": 0, "completed": 2}, "Sin clasificar": {"total": 0, "pending": 0, "completed": 0}}, "issues": {"total_issues": 146, "closed": 146, "by_state": {"Closed": 146}, "by_product": {"Airalo": 7, "Habla+": 10, "Wings": 3, "Fimo": 4, "Cuy": 2, "Guinea": 1}, "pending_by_product": {}, "by_state_by_team": {"CE2_Closed": 146}, "pending_issues_list": []}}, "Marzo": {"total_projects": 26, "in_progress": 0, "pending_ce2": 2, "blocked": 2, "completed": 22, "by_state": {"In Review": 1, "Completed": 21, "Blocked": 2, "Backlog": 2}, "brands": {"Cuy": {"total": 9, "pending": 3, "completed": 6}, "PeruSim": {"total": 2, "pending": 0, "completed": 2}, "Habla+": {"total": 5, "pending": 1, "completed": 4}, "Wings": {"total": 0, "pending": 0, "completed": 0}, "Fimo": {"total": 1, "pending": 1, "completed": 0}, "Guinea": {"total": 6, "pending": 0, "completed": 6}, "B2B": {"total": 0, "pending": 0, "completed": 0}, "Partner": {"total": 0, "pending": 0, "completed": 0}, "Legales": {"total": 0, "pending": 0, "completed": 0}, "Finanzas": {"total": 0, "pending": 0, "completed": 0}, "Airalo": {"total": 3, "pending": 0, "completed": 3}, "Sin clasificar": {"total": 0, "pending": 0, "completed": 0}}, "issues": {"total_issues": 231, "closed": 231, "by_state": {"Closed": 231}, "by_product": {"Cuy": 38, "PeruSim+": 1, "Habla+": 8, "Guinea": 4, "Fimo": 2, "Wings": 5, "Airalo": 2, "Finanzas": 1}, "pending_by_product": {}, "by_state_by_team": {"CE2_Closed": 231}, "pending_issues_list": []}}, "Abril": {"total_projects": 10, "in_progress": 0, "pending_ce2": 6, "blocked": 0, "completed": 4, "by_state": {"Backlog": 6, "Completed": 4}, "brands": {"Cuy": {"total": 1, "pending": 0, "completed": 1}, "PeruSim": {"total": 0, "pending": 0, "completed": 0}, "Habla+": {"total": 2, "pending": 1, "completed": 1}, "Wings": {"total": 1, "pending": 0, "completed": 1}, "Fimo": {"total": 1, "pending": 0, "completed": 1}, "Guinea": {"total": 3, "pending": 3, "completed": 0}, "B2B": {"total": 0, "pending": 0, "completed": 0}, "Partner": {"total": 0, "pending": 0, "completed": 0}, "Legales": {"total": 0, "pending": 0, "completed": 0}, "Finanzas": {"total": 1, "pending": 1, "completed": 0}, "Airalo": {"total": 1, "pending": 1, "completed": 0}, "Sin clasificar": {"total": 0, "pending": 0, "completed": 0}}, "issues": {"total_issues": 157, "closed": 135, "by_state": {"Closed": 135, "Planning": 9, "In Review": 4, "Backlog": 6, "In Progress": 1, "Blocked": 2}, "by_product": {"Finanzas": 17, "Habla+": 12, "Cuy": 41, "Guinea": 19, "Wings": 10, "B2B": 10, "Legales": 3, "Partner": 1, "PeruSim+": 19, "Airalo": 3, "Fimo": 2}, "pending_by_product": {"Cuy": 7, "Finanzas": 4, "Guinea": 5, "B2B": 1, "Partner": 1, "Habla+": 3, "PeruSim+": 1}, "by_state_by_team": {"CE2_Closed": 135, "CE2_Planning": 9, "CE2_In Review": 4, "CE2_Backlog": 6, "CE2_In Progress": 1, "CE2_Blocked": 2}, "pending_issues_list": [{"id": "CE2-1501", "title": "Generar preactivaci\u00f3n y boleta CMS para cliente", "state": "Planning", "team": "CE2", "products": "Cuy", "assignee": "Alex Estrada"}, {"id": "CE2-1499", "title": "Recargas recientes no aparecen en historial de Cuy", "state": "Planning", "team": "CE2", "products": "Cuy", "assignee": "Lesly Samaritano"}, {"id": "CE2-1498", "title": "Habilitar acceso a bd.gnmbl.net para Jorge Brenner", "state": "In Review", "team": "CE2", "products": "Finanzas", "assignee": "Daniel Alvarez"}, {"id": "CE2-1497", "title": "CMS muestra portabilidad activa sin solicitud en curso", "state": "Backlog", "team": "CE2", "products": "Cuy", "assignee": "Farialis Martinez"}, {"id": "CE2-1493", "title": "Dashboard de reportes B2C muestra marzo en cero", "state": "Planning", "team": "CE2", "products": "Finanzas", "assignee": "Alex Estrada"}, {"id": "CE2-1489", "title": "Actualizar t\u00e9rminos y condiciones de planes prepago Cuy", "state": "Planning", "team": "CE2", "products": "Cuy", "assignee": "Alex Estrada"}, {"id": "CE2-1487", "title": "Generar reporte de tarifas Airalo para Cuy y PeruSIM", "state": "Backlog", "team": "CE2", "products": "Finanzas", "assignee": "Patrick Bola\u00f1os"}, {"id": "CE2-1607", "title": "Dise\u00f1ar framework de trabajo para squad operadores", "state": "Backlog", "team": "CE2", "products": "Guinea", "assignee": "Enrique Lezama"}, {"id": "CE2-1614", "title": "BOP de ARPU B2B no cuadra con BD", "state": "Planning", "team": "CE2", "products": "B2B", "assignee": "Alex Estrada"}, {"id": "CE2-1841", "title": "Mostrar precio por empresa en detalle de plan B2B", "state": "Planning", "team": "CE2", "products": "Finanzas", "assignee": "Alex Estrada"}, {"id": "CE2-1480", "title": "Eliminar ramas tras merge a main en repos de Flutter", "state": "Backlog", "team": "CE2", "products": "Guinea", "assignee": "Alberto Pereda"}, {"id": "CE2-1479", "title": "L\u00ednea 51915138246 y 51919087631 activada a dos personas distintas", "state": "In Progress", "team": "CE2", "products": "Cuy", "assignee": "Lesly Samaritano"}, {"id": "CE2-1475", "title": "Plan S/39.90 muestra RRSS incluidas en app Cuy", "state": "Planning", "team": "CE2", "products": "Cuy", "assignee": "Alberto Pereda"}, {"id": "CE2-1472", "title": "Cuy - App Distribuidores - Nuevos Indicadores de Ventas", "state": "Backlog", "team": "CE2", "products": "Partner", "assignee": "Patrick Bola\u00f1os"}, {"id": "CE2-1471", "title": "Corregir en la UI cuando una l\u00ednea se reserva por otra marca", "state": "Blocked", "team": "CE2", "products": "Habla+", "assignee": "Alberto Pereda"}, {"id": "CE2-1618", "title": "Crear ambiente de preproducci\u00f3n para planes Habla+ Cliente", "state": "Blocked", "team": "CE2", "products": "Habla+", "assignee": "Alberto Pereda"}, {"id": "CE2-1443", "title": "Atribuci\u00f3n incorrecta de activaci\u00f3n de extranjero a peruano", "state": "Backlog", "team": "CE2", "products": "PeruSim+", "assignee": "Leandro Ramirez"}, {"id": "CE2-1844", "title": "Error HTTP 401 al iniciar sesi\u00f3n en Guinea", "state": "Planning", "team": "CE2", "products": "Guinea", "assignee": "Alberto Pereda"}, {"id": "CE2-1402", "title": "Habla+ | Creaci\u00f3n de un FUNNEL Habla+ Dashboard", "state": "Planning", "team": "CE2", "products": "Habla+", "assignee": "Patrick Bola\u00f1os"}, {"id": "CE2-1400", "title": "Enviar SMS antes de vencimiento e inactividad de l\u00ednea", "state": "In Review", "team": "CE2", "products": "Cuy", "assignee": "Farialis Martinez"}, {"id": "CE2-1351", "title": "Error al ejecutar reportes SIGEP automatizados desde BOP", "state": "In Review", "team": "CE2", "products": "Guinea", "assignee": "Daniel Alvarez"}, {"id": "CE2-1615", "title": "Enviar correo por interrupci\u00f3n temporal de RENIEC", "state": "In Review", "team": "CE2", "products": "Guinea", "assignee": "Farialis Martinez"}]}}, "Mayo": {"total_projects": 18, "in_progress": 2, "pending_ce2": 15, "blocked": 0, "completed": 1, "by_state": {"Backlog": 12, "In Progress": 2, "Planned": 3, "Completed": 1}, "brands": {"Cuy": {"total": 6, "pending": 6, "completed": 0}, "PeruSim": {"total": 1, "pending": 1, "completed": 0}, "Habla+": {"total": 3, "pending": 2, "completed": 1}, "Wings": {"total": 0, "pending": 0, "completed": 0}, "Fimo": {"total": 0, "pending": 0, "completed": 0}, "Guinea": {"total": 5, "pending": 5, "completed": 0}, "B2B": {"total": 0, "pending": 0, "completed": 0}, "Partner": {"total": 0, "pending": 0, "completed": 0}, "Legales": {"total": 2, "pending": 2, "completed": 0}, "Finanzas": {"total": 1, "pending": 1, "completed": 0}, "Airalo": {"total": 0, "pending": 0, "completed": 0}, "Sin clasificar": {"total": 0, "pending": 0, "completed": 0}}, "issues": {"total_issues": 58, "closed": 29, "by_state": {"Backlog": 14, "Planning": 7, "Closed": 29, "In Review": 2, "In Progress": 6}, "by_product": {"Habla+": 5, "Cuy": 16, "B2B": 3, "Airalo": 4, "Finanzas": 4, "Legales": 2, "PeruSim+": 5, "Guinea": 9, "Fimo": 4, "Wings": 3, "Partner": 2}, "pending_by_product": {"Habla+": 3, "Cuy": 10, "B2B": 2, "Airalo": 2, "Finanzas": 2, "PeruSim+": 3, "Guinea": 5, "Partner": 1, "Legales": 1}, "by_state_by_team": {"CE2_Backlog": 14, "CE2_Planning": 7, "CE2_Closed": 29, "CE2_In Review": 2, "CE2_In Progress": 6}, "pending_issues_list": [{"id": "CE2-1911", "title": "Izipay no guarda mes ni a\u00f1o de expiraci\u00f3n", "state": "Backlog", "team": "CE2", "products": "Habla+", "assignee": "Lesly Samaritano"}, {"id": "CE2-1910", "title": "Pago Yape no visible bloquea preactivaci\u00f3n de chip", "state": "Planning", "team": "CE2", "products": "Cuy", "assignee": "Alex Estrada"}, {"id": "CE2-1898", "title": "Actualizar reporte B2B/IoT cada lunes", "state": "Backlog", "team": "CE2", "products": "B2B", "assignee": "Patrick Bola\u00f1os"}, {"id": "CE2-1897", "title": "Airalo muestra eSIMs finalizados con paquetes activos", "state": "Backlog", "team": "CE2", "products": "Airalo", "assignee": "Farialis Martinez"}, {"id": "CE2-1884", "title": "Regularizar transacciones y boletas de casos Yape reportados", "state": "Backlog", "team": "CE2", "products": "Finanzas", "assignee": "Alex Estrada"}, {"id": "CE2-1882", "title": "Extras de 1, 5 y 10 GB no aparecen en la app", "state": "Backlog", "team": "CE2", "products": "PeruSim+", "assignee": "Alberto Pereda"}, {"id": "CE2-1879", "title": "Registrar excepci\u00f3n en lista blanca para l\u00ednea 927481804", "state": "In Review", "team": "CE2", "products": "Guinea", "assignee": "Alex Estrada"}, {"id": "CE2-1863", "title": "Guinea - Requerimiento de Victor sobre minutos entrantes y salientes", "state": "Planning", "team": "CE2", "products": "Guinea", "assignee": "Patrick Bola\u00f1os"}, {"id": "CE2-1860", "title": "Regularizar boleta faltante pendiente en Finanzas", "state": "Backlog", "team": "CE2", "products": "Finanzas", "assignee": "Alex Estrada"}, {"id": "CE2-1613", "title": "Regularizar boleta del caso de recarga Yape", "state": "Backlog", "team": "CE2", "products": "Cuy", "assignee": "Alex Estrada"}, {"id": "CE2-1612", "title": "Regularizar boleta pendiente de recarga Yape en Cuy", "state": "Backlog", "team": "CE2", "products": "Cuy", "assignee": "Alex Estrada"}, {"id": "CE2-1610", "title": "Generar reporte semanal de activaciones B2B/IoT Guinea", "state": "In Progress", "team": "CE2", "products": "B2B", "assignee": "Patrick Bola\u00f1os"}, {"id": "CE2-1600", "title": "Validar falla recurrente en renovaci\u00f3n autom\u00e1tica de plan", "state": "In Progress", "team": "CE2", "products": "Cuy", "assignee": "Alex Estrada"}, {"id": "CE2-1596", "title": "Activaciones nuevas de PeruSIM no llegan al dashboard", "state": "In Progress", "team": "CE2", "products": "PeruSim+", "assignee": "Patrick Bola\u00f1os"}, {"id": "CE2-1591", "title": "Validar bloqueo de IMEI pese a registro en lista blanca", "state": "In Review", "team": "CE2", "products": "PeruSim+", "assignee": "Alex Estrada"}, {"id": "CE2-1590", "title": "Publicar plan MODEM 80 GB solo en Almaceneros", "state": "Backlog", "team": "CE2", "products": "Habla+", "assignee": "Farialis Martinez"}, {"id": "CE2-1589", "title": "Crear perfil vendedor y CMS para dealer nuevo", "state": "Backlog", "team": "CE2", "products": "Partner", "assignee": "Alex Estrada"}, {"id": "CE2-1588", "title": "Registrar response de pasarela en user_transaction", "state": "Backlog", "team": "CE2", "products": "Cuy", "assignee": "Farialis Martinez"}, {"id": "CE2-1587", "title": "Error al reservar ICCID al cambiar tipo de activaci\u00f3n", "state": "Planning", "team": "CE2", "products": "Cuy", "assignee": "Alberto Pereda"}, {"id": "CE2-1586", "title": "L\u00ednea portada no muestra ICCID en sistemas internos", "state": "In Progress", "team": "CE2", "products": "Guinea", "assignee": "Farialis Martinez"}, {"id": "CE2-1837", "title": "Regularizar 85 l\u00edneas con boletas err\u00f3neas de CuyCash", "state": "Backlog", "team": "CE2", "products": "Cuy", "assignee": "Alex Estrada"}, {"id": "CE2-1840", "title": "Probar navegaci\u00f3n sin internet con l\u00ednea Habla+", "state": "Backlog", "team": "CE2", "products": "Habla+", "assignee": "Alex Estrada"}, {"id": "CE2-1846", "title": "Quitar firma de Mariano en respuesta a reclamos", "state": "Planning", "team": "CE2", "products": "Legales", "assignee": "Alex Estrada"}, {"id": "CE2-1836", "title": "L\u00ednea 51915148347 muestra dos perfiles activos en CMS", "state": "In Progress", "team": "CE2", "products": "Airalo", "assignee": "Farialis Martinez"}, {"id": "CE2-1578", "title": "Causa raiz: lineas compartidas entre usuarios - validacion de duplicidad faltante en activacion", "state": "In Progress", "team": "CE2", "products": "Cuy", "assignee": "Bot Tech"}, {"id": "CE2-1576", "title": "D\u00e9bito autom\u00e1tico no renueva l\u00edneas Cuy del cliente", "state": "Planning", "team": "CE2", "products": "Cuy", "assignee": "Leandro Ramirez"}, {"id": "CE2-1847", "title": "Dar seguimiento a mejoras de infraestructura de mensajer\u00eda", "state": "Planning", "team": "CE2", "products": "Guinea", "assignee": "Angel Crispin"}, {"id": "CE2-1845", "title": "BOP no muestra resultados al filtrar abril", "state": "Planning", "team": "CE2", "products": "Guinea", "assignee": "Alex Estrada"}, {"id": "CE2-1507", "title": "Portabilidades no reflejan datos en CMS ni CRM", "state": "Backlog", "team": "CE2", "products": "Cuy", "assignee": "Farialis Martinez"}]}}};
+            const monthsData = {"Enero": {"total_projects": 21, "in_progress": 0, "pending_ce2": 4, "blocked": 0, "completed": 17, "by_state": {"Completed": 14, "In Review": 2, "Backlog": 3, "Planned": 1, "Archived": 1}, "brands": {"Cuy": {"total": 3, "pending": 1, "completed": 2}, "PeruSim": {"total": 3, "pending": 2, "completed": 1}, "Habla+": {"total": 7, "pending": 2, "completed": 5}, "Wings": {"total": 1, "pending": 1, "completed": 0}, "Fimo": {"total": 0, "pending": 0, "completed": 0}, "Guinea": {"total": 5, "pending": 1, "completed": 4}, "B2B": {"total": 1, "pending": 0, "completed": 1}, "Partner": {"total": 0, "pending": 0, "completed": 0}, "Legales": {"total": 0, "pending": 0, "completed": 0}, "Finanzas": {"total": 0, "pending": 0, "completed": 0}, "Airalo": {"total": 1, "pending": 0, "completed": 1}, "Sin clasificar": {"total": 0, "pending": 0, "completed": 0}}}, "Febrero": {"total_projects": 36, "in_progress": 1, "pending_ce2": 2, "blocked": 2, "completed": 31, "by_state": {"Completed": 27, "Backlog": 2, "In Progress": 1, "Blocked": 2, "In Review": 4, "Canceled": 2}, "brands": {"Cuy": {"total": 11, "pending": 3, "completed": 8}, "PeruSim": {"total": 5, "pending": 3, "completed": 2}, "Habla+": {"total": 5, "pending": 3, "completed": 2}, "Wings": {"total": 4, "pending": 0, "completed": 4}, "Fimo": {"total": 3, "pending": 0, "completed": 3}, "Guinea": {"total": 2, "pending": 0, "completed": 2}, "B2B": {"total": 4, "pending": 0, "completed": 4}, "Partner": {"total": 0, "pending": 0, "completed": 0}, "Legales": {"total": 0, "pending": 0, "completed": 0}, "Finanzas": {"total": 0, "pending": 0, "completed": 0}, "Airalo": {"total": 2, "pending": 0, "completed": 2}, "Sin clasificar": {"total": 0, "pending": 0, "completed": 0}}}, "Marzo": {"total_projects": 26, "in_progress": 0, "pending_ce2": 2, "blocked": 2, "completed": 22, "by_state": {"In Review": 1, "Completed": 21, "Blocked": 2, "Backlog": 2}, "brands": {"Cuy": {"total": 9, "pending": 3, "completed": 6}, "PeruSim": {"total": 2, "pending": 0, "completed": 2}, "Habla+": {"total": 5, "pending": 1, "completed": 4}, "Wings": {"total": 0, "pending": 0, "completed": 0}, "Fimo": {"total": 1, "pending": 1, "completed": 0}, "Guinea": {"total": 6, "pending": 0, "completed": 6}, "B2B": {"total": 0, "pending": 0, "completed": 0}, "Partner": {"total": 0, "pending": 0, "completed": 0}, "Legales": {"total": 0, "pending": 0, "completed": 0}, "Finanzas": {"total": 0, "pending": 0, "completed": 0}, "Airalo": {"total": 3, "pending": 0, "completed": 3}, "Sin clasificar": {"total": 0, "pending": 0, "completed": 0}}}, "Abril": {"total_projects": 10, "in_progress": 0, "pending_ce2": 6, "blocked": 0, "completed": 4, "by_state": {"Backlog": 6, "Completed": 4}, "brands": {"Cuy": {"total": 1, "pending": 0, "completed": 1}, "PeruSim": {"total": 0, "pending": 0, "completed": 0}, "Habla+": {"total": 2, "pending": 1, "completed": 1}, "Wings": {"total": 1, "pending": 0, "completed": 1}, "Fimo": {"total": 1, "pending": 0, "completed": 1}, "Guinea": {"total": 3, "pending": 3, "completed": 0}, "B2B": {"total": 0, "pending": 0, "completed": 0}, "Partner": {"total": 0, "pending": 0, "completed": 0}, "Legales": {"total": 0, "pending": 0, "completed": 0}, "Finanzas": {"total": 1, "pending": 1, "completed": 0}, "Airalo": {"total": 1, "pending": 1, "completed": 0}, "Sin clasificar": {"total": 0, "pending": 0, "completed": 0}}}, "Mayo": {"total_projects": 18, "in_progress": 2, "pending_ce2": 15, "blocked": 0, "completed": 1, "by_state": {"Backlog": 12, "In Progress": 2, "Planned": 3, "Completed": 1}, "brands": {"Cuy": {"total": 6, "pending": 6, "completed": 0}, "PeruSim": {"total": 1, "pending": 1, "completed": 0}, "Habla+": {"total": 3, "pending": 2, "completed": 1}, "Wings": {"total": 0, "pending": 0, "completed": 0}, "Fimo": {"total": 0, "pending": 0, "completed": 0}, "Guinea": {"total": 5, "pending": 5, "completed": 0}, "B2B": {"total": 0, "pending": 0, "completed": 0}, "Partner": {"total": 0, "pending": 0, "completed": 0}, "Legales": {"total": 2, "pending": 2, "completed": 0}, "Finanzas": {"total": 1, "pending": 1, "completed": 0}, "Airalo": {"total": 0, "pending": 0, "completed": 0}, "Sin clasificar": {"total": 0, "pending": 0, "completed": 0}}}};
 
             function switchSection(section) {
                 document.getElementById('projects').style.display = section === 'projects' ? 'block' : 'none';
@@ -1379,93 +491,6 @@
                 }
             }
 
-            function updateIssuesMonthData(monthName) {
-                const data = monthsData[monthName];
-                if (!data || !data.issues) return;
-
-                const issues = data.issues;
-
-                // Actualizar encabezado del mes
-                const totalIssues = issues.total_issues || 0;
-                const pendingIssues = Object.values(issues.pending_by_product || {}).reduce((a, b) => a + b, 0);
-                document.querySelector('#tab-issues .flex.items-center span:nth-of-type(2)').textContent = monthName + ' 2026: ' + totalIssues + ' issues totales | Pendientes: ' + pendingIssues;
-
-                // Actualizar progreso
-                const closedIssues = issues.closed || 0;
-                const progress = totalIssues > 0 ? Math.round((closedIssues / totalIssues) * 100) : 0;
-                document.querySelector('#tab-issues .text-lg.font-bold.text-primary').textContent = progress + '%';
-                const progressBar = document.querySelector('#tab-issues .h-full.rounded-full');
-                if (progressBar) {
-                    progressBar.style.width = progress + '%';
-                }
-
-                // Actualizar métricas de issues
-                const metricsElement = document.querySelectorAll('#tab-issues .bg-surface-container-low');
-                if (metricsElement.length > 0) {
-                    metricsElement[0].querySelector('span:last-child').textContent = totalIssues;
-                }
-                if (metricsElement.length > 1) {
-                    const inProgress = issues.by_state['In Progress'] || 0;
-                    metricsElement[1].querySelector('span:last-child').textContent = inProgress;
-                }
-                if (metricsElement.length > 2) {
-                    metricsElement[2].querySelector('span:last-child').textContent = pendingIssues;
-                }
-
-                // Actualizar tabla de estados por team
-                const statusRows = document.querySelectorAll('#tab-issues table tbody tr');
-                const statesByTeam = issues.by_state_by_team || {};
-
-                // Reorganizar datos
-                const statesDict = {};
-                for (const key in statesByTeam) {
-                    if (key.includes('_')) {
-                        const [team, state] = key.split('_');
-                        if (!statesDict[state]) {
-                            statesDict[state] = { CE1: 0, CE2: 0 };
-                        }
-                        statesDict[state][team] = statesByTeam[key];
-                    }
-                }
-
-                // Actualizar tabla
-                statusRows.forEach((row, index) => {
-                    const cells = row.querySelectorAll('td');
-                    const states = Object.keys(statesDict).sort();
-                    if (index < states.length) {
-                        const state = states[index];
-                        const counts = statesDict[state];
-                        if (cells.length >= 4) {
-                            cells[0].textContent = state;
-                            cells[1].textContent = counts.CE1 || 0;
-                            cells[2].textContent = counts.CE2 || 0;
-                            cells[3].textContent = (counts.CE1 || 0) + (counts.CE2 || 0);
-                        }
-                    }
-                });
-
-                // Actualizar tabla de issues pendientes
-                const pendingRows = document.querySelectorAll('#tab-issues table:last-of-type tbody tr');
-                const pendingList = issues.pending_issues_list || [];
-                pendingRows.forEach((row, index) => {
-                    if (index < pendingList.length) {
-                        const issue = pendingList[index];
-                        const cells = row.querySelectorAll('td');
-                        if (cells.length >= 6) {
-                            cells[0].textContent = issue.id || '';
-                            cells[1].textContent = (issue.title || '').substring(0, 50) + (issue.title && issue.title.length > 50 ? '...' : '');
-                            cells[2].querySelector('span').textContent = issue.state || '';
-                            cells[3].textContent = issue.products || '';
-                            cells[4].textContent = issue.team || '';
-                            const link = cells[5].querySelector('a');
-                            if (link) {
-                                link.href = 'https://linear.app/guinea/issue/' + (issue.id || '');
-                            }
-                        }
-                    }
-                });
-            }
-
             document.querySelectorAll('[data-month]').forEach(button => {
                 button.addEventListener('click', () => {
                     const month = button.getAttribute('data-month');
@@ -1480,30 +505,8 @@
 
                     // Actualizar datos
                     updateMonthData(month);
-                    updateIssuesMonthData(month);
                 });
             });
-
-            // ========== FIX TABLE HEADER ON HOVER ==========
-            const tables = document.querySelectorAll('.glacier-card table');
-            tables.forEach(table => {
-                const thead = table.querySelector('thead');
-                if (thead) {
-                    // Maintain header background on hover
-                    table.addEventListener('mouseenter', () => {
-                        if (document.documentElement.classList.contains('dark')) {
-                            thead.style.backgroundColor = '#1a2438';
-                            thead.style.backgroundColorImportant = '#1a2438 !important';
-                        }
-                    });
-                    table.addEventListener('mouseleave', () => {
-                        if (document.documentElement.classList.contains('dark')) {
-                            thead.style.backgroundColor = '#1a2438';
-                        }
-                    });
-                }
-            });
-            // ========== END TABLE HEADER FIX ==========
         </script>
     </body>
     </html>
