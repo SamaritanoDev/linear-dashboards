@@ -436,7 +436,7 @@ def generate_issues_section_html(all_months_metrics):
 
     # Generar tabla de issues pendientes
     pending_rows = ""
-    for issue in mayo_metrics.get("pending_issues_list", [])[:15]:  # Mostrar primeros 15
+    for issue in mayo_metrics.get("pending_issues_list", []):  # Mostrar todos los pendientes
         state = issue.get("state", "Unknown")  # Ya es una cadena
         team = issue.get("team", "N/A")  # Ya es una cadena
         identifier = issue.get("id", "")  # Usar "id" en lugar de "identifier"
