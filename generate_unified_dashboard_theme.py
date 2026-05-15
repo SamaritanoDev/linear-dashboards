@@ -461,6 +461,63 @@ def generate_issues_section_html(all_months_metrics):
         </tr>
 '''
 
+    # Generar tabla de issues sin label
+    untracked_rows = ""
+    untracked_issues_list = mayo_metrics.get("untracked_issues_list", [])
+    for issue in untracked_issues_list:
+        state = issue.get("state", "Unknown")
+        team = issue.get("team", "N/A")
+        identifier = issue.get("id", "")
+        title = (issue.get("title", "")[:50] + "...") if len(issue.get("title", "")) > 50 else issue.get("title", "")
+        assignee = issue.get("assignee", "Sin asignar")
+
+        state_badge_color = "bg-primary/10 text-primary" if state == "In Progress" else "bg-tertiary-container/20 text-tertiary" if state == "In Review" else "bg-surface-container text-on-surface-variant"
+
+        untracked_rows += f'''        <tr class="hover:bg-surface-container-highest/50 transition-colors group">
+            <td class="px-6 py-4 text-sm font-bold text-on-surface">{identifier}</td>
+            <td class="px-6 py-4 text-sm text-on-surface group-hover:text-white">{title}</td>
+            <td class="px-6 py-4 text-sm">
+                <span class="px-2 py-1 rounded-md {state_badge_color} text-xs font-medium">{state}</span>
+            </td>
+            <td class="px-6 py-4 text-sm text-on-surface-variant">{team}</td>
+            <td class="px-6 py-4 text-sm text-on-surface-variant">{assignee}</td>
+            <td class="px-6 py-4 text-right">
+                <a class="text-primary hover:underline text-sm font-medium flex items-center justify-end gap-1" href="https://linear.app/guinea/issue/{identifier}" target="_blank">
+                    Abrir <span class="material-symbols-outlined text-xs">arrow_forward</span>
+                </a>
+            </td>
+        </tr>
+'''
+
+    # Generar tabla de issues sin label (si existen)
+    untracked_table = ""
+    if untracked_issues_list:
+        untracked_count = len(untracked_issues_list)
+        untracked_table = f'''<div class="glacier-surface p-8 rounded-2xl mb-10">
+            <div class="mb-6">
+                <h2 class="text-xl font-bold text-on-surface flex items-center gap-2">
+                    <span class="material-symbols-outlined text-tertiary">local_offer</span>
+                    Sin Label por Etiquetar ({untracked_count})
+                </h2>
+            </div>
+            <div class="overflow-x-auto rounded-xl border border-outline-variant/50">
+                <table class="w-full text-left">
+                    <thead>
+                        <tr class="bg-surface-container-high">
+                            <th class="px-6 py-4 text-xs font-bold text-primary uppercase tracking-widest">ID Issue</th>
+                            <th class="px-6 py-4 text-xs font-bold text-primary uppercase tracking-widest">Título</th>
+                            <th class="px-6 py-4 text-xs font-bold text-primary uppercase tracking-widest">Estado</th>
+                            <th class="px-6 py-4 text-xs font-bold text-primary uppercase tracking-widest">Team</th>
+                            <th class="px-6 py-4 text-xs font-bold text-primary uppercase tracking-widest">Asignado a</th>
+                            <th class="px-6 py-4 text-xs font-bold text-primary uppercase tracking-widest text-right">Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-outline-variant/30">
+{untracked_rows}                    </tbody>
+                </table>
+            </div>
+        </div>'''
+
     return f'''<div class="max-w-6xl mx-auto">
     <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
         <div>
@@ -589,6 +646,9 @@ def generate_issues_section_html(all_months_metrics):
                 </table>
             </div>
         </div>
+
+        <!-- Tabla de Issues Sin Label -->
+        {untracked_table}
     </div>
 </div>'''
 
