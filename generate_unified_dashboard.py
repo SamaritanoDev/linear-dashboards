@@ -258,6 +258,206 @@ def calculate_metrics(issues, month_name):
 
     return metrics
 
+def generate_issues_section_html(all_months_metrics):
+    """Genera la sección HTML completa para Issues Sin Proyecto CE"""
+    if not all_months_metrics:
+        return '<section id="issues" style="display: none;"><p>No hay datos de issues</p></section>'
+
+    mayo_metrics = next((m for m in all_months_metrics if m["month"] == "Mayo"), all_months_metrics[0] if all_months_metrics else {})
+
+    if not mayo_metrics:
+        return '<section id="issues" style="display: none;"><p>No hay datos para mayo</p></section>'
+
+    month_tabs = ""
+    for m in all_months_metrics:
+        is_active = m["month"] == "Mayo"
+        class_active = "text-primary border-b-2 border-primary font-semibold" if is_active else "text-on-surface-variant font-medium hover:text-on-surface"
+        month_tabs += f'    <button class="px-5 py-2.5 rounded-full text-sm {class_active} transition-all whitespace-nowrap" data-month="{m["month"]}">{m["month"]} 2026</button>\n'
+
+    total_issues = mayo_metrics.get("total_issues", 0)
+    pending_issues = sum(mayo_metrics.get("pending_by_product", {}).values())
+    closed_issues = mayo_metrics.get("closed", 0)
+    progress_percent = int((closed_issues / total_issues * 100)) if total_issues > 0 else 0
+
+    product_cards = ""
+    for product, count in sorted(mayo_metrics.get("by_product", {}).items()):
+        pending = mayo_metrics.get("pending_by_product", {}).get(product, 0)
+        product_cards += f'''    <div class="glacier-card p-5 rounded-xl flex flex-col gap-3">
+        <h3 class="text-sm font-bold text-on-surface">{product}</h3>
+        <div class="flex justify-between items-center">
+            <div class="flex flex-col">
+                <span class="text-[10px] uppercase font-bold text-on-surface-variant tracking-tighter">Total</span>
+                <span class="text-xl font-bold text-on-surface">{count}</span>
+            </div>
+            <div class="flex flex-col text-right">
+                <span class="text-[10px] uppercase font-bold text-secondary tracking-tighter">Pendientes</span>
+                <span class="text-xl font-bold text-secondary">{pending}</span>
+            </div>
+        </div>
+    </div>
+'''
+
+    status_rows = ""
+    states_by_team = mayo_metrics.get("by_state_by_team", {})
+
+    states_dict = {}
+    for key, count in states_by_team.items():
+        if "_" in key:
+            team, state = key.split("_", 1)
+            if state not in states_dict:
+                states_dict[state] = {"CE1": 0, "CE2": 0}
+            states_dict[state][team] = count
+
+    for state in sorted(states_dict.keys()):
+        ce1_count = states_dict[state].get("CE1", 0)
+        ce2_count = states_dict[state].get("CE2", 0)
+        total = ce1_count + ce2_count
+        status_rows += f'''        <tr class="hover:bg-surface-container-highest/50 transition-colors">
+            <td class="px-6 py-4 text-sm text-on-surface">{state}</td>
+            <td class="px-6 py-4 text-sm text-on-surface-variant text-right">{ce1_count}</td>
+            <td class="px-6 py-4 text-sm text-on-surface-variant text-right font-medium">{ce2_count}</td>
+            <td class="px-6 py-4 text-sm text-on-surface text-right font-bold">{total}</td>
+        </tr>
+'''
+
+    pending_rows = ""
+    for issue in mayo_metrics.get("pending_issues_list", []):
+        state = issue.get("state", "Unknown")
+        team = issue.get("team", "N/A")
+        identifier = issue.get("id", "")
+        title = (issue.get("title", "")[:50] + "...") if len(issue.get("title", "")) > 50 else issue.get("title", "")
+        product = issue.get("products", "N/A")
+
+        state_badge_color = "bg-primary/10 text-primary" if state == "In Progress" else "bg-tertiary-container/20 text-tertiary" if state == "In Review" else "bg-surface-container text-on-surface-variant"
+
+        pending_rows += f'''        <tr class="hover:bg-surface-container-highest/50 transition-colors group">
+            <td class="px-6 py-4 text-sm font-bold text-on-surface">{identifier}</td>
+            <td class="px-6 py-4 text-sm text-on-surface group-hover:text-white">{title}</td>
+            <td class="px-6 py-4 text-sm">
+                <span class="px-2 py-1 rounded-md {state_badge_color} text-xs font-medium">{state}</span>
+            </td>
+            <td class="px-6 py-4 text-sm text-on-surface-variant">{product}</td>
+            <td class="px-6 py-4 text-sm text-on-surface-variant">{team}</td>
+            <td class="px-6 py-4 text-right">
+                <a class="text-primary hover:underline text-sm font-medium flex items-center justify-end gap-1" href="https://linear.app/guinea/issue/{identifier}" target="_blank">
+                    Abrir <span class="material-symbols-outlined text-xs">arrow_forward</span>
+                </a>
+            </td>
+        </tr>
+'''
+
+    return f'''<div class="max-w-6xl mx-auto">
+        <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
+            <div>
+                <h1 class="text-4xl font-bold text-on-surface tracking-tight flex items-center gap-3">
+                    <span class="material-symbols-outlined text-primary text-4xl">bug_report</span>
+                    Issues Sin Proyecto CE
+                </h1>
+                <p class="text-on-surface-variant mt-2">Seguimiento de incidencias operativas no vinculadas a proyectos</p>
+            </div>
+        </div>
+
+        <div class="border-l-4 border-primary p-4 rounded-r-xl mb-6 flex items-start gap-4">
+            <span class="material-symbols-outlined text-primary mt-0.5">info</span>
+            <p class="text-sm text-on-surface leading-relaxed"><strong class="text-primary">Nota:</strong> Solo se muestran issues que NO pertenecen a ningún proyecto.</p>
+        </div>
+
+        <div class="flex items-center gap-2 mb-8 overflow-x-auto pb-2" data-purpose="month-navigation">
+{month_tabs}        </div>
+
+        <div class="tab-content" id="tab-issues" data-month="Mayo">
+            <div class="flex items-center gap-2 mb-6">
+                <span class="h-2 w-2 rounded-full bg-primary"></span>
+                <span class="text-sm font-medium text-on-surface-variant uppercase tracking-widest">Mayo 2026: {total_issues} issues totales | Pendientes: {pending_issues}</span>
+            </div>
+
+            <div class="glacier-card p-6 rounded-xl mb-10">
+                <div class="flex justify-between items-center mb-4">
+                    <h4 class="text-sm font-bold text-on-surface">Progreso General</h4>
+                    <span class="text-lg font-bold text-primary">{progress_percent}%</span>
+                </div>
+                <div class="w-full bg-surface-container rounded-full overflow-hidden h-6">
+                    <div class="h-full rounded-full transition-all duration-1000" style="width: {progress_percent}%; background: linear-gradient(90deg, rgb(125, 211, 252) 0%, rgb(186, 230, 253) 100%);"></div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-10 lg:grid-cols-6">
+                <div class="bg-surface-container-low p-4 rounded-lg flex flex-col items-center justify-center text-center border border-outline-variant/20 shadow-sm">
+                    <span class="text-on-surface-variant text-[10px] font-bold uppercase mb-2 tracking-widest">Total Issues</span>
+                    <span class="text-3xl font-bold text-on-surface">{total_issues}</span>
+                </div>
+                <div class="bg-surface-container-low p-4 rounded-lg flex flex-col items-center justify-center text-center border border-outline-variant/20 shadow-sm">
+                    <span class="text-on-surface-variant text-[10px] font-bold uppercase mb-2 tracking-widest">En Progreso</span>
+                    <span class="text-3xl font-bold text-primary">{mayo_metrics.get("by_state", {}).get("In Progress", 0)}</span>
+                </div>
+                <div class="bg-surface-container-low p-4 rounded-lg flex flex-col items-center justify-center text-center border border-outline-variant/20 shadow-sm">
+                    <span class="text-on-surface-variant text-[10px] font-bold uppercase mb-2 tracking-widest">Pendientes</span>
+                    <span class="text-3xl font-bold text-on-surface">{pending_issues}</span>
+                </div>
+                <div class="bg-surface-container-low p-4 rounded-lg flex flex-col items-center justify-center text-center border border-outline-variant/20 shadow-sm">
+                    <span class="text-on-surface-variant text-[10px] font-bold uppercase mb-2 tracking-widest">Bloqueados</span>
+                    <span class="text-3xl font-bold text-error">{mayo_metrics.get("blocked", 0)}</span>
+                </div>
+                <div class="bg-surface-container-low p-4 rounded-lg flex flex-col items-center justify-center text-center border border-outline-variant/20 shadow-sm">
+                    <span class="text-on-surface-variant text-[10px] font-bold uppercase mb-2 tracking-widest">Sin Label</span>
+                    <span class="text-3xl font-bold text-on-surface-variant">{mayo_metrics.get("untracked_issues", 0)}</span>
+                </div>
+                <div class="bg-tertiary-container/30 p-4 rounded-lg flex flex-col items-center justify-center text-center border border-tertiary/20 shadow-sm">
+                    <span class="text-tertiary text-[10px] font-bold uppercase mb-2 tracking-widest">Cerrados</span>
+                    <span class="text-3xl font-bold text-tertiary">{closed_issues}</span>
+                </div>
+            </div>
+
+            <div class="glacier-surface p-8 rounded-2xl mb-10">
+                <div class="flex items-center justify-between mb-8">
+                    <h2 class="text-xl font-bold text-on-surface flex items-center gap-2">
+                        <span class="material-symbols-outlined text-primary">bar_chart</span>
+                        Por Estado (Team)
+                    </h2>
+                </div>
+                <div class="overflow-hidden rounded-xl border border-outline-variant/50">
+                    <table class="w-full text-left">
+                        <thead>
+                            <tr class="bg-surface-container-high">
+                                <th class="px-6 py-4 text-xs font-bold text-primary uppercase tracking-widest">Estado</th>
+                                <th class="px-6 py-4 text-xs font-bold text-primary uppercase tracking-widest text-right">CE1</th>
+                                <th class="px-6 py-4 text-xs font-bold text-primary uppercase tracking-widest text-right">CE2</th>
+                                <th class="px-6 py-4 text-xs font-bold text-primary uppercase tracking-widest text-right">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-outline-variant/30">
+{status_rows}                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="glacier-surface p-8 rounded-2xl">
+                <div class="flex items-center justify-between mb-8">
+                    <h2 class="text-xl font-bold text-on-surface flex items-center gap-2">
+                        <span class="material-symbols-outlined text-primary">hourglass_empty</span>
+                        Pendientes por Revisar ({pending_issues})
+                    </h2>
+                </div>
+                <div class="overflow-x-auto rounded-xl border border-outline-variant/50">
+                    <table class="w-full text-left">
+                        <thead>
+                            <tr class="bg-surface-container-high">
+                                <th class="px-6 py-4 text-xs font-bold text-primary uppercase tracking-widest">ID Issue</th>
+                                <th class="px-6 py-4 text-xs font-bold text-primary uppercase tracking-widest">Título</th>
+                                <th class="px-6 py-4 text-xs font-bold text-primary uppercase tracking-widest">Estado</th>
+                                <th class="px-6 py-4 text-xs font-bold text-primary uppercase tracking-widest">Producto</th>
+                                <th class="px-6 py-4 text-xs font-bold text-primary uppercase tracking-widest">Team</th>
+                                <th class="px-6 py-4 text-xs font-bold text-primary uppercase tracking-widest text-right">Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-outline-variant/30">
+{pending_rows}                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>'''
+
 def calculate_project_metrics(projects):
     """Calcula métricas para proyectos"""
     from datetime import datetime as dt
@@ -540,10 +740,8 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
     metrics_cards += '            <span class="text-4xl font-bold text-tertiary" id="metric-completed">' + str(completed) + '</span>\n'
     metrics_cards += '        </div>\n'
 
-    # Obtener sección de Issues CE
-    issues_section_start = original.find('<div id="issues"')
-    issues_section_end = original.find('</section>', issues_section_start)
-    issues_section = original[issues_section_start:issues_section_end] if issues_section_start != -1 else ""
+    # Generar sección de Issues CE
+    issues_section = generate_issues_section_html(all_months_metrics)
 
     # Convertir datos a JSON para usar en JavaScript
     months_data_json = json.dumps(months_data)
@@ -677,6 +875,10 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
                     </nav>
                 </div>
                 <div class="mt-auto p-6">
+                    <button id="theme-toggle" class="w-full glacier-surface px-4 py-3 rounded-xl border border-primary/20 flex items-center justify-center gap-2 text-sm cursor-pointer hover:border-primary/40 transition-all mb-4" title="Cambiar tema">
+                        <span class="material-symbols-outlined text-primary" id="theme-icon">light_mode</span>
+                        <span class="text-on-surface-variant text-xs font-medium" id="theme-label">Modo Claro</span>
+                    </button>
                     <div class="bg-surface-container rounded-xl p-4 border border-outline-variant/30">
                         <p class="text-xs text-primary font-semibold mb-1 uppercase tracking-tighter">Continuity Eng.</p>
                         <p class="text-[10px] text-on-surface-variant">v2.4.0 Glacier Stable</p>
@@ -762,6 +964,36 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
         <script data-purpose="ui-interactions">
             // Datos de todos los meses desde el servidor
             const monthsData = """ + months_data_json + """;
+
+            // ========== THEME TOGGLE ==========
+            const themeToggle = document.getElementById('theme-toggle');
+            const themeIcon = document.getElementById('theme-icon');
+            const themeLabel = document.getElementById('theme-label');
+            const htmlElement = document.documentElement;
+
+            // Restaurar preferencia de tema guardada
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            if (savedTheme === 'dark') {
+                htmlElement.classList.add('dark');
+                updateThemeUI(true);
+            }
+
+            function updateThemeUI(isDark) {
+                if (isDark) {
+                    themeIcon.textContent = 'dark_mode';
+                    themeLabel.textContent = 'Modo Oscuro';
+                } else {
+                    themeIcon.textContent = 'light_mode';
+                    themeLabel.textContent = 'Modo Claro';
+                }
+            }
+
+            themeToggle.addEventListener('click', () => {
+                const isDark = htmlElement.classList.toggle('dark');
+                localStorage.setItem('theme', isDark ? 'dark' : 'light');
+                updateThemeUI(isDark);
+            });
+            // ========== END THEME TOGGLE ==========
 
             function switchSection(section) {
                 document.getElementById('projects').style.display = section === 'projects' ? 'block' : 'none';
