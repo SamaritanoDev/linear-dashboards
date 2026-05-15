@@ -231,6 +231,40 @@
             .dark .text-on-tertiary { color: #1a002e; }
             .dark .text-primary { color: #7dd3fc; }
             .dark .text-on-primary-container { color: #a0d8f7; }
+            /* Light mode table backgrounds for Issues CE tab */
+            html:not(.dark) #issues .glacier-surface {
+                background-color: #ffffff !important;
+                color: #191c1e !important;
+            }
+            /* Light mode - table rows styling - no changes on hover/click */
+            html:not(.dark) #issues .glacier-surface table tbody tr {
+                user-select: none;
+            }
+            html:not(.dark) #issues .glacier-surface table tbody tr td {
+                color: #191c1e !important;
+                background-color: transparent !important;
+                font-weight: bold !important;
+            }
+            html:not(.dark) #issues .glacier-surface table tbody tr:hover td {
+                color: #191c1e !important;
+                background-color: transparent !important;
+                font-weight: bold !important;
+            }
+            html:not(.dark) #issues .glacier-surface table tbody tr:active td {
+                color: #191c1e !important;
+                background-color: transparent !important;
+                font-weight: bold !important;
+            }
+            html:not(.dark) #issues .glacier-surface table tbody tr:focus td {
+                color: #191c1e !important;
+                background-color: transparent !important;
+                font-weight: bold !important;
+            }
+            /* Dark mode - keep original colors */
+            .dark #issues .glacier-surface {
+                background-color: #0f1524 !important;
+                color: #e0e8f0 !important;
+            }
         </style>
     </head>
     <body class="min-h-screen bg-background text-on-surface">
@@ -783,40 +817,28 @@
                     <thead>
                         <tr class="bg-surface-container-high">
                             <th class="px-6 py-4 text-xs font-bold text-primary uppercase tracking-widest">Estado</th>
-                            <th class="px-6 py-4 text-xs font-bold text-primary uppercase tracking-widest text-right">CE1</th>
-                            <th class="px-6 py-4 text-xs font-bold text-primary uppercase tracking-widest text-right">CE2</th>
                             <th class="px-6 py-4 text-xs font-bold text-primary uppercase tracking-widest text-right">Total</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-outline-variant/30">
         <tr class="hover:bg-surface-container-highest/50 transition-colors">
             <td class="px-6 py-4 text-sm text-on-surface">Backlog</td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant text-right">0</td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant text-right font-medium">14</td>
             <td class="px-6 py-4 text-sm text-on-surface text-right font-bold">14</td>
         </tr>
         <tr class="hover:bg-surface-container-highest/50 transition-colors">
             <td class="px-6 py-4 text-sm text-on-surface">Closed</td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant text-right">0</td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant text-right font-medium">29</td>
             <td class="px-6 py-4 text-sm text-on-surface text-right font-bold">29</td>
         </tr>
         <tr class="hover:bg-surface-container-highest/50 transition-colors">
             <td class="px-6 py-4 text-sm text-on-surface">In Progress</td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant text-right">0</td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant text-right font-medium">6</td>
             <td class="px-6 py-4 text-sm text-on-surface text-right font-bold">6</td>
         </tr>
         <tr class="hover:bg-surface-container-highest/50 transition-colors">
             <td class="px-6 py-4 text-sm text-on-surface">In Review</td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant text-right">0</td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant text-right font-medium">2</td>
             <td class="px-6 py-4 text-sm text-on-surface text-right font-bold">2</td>
         </tr>
         <tr class="hover:bg-surface-container-highest/50 transition-colors">
             <td class="px-6 py-4 text-sm text-on-surface">Planning</td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant text-right">0</td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant text-right font-medium">7</td>
             <td class="px-6 py-4 text-sm text-on-surface text-right font-bold">7</td>
         </tr>
                     </tbody>
