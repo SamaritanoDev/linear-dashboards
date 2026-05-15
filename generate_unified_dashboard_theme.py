@@ -381,7 +381,7 @@ def generate_issues_section_html(all_months_metrics):
     month_tabs = ""
     for m in all_months_metrics:
         is_active = m["month"] == "Mayo"
-        class_active = "text-primary bg-primary/10 border border-primary/30 shadow-lg shadow-primary/5 font-semibold" if is_active else "text-on-surface-variant font-medium hover:text-on-surface hover:bg-surface-container"
+        class_active = "text-primary border-b-2 border-primary font-semibold" if is_active else "text-on-surface-variant font-medium hover:text-on-surface"
         month_tabs += f'    <button class="px-5 py-2.5 rounded-full text-sm {class_active} transition-all whitespace-nowrap" data-month="{m["month"]}">{m["month"]} 2026</button>\n'
 
     # Calcular métricas
@@ -724,7 +724,7 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
     months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo"]
     for i, month in enumerate(months):
         is_active = (i == len(months) - 1)
-        classes = 'text-primary bg-primary/10 border border-primary/30 shadow-lg shadow-primary/5 font-semibold' if is_active else 'text-on-surface-variant hover:text-primary hover:bg-surface-container transition-all font-medium'
+        classes = 'text-primary border-b-2 border-primary font-semibold' if is_active else 'text-on-surface-variant hover:text-primary transition-all font-medium'
         month_buttons += '    <button class="px-5 py-2.5 rounded-full text-sm ' + classes + ' whitespace-nowrap" data-month="' + month + '">' + month + ' 2026</button>\n'
 
     # Generar tarjetas de marcas con datos actuales
@@ -993,6 +993,9 @@ def generate_html(all_months_projects_metrics, all_months_metrics):
             .dark .bg-surface-container-highest { background-color: #202c42; }
             /* Table styling for dark mode - Por Estado */
             .dark .glacier-card table { background-color: transparent !important; }
+            .tab-content {
+                background-color: transparent !important;
+            }
             .dark .glacier-card table thead { background-color: #0f1524 !important; }
             .dark .glacier-card table thead tr { background-color: #0f1524 !important; }
             .dark .glacier-card table thead tr th { background-color: #0f1524 !important; color: #7dd3fc !important; }
