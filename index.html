@@ -287,6 +287,18 @@
             </aside>
 
             <main class="flex-1 ml-48 p-8 lg:p-12" data-purpose="dashboard-content">
+                <div id="loading-overlay" class="hidden fixed inset-0 bg-black/20 z-40 flex items-center justify-center" style="top: 0; left: 0; right: 0; bottom: 0;">
+                    <div class="bg-white rounded-lg p-8 shadow-xl">
+                        <div class="animate-spin h-8 w-8 border-4 border-primary border-t-transparent mx-auto"></div>
+                        <p class="mt-4 text-sm text-on-surface-variant text-center">Cargando datos...</p>
+                    </div>
+                </div>
+
+                <div id="error-message" class="hidden bg-error-container text-error p-4 rounded-lg mb-4 mx-4 flex items-center gap-3">
+                    <span class="material-symbols-outlined">error</span>
+                    <p id="error-text">Error al cargar datos</p>
+                </div>
+
                 <section class="max-w-6xl mx-auto" id="projects">
                     <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
                         <div>
@@ -1302,6 +1314,100 @@
             });
             // ========== END THEME TOGGLE ==========
 
+            // ========== WORKER API INTEGRATION ==========
+            const WORKER_CONFIG = {
+                baseUrl: 'https://linear-api-worker.mb-2be.workers.dev',
+                enableFetch: true,
+                cacheDuration: 24 * 60 * 60 * 1000,
+                timeout: 10000,
+                debug: true
+            };
+
+            function cacheMetrics(monthName, data) {
+                localStorage.setItem(
+                    `cache_metrics_${monthName}_2026`,
+                    JSON.stringify({ data, timestamp: Date.now() })
+                );
+            }
+
+            function getCachedMetrics(monthName, ignoreExpiry = false) {
+                const key = `cache_metrics_${monthName}_2026`;
+                const cached = localStorage.getItem(key);
+                if (!cached) return null;
+
+                const { data, timestamp } = JSON.parse(cached);
+                const isExpired = Date.now() - timestamp > WORKER_CONFIG.cacheDuration;
+
+                if (isExpired && !ignoreExpiry) return null;
+                return data;
+            }
+
+            async function fetchMonthMetrics(monthName) {
+                const url = `${WORKER_CONFIG.baseUrl}/api/metrics?month=${monthName}&filter=without_project`;
+
+                try {
+                    const response = await Promise.race([
+                        fetch(url),
+                        new Promise((_, reject) =>
+                            setTimeout(() => reject(new Error('Timeout')), WORKER_CONFIG.timeout)
+                        )
+                    ]);
+
+                    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+                    const data = await response.json();
+                    if (WORKER_CONFIG.debug) console.log('Fetched data:', data);
+                    return {
+                        ...data.projects,
+                        issues: data.issues
+                    };
+                } catch (error) {
+                    if (WORKER_CONFIG.debug) console.error('Fetch failed:', error);
+                    throw error;
+                }
+            }
+
+            async function loadMonthData(monthName) {
+                if (!WORKER_CONFIG.enableFetch) {
+                    return monthsData[monthName] || null;
+                }
+
+                try {
+                    const cached = getCachedMetrics(monthName);
+                    if (cached) return cached;
+
+                    const data = await fetchMonthMetrics(monthName);
+                    cacheMetrics(monthName, data);
+                    return data;
+                } catch (fetchError) {
+                    const cached = getCachedMetrics(monthName, true);
+                    if (cached) return cached;
+
+                    return monthsData[monthName] || null;
+                }
+            }
+
+            function showLoadingState() {
+                const overlay = document.getElementById('loading-overlay');
+                if (overlay) overlay.classList.remove('hidden');
+            }
+
+            function hideLoadingState() {
+                const overlay = document.getElementById('loading-overlay');
+                if (overlay) overlay.classList.add('hidden');
+            }
+
+            function showErrorState(message) {
+                const errorDiv = document.getElementById('error-message');
+                if (errorDiv) {
+                    const errorText = document.getElementById('error-text');
+                    if (errorText) errorText.textContent = message;
+                    errorDiv.classList.remove('hidden');
+                    setTimeout(() => errorDiv.classList.add('hidden'), 5000);
+                }
+            }
+            // ========== END WORKER API INTEGRATION ==========
+
             // Datos de todos los meses desde el servidor
             const monthsData = {"Enero": {"total_projects": 20, "in_progress": 0, "pending_ce2": 4, "blocked": 0, "completed": 16, "by_state": {"Completed": 13, "In Review": 2, "Backlog": 3, "Planned": 1, "Archived": 1}, "brands": {"Cuy": {"total": 2, "pending": 1, "completed": 1}, "PeruSim": {"total": 3, "pending": 2, "completed": 1}, "Habla+": {"total": 7, "pending": 2, "completed": 5}, "Wings": {"total": 1, "pending": 1, "completed": 0}, "Fimo": {"total": 0, "pending": 0, "completed": 0}, "Guinea": {"total": 5, "pending": 1, "completed": 4}, "B2B": {"total": 1, "pending": 0, "completed": 1}, "Partner": {"total": 0, "pending": 0, "completed": 0}, "Legales": {"total": 0, "pending": 0, "completed": 0}, "Finanzas": {"total": 0, "pending": 0, "completed": 0}, "Airalo": {"total": 1, "pending": 0, "completed": 1}, "Sin clasificar": {"total": 0, "pending": 0, "completed": 0}}, "issues": {"total_issues": 0, "closed": 0, "by_state": {}, "by_product": {}, "pending_by_product": {}, "by_state_by_team": {}, "pending_issues_list": []}}, "Febrero": {"total_projects": 36, "in_progress": 1, "pending_ce2": 2, "blocked": 2, "completed": 31, "by_state": {"Completed": 27, "Backlog": 2, "In Progress": 1, "Blocked": 2, "In Review": 4, "Canceled": 3}, "brands": {"Cuy": {"total": 11, "pending": 3, "completed": 8}, "PeruSim": {"total": 5, "pending": 3, "completed": 2}, "Habla+": {"total": 5, "pending": 3, "completed": 2}, "Wings": {"total": 4, "pending": 0, "completed": 4}, "Fimo": {"total": 3, "pending": 0, "completed": 3}, "Guinea": {"total": 2, "pending": 0, "completed": 2}, "B2B": {"total": 4, "pending": 0, "completed": 4}, "Partner": {"total": 0, "pending": 0, "completed": 0}, "Legales": {"total": 0, "pending": 0, "completed": 0}, "Finanzas": {"total": 0, "pending": 0, "completed": 0}, "Airalo": {"total": 2, "pending": 0, "completed": 2}, "Sin clasificar": {"total": 0, "pending": 0, "completed": 0}}, "issues": {"total_issues": 146, "closed": 146, "by_state": {"Closed": 146}, "by_product": {"Airalo": 7, "Habla+": 10, "Wings": 3, "Fimo": 4, "Cuy": 2, "Guinea": 1}, "pending_by_product": {}, "by_state_by_team": {"CE2_Closed": 146}, "pending_issues_list": []}}, "Marzo": {"total_projects": 26, "in_progress": 0, "pending_ce2": 2, "blocked": 2, "completed": 22, "by_state": {"In Review": 1, "Completed": 21, "Blocked": 2, "Backlog": 2}, "brands": {"Cuy": {"total": 9, "pending": 3, "completed": 6}, "PeruSim": {"total": 2, "pending": 0, "completed": 2}, "Habla+": {"total": 5, "pending": 1, "completed": 4}, "Wings": {"total": 0, "pending": 0, "completed": 0}, "Fimo": {"total": 1, "pending": 1, "completed": 0}, "Guinea": {"total": 6, "pending": 0, "completed": 6}, "B2B": {"total": 0, "pending": 0, "completed": 0}, "Partner": {"total": 0, "pending": 0, "completed": 0}, "Legales": {"total": 0, "pending": 0, "completed": 0}, "Finanzas": {"total": 0, "pending": 0, "completed": 0}, "Airalo": {"total": 3, "pending": 0, "completed": 3}, "Sin clasificar": {"total": 0, "pending": 0, "completed": 0}}, "issues": {"total_issues": 231, "closed": 231, "by_state": {"Closed": 231}, "by_product": {"Cuy": 38, "PeruSim+": 1, "Habla+": 8, "Guinea": 4, "Fimo": 2, "Wings": 5, "Airalo": 2, "Finanzas": 1}, "pending_by_product": {}, "by_state_by_team": {"CE2_Closed": 231}, "pending_issues_list": []}}, "Abril": {"total_projects": 10, "in_progress": 0, "pending_ce2": 6, "blocked": 0, "completed": 4, "by_state": {"Backlog": 6, "Completed": 4}, "brands": {"Cuy": {"total": 1, "pending": 0, "completed": 1}, "PeruSim": {"total": 0, "pending": 0, "completed": 0}, "Habla+": {"total": 2, "pending": 1, "completed": 1}, "Wings": {"total": 1, "pending": 0, "completed": 1}, "Fimo": {"total": 1, "pending": 0, "completed": 1}, "Guinea": {"total": 3, "pending": 3, "completed": 0}, "B2B": {"total": 0, "pending": 0, "completed": 0}, "Partner": {"total": 0, "pending": 0, "completed": 0}, "Legales": {"total": 0, "pending": 0, "completed": 0}, "Finanzas": {"total": 1, "pending": 1, "completed": 0}, "Airalo": {"total": 1, "pending": 1, "completed": 0}, "Sin clasificar": {"total": 0, "pending": 0, "completed": 0}}, "issues": {"total_issues": 157, "closed": 135, "by_state": {"Closed": 135, "Planning": 9, "In Review": 4, "Backlog": 6, "In Progress": 1, "Blocked": 2}, "by_product": {"Finanzas": 17, "Habla+": 12, "Cuy": 41, "Guinea": 19, "Wings": 10, "B2B": 10, "Legales": 3, "Partner": 1, "PeruSim+": 19, "Airalo": 3, "Fimo": 2}, "pending_by_product": {"Cuy": 7, "Finanzas": 4, "Guinea": 5, "B2B": 1, "Partner": 1, "Habla+": 3, "PeruSim+": 1}, "by_state_by_team": {"CE2_Closed": 135, "CE2_Planning": 9, "CE2_In Review": 4, "CE2_Backlog": 6, "CE2_In Progress": 1, "CE2_Blocked": 2}, "pending_issues_list": [{"id": "CE2-1501", "title": "Generar preactivaci\u00f3n y boleta CMS para cliente", "state": "Planning", "team": "CE2", "products": "Cuy", "assignee": "Alex Estrada"}, {"id": "CE2-1499", "title": "Recargas recientes no aparecen en historial de Cuy", "state": "Planning", "team": "CE2", "products": "Cuy", "assignee": "Lesly Samaritano"}, {"id": "CE2-1498", "title": "Habilitar acceso a bd.gnmbl.net para Jorge Brenner", "state": "In Review", "team": "CE2", "products": "Finanzas", "assignee": "Daniel Alvarez"}, {"id": "CE2-1497", "title": "CMS muestra portabilidad activa sin solicitud en curso", "state": "Backlog", "team": "CE2", "products": "Cuy", "assignee": "Farialis Martinez"}, {"id": "CE2-1493", "title": "Dashboard de reportes B2C muestra marzo en cero", "state": "Planning", "team": "CE2", "products": "Finanzas", "assignee": "Alex Estrada"}, {"id": "CE2-1489", "title": "Actualizar t\u00e9rminos y condiciones de planes prepago Cuy", "state": "Planning", "team": "CE2", "products": "Cuy", "assignee": "Alex Estrada"}, {"id": "CE2-1487", "title": "Generar reporte de tarifas Airalo para Cuy y PeruSIM", "state": "Backlog", "team": "CE2", "products": "Finanzas", "assignee": "Patrick Bola\u00f1os"}, {"id": "CE2-1607", "title": "Dise\u00f1ar framework de trabajo para squad operadores", "state": "Backlog", "team": "CE2", "products": "Guinea", "assignee": "Enrique Lezama"}, {"id": "CE2-1614", "title": "BOP de ARPU B2B no cuadra con BD", "state": "Planning", "team": "CE2", "products": "B2B", "assignee": "Alex Estrada"}, {"id": "CE2-1841", "title": "Mostrar precio por empresa en detalle de plan B2B", "state": "Planning", "team": "CE2", "products": "Finanzas", "assignee": "Alex Estrada"}, {"id": "CE2-1480", "title": "Eliminar ramas tras merge a main en repos de Flutter", "state": "Backlog", "team": "CE2", "products": "Guinea", "assignee": "Alberto Pereda"}, {"id": "CE2-1479", "title": "L\u00ednea 51915138246 y 51919087631 activada a dos personas distintas", "state": "In Progress", "team": "CE2", "products": "Cuy", "assignee": "Lesly Samaritano"}, {"id": "CE2-1475", "title": "Plan S/39.90 muestra RRSS incluidas en app Cuy", "state": "Planning", "team": "CE2", "products": "Cuy", "assignee": "Alberto Pereda"}, {"id": "CE2-1472", "title": "Cuy - App Distribuidores - Nuevos Indicadores de Ventas", "state": "Backlog", "team": "CE2", "products": "Partner", "assignee": "Patrick Bola\u00f1os"}, {"id": "CE2-1471", "title": "Corregir en la UI cuando una l\u00ednea se reserva por otra marca", "state": "Blocked", "team": "CE2", "products": "Habla+", "assignee": "Alberto Pereda"}, {"id": "CE2-1618", "title": "Crear ambiente de preproducci\u00f3n para planes Habla+ Cliente", "state": "Blocked", "team": "CE2", "products": "Habla+", "assignee": "Alberto Pereda"}, {"id": "CE2-1443", "title": "Atribuci\u00f3n incorrecta de activaci\u00f3n de extranjero a peruano", "state": "Backlog", "team": "CE2", "products": "PeruSim+", "assignee": "Leandro Ramirez"}, {"id": "CE2-1844", "title": "Error HTTP 401 al iniciar sesi\u00f3n en Guinea", "state": "Planning", "team": "CE2", "products": "Guinea", "assignee": "Alberto Pereda"}, {"id": "CE2-1402", "title": "Habla+ | Creaci\u00f3n de un FUNNEL Habla+ Dashboard", "state": "Planning", "team": "CE2", "products": "Habla+", "assignee": "Patrick Bola\u00f1os"}, {"id": "CE2-1400", "title": "Enviar SMS antes de vencimiento e inactividad de l\u00ednea", "state": "In Review", "team": "CE2", "products": "Cuy", "assignee": "Farialis Martinez"}, {"id": "CE2-1351", "title": "Error al ejecutar reportes SIGEP automatizados desde BOP", "state": "In Review", "team": "CE2", "products": "Guinea", "assignee": "Daniel Alvarez"}, {"id": "CE2-1615", "title": "Enviar correo por interrupci\u00f3n temporal de RENIEC", "state": "In Review", "team": "CE2", "products": "Guinea", "assignee": "Farialis Martinez"}]}}, "Mayo": {"total_projects": 18, "in_progress": 2, "pending_ce2": 15, "blocked": 0, "completed": 1, "by_state": {"Backlog": 12, "In Progress": 2, "Planned": 3, "Completed": 1}, "brands": {"Cuy": {"total": 6, "pending": 6, "completed": 0}, "PeruSim": {"total": 1, "pending": 1, "completed": 0}, "Habla+": {"total": 3, "pending": 2, "completed": 1}, "Wings": {"total": 0, "pending": 0, "completed": 0}, "Fimo": {"total": 0, "pending": 0, "completed": 0}, "Guinea": {"total": 5, "pending": 5, "completed": 0}, "B2B": {"total": 0, "pending": 0, "completed": 0}, "Partner": {"total": 0, "pending": 0, "completed": 0}, "Legales": {"total": 2, "pending": 2, "completed": 0}, "Finanzas": {"total": 1, "pending": 1, "completed": 0}, "Airalo": {"total": 0, "pending": 0, "completed": 0}, "Sin clasificar": {"total": 0, "pending": 0, "completed": 0}}, "issues": {"total_issues": 58, "closed": 29, "by_state": {"Backlog": 14, "Planning": 7, "Closed": 29, "In Review": 2, "In Progress": 6}, "by_product": {"Habla+": 5, "Cuy": 16, "B2B": 3, "Airalo": 4, "Finanzas": 4, "Legales": 2, "PeruSim+": 5, "Guinea": 9, "Fimo": 4, "Wings": 3, "Partner": 2}, "pending_by_product": {"Habla+": 3, "Cuy": 10, "B2B": 2, "Airalo": 2, "Finanzas": 2, "PeruSim+": 3, "Guinea": 5, "Partner": 1, "Legales": 1}, "by_state_by_team": {"CE2_Backlog": 14, "CE2_Planning": 7, "CE2_Closed": 29, "CE2_In Review": 2, "CE2_In Progress": 6}, "pending_issues_list": [{"id": "CE2-1911", "title": "Izipay no guarda mes ni a\u00f1o de expiraci\u00f3n", "state": "Backlog", "team": "CE2", "products": "Habla+", "assignee": "Lesly Samaritano"}, {"id": "CE2-1910", "title": "Pago Yape no visible bloquea preactivaci\u00f3n de chip", "state": "Planning", "team": "CE2", "products": "Cuy", "assignee": "Alex Estrada"}, {"id": "CE2-1898", "title": "Actualizar reporte B2B/IoT cada lunes", "state": "Backlog", "team": "CE2", "products": "B2B", "assignee": "Patrick Bola\u00f1os"}, {"id": "CE2-1897", "title": "Airalo muestra eSIMs finalizados con paquetes activos", "state": "Backlog", "team": "CE2", "products": "Airalo", "assignee": "Farialis Martinez"}, {"id": "CE2-1884", "title": "Regularizar transacciones y boletas de casos Yape reportados", "state": "Backlog", "team": "CE2", "products": "Finanzas", "assignee": "Alex Estrada"}, {"id": "CE2-1882", "title": "Extras de 1, 5 y 10 GB no aparecen en la app", "state": "Backlog", "team": "CE2", "products": "PeruSim+", "assignee": "Alberto Pereda"}, {"id": "CE2-1879", "title": "Registrar excepci\u00f3n en lista blanca para l\u00ednea 927481804", "state": "In Review", "team": "CE2", "products": "Guinea", "assignee": "Alex Estrada"}, {"id": "CE2-1863", "title": "Guinea - Requerimiento de Victor sobre minutos entrantes y salientes", "state": "Planning", "team": "CE2", "products": "Guinea", "assignee": "Patrick Bola\u00f1os"}, {"id": "CE2-1860", "title": "Regularizar boleta faltante pendiente en Finanzas", "state": "Backlog", "team": "CE2", "products": "Finanzas", "assignee": "Alex Estrada"}, {"id": "CE2-1613", "title": "Regularizar boleta del caso de recarga Yape", "state": "Backlog", "team": "CE2", "products": "Cuy", "assignee": "Alex Estrada"}, {"id": "CE2-1612", "title": "Regularizar boleta pendiente de recarga Yape en Cuy", "state": "Backlog", "team": "CE2", "products": "Cuy", "assignee": "Alex Estrada"}, {"id": "CE2-1610", "title": "Generar reporte semanal de activaciones B2B/IoT Guinea", "state": "In Progress", "team": "CE2", "products": "B2B", "assignee": "Patrick Bola\u00f1os"}, {"id": "CE2-1600", "title": "Validar falla recurrente en renovaci\u00f3n autom\u00e1tica de plan", "state": "In Progress", "team": "CE2", "products": "Cuy", "assignee": "Alex Estrada"}, {"id": "CE2-1596", "title": "Activaciones nuevas de PeruSIM no llegan al dashboard", "state": "In Progress", "team": "CE2", "products": "PeruSim+", "assignee": "Patrick Bola\u00f1os"}, {"id": "CE2-1591", "title": "Validar bloqueo de IMEI pese a registro en lista blanca", "state": "In Review", "team": "CE2", "products": "PeruSim+", "assignee": "Alex Estrada"}, {"id": "CE2-1590", "title": "Publicar plan MODEM 80 GB solo en Almaceneros", "state": "Backlog", "team": "CE2", "products": "Habla+", "assignee": "Farialis Martinez"}, {"id": "CE2-1589", "title": "Crear perfil vendedor y CMS para dealer nuevo", "state": "Backlog", "team": "CE2", "products": "Partner", "assignee": "Alex Estrada"}, {"id": "CE2-1588", "title": "Registrar response de pasarela en user_transaction", "state": "Backlog", "team": "CE2", "products": "Cuy", "assignee": "Farialis Martinez"}, {"id": "CE2-1587", "title": "Error al reservar ICCID al cambiar tipo de activaci\u00f3n", "state": "Planning", "team": "CE2", "products": "Cuy", "assignee": "Alberto Pereda"}, {"id": "CE2-1586", "title": "L\u00ednea portada no muestra ICCID en sistemas internos", "state": "In Progress", "team": "CE2", "products": "Guinea", "assignee": "Farialis Martinez"}, {"id": "CE2-1837", "title": "Regularizar 85 l\u00edneas con boletas err\u00f3neas de CuyCash", "state": "Backlog", "team": "CE2", "products": "Cuy", "assignee": "Alex Estrada"}, {"id": "CE2-1840", "title": "Probar navegaci\u00f3n sin internet con l\u00ednea Habla+", "state": "Backlog", "team": "CE2", "products": "Habla+", "assignee": "Alex Estrada"}, {"id": "CE2-1846", "title": "Quitar firma de Mariano en respuesta a reclamos", "state": "Planning", "team": "CE2", "products": "Legales", "assignee": "Alex Estrada"}, {"id": "CE2-1836", "title": "L\u00ednea 51915148347 muestra dos perfiles activos en CMS", "state": "In Progress", "team": "CE2", "products": "Airalo", "assignee": "Farialis Martinez"}, {"id": "CE2-1578", "title": "Causa raiz: lineas compartidas entre usuarios - validacion de duplicidad faltante en activacion", "state": "In Progress", "team": "CE2", "products": "Cuy", "assignee": "Bot Tech"}, {"id": "CE2-1576", "title": "D\u00e9bito autom\u00e1tico no renueva l\u00edneas Cuy del cliente", "state": "Planning", "team": "CE2", "products": "Cuy", "assignee": "Leandro Ramirez"}, {"id": "CE2-1847", "title": "Dar seguimiento a mejoras de infraestructura de mensajer\u00eda", "state": "Planning", "team": "CE2", "products": "Guinea", "assignee": "Angel Crispin"}, {"id": "CE2-1845", "title": "BOP no muestra resultados al filtrar abril", "state": "Planning", "team": "CE2", "products": "Guinea", "assignee": "Alex Estrada"}, {"id": "CE2-1507", "title": "Portabilidades no reflejan datos en CMS ni CRM", "state": "Backlog", "team": "CE2", "products": "Cuy", "assignee": "Farialis Martinez"}]}}};
 
@@ -1312,9 +1418,12 @@
                 event.target.closest('.drawer-item').classList.add('active');
             }
 
-            function updateMonthData(monthName) {
-                const data = monthsData[monthName];
-                if (!data) return;
+            async function updateMonthData(monthName) {
+                const data = await loadMonthData(monthName);
+                if (!data) {
+                    showErrorState(`No hay datos para ${monthName}`);
+                    return;
+                }
 
                 // Actualizar encabezado del mes
                 document.getElementById('month-header').textContent = monthName + ' 2026: ' + data.total_projects + ' proyectos creados';
@@ -1379,11 +1488,14 @@
                 }
             }
 
-            function updateIssuesMonthData(monthName) {
-                const data = monthsData[monthName];
-                if (!data || !data.issues) return;
+            async function updateIssuesMonthData(monthName) {
+                const fullData = await loadMonthData(monthName);
+                if (!fullData || !fullData.issues) {
+                    showErrorState(`No hay datos de issues para ${monthName}`);
+                    return;
+                }
 
-                const issues = data.issues;
+                const issues = fullData.issues;
 
                 // Actualizar encabezado del mes
                 const totalIssues = issues.total_issues || 0;
@@ -1467,7 +1579,7 @@
             }
 
             document.querySelectorAll('[data-month]').forEach(button => {
-                button.addEventListener('click', () => {
+                button.addEventListener('click', async () => {
                     const month = button.getAttribute('data-month');
 
                     // Actualizar estilos de botones
@@ -1478,9 +1590,16 @@
                     button.classList.add('text-primary', 'bg-primary/10', 'border-primary/30', 'shadow-lg', 'shadow-primary/5', 'font-semibold');
                     button.classList.remove('text-on-surface-variant', 'font-medium');
 
-                    // Actualizar datos
-                    updateMonthData(month);
-                    updateIssuesMonthData(month);
+                    // Cargar datos
+                    showLoadingState();
+                    try {
+                        await updateMonthData(month);
+                        await updateIssuesMonthData(month);
+                    } catch (error) {
+                        showErrorState('Error al cargar datos');
+                    } finally {
+                        hideLoadingState();
+                    }
                 });
             });
 
