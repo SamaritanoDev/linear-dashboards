@@ -54,6 +54,7 @@ export interface IssueMetrics {
   month: string;
   total_issues: number;
   untracked_issues: number;
+  pending_ce2: number;
   active_issues: number;
   backlog: number;
   blocked: number;
