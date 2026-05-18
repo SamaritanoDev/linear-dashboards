@@ -59,7 +59,7 @@ export class ProjectsService {
       "B2B", "Finanzas", "Legales", "Partner"
     ];
 
-    const PENDING_PROJECT_STATES = ["backlog", "planned", "in progress", "blocked", "in review", "started"];
+    const PENDING_PROJECT_STATES = ["backlog", "planned"];
 
     const metrics: ProjectMetrics = {
       total_projects: validProjects.length,
