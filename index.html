@@ -851,6 +851,7 @@
                             <th class="px-6 py-4 text-xs font-bold text-primary uppercase tracking-widest">Estado</th>
                             <th class="px-6 py-4 text-xs font-bold text-primary uppercase tracking-widest">Producto</th>
                             <th class="px-6 py-4 text-xs font-bold text-primary uppercase tracking-widest">Team</th>
+                            <th class="px-6 py-4 text-xs font-bold text-primary uppercase tracking-widest">Responsable</th>
                             <th class="px-6 py-4 text-xs font-bold text-primary uppercase tracking-widest text-right">Acción</th>
                         </tr>
                     </thead>
@@ -863,6 +864,7 @@
             </td>
             <td class="px-6 py-4 text-sm text-on-surface-variant">Habla+</td>
             <td class="px-6 py-4 text-sm text-on-surface-variant">CE2</td>
+            <td class="px-6 py-4 text-sm text-on-surface-variant">—</td>
             <td class="px-6 py-4 text-right">
                 <a class="text-primary hover:underline text-sm font-medium flex items-center justify-end gap-1" href="https://linear.app/guinea/issue/CE2-1911" target="_blank">
                     Abrir <span class="material-symbols-outlined text-xs">arrow_forward</span>
@@ -877,6 +879,7 @@
             </td>
             <td class="px-6 py-4 text-sm text-on-surface-variant">Cuy</td>
             <td class="px-6 py-4 text-sm text-on-surface-variant">CE2</td>
+            <td class="px-6 py-4 text-sm text-on-surface-variant">—</td>
             <td class="px-6 py-4 text-right">
                 <a class="text-primary hover:underline text-sm font-medium flex items-center justify-end gap-1" href="https://linear.app/guinea/issue/CE2-1910" target="_blank">
                     Abrir <span class="material-symbols-outlined text-xs">arrow_forward</span>
@@ -891,6 +894,7 @@
             </td>
             <td class="px-6 py-4 text-sm text-on-surface-variant">B2B</td>
             <td class="px-6 py-4 text-sm text-on-surface-variant">CE2</td>
+            <td class="px-6 py-4 text-sm text-on-surface-variant">—</td>
             <td class="px-6 py-4 text-right">
                 <a class="text-primary hover:underline text-sm font-medium flex items-center justify-end gap-1" href="https://linear.app/guinea/issue/CE2-1898" target="_blank">
                     Abrir <span class="material-symbols-outlined text-xs">arrow_forward</span>
@@ -905,6 +909,7 @@
             </td>
             <td class="px-6 py-4 text-sm text-on-surface-variant">Airalo</td>
             <td class="px-6 py-4 text-sm text-on-surface-variant">CE2</td>
+            <td class="px-6 py-4 text-sm text-on-surface-variant">—</td>
             <td class="px-6 py-4 text-right">
                 <a class="text-primary hover:underline text-sm font-medium flex items-center justify-end gap-1" href="https://linear.app/guinea/issue/CE2-1897" target="_blank">
                     Abrir <span class="material-symbols-outlined text-xs">arrow_forward</span>
@@ -1551,6 +1556,7 @@
             }
 
             async function updateIssuesMonthData(monthName) {
+                console.log('updateIssuesMonthData called with:', monthName);
                 let issues, totalIssues, pendingIssues, pendingList, untrackedIssues, untrackedList;
 
                 try {
@@ -1647,35 +1653,40 @@
                 const closedEl = document.getElementById('metric-issues-closed');
                 if (closedEl) closedEl.textContent = closedIssues;
 
-                // Actualizar tabla de estados por team
-                const statusRows = document.querySelectorAll('#tab-issues table tbody tr');
-                const statesByTeam = issues.by_state_by_team || {};
+                // Actualizar tabla de estados por team - buscar por el h2 "Por Estado"
+                const stateHeaders = Array.from(document.querySelectorAll('#tab-issues h2'));
+                const stateHeader = stateHeaders.find(h2 => h2.textContent.includes('Por Estado'));
+                console.log('Estado header found:', !!stateHeader);
+                if (stateHeader) {
+                    const statusTableBody = stateHeader.closest('.glacier-surface')?.querySelector('table tbody');
+                    console.log('Status table body found:', !!statusTableBody);
+                    if (statusTableBody) {
+                        const statesByTeam = issues.by_state_by_team || {};
 
-                // Reorganizar datos
-                const statesDict = {};
-                for (const key in statesByTeam) {
-                    if (key.includes('_')) {
-                        const [team, state] = key.split('_');
-                        if (!statesDict[state]) {
-                            statesDict[state] = { CE1: 0, CE2: 0 };
+                        // Reorganizar datos
+                        const statesDict = {};
+                        for (const key in statesByTeam) {
+                            if (key.includes('_')) {
+                                const [team, state] = key.split('_');
+                                if (!statesDict[state]) {
+                                    statesDict[state] = { CE1: 0, CE2: 0 };
+                                }
+                                statesDict[state][team] = statesByTeam[key];
+                            }
                         }
-                        statesDict[state][team] = statesByTeam[key];
+
+                        // Limpiar tabla y reconstruir completamente
+                        statusTableBody.innerHTML = '';
+                        const states = Object.keys(statesDict).sort();
+                        states.forEach(state => {
+                            const counts = statesDict[state];
+                            const total = (counts.CE1 || 0) + (counts.CE2 || 0);
+                            const row = document.createElement('tr');
+                            row.innerHTML = `<td class="px-6 py-4 text-sm text-on-surface">${state}</td><td class="px-6 py-4 text-sm text-on-surface text-right font-bold">${total}</td>`;
+                            statusTableBody.appendChild(row);
+                        });
                     }
                 }
-
-                // Actualizar tabla
-                statusRows.forEach((row, index) => {
-                    const cells = row.querySelectorAll('td');
-                    const states = Object.keys(statesDict).sort();
-                    if (index < states.length) {
-                        const state = states[index];
-                        const counts = statesDict[state];
-                        if (cells.length >= 2) {
-                            cells[0].textContent = state;
-                            cells[1].textContent = (counts.CE1 || 0) + (counts.CE2 || 0);
-                        }
-                    }
-                });
 
                 // Actualizar tabla de issues pendientes
                 const pendingRows = document.querySelectorAll('#tab-issues table:last-of-type tbody tr');
@@ -1684,7 +1695,7 @@
                     if (index < pendingList.length) {
                         const issue = pendingList[index];
                         const cells = row.querySelectorAll('td');
-                        if (cells.length >= 6 && cells[0] && cells[1] && cells[2] && cells[3] && cells[4] && cells[5]) {
+                        if (cells.length >= 7 && cells[0] && cells[1] && cells[2] && cells[3] && cells[4] && cells[5] && cells[6]) {
                             cells[0].textContent = issue.id || '';
                             cells[1].textContent = (issue.title || '').substring(0, 50) + (issue.title && issue.title.length > 50 ? '...' : '');
                             const spanElement = cells[2].querySelector('span');
@@ -1693,7 +1704,8 @@
                             }
                             cells[3].textContent = issue.products || '';
                             cells[4].textContent = issue.team || '';
-                            const link = cells[5].querySelector('a');
+                            cells[5].textContent = issue.assignee || 'Sin asignar';
+                            const link = cells[6].querySelector('a');
                             if (link) {
                                 link.href = 'https://linear.app/guinea/issue/' + (issue.id || '');
                             }
