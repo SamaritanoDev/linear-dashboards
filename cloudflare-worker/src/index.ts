@@ -342,6 +342,9 @@ async function handleRecognitions(
     );
 
     // Get "Racha Perfecta" - count how many quarters each assignee completed without issues
+    // Only count quarters that are fully completed (all months have passed)
+    const today = new Date();
+    const currentMonthForRacha = today.getMonth() + 1;
     const quarters = [
       { name: "Q1", months: [1, 2, 3] },
       { name: "Q2", months: [4, 5, 6] },
@@ -352,6 +355,13 @@ async function handleRecognitions(
     const rachaCount: { [key: string]: number } = {};
 
     for (const quarter of quarters) {
+      // Only count quarters where ALL months have passed
+      const lastMonthInQuarter = Math.max(...quarter.months);
+      if (currentMonthForRacha <= lastMonthInQuarter) {
+        // This quarter hasn't finished yet, skip it
+        continue;
+      }
+
       const quarterAssignees = new Set<string>();
       for (const month of quarter.months) {
         const metrics = await issuesService.calculateMetrics(
