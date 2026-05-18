@@ -274,6 +274,10 @@
                             <span class="material-symbols-outlined text-lg">inventory_2</span>
                             Proyectos CE
                         </div>
+                        <div class="drawer-item flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer font-medium text-sm" onclick="switchSection('team-workload', event)">
+                            <span class="material-symbols-outlined text-lg">groups</span>
+                            Carga del Equipo
+                        </div>
                     </nav>
                 </div>
                 <div class="mt-auto p-6">
@@ -891,8 +895,45 @@
                 </table>
             </div>
         </div>
+
     </div>
 </div>
+                </section>
+
+                <section class="max-w-6xl mx-auto" id="team-workload" style="display: none;">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
+                        <div>
+                            <h1 class="text-4xl font-bold text-on-surface tracking-tight flex items-center gap-3">
+                                <span class="material-symbols-outlined text-primary text-4xl">groups</span>
+                                Carga del Equipo
+                            </h1>
+                            <p class="text-on-surface-variant mt-2">Carga acumulada de issues pendientes en todos los meses del año</p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-2 mb-6 flex-wrap">
+                        <button onclick="loadTeamWorkload('all', event)" class="workload-filter-btn active px-4 py-2 rounded-lg font-medium text-sm bg-primary text-on-primary transition-all" data-filter="all">
+                            Ambos
+                        </button>
+                        <button onclick="loadTeamWorkload('without_project', event)" class="workload-filter-btn px-4 py-2 rounded-lg font-medium text-sm bg-surface-variant text-on-surface-variant hover:bg-outline transition-all" data-filter="without_project">
+                            Sin Proyecto
+                        </button>
+                        <button onclick="loadTeamWorkload('with_project', event)" class="workload-filter-btn px-4 py-2 rounded-lg font-medium text-sm bg-surface-variant text-on-surface-variant hover:bg-outline transition-all" data-filter="with_project">
+                            Con Proyecto
+                        </button>
+                    </div>
+
+                    <div id="team-workload-loading" class="flex justify-center items-center py-12" style="display: none;">
+                        <img src="./logo.svg" alt="Cargando..." class="w-12 h-12 animate-spin" />
+                    </div>
+
+                    <div id="team-workload-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
+                        <!-- Tarjetas renderizadas dinámicamente -->
+                    </div>
+
+                    <p class="text-xs text-on-surface-variant">
+                        <span id="workload-timestamp">Cargando datos...</span>
+                    </p>
                 </section>
             </main>
         </div>
@@ -926,7 +967,7 @@
 
             // ========== WORKER API INTEGRATION ==========
             const WORKER_CONFIG = {
-                baseUrl: 'https://linear-api-worker.mb-2be.workers.dev',
+                baseUrl: 'https://linear-api-worker-production.mb-2be.workers.dev',
                 enableFetch: true,
                 cacheDuration: 24 * 60 * 60 * 1000,
                 timeout: 10000,
@@ -1031,6 +1072,7 @@
             function switchSection(section, evt) {
                 document.getElementById('projects').style.display = section === 'projects' ? 'block' : 'none';
                 document.getElementById('issues').style.display = section === 'issues' ? 'block' : 'none';
+                document.getElementById('team-workload').style.display = section === 'team-workload' ? 'block' : 'none';
                 document.querySelectorAll('.drawer-item').forEach(item => item.classList.remove('active'));
                 evt.target.closest('.drawer-item').classList.add('active');
             }
@@ -1491,6 +1533,96 @@
             }
             // ========== END WORKLOAD BY ASSIGNEE FUNCTIONS ==========
 
+            // ========== TEAM WORKLOAD FUNCTIONS ==========
+            async function loadTeamWorkload(filter = 'all', event = null) {
+                try {
+                    // Prevenir comportamiento por defecto si es un evento
+                    if (event) {
+                        event.preventDefault();
+                    }
+
+                    // Mostrar loading, ocultar container
+                    const loadingEl = document.getElementById('team-workload-loading');
+                    const containerEl = document.getElementById('team-workload-container');
+                    if (loadingEl) loadingEl.style.display = 'flex';
+                    if (containerEl) containerEl.innerHTML = '';
+
+                    const response = await fetch(`${WORKER_CONFIG.baseUrl}/api/team-workload?filter=${filter}`);
+                    if (!response.ok) {
+                        throw new Error(`API error: ${response.status}`);
+                    }
+
+                    const data = await response.json();
+                    displayTeamWorkloadCards(data.by_assignee, data.total_issues, data.cached_at);
+
+                    // Update timestamp
+                    const date = new Date(data.cached_at);
+                    const timestamp = document.getElementById('workload-timestamp');
+                    if (timestamp) {
+                        timestamp.textContent = `Actualizado: ${date.toLocaleString('es-ES')}`;
+                    }
+
+                    // Update button styles
+                    document.querySelectorAll('.workload-filter-btn').forEach(btn => {
+                        if (btn.dataset.filter === filter) {
+                            btn.classList.remove('bg-surface-variant', 'text-on-surface-variant', 'hover:bg-outline');
+                            btn.classList.add('bg-primary', 'text-on-primary', 'active');
+                        } else {
+                            btn.classList.remove('bg-primary', 'text-on-primary', 'active');
+                            btn.classList.add('bg-surface-variant', 'text-on-surface-variant', 'hover:bg-outline');
+                        }
+                    });
+
+                    // Ocultar loading
+                    if (loadingEl) loadingEl.style.display = 'none';
+                } catch (error) {
+                    console.error('Error loading team workload:', error);
+                    const container = document.getElementById('team-workload-container');
+                    if (container) {
+                        container.innerHTML = '<p class="text-on-surface-variant">Error al cargar datos de carga del equipo</p>';
+                    }
+                    // Ocultar loading en caso de error
+                    const loadingEl = document.getElementById('team-workload-loading');
+                    if (loadingEl) loadingEl.style.display = 'none';
+                }
+            }
+
+            function displayTeamWorkloadCards(workloadByAssignee, total, timestamp) {
+                const container = document.getElementById('team-workload-container');
+                if (!container) return;
+
+                container.innerHTML = '';
+
+                // Convert to array and sort by count descending
+                const sorted = Object.entries(workloadByAssignee)
+                    .map(([name, data]) => ({ name, ...data }))
+                    .sort((a, b) => b.count - a.count);
+
+                if (sorted.length === 0) {
+                    container.innerHTML = '<p class="text-on-surface-variant">No hay datos de carga disponibles</p>';
+                    return;
+                }
+
+                sorted.forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = 'glacier-card w-full px-6 py-6 rounded-xl flex flex-col items-center justify-center gap-3';
+                    card.innerHTML = `
+                        <span class="text-on-surface-variant text-xs font-bold uppercase tracking-tighter text-center line-clamp-2">
+                            ${item.name}
+                        </span>
+                        <span class="text-4xl font-bold text-primary">${item.count}</span>
+                        <div class="w-full">
+                            <div class="w-full bg-surface-variant rounded-full h-2 overflow-hidden">
+                                <div class="bg-primary h-full rounded-full transition-all" style="width: ${item.percent}%;"></div>
+                            </div>
+                            <span class="text-xs text-on-surface-variant mt-1 block text-center font-bold">${item.percent}%</span>
+                        </div>
+                    `;
+                    container.appendChild(card);
+                });
+            }
+            // ========== END TEAM WORKLOAD FUNCTIONS ==========
+
             const monthButtons = document.querySelectorAll('button[data-month]');
             console.log('Botones encontrados:', monthButtons.length);
             monthButtons.forEach((button, index) => {
@@ -1527,6 +1659,9 @@
                 try {
                     await updateMonthData('Mayo');
                     await updateIssuesMonthData('Mayo');
+
+                    // Load team workload (cumulative across all months)
+                    loadTeamWorkload();
 
                     // Mark Mayo as active tab
                     document.querySelectorAll('button[data-month]').forEach(btn => {
