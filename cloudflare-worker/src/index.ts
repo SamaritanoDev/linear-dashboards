@@ -45,6 +45,10 @@ export default {
       return handleTeamWorkload(request, env, client);
     }
 
+    if (pathname === "/api/recognitions") {
+      return handleRecognitions(request, env, client);
+    }
+
     return errorResponse("Not found", 404);
   },
 };
@@ -287,5 +291,97 @@ async function handleTeamWorkload(
   } catch (error) {
     console.error("Team workload error:", error);
     return errorResponse("Failed to calculate team workload", 500);
+  }
+}
+
+async function handleRecognitions(
+  request: Request,
+  env: Env,
+  client: LinearClient
+): Promise<Response> {
+  try {
+    const year = getCurrentYear();
+    const currentMonth = new Date().getMonth() + 1;
+    const previousMonth = currentMonth === 1 ? 12 : currentMonth - 1;
+
+    const issuesService = new IssuesService(client);
+
+    // Get all unique assignees from the year
+    const allAssignees = new Set<string>();
+    for (let month = 1; month <= 12; month++) {
+      const metrics = await issuesService.calculateMetrics(
+        await issuesService.getIssuesForMonth(year, month, "without_project"),
+        getMonthName(month)
+      );
+      if (metrics.pending_issues_list) {
+        metrics.pending_issues_list.forEach((issue) => {
+          if (issue.assignee && issue.assignee !== "Sin asignar") {
+            allAssignees.add(issue.assignee);
+          }
+        });
+      }
+    }
+
+    // Get "Mes Limpio" - assignees with 0 pending issues in previous month
+    const prevMetrics = await issuesService.calculateMetrics(
+      await issuesService.getIssuesForMonth(year, previousMonth, "without_project"),
+      getMonthName(previousMonth)
+    );
+
+    const assigneesWithIssues = new Set<string>();
+    if (prevMetrics.pending_issues_list) {
+      prevMetrics.pending_issues_list.forEach((issue) => {
+        if (issue.assignee) {
+          assigneesWithIssues.add(issue.assignee);
+        }
+      });
+    }
+
+    const mesLimpioAssignees = Array.from(allAssignees).filter(
+      (assignee) => !assigneesWithIssues.has(assignee)
+    );
+
+    // Get "Racha Perfecta" - assignees with 0 issues per quarter
+    const quarters = [
+      { name: "Q1", months: [1, 2, 3] },
+      { name: "Q2", months: [4, 5, 6] },
+      { name: "Q3", months: [7, 8, 9] },
+      { name: "Q4", months: [10, 11, 12] },
+    ];
+
+    const rachaPerf: { [key: string]: string[] } = {};
+
+    for (const quarter of quarters) {
+      const quarterAssignees = new Set<string>();
+      for (const month of quarter.months) {
+        const metrics = await issuesService.calculateMetrics(
+          await issuesService.getIssuesForMonth(year, month, "without_project"),
+          getMonthName(month)
+        );
+        if (metrics.pending_issues_list) {
+          metrics.pending_issues_list.forEach((issue) => {
+            if (issue.assignee && issue.assignee !== "Sin asignar") {
+              quarterAssignees.add(issue.assignee);
+            }
+          });
+        }
+      }
+
+      rachaPerf[quarter.name] = Array.from(allAssignees).filter(
+        (assignee) => !quarterAssignees.has(assignee)
+      );
+    }
+
+    return jsonResponse({
+      mes_limpio: {
+        month: getMonthName(previousMonth),
+        assignees: mesLimpioAssignees,
+      },
+      racha_perfecta: rachaPerf,
+      cached_at: new Date().toISOString(),
+    });
+  } catch (error) {
+    console.error("Recognitions error:", error);
+    return errorResponse("Failed to calculate recognitions", 500);
   }
 }

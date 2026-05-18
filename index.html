@@ -283,6 +283,10 @@
                             <span class="material-symbols-outlined text-lg">groups</span>
                             Carga del Equipo
                         </div>
+                        <div class="drawer-item flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer font-medium text-sm" onclick="switchSection('recognitions', event)">
+                            <span class="material-symbols-outlined text-lg">emoji_events</span>
+                            Logros
+                        </div>
                     </nav>
                 </div>
                 <div class="mt-auto p-6">
@@ -957,6 +961,78 @@
                         <span id="workload-timestamp">Cargando datos...</span>
                     </p>
                 </section>
+
+                <section class="max-w-6xl mx-auto" id="recognitions" style="display: none;">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
+                        <div>
+                            <h1 class="text-4xl font-bold text-on-surface tracking-tight flex items-center gap-3">
+                                <span class="material-symbols-outlined text-primary text-4xl">emoji_events</span>
+                                Logros
+                            </h1>
+                            <p class="text-on-surface-variant mt-2">Celebra los logros y esfuerzos del equipo</p>
+                        </div>
+                    </div>
+
+                    <!-- Mes Limpio -->
+                    <div class="mb-10">
+                        <h2 class="text-xl font-bold text-on-surface flex items-center gap-2 mb-6">
+                            <span class="text-2xl">🏆</span>
+                            Mes Limpio
+                        </h2>
+                        <p class="text-sm text-on-surface-variant mb-4">Persona que dejó el mes anterior sin issues pendientes</p>
+                        <div id="mes-limpio-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-4">
+                            <!-- Tarjetas renderizadas dinámicamente -->
+                        </div>
+                        <p id="mes-limpio-empty" class="text-sm text-on-surface-variant italic" style="display: none;">No hay reconocimientos disponibles para este período</p>
+                    </div>
+
+                    <!-- Racha Perfecta -->
+                    <div class="mb-10">
+                        <h2 class="text-xl font-bold text-on-surface flex items-center gap-2 mb-6">
+                            <span class="text-2xl">🔥</span>
+                            Racha Perfecta
+                        </h2>
+                        <p class="text-sm text-on-surface-variant mb-4">Personas que completaron un trimestre sin issues pendientes</p>
+
+                        <div class="space-y-6">
+                            <div id="q1-container" class="mb-6">
+                                <h3 class="text-sm font-semibold text-primary mb-3">Q1 (Enero - Marzo)</h3>
+                                <div id="q1-cards" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+                                    <!-- Tarjetas renderizadas dinámicamente -->
+                                </div>
+                                <p id="q1-empty" class="text-sm text-on-surface-variant italic" style="display: none;">No hay reconocimientos en este trimestre</p>
+                            </div>
+
+                            <div id="q2-container" class="mb-6">
+                                <h3 class="text-sm font-semibold text-primary mb-3">Q2 (Abril - Junio)</h3>
+                                <div id="q2-cards" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+                                    <!-- Tarjetas renderizadas dinámicamente -->
+                                </div>
+                                <p id="q2-empty" class="text-sm text-on-surface-variant italic" style="display: none;">No hay reconocimientos en este trimestre</p>
+                            </div>
+
+                            <div id="q3-container" class="mb-6" style="display: none;">
+                                <h3 class="text-sm font-semibold text-primary mb-3">Q3 (Julio - Septiembre)</h3>
+                                <div id="q3-cards" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+                                    <!-- Tarjetas renderizadas dinámicamente -->
+                                </div>
+                                <p id="q3-empty" class="text-sm text-on-surface-variant italic" style="display: none;">No hay reconocimientos en este trimestre</p>
+                            </div>
+
+                            <div id="q4-container" style="display: none;">
+                                <h3 class="text-sm font-semibold text-primary mb-3">Q4 (Octubre - Diciembre)</h3>
+                                <div id="q4-cards" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+                                    <!-- Tarjetas renderizadas dinámicamente -->
+                                </div>
+                                <p id="q4-empty" class="text-sm text-on-surface-variant italic" style="display: none;">No hay reconocimientos en este trimestre</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="text-xs text-on-surface-variant">
+                        <span id="recognitions-timestamp">Cargando datos...</span>
+                    </p>
+                </section>
             </main>
         </div>
 
@@ -1095,8 +1171,13 @@
                 document.getElementById('projects').style.display = section === 'projects' ? 'block' : 'none';
                 document.getElementById('issues').style.display = section === 'issues' ? 'block' : 'none';
                 document.getElementById('team-workload').style.display = section === 'team-workload' ? 'block' : 'none';
+                document.getElementById('recognitions').style.display = section === 'recognitions' ? 'block' : 'none';
                 document.querySelectorAll('.drawer-item').forEach(item => item.classList.remove('active'));
                 evt.target.closest('.drawer-item').classList.add('active');
+
+                if (section === 'recognitions') {
+                    loadRecognitions();
+                }
             }
 
             async function updateMonthData(monthName) {
@@ -1680,6 +1761,114 @@
             }
             // ========== END TEAM WORKLOAD FUNCTIONS ==========
 
+            // ========== RECOGNITIONS FUNCTIONS ==========
+            let recognitionsCache = null;
+
+            async function loadRecognitions() {
+                try {
+                    // Check cache
+                    if (recognitionsCache) {
+                        displayRecognitions(recognitionsCache);
+                        return;
+                    }
+
+                    // Show loading overlay
+                    const loadingOverlay = document.getElementById('loading-overlay');
+                    if (loadingOverlay) loadingOverlay.style.display = 'flex';
+
+                    const response = await fetch(`${WORKER_CONFIG.baseUrl}/api/recognitions`);
+                    if (!response.ok) {
+                        throw new Error(`API error: ${response.status}`);
+                    }
+
+                    const data = await response.json();
+                    recognitionsCache = data;
+
+                    displayRecognitions(data);
+
+                    // Update timestamp
+                    const date = new Date(data.cached_at);
+                    const timestamp = document.getElementById('recognitions-timestamp');
+                    if (timestamp) {
+                        timestamp.textContent = `Actualizado: ${date.toLocaleString('es-ES')}`;
+                    }
+
+                    // Hide loading overlay
+                    if (loadingOverlay) loadingOverlay.style.display = 'none';
+                } catch (error) {
+                    console.error('Error loading recognitions:', error);
+                    const container = document.getElementById('mes-limpio-container');
+                    if (container) {
+                        container.innerHTML = '<p class="text-on-surface-variant">Error al cargar datos de reconocimientos</p>';
+                    }
+                    const loadingOverlay = document.getElementById('loading-overlay');
+                    if (loadingOverlay) loadingOverlay.style.display = 'none';
+                }
+            }
+
+            function displayRecognitions(data) {
+                displayMesLimpio(data.mes_limpio);
+                displayRachaPerfecta(data.racha_perfecta);
+            }
+
+            function displayMesLimpio(mesLimpioData) {
+                const container = document.getElementById('mes-limpio-container');
+                const emptyEl = document.getElementById('mes-limpio-empty');
+                if (!container) return;
+
+                container.innerHTML = '';
+                if (!mesLimpioData || !mesLimpioData.assignees || mesLimpioData.assignees.length === 0) {
+                    if (emptyEl) emptyEl.style.display = 'block';
+                    return;
+                }
+                if (emptyEl) emptyEl.style.display = 'none';
+
+                mesLimpioData.assignees.forEach(assignee => {
+                    const card = document.createElement('div');
+                    card.className = 'glacier-card w-full px-6 py-6 rounded-xl flex flex-col items-center justify-center gap-3';
+                    card.innerHTML = `
+                        <span class="text-on-surface-variant text-xs font-bold uppercase tracking-tighter text-center line-clamp-2">
+                            ${assignee}
+                        </span>
+                        <span class="text-4xl">🏆</span>
+                        <span class="text-xs text-on-surface-variant text-center font-medium">${mesLimpioData.month}</span>
+                    `;
+                    container.appendChild(card);
+                });
+            }
+
+            function displayRachaPerfecta(rachaData) {
+                const quarters = ['Q1', 'Q2', 'Q3', 'Q4'];
+                quarters.forEach(quarter => {
+                    const container = document.getElementById(`${quarter.toLowerCase()}-cards`);
+                    const emptyEl = document.getElementById(`${quarter.toLowerCase()}-empty`);
+                    if (!container) return;
+
+                    container.innerHTML = '';
+                    const assignees = rachaData[quarter] || [];
+
+                    if (assignees.length === 0) {
+                        if (emptyEl) emptyEl.style.display = 'block';
+                        return;
+                    }
+                    if (emptyEl) emptyEl.style.display = 'none';
+
+                    assignees.forEach(assignee => {
+                        const card = document.createElement('div');
+                        card.className = 'glacier-card w-full px-6 py-6 rounded-xl flex flex-col items-center justify-center gap-3';
+                        card.innerHTML = `
+                            <span class="text-on-surface-variant text-xs font-bold uppercase tracking-tighter text-center line-clamp-2">
+                                ${assignee}
+                            </span>
+                            <span class="text-4xl">🔥</span>
+                            <span class="text-xs text-on-surface-variant text-center font-medium">${quarter}</span>
+                        `;
+                        container.appendChild(card);
+                    });
+                });
+            }
+            // ========== END RECOGNITIONS FUNCTIONS ==========
+
             // ========== CACHE CLEARING & REFRESH FUNCTIONS ==========
             function clearAllCache() {
                 // Clear all month metrics from localStorage
@@ -1694,6 +1883,9 @@
                 workloadCache.all = null;
                 workloadCache.with_project = null;
                 workloadCache.without_project = null;
+
+                // Clear recognitions cache
+                recognitionsCache = null;
 
                 console.log('✓ All caches cleared successfully');
             }
