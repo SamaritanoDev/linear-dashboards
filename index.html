@@ -834,6 +834,16 @@
             </div>
         </div>
 
+        <div id="assignee-workload-section" class="mb-10">
+            <h2 class="text-xl font-bold text-on-surface flex items-center gap-2 mb-6">
+                <span class="material-symbols-outlined text-primary">group</span>
+                Carga por Asignado
+            </h2>
+            <div id="workload-cards-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+                <!-- Se genera dinámicamente -->
+            </div>
+        </div>
+
         <div id="pending-issues-container" class="glacier-surface p-8 rounded-2xl shadow-xl shadow-black/40">
             <div class="flex items-center justify-between mb-8">
                 <h2 id="pending-issues-header" class="text-xl font-bold text-on-surface flex items-center gap-2">
@@ -1356,8 +1366,128 @@
                     } else {
                         card.style.display = 'none';
                     }
+                // Mostrar tarjetas de carga por asignado
+                window.currentPendingList = pendingList;
+                displayWorkloadByAssignee(pendingList);
+                currentAssigneeFilter = null;
+            }
+
+            // ========== WORKLOAD BY ASSIGNEE FUNCTIONS ==========
+            let currentAssigneeFilter = null;
+
+            function displayWorkloadByAssignee(pendingList) {
+                if (!pendingList || pendingList.length === 0) return;
+
+                // Agrupar por asignado
+                const workload = {};
+                pendingList.forEach(issue => {
+                    const assignee = issue.assignee || "Sin asignar";
+                    workload[assignee] = (workload[assignee] || 0) + 1;
+                });
+
+                // Calcular totales y porcentajes
+                const total = pendingList.length;
+                const workloadArray = Object.entries(workload)
+                    .map(([name, count]) => ({
+                        name,
+                        count,
+                        percent: Math.round((count / total) * 100)
+                    }))
+                    .sort((a, b) => b.count - a.count);
+
+                // Generar tarjetas
+                const container = document.getElementById('workload-cards-container');
+                container.innerHTML = '';
+
+                workloadArray.forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = 'glacier-card w-full px-6 py-6 rounded-xl flex flex-col items-center justify-center gap-3 cursor-pointer hover:opacity-80 transition-opacity';
+                    card.dataset.assignee = item.name;
+                    card.innerHTML = `
+                        <span class="text-on-surface-variant text-xs font-bold uppercase tracking-tighter text-center line-clamp-2">${item.name}</span>
+                        <span class="text-4xl font-bold text-primary">${item.count}</span>
+                        <div class="w-full">
+                            <div class="w-full bg-surface-variant rounded-full h-2 overflow-hidden">
+                                <div class="bg-primary h-full rounded-full transition-all" style="width: ${item.percent}%;"></div>
+                            </div>
+                            <span class="text-xs text-on-surface-variant mt-1 block text-center font-bold">${item.percent}%</span>
+                        </div>
+                    `;
+                    card.addEventListener('click', () => filterTableByAssignee(item.name, pendingList));
+                    container.appendChild(card);
                 });
             }
+
+            function filterTableByAssignee(assigneeName, fullPendingList) {
+                const tbody = document.querySelector('#pending-issues-container tbody');
+                if (!tbody) return;
+
+                if (currentAssigneeFilter === assigneeName) {
+                    currentAssigneeFilter = null;
+                    tbody.innerHTML = '';
+                    fullPendingList.forEach(issue => {
+                        const row = document.createElement('tr');
+                        row.className = 'hover:bg-surface-container-highest/50 transition-colors group';
+                        row.innerHTML = `
+                            <td class="px-6 py-4 text-sm font-bold text-on-surface">${issue.id || ''}</td>
+                            <td class="px-6 py-4 text-sm text-on-surface group-hover:text-white">${(issue.title || '').substring(0, 50)}${issue.title && issue.title.length > 50 ? '...' : ''}</td>
+                            <td class="px-6 py-4 text-sm">
+                                <span class="px-2 py-1 rounded-md bg-surface-container text-on-surface-variant text-xs font-medium">${issue.state || ''}</span>
+                            </td>
+                            <td class="px-6 py-4 text-sm text-on-surface-variant">${issue.assignee || 'Sin asignar'}</td>
+                            <td class="px-6 py-4 text-right">
+                                <a class="text-primary hover:underline text-sm font-medium flex items-center justify-end gap-1" href="${issue.url || 'https://linear.app/guinea/issue/' + (issue.id || issue.identifier || '')}" target="_blank">
+                                    Abrir <span class="material-symbols-outlined text-xs">arrow_forward</span>
+                                </a>
+                            </td>
+                        `;
+                        tbody.appendChild(row);
+                    });
+                    updateCardStyles(null);
+                } else {
+                    currentAssigneeFilter = assigneeName;
+                    const filtered = fullPendingList.filter(issue =>
+                        (issue.assignee || "Sin asignar") === assigneeName
+                    );
+                    tbody.innerHTML = '';
+                    filtered.forEach(issue => {
+                        const row = document.createElement('tr');
+                        row.className = 'hover:bg-surface-container-highest/50 transition-colors group';
+                        row.innerHTML = `
+                            <td class="px-6 py-4 text-sm font-bold text-on-surface">${issue.id || ''}</td>
+                            <td class="px-6 py-4 text-sm text-on-surface group-hover:text-white">${(issue.title || '').substring(0, 50)}${issue.title && issue.title.length > 50 ? '...' : ''}</td>
+                            <td class="px-6 py-4 text-sm">
+                                <span class="px-2 py-1 rounded-md bg-surface-container text-on-surface-variant text-xs font-medium">${issue.state || ''}</span>
+                            </td>
+                            <td class="px-6 py-4 text-sm text-on-surface-variant">${issue.assignee || 'Sin asignar'}</td>
+                            <td class="px-6 py-4 text-right">
+                                <a class="text-primary hover:underline text-sm font-medium flex items-center justify-end gap-1" href="${issue.url || 'https://linear.app/guinea/issue/' + (issue.id || issue.identifier || '')}" target="_blank">
+                                    Abrir <span class="material-symbols-outlined text-xs">arrow_forward</span>
+                                </a>
+                            </td>
+                        `;
+                        tbody.appendChild(row);
+                    });
+                    updateCardStyles(assigneeName);
+                }
+            }
+
+            function updateCardStyles(selectedAssignee) {
+                const cards = document.querySelectorAll('[data-assignee]');
+                cards.forEach(card => {
+                    if (selectedAssignee === null) {
+                        card.classList.remove('ring-2', 'ring-primary');
+                        card.style.opacity = '1';
+                    } else if (card.dataset.assignee === selectedAssignee) {
+                        card.classList.add('ring-2', 'ring-primary');
+                        card.style.opacity = '1';
+                    } else {
+                        card.classList.remove('ring-2', 'ring-primary');
+                        card.style.opacity = '0.5';
+                    }
+                });
+            }
+            // ========== END WORKLOAD BY ASSIGNEE FUNCTIONS ==========
 
             const monthButtons = document.querySelectorAll('button[data-month]');
             console.log('Botones encontrados:', monthButtons.length);
