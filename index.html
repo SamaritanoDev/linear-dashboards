@@ -294,9 +294,9 @@
 
             <main class="flex-1 ml-48 p-8 lg:p-12" data-purpose="dashboard-content">
                 <div id="loading-overlay" class="hidden fixed inset-0 bg-black/20 z-40 flex items-center justify-center" style="top: 0; left: 0; right: 0; bottom: 0;">
-                    <div class="bg-white rounded-lg p-8 shadow-xl">
-                        <div class="animate-spin h-8 w-8 border-4 border-primary border-t-transparent mx-auto"></div>
-                        <p class="mt-4 text-sm text-on-surface-variant text-center">Cargando datos...</p>
+                    <div class="bg-white rounded-lg p-8 shadow-xl flex flex-col justify-center items-center gap-4">
+                        <img src="./logo.svg" alt="Cargando..." class="w-12 h-12" />
+                        <p class="text-sm text-on-surface-variant font-medium">Cargando datos</p>
                     </div>
                 </div>
 
@@ -923,8 +923,9 @@
                         </button>
                     </div>
 
-                    <div id="team-workload-loading" class="flex justify-center items-center py-12" style="display: none;">
-                        <img src="./logo.svg" alt="Cargando..." class="w-12 h-12 animate-spin" />
+                    <div id="team-workload-loading" class="flex flex-col justify-center items-center py-12 gap-3" style="display: none;">
+                        <img src="./logo.svg" alt="Cargando..." class="w-12 h-12" />
+                        <p class="text-sm text-on-surface-variant font-medium">Cargando datos</p>
                     </div>
 
                     <div id="team-workload-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-6">

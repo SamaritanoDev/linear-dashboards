@@ -181,17 +181,13 @@ async function handleTeamWorkload(
 
       const allPendingProjects: Array<{ lead: string; [key: string]: any }> = [];
 
-      for (let month = 1; month <= 12; month++) {
-        const projectsForMonth = await projectsService.getProjectsForMonth(year, month, allProjects);
-
-        projectsForMonth.forEach((project) => {
-          const state = (project.status?.name || "").toLowerCase();
-          if (PENDING_STATES.includes(state)) {
-            const leadName = project.lead?.name || "Sin asignar";
-            allPendingProjects.push({ ...project, lead: leadName } as any);
-          }
-        });
-      }
+      allProjects.forEach((project) => {
+        const state = (project.status?.name || "").toLowerCase();
+        if (PENDING_STATES.includes(state)) {
+          const leadName = project.lead?.name || "Sin asignar";
+          allPendingProjects.push({ ...project, lead: leadName } as any);
+        }
+      });
 
       const workloadByLead: {
         [key: string]: { count: number; percent: number };
@@ -218,7 +214,31 @@ async function handleTeamWorkload(
       });
     }
 
-    // Issues pendientes (sin proyecto o ambos)
+    // Para "all": obtener proyectos + issues
+    // Para "without_project": obtener solo issues
+    const workloadByPerson: {
+      [key: string]: { count: number; percent: number };
+    } = {};
+
+    if (filter === "all") {
+      // Agregar proyectos pendientes
+      const projectsService = new ProjectsService(client);
+      const allProjects = await projectsService.getAllProjects();
+      const PENDING_STATES = ["backlog", "planned", "in progress", "blocked", "in review"];
+
+      allProjects.forEach((project) => {
+        const state = (project.status?.name || "").toLowerCase();
+        if (PENDING_STATES.includes(state)) {
+          const leadName = project.lead?.name || "Sin asignar";
+          if (!workloadByPerson[leadName]) {
+            workloadByPerson[leadName] = { count: 0, percent: 0 };
+          }
+          workloadByPerson[leadName].count++;
+        }
+      });
+    }
+
+    // Agregar issues (sin proyecto o ambos)
     const issuesService = new IssuesService(client);
     const allPendingIssues: Array<{ assignee?: string; [key: string]: any }> = [];
 
@@ -245,26 +265,22 @@ async function handleTeamWorkload(
       }
     }
 
-    const workloadByAssignee: {
-      [key: string]: { count: number; percent: number };
-    } = {};
-
     allPendingIssues.forEach((issue) => {
       const assignee = issue.assignee || "Sin asignar";
-      if (!workloadByAssignee[assignee]) {
-        workloadByAssignee[assignee] = { count: 0, percent: 0 };
+      if (!workloadByPerson[assignee]) {
+        workloadByPerson[assignee] = { count: 0, percent: 0 };
       }
-      workloadByAssignee[assignee].count++;
+      workloadByPerson[assignee].count++;
     });
 
-    const total = allPendingIssues.length;
-    Object.values(workloadByAssignee).forEach((data) => {
+    const total = Object.values(workloadByPerson).reduce((sum, data) => sum + data.count, 0);
+    Object.values(workloadByPerson).forEach((data) => {
       data.percent = total > 0 ? Math.round((data.count / total) * 100) : 0;
     });
 
     return jsonResponse({
       total_issues: total,
-      by_assignee: workloadByAssignee,
+      by_assignee: workloadByPerson,
       filter: filter,
       cached_at: new Date().toISOString(),
     });
