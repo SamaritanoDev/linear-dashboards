@@ -1,0 +1,1142 @@
+
+📋 REPORTE DE ISSUES PARA REVISAR
+
+Issues sin label de customer - Requieren asignación manual
+
+════════════════════════════════════════════════════════════════════════════════════════════════════
+
+ENERO (7 issues)
+
+1. [CE2-752]
+   Title: *** 9629 | Guinea - Problemas de activacion - Cupon colaborador
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-752
+
+2. [CE2-1811]
+   Title: #9586 Airalo Error - Error HTTP en compra de eSIM - ICCID 8951201002923243371
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1811
+
+3. [CE2-1805]
+   Title: 9513 | App Cuy Móvil no permite activación de chip comprado meses atrás
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1805
+
+4. [CE2-1748]
+   Title: 9466 | CUY- Insertar TikTok Pixel
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1748
+
+5. [CE2-741]
+   Title: 9463 | CUY - No se muestra plan en el app CUY
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-741
+
+6. [CE2-766]
+   Title: #9222 Mensaje de error al intentar activar línea en app Cuy Móvil
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-766
+
+7. [CE2-1643]
+   Title: #9261 Habla+ / Registro en app ALMACEN
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1643
+
+
+FEBRERO (76 issues)
+
+1. [CE2-1037]
+   Title: Publicar HTML en producción para rutas cuy.pe
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1037
+
+2. [CE2-999]
+   Title: 12445 | Wings - Información sobre reactivación de línea
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-999
+
+3. [CE2-914]
+   Title: Reporte BOP Wings no muestra planes nuevos desde enero
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-914
+
+4. [CE2-913]
+   Title: Revisión de tráfico para línea Robada
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-913
+
+5. [CE2-1004]
+   Title: Portabilidad CMS rechaza líneas IOT por tipo de servicio
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1004
+
+6. [CE2-911]
+   Title: 12264 | Wings - Información sobre reactivación de línea
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-911
+
+7. [CE2-909]
+   Title: Wings - Información sobre reactivación de línea
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-909
+
+8. [CE2-907]
+   Title: 12284 | CUY / Registro en la Lista Blanca de Excepciones
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-907
+
+9. [CE2-1657]
+   Title: Buscar log de SMS
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1657
+
+10. [CE2-895]
+   Title: SOLICITUD PERMISOS BD
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-895
+
+11. [CE2-892]
+   Title: Resolución | SUP2-868 | FIMO plan no aprovisionado pese a compra en app
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-892
+
+12. [CE2-1771]
+   Title: 12138 | B2B / Consumo detallado de empresa GPS SATELITAL PERU
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1771
+
+13. [CE2-891]
+   Title: Constancias de pagos no visibles en el CMS2
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-891
+
+14. [CE2-889]
+   Title: 12113 | WINGS - Información sobre reactivación de línea
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-889
+
+15. [CE2-1630]
+   Title: 12110 | B2B - Error en el flujo de portabilidades en la plataforma CMS
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1630
+
+16. [CE2-886]
+   Title: Otorgar permisos a tabla para guinea backend: permission denied for relation mv_user_phone_lines
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-886
+
+17. [CE2-1631]
+   Title: 12032 | B2B / Empresas no paquetizadas correctamente
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1631
+
+18. [CE2-880]
+   Title: Reporte de envíos de chip incluye clientes sin compra de chip
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-880
+
+19. [CE2-878]
+   Title: 11829 | BOP / Correcion o cambio de plan en Ventas PeruSIM
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-878
+
+20. [CE2-871]
+   Title: 11831 | WINGS - Información sobre reactivación de línea.
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-871
+
+21. [CE2-876]
+   Title: 11840 | Wings - Información sobre reactivación de línea
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-876
+
+22. [CE2-874]
+   Title: 11898 | Habla + / Reporte de lineas activas
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-874
+
+23. [CE2-1772]
+   Title: 11761 | B2B / Consulta IMEI asociados a ICCID
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1772
+
+24. [CE2-867]
+   Title: 11747 | WINGS - Información sobre reactivación de línea.
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-867
+
+25. [CE2-1632]
+   Title: 11668 | B2B - Error en descarga de información de líneas IOT
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1632
+
+26. [CE2-1739]
+   Title: 11552 | B2B / Compra de paquetes en líneas IOT genera interrupción de servicio
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1739
+
+27. [CE2-847]
+   Title: Data de consumo por plan para Airalo
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-847
+
+28. [CE2-846]
+   Title: 11353 | Habla + / Navegacion en app Habla + sin datos
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-846
+
+29. [CE2-1740]
+   Title: 11279 | WINGS - Información sobre reactivación de línea.
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1740
+
+30. [CE2-845]
+   Title: cuy.pe/app redirige al home en vez de store
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-845
+
+31. [CE2-1773]
+   Title: 11267 | WINGS - Información sobre reactivación de línea.
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1773
+
+32. [CE2-1781]
+   Title: Pruebas de eSIM
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1781
+
+33. [CE2-1655]
+   Title: subir el PR que realicé para fimo y si lo puedes subir a api.cuy.pe fix: subscription-yape-fimo by enriqueeee10 · Pull Request #17 · Guinea-Mobile/api-rest
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1655
+
+34. [CE2-1634]
+   Title: 11180 | CUY - Agregar línea a la lista de excepciones
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1634
+
+35. [CE2-1633]
+   Title: 11130 | AIRALO - Línea en estado inactivo
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1633
+
+36. [CE2-839]
+   Title: Eliminar planes inexistentes del App vendedor PeruSIM
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-839
+
+37. [CE2-838]
+   Title: No se envían correos de Cuy vía Aldeamo
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-838
+
+38. [CE2-833]
+   Title: Subir landings promo plan 19/29/39/49 a producción
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-833
+
+39. [CE2-831]
+   Title: Carta 000266-2026-DFI/OSIPTEL
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-831
+
+40. [CE2-1741]
+   Title: 10956 | B2B / Error en informacion de planes en DASHBOARD B2B
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1741
+
+41. [CE2-1635]
+   Title: 10959 | B2B - INHABILITAR RESET A USUARIO
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1635
+
+42. [CE2-822]
+   Title: Regularización de configuración de extras 1GB/2GB/3GB como planes en diccionario de bundles
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-822
+
+43. [CE2-821]
+   Title: Regularizar venta de plan bundle 124600793 en BOP
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-821
+
+44. [CE2-811]
+   Title: 8875 | Afectación todas las marcas - Incluir el procedimiento de regularización de + 10 líneas móviles y registros inconsistentes, en los aplicativos vendedor
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-811
+
+45. [CE2-807]
+   Title: 10548 | Hablas+ - Recarga a través de YAPE no figura en nuestro sistema
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-807
+
+46. [CE2-977]
+   Title: Pruebas de los procesos batch
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-977
+
+47. [CE2-806]
+   Title: CMS 2.0 no muestra planes Express para registrar venta
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-806
+
+48. [CE2-805]
+   Title: 10760 PeruSIM / No se puede registrar ventas Express en BOP
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-805
+
+49. [CE2-804]
+   Title: 10865 Cuy Móvil - Revisión sobre envío de SMS
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-804
+
+50. [CE2-1759]
+   Title: NOTIFICACION CARTA 000416-2026-DAPU/OSIPTEL
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1759
+
+51. [CE2-800]
+   Title: Publicar landing HTML de portabilidad en producción
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-800
+
+52. [CE2-799]
+   Title: Publicar landing de portabilidad en producción (cuy.pe/portabilidad)
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-799
+
+53. [CE2-1742]
+   Title: 10588 | Guines (Afectación a todas las marcas) - Flujo de reactivaciones y visibilidad de solicitudes
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1742
+
+54. [CE2-798]
+   Title: CMS 2.0 no muestra planes Express para registrar venta
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-798
+
+55. [CE2-1774]
+   Title: 10717 | B2B / Reporte de consumo de la linea 51919088727
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1774
+
+56. [CE2-796]
+   Title: 10075 B2B - No permite pasar huella en el app Guinea
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-796
+
+57. [CE2-782]
+   Title: Fix Base CDR Telco
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-782
+
+58. [CE2-1782]
+   Title: Reporte Vías de Pago Ene-26
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1782
+
+59. [CE2-761]
+   Title: Cupón GUINEAEMPLEO26: se puede usar en Web aunque el channel permitido es App
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-761
+
+60. [CE2-760]
+   Title: Activacion ESIM (Bundle se muestra vacio)
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-760
+
+61. [CE2-759]
+   Title: Problema de Activacion eSIM - Cuy Movil
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-759
+
+62. [CE2-758]
+   Title: Diseñar flujo de compra eSIM para el escenario de portabilidad
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-758
+
+63. [CE2-756]
+   Title: Referidos: no se acredita bono
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-756
+
+64. [CE2-972]
+   Title: Reunión con Enrique, Lissete y Daniel para consultar algunas dudas sobre el desarrollo
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-972
+
+65. [CE2-1743]
+   Title: 10271 | B2B / Discrepancia con Lineas Desactivadas
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1743
+
+66. [CE2-747]
+   Title: Automatizar alertas de líneas y boletas
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-747
+
+67. [CE2-773]
+   Title: Accesos para la DB del servicio payment and billing as a service
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-773
+
+68. [CE2-1801]
+   Title: 10157 | B2B / Reporte de Consumo de Datos
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1801
+
+69. [CE2-706]
+   Title: 10131 | CUY - Mensaje incorrecto al iniciar sesión en el app
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-706
+
+70. [CE2-1636]
+   Title: 10080 | Habla+ - REACTIVACIÓN DEL SKU 8000001680
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1636
+
+71. [CE2-1802]
+   Title: 10045 | Habla + / Cliente no puede acceder a su app cliente
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1802
+
+72. [CE2-1803]
+   Title: 8396 | CUY / Error en la compra CUY
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1803
+
+73. [CE2-1775]
+   Title: 9879 | PeruSIM – Solicitud de corrección de vendedor asignado (venta Extra)
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1775
+
+74. [CE2-1804]
+   Title: 9944 | Solicitud de corrección/eliminación de registro en BOP
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1804
+
+75. [CE2-702]
+   Title: Documentar servicios de apps
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-702
+
+76. [CE2-1637]
+   Title: 9962 | WINGS - Cliente no puede recuperar su línea en el app
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1637
+
+
+MARZO (126 issues)
+
+1. [CE2-1374]
+   Title: Reporte habla + activaciones por plan
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1374
+
+2. [CE2-1373]
+   Title: Revisar si se puede apagar VM y validar cronjobs
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1373
+
+3. [CE2-1331]
+   Title: Solicitud de Código de Comercio - Proyecto PeruSIM
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1331
+
+4. [CE2-1696]
+   Title: Compra con Yape validada no aparece en BOP
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1696
+
+5. [CE2-1697]
+   Title: Diferencia en presentación quincenal de Wings 15%
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1697
+
+6. [CE2-1753]
+   Title: Generar las boletas, BCV1-5 y BCV1-6,
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1753
+
+7. [CE2-1325]
+   Title: Airalo - Investigación caída de voice incoming día 21-03-26 y los domingos en CDR
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1325
+
+8. [CE2-1793]
+   Title: 15355 | Legal / Registrar Equipo en Lista Blanca / 946076740
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1793
+
+9. [CE2-1645]
+   Title: Pasar a produccion la correccion
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1645
+
+10. [CE2-1320]
+   Title: Exportar historial de líneas activadas con plan
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1320
+
+11. [CE2-1318]
+   Title: Solicitar nuevo código de comercio para PeruSIM
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1318
+
+12. [CE2-1780]
+   Title: Desactivación/Activacion de recargas manuales desde el CMS para vendedores PeruSIM
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1780
+
+13. [CE2-1623]
+   Title: 15508 | Habla+ - CREACIÓN DE CDR NAME
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1623
+
+14. [CE2-1699]
+   Title: Boletas de la serie BCV1 no procesadas
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1699
+
+15. [CE2-1310]
+   Title: Finanzas: Reporte LAP
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1310
+
+16. [CE2-1308]
+   Title: Eliminar registro duplicado de plan 5 GB en BOP
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1308
+
+17. [CE2-1700]
+   Title: Recarga Habla+ no se refleja en BOP ni CMS
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1700
+
+18. [CE2-1297]
+   Title: Corregir registro de venta ingresado por error en BOP
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1297
+
+19. [CE2-1282]
+   Title: Error `Parámetros inválidos` al activar cliente extranjero con un solo apellido
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1282
+
+20. [CE2-1794]
+   Title: Agregar correo electrónico al reporte diario de portabilidades
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1794
+
+21. [CE2-1758]
+   Title: Crear vendedor en Wings
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1758
+
+22. [CE2-1625]
+   Title: 15043 | PERUSIM - CREACIÓN DE CDR NAME
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1625
+
+23. [CE2-1779]
+   Title: Enviar reporte de Aldeamo a
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1779
+
+24. [CE2-1624]
+   Title: Reporte de rentabilidad B2B sin ingresos en febrero
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1624
+
+25. [CE2-1375]
+   Title: 14691 | Legal - Validación de portabilidad – Inconsistencia entre CMS/DCRM y portal OSIPTEL
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1375
+
+26. [CE2-1795]
+   Title: 14639 | Legal / Registrar Equipo en Lista Blanca / 919087086
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1795
+
+27. [CE2-1705]
+   Title: 14483 | Legal / Registrar Equipo en Lista Blanca
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1705
+
+28. [CE2-1626]
+   Title: 14454 | B2B / NHABILITAR RESET A USUARIO de Autoladers
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1626
+
+29. [CE2-1706]
+   Title: 14927 | B2B - Envíos de SMS CUY que cliente no reconoce
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1706
+
+30. [CE2-1707]
+   Title: CMS no permite ocultar portabilidades ya ejecutadas
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1707
+
+31. [CE2-1708]
+   Title: Líneas Habla+ expiran o pasan a baja con recargas vigentes
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1708
+
+32. [CE2-1254]
+   Title: GUINEA reproceso de portabilidad no procesada
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1254
+
+33. [CE2-1752]
+   Title: Facturación: Generar reporte LAP
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1752
+
+34. [CE2-1235]
+   Title: Error de portabilidad muestra solicitud pendiente sin registro actual
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1235
+
+35. [CE2-1234]
+   Title: Otorgar permisos DML temporales en backend_efe_prod
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1234
+
+36. [CE2-1649]
+   Title: RENTESEG: Reunion, validacion de certificados de desarrollo y produccion
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1649
+
+37. [CE2-1222]
+   Title: Desactivación de recargas manuales desde el CMS para vendedores PeruSIM
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1222
+
+38. [CE2-1220]
+   Title: Reserva de eSIM fallida
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1220
+
+39. [CE2-1717]
+   Title: Regularizar manualmente 9 transacciones Yape en BOP
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1717
+
+40. [CE2-1218]
+   Title: Revisar cambios en bundles de planes ilimitados
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1218
+
+41. [CE2-1711]
+   Title: Investigar lógica del SKU 8000001677 en catálogo
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1711
+
+42. [CE2-1712]
+   Title: Validar detalle de llamadas para cliente Wings
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1712
+
+43. [CE2-1206]
+   Title: fix: BSS Gateway — nil pointer panic en POST /transactions/recharge-credit
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1206
+
+44. [CE2-1648]
+   Title: pasar a produccion la correccion
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1648
+
+45. [CE2-1203]
+   Title: Solicitud DDL
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1203
+
+46. [CE2-1713]
+   Title: Línea portada Wings queda con priceplan incorrecto
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1713
+
+47. [CE2-1756]
+   Title: Crear documentación de los certificados de renteseg
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1756
+
+48. [CE2-1199]
+   Title: Error del servidor al activar con perfil vendedor PeruSIM
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1199
+
+49. [CE2-1197]
+   Title: DNIRUC HTTP Error (falso positivo)
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1197
+
+50. [CE2-1714]
+   Title: 13941 | Legal / Registrar Equipo en Lista Blanca
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1714
+
+51. [CE2-1195]
+   Title: Habilitar IP de lectura para acceso a bases
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1195
+
+52. [CE2-1785]
+   Title: DAR DE BAJA - CARTA 003435
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1785
+
+53. [CE2-1189]
+   Title: Habla+ establecer data sources para dashboard
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1189
+
+54. [CE2-1182]
+   Title: Rechazo de consultas previas en portabilidad de líneas Guinea
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1182
+
+55. [CE2-1180]
+   Title: Solicitud de permisos en la base de datos
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1180
+
+56. [CE2-1179]
+   Title: Error actualizando beneficio de portabilidad
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1179
+
+57. [CE2-1650]
+   Title: Finanzas: Generar reporte LAP
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1650
+
+58. [CE2-1178]
+   Title: Reporte OSIPTEL: contrataciones que involucren la activación de más de una línea realizadas durante el año 2025
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1178
+
+59. [CE2-1755]
+   Title: RENTESEG: Configuración y pruebas de los nuevos certificados valdiacion en local
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1755
+
+60. [CE2-1659]
+   Title: BOP omite facturas de enero en reporte de facturación
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1659
+
+61. [CE2-1719]
+   Title: Starsoft remoto no permite acceso simultáneo esperado
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1719
+
+62. [CE2-1173]
+   Title: Compartir ejemplo de reporte PeruSIM enero 2023
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1173
+
+63. [CE2-1159]
+   Title: Solicitud de acceso a bases de datos: EFE y CUPONES
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1159
+
+64. [CE2-1640]
+   Title: Generar 2 CSRs (Certificate Signing Request o Solicitud de Firma de Certificado) para usar en RENTESEG (Prod y Dev)
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1640
+
+65. [CE2-1720]
+   Title: Enviar boletas de cada vía de pago
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1720
+
+66. [CE2-1722]
+   Title: 13738 | Legal / Registrar Equipo en Lista Blanca
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1722
+
+67. [CE2-1148]
+   Title: Revisión del reporte 045 SIGEP Trimestral. Año 2025
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1148
+
+68. [CE2-1147]
+   Title: Revisar Dashboard Airalo
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1147
+
+69. [CE2-1724]
+   Title: No aparece febrero en reporte de Claro Billing
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1724
+
+70. [CE2-1778]
+   Title: CARTA 000687-2026-DAPU/OSIPTEL
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1778
+
+71. [CE2-1797]
+   Title: 13724 |Legal / Registrar Equipo en Lista Blanca
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1797
+
+72. [CE2-1723]
+   Title: 13712 | CUY- CREACIÓN DE CDR NAME
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1723
+
+73. [CE2-1721]
+   Title: Líneas recicladas muestran la marca incorrecta en app
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1721
+
+74. [CE2-1142]
+   Title: Otorgar permiso update sobre public.user en cuymovil
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1142
+
+75. [CE2-1642]
+   Title: Agregar Ip a la lista blanca de api rest en produccion para Israel
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1642
+
+76. [CE2-1726]
+   Title: Reporte de Empresas - Facturas ya no muestra IOT y B2B
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1726
+
+77. [CE2-1727]
+   Title: Reporte de rentabilidad B2B aparece en 0
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1727
+
+78. [CE2-1139]
+   Title: Validar inconsistencia en fecha de renovación de plan
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1139
+
+79. [CE2-1138]
+   Title: Investigar los pasos 15 y de creación de suscripción para estas facturas específicas.
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1138
+
+80. [CE2-1376]
+   Title: Requerimiento data Habla+
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1376
+
+81. [CE2-1133]
+   Title: Publicar landing portabilidad marzo y subir imágenes
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1133
+
+82. [CE2-1783]
+   Title: Reporte de Vías de pago Feb-26
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1783
+
+83. [CE2-1647]
+   Title: Revisar transacciones Habla, rezaon: Fianzas- > Reporte no está saliendo completo
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1647
+
+84. [CE2-1124]
+   Title: Portabilidad - port out rejected no guarda el motivo de rechazo
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1124
+
+85. [CE2-1122]
+   Title: Fix en manejo de errores permanentes
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1122
+
+86. [CE2-1812]
+   Title: Step 13 (CreateClientPhone) - Error 401
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1812
+
+87. [CE2-1117]
+   Title: Passwords en texto plano se están registrando en logs
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1117
+
+88. [CE2-1764]
+   Title: Error en provisionamiento de bundle (bundles aparecen activos)
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1764
+
+89. [CE2-1627]
+   Title: Recargas con Yape no se reflejan en CMS/BOP (Habla+)
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1627
+
+90. [CE2-1644]
+   Title: Finanzas: Reporte Ventas LAP (Aeropuerto Lima - PeruSIM)
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1644
+
+91. [CE2-1728]
+   Title: Agregar textos promocionales a términos y condiciones vigentes
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1728
+
+92. [CE2-1109]
+   Title: 13164 | Habla+ - Línea de cliente no figura en portal de OSIPTEL
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1109
+
+93. [CE2-1108]
+   Title: BOP Airalo: boletas desordenadas y falta factura de setiembre
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1108
+
+94. [CE2-1751]
+   Title: Facturación: Generar Reporte Fimo
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1751
+
+95. [CE2-1134]
+   Title: No llega correo diario “Listado Delivery Cuy”
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1134
+
+96. [CE2-1729]
+   Title: No llega el correo diario de portabilidades a backoffice@guinea.pe
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1729
+
+97. [CE2-1732]
+   Title: Permitir IP para pruebas locales en API REST
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1732
+
+98. [CE2-1105]
+   Title: 13065 | Legal / Linea no se valida en Checa tu linea de Osiptel
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1105
+
+99. [CE2-1103]
+   Title: Soporte para gestionar múltiples numeraciones en una misma solicitud de portabilidad
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1103
+
+100. [CE2-1734]
+   Title: Query de Consumos PeruSIM no muestra planes Express nuevos
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1734
+
+101. [CE2-1733]
+   Title: Factura anulada en BOP sigue como pendiente
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1733
+
+102. [CE2-1735]
+   Title: No llega el correo diario de portabilidades a backoffice@guinea.pe
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1735
+
+103. [CE2-1738]
+   Title: BOP: no se visualizan facturas emitidas
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1738
+
+104. [CE2-1737]
+   Title: BOP Empresas B2B/IOT no carga información (401)
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1737
+
+105. [CE2-1629]
+   Title: 12956 | Legal / Cliente reporta que no se realizo su registro de Equipo
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1629
+
+106. [CE2-1646]
+   Title: Finanzas: Generar reporte Habla+
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1646
+
+107. [CE2-1090]
+   Title: No llega el correo diario de portabilidades (04/03)
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1090
+
+108. [CE2-1810]
+   Title: ABC IDENTIDAD DIGITAL - Renovación del servicio
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1810
+
+109. [CE2-1799]
+   Title: Solicitan un acceso adicional a escritorio remoto
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1799
+
+110. [CE2-1087]
+   Title: Detectar codigo que pone fecha de nacimiento por defecto 1969
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1087
+
+111. [CE2-1086]
+   Title: Pruebas en wings cliente y agente para replicar bug
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1086
+
+112. [CE2-1653]
+   Title: Dar baja permanente a numeros que estaban activos desde 11-2025 hacia atras
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1653
+
+113. [CE2-1080]
+   Title: prod-guinea-n8n | Database not ready → instance shutdown
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1080
+
+114. [CE2-1079]
+   Title: prod-guinea-n8n | SIGABRT en proceso n8n
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1079
+
+115. [CE2-1078]
+   Title: prod-telco-cdr-renteseg-report-v1 | BigQuery dataset dictionaries no encontrado
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1078
+
+116. [CE2-1077]
+   Title: starsoft-vm | SQL Server PolyBase Data Movement en crash loop
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1077
+
+117. [CE2-1076]
+   Title: guinea-backend | PubSub DNS Failure en GCE us-central1-c
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1076
+
+118. [CE2-1070]
+   Title: Habla+: Claro rechaza RG52 por IPs dinámicas del backend
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1070
+
+119. [CE2-1067]
+   Title: Cronjobs fallan por error de inyección de dependencias (Provide.handle)
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1067
+
+120. [CE2-1060]
+   Title: Reporte Excel de Transacciones Habla+ sin campos requeridos
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1060
+
+121. [CE2-1059]
+   Title: Parametrizado Perú SIM incompleto en 16/01 y 17/01
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1059
+
+122. [CE2-1056]
+   Title: Bloquear boleta y registrar cliente en app Habla+
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1056
+
+123. [CE2-1051]
+   Title: 12556 | Wings - Información sobre reactivación de línea
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1051
+
+124. [CE2-1050]
+   Title: 12557 | Wings - Información sobre reactivación de línea 51915100652
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1050
+
+125. [CE2-1049]
+   Title: 12621 | Wings - Información sobre reactivación de línea
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1049
+
+126. [CE2-1045]
+   Title: Actualizar HTML e íconos y video en páginas CUY en producción
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1045
+
+
+ABRIL (13 issues)
+
+1. [CE2-1670]
+   Title: Permitir eliminar aun que haya pasado correctamente la consulta de portabilidad
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1670
+
+2. [CE2-1669]
+   Title: CMS no guarda corrección de plan e ICCID
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1669
+
+3. [CE2-1676]
+   Title: Generar reporte y monitoreo de servicios de pagos
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1676
+
+4. [CE2-1458]
+   Title: Ejercicio numero 1
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1458
+
+5. [CE2-1450]
+   Title: Retirar accesos a bases de datos de Miguel Fernández
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1450
+
+6. [CE2-1448]
+   Title: Guinea - Subir registro de abonados
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1448
+
+7. [CE2-1390]
+   Title: BDs no responden — posible servicio caído o sesión expirada
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1390
+
+8. [CE2-1357]
+   Title: Solicitar acceso a BD de EFE para usuario e IP
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1357
+
+9. [CE2-1807]
+   Title: MSID-330948-Control de cambios - Planes PeruSIM ilimitados
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1807
+
+10. [CE2-1808]
+   Title: MSID-331464-Creación de Planes Habla+
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1808
+
+11. [CE2-1652]
+   Title: Generar reporte de lista de eSIM de PeruSIM, en estado disponible
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1652
+
+12. [CE2-1372]
+   Title: Nuevo reporte de portabilidades por plan para Habla+
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1372
+
+13. [CE2-1695]
+   Title: 15656 | Legal / Registrar Equipo en Lista Blanca
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1695
+
+
+MAYO (1 issues)
+
+1. [CE2-1857]
+   Title: Leandro - Habilitar IP para acceso a bases de datos
+   State: Closed
+   URL: https://linear.app/guinea/issue/CE2-1857
+
+
+════════════════════════════════════════════════════════════════════════════════════════════════════
+TOTAL ISSUES SIN LABEL: 223
+ISSUES DEDUCIDOS: 1
+
+Datos guardados en: deduced_labels.json

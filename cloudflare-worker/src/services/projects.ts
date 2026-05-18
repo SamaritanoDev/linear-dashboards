@@ -48,7 +48,7 @@ export class ProjectsService {
 
   async calculateMetrics(projects: LinearProject[]): Promise<ProjectMetrics> {
     const isValidProject = (p: LinearProject) => {
-      const state = (p.state || "").toLowerCase();
+      const state = (p.status?.name || "").toLowerCase();
       return !["canceled", "discarded"].includes(state);
     };
 
@@ -79,7 +79,7 @@ export class ProjectsService {
     metrics.brands["Sin clasificar"] = { total: 0, pending: 0, completed: 0 };
 
     for (const project of validProjects) {
-      const state = (project.state || "Unknown").toLowerCase();
+      const state = (project.status?.name || "Unknown").toLowerCase();
       const leadName = project.lead?.name || "Sin asignar";
       const labels = project.labels.nodes.map((l) => l.name);
 

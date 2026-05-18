@@ -536,13 +536,6 @@
         <tr class="hover:bg-surface-container-highest/50 transition-colors group">
             <td class="px-6 py-4 flex items-center gap-3">
                 <span class="h-2 w-2 rounded-full bg-secondary"></span>
-                <span class="text-on-surface font-medium capitalize">Started</span>
-            </td>
-            <td class="px-6 py-4 text-right font-semibold text-on-surface" id="status-started">0</td>
-        </tr>
-        <tr class="hover:bg-surface-container-highest/50 transition-colors group">
-            <td class="px-6 py-4 flex items-center gap-3">
-                <span class="h-2 w-2 rounded-full bg-secondary"></span>
                 <span class="text-on-surface font-medium capitalize">In Progress</span>
             </td>
             <td class="px-6 py-4 text-right font-semibold text-on-surface" id="status-in-progress">2</td>
@@ -1470,7 +1463,7 @@
 
                 // Actualizar tabla Por Estado
                 const byState = data.by_state || {};
-                const statesOrder = ['backlog', 'planned', 'started', 'in progress', 'blocked', 'in review', 'canceled', 'archived'];
+                const statesOrder = ['backlog', 'planned', 'in progress', 'blocked', 'completed'];
                 statesOrder.forEach(state => {
                     const stateId = state.replace(' ', '-');
                     const statusElement = document.getElementById('status-' + stateId);
