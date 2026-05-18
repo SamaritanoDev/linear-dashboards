@@ -91,8 +91,8 @@ export class IssuesService {
         metrics.pending_ce2 += 1;
       }
 
-      // Contar issues sin etiqueta de producto
-      if (!hasProductLabel) {
+      // Contar issues sin etiqueta de producto (pero NO Closed/Discarded)
+      if (!hasProductLabel && state !== "Closed" && state !== "Discarded") {
         metrics.untracked_issues += 1;
         // Agregar a lista solo si está en estado pendiente
         if (isPending) {

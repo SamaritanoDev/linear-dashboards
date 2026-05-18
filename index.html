@@ -556,13 +556,6 @@
         </tr>
         <tr class="hover:bg-surface-container-highest/50 transition-colors group">
             <td class="px-6 py-4 flex items-center gap-3">
-                <span class="h-2 w-2 rounded-full bg-success"></span>
-                <span class="text-on-surface font-medium capitalize">Completed</span>
-            </td>
-            <td class="px-6 py-4 text-right font-semibold text-on-surface" id="status-completed">0</td>
-        </tr>
-        <tr class="hover:bg-surface-container-highest/50 transition-colors group">
-            <td class="px-6 py-4 flex items-center gap-3">
                 <span class="h-2 w-2 rounded-full bg-secondary"></span>
                 <span class="text-on-surface font-medium capitalize">Canceled</span>
             </td>
@@ -813,40 +806,28 @@
                     <thead>
                         <tr class="bg-surface-container-high">
                             <th class="px-6 py-4 text-xs font-bold text-primary uppercase tracking-widest">Estado</th>
-                            <th class="px-6 py-4 text-xs font-bold text-primary uppercase tracking-widest text-right">CE1</th>
-                            <th class="px-6 py-4 text-xs font-bold text-primary uppercase tracking-widest text-right">CE2</th>
                             <th class="px-6 py-4 text-xs font-bold text-primary uppercase tracking-widest text-right">Total</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-outline-variant/30">
         <tr class="hover:bg-surface-container-highest/50 transition-colors">
             <td class="px-6 py-4 text-sm text-on-surface">Backlog</td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant text-right">0</td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant text-right font-medium">14</td>
             <td class="px-6 py-4 text-sm text-on-surface text-right font-bold">14</td>
         </tr>
         <tr class="hover:bg-surface-container-highest/50 transition-colors">
             <td class="px-6 py-4 text-sm text-on-surface">Closed</td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant text-right">0</td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant text-right font-medium">29</td>
             <td class="px-6 py-4 text-sm text-on-surface text-right font-bold">29</td>
         </tr>
         <tr class="hover:bg-surface-container-highest/50 transition-colors">
             <td class="px-6 py-4 text-sm text-on-surface">In Progress</td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant text-right">0</td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant text-right font-medium">6</td>
             <td class="px-6 py-4 text-sm text-on-surface text-right font-bold">6</td>
         </tr>
         <tr class="hover:bg-surface-container-highest/50 transition-colors">
             <td class="px-6 py-4 text-sm text-on-surface">In Review</td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant text-right">0</td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant text-right font-medium">2</td>
             <td class="px-6 py-4 text-sm text-on-surface text-right font-bold">2</td>
         </tr>
         <tr class="hover:bg-surface-container-highest/50 transition-colors">
             <td class="px-6 py-4 text-sm text-on-surface">Planning</td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant text-right">0</td>
-            <td class="px-6 py-4 text-sm text-on-surface-variant text-right font-medium">7</td>
             <td class="px-6 py-4 text-sm text-on-surface text-right font-bold">7</td>
         </tr>
                     </tbody>
@@ -854,9 +835,9 @@
             </div>
         </div>
 
-        <div class="glacier-surface p-8 rounded-2xl shadow-xl shadow-black/40">
+        <div id="pending-issues-container" class="glacier-surface p-8 rounded-2xl shadow-xl shadow-black/40">
             <div class="flex items-center justify-between mb-8">
-                <h2 class="text-xl font-bold text-on-surface flex items-center gap-2">
+                <h2 id="pending-issues-header" class="text-xl font-bold text-on-surface flex items-center gap-2">
                     <span class="material-symbols-outlined text-primary">hourglass_empty</span>
                     Pendientes por Revisar (29)
                 </h2>
@@ -1284,6 +1265,43 @@
                 </table>
             </div>
         </div>
+
+        <div id="untracked-issues-container" class="glacier-surface p-8 rounded-2xl shadow-xl shadow-black/40">
+            <div class="flex items-center justify-between mb-8">
+                <h2 id="untracked-issues-header" class="text-xl font-bold text-on-surface flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary">label_off</span>
+                    Sin Label (0)
+                </h2>
+            </div>
+            <div class="overflow-x-auto rounded-xl border border-outline-variant/50">
+                <table class="w-full text-left">
+                    <thead>
+                        <tr class="bg-surface-container-high">
+                            <th class="px-6 py-4 text-xs font-bold text-primary uppercase tracking-widest">ID Issue</th>
+                            <th class="px-6 py-4 text-xs font-bold text-primary uppercase tracking-widest">Título</th>
+                            <th class="px-6 py-4 text-xs font-bold text-primary uppercase tracking-widest">Estado</th>
+                            <th class="px-6 py-4 text-xs font-bold text-primary uppercase tracking-widest">Team</th>
+                            <th class="px-6 py-4 text-xs font-bold text-primary uppercase tracking-widest text-right">Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-outline-variant/30">
+        <tr class="hover:bg-surface-container-highest/50 transition-colors group">
+            <td class="px-6 py-4 text-sm font-bold text-on-surface"></td>
+            <td class="px-6 py-4 text-sm text-on-surface group-hover:text-white"></td>
+            <td class="px-6 py-4 text-sm">
+                <span class="px-2 py-1 rounded-md bg-surface-container text-on-surface-variant text-xs font-medium"></span>
+            </td>
+            <td class="px-6 py-4 text-sm text-on-surface-variant"></td>
+            <td class="px-6 py-4 text-right">
+                <a class="text-primary hover:underline text-sm font-medium flex items-center justify-end gap-1" href="" target="_blank">
+                    Abrir <span class="material-symbols-outlined text-xs">arrow_forward</span>
+                </a>
+            </td>
+        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
                 </section>
@@ -1533,7 +1551,7 @@
             }
 
             async function updateIssuesMonthData(monthName) {
-                let issues, totalIssues, pendingIssues, pendingList;
+                let issues, totalIssues, pendingIssues, pendingList, untrackedIssues, untrackedList;
 
                 try {
                     if (!API_CONFIG.enableDynamicFetch) {
@@ -1558,6 +1576,8 @@
                     totalIssues = issues.total_issues || 0;
                     pendingList = issues.pending_issues_list || [];
                     pendingIssues = pendingList.length;
+                    untrackedList = issues.untracked_issues_list || [];
+                    untrackedIssues = untrackedList.length;
 
                     const headerSpan = document.getElementById('issues-month-header');
                     if (headerSpan) {
@@ -1570,6 +1590,12 @@
                     if (pendingTableHeader) {
                         const headerText = pendingTableHeader.innerHTML;
                         pendingTableHeader.innerHTML = headerText.replace(/\(\d+\)/, '(' + pendingIssues + ')');
+                    }
+
+                    // Actualizar counter en tabla "Sin Label"
+                    const untrackedTableHeader = document.getElementById('untracked-issues-header');
+                    if (untrackedTableHeader) {
+                        untrackedTableHeader.textContent = 'Sin Label (' + untrackedIssues + ')';
                     }
                 } catch (error) {
                     console.error('Error updating issues:', error);
@@ -1599,6 +1625,18 @@
 
                 const pendingEl = document.getElementById('metric-issues-pending');
                 if (pendingEl) pendingEl.textContent = pendingIssues;
+
+                // Mostrar/ocultar contenedor de "Pendientes por Revisar" según si hay pendientes
+                const pendingContainer = document.getElementById('pending-issues-container');
+                if (pendingContainer) {
+                    pendingContainer.style.display = pendingIssues > 0 ? 'block' : 'none';
+                }
+
+                // Mostrar/ocultar contenedor de "Sin Label" según si hay sin clasificar
+                const untrackedContainer = document.getElementById('untracked-issues-container');
+                if (untrackedContainer) {
+                    untrackedContainer.style.display = untrackedIssues > 0 ? 'block' : 'none';
+                }
 
                 const blockedEl = document.getElementById('metric-issues-blocked');
                 if (blockedEl) {
@@ -1632,11 +1670,9 @@
                     if (index < states.length) {
                         const state = states[index];
                         const counts = statesDict[state];
-                        if (cells.length >= 4) {
+                        if (cells.length >= 2) {
                             cells[0].textContent = state;
-                            cells[1].textContent = counts.CE1 || 0;
-                            cells[2].textContent = counts.CE2 || 0;
-                            cells[3].textContent = (counts.CE1 || 0) + (counts.CE2 || 0);
+                            cells[1].textContent = (counts.CE1 || 0) + (counts.CE2 || 0);
                         }
                     }
                 });
@@ -1662,6 +1698,56 @@
                                 link.href = 'https://linear.app/guinea/issue/' + (issue.id || '');
                             }
                         }
+                    }
+                });
+
+                // Actualizar tabla de issues sin label
+                const untrackedRows = document.querySelectorAll('#untracked-issues-container table tbody tr');
+                untrackedList = issues.untracked_issues_list || [];
+                untrackedRows.forEach((row, index) => {
+                    if (index < untrackedList.length) {
+                        const issue = untrackedList[index];
+                        const cells = row.querySelectorAll('td');
+                        if (cells.length >= 5 && cells[0] && cells[1] && cells[2] && cells[3] && cells[4]) {
+                            cells[0].textContent = issue.id || '';
+                            cells[1].textContent = (issue.title || '').substring(0, 50) + (issue.title && issue.title.length > 50 ? '...' : '');
+                            const spanElement = cells[2].querySelector('span');
+                            if (spanElement) {
+                                spanElement.textContent = issue.state || '';
+                            }
+                            cells[3].textContent = issue.team || '';
+                            const link = cells[4].querySelector('a');
+                            if (link) {
+                                link.href = 'https://linear.app/guinea/issue/' + (issue.id || '');
+                            }
+                        }
+                    }
+                });
+
+                // Actualizar tarjetas de marca en "Resumen por Marca" (Issues)
+                const byProduct = issues.by_product || {};
+                document.querySelectorAll('#tab-issues .brand-card').forEach(card => {
+                    const brand = card.getAttribute('data-brand');
+                    const total = byProduct[brand] || 0;
+                    const pending = issues.pending_by_product?.[brand] || 0;
+
+                    const totalEl = card.querySelector('.brand-total');
+                    if (totalEl) totalEl.textContent = total;
+
+                    const pendingEl = card.querySelector('.brand-pending');
+                    if (pendingEl) pendingEl.textContent = pending;
+
+                    // Calcular porcentaje de completados
+                    const completed = total - pending;
+                    const percentage = total > 0 ? Math.round((completed / total) * 100) : 0;
+                    const percentageEl = card.querySelector('.brand-percentage');
+                    if (percentageEl) percentageEl.textContent = percentage + '%';
+
+                    // Mostrar u ocultar según si tiene datos
+                    if (total > 0 || pending > 0) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
                     }
                 });
             }
