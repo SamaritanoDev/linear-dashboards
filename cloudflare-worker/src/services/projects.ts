@@ -59,7 +59,7 @@ export class ProjectsService {
       "B2B", "Finanzas", "Legales", "Partner"
     ];
 
-    const PENDING_PROJECT_STATES = ["backlog", "planned"];
+    let completedCount = 0;
 
     const metrics: ProjectMetrics = {
       total_projects: validProjects.length,
@@ -79,25 +79,22 @@ export class ProjectsService {
     metrics.brands["Sin clasificar"] = { total: 0, pending: 0, completed: 0 };
 
     for (const project of validProjects) {
-      const state = project.state || "Unknown";
-      const statusName = project.status?.name || state;
+      const state = (project.state || "Unknown").toLowerCase();
       const leadName = project.lead?.name || "Sin asignar";
       const labels = project.labels.nodes.map((l) => l.name);
 
       metrics.by_state[state] = (metrics.by_state[state] || 0) + 1;
       metrics.by_lead[leadName] = (metrics.by_lead[leadName] || 0) + 1;
 
-      const statusLower = statusName.toLowerCase();
-      const isCompleted = statusLower === "completed";
-      const isPending = PENDING_PROJECT_STATES.includes(statusLower);
+      const isCompleted = state === "completed";
+      const isPending = !isCompleted;
 
-      if (isPending) {
-        metrics.pending_ce2++;
+      if (isCompleted) {
+        completedCount++;
+        metrics.completed++;
       }
-
-      if (statusLower === "in progress") metrics.in_progress++;
-      if (isCompleted) metrics.completed++;
-      if (statusLower === "blocked") metrics.blocked++;
+      if (state === "in progress") metrics.in_progress++;
+      if (state === "blocked") metrics.blocked++;
 
       // Calcular brands
       let foundBrand = false;
@@ -117,6 +114,8 @@ export class ProjectsService {
         if (isCompleted) metrics.brands["Sin clasificar"].completed++;
       }
     }
+
+    metrics.pending_ce2 = validProjects.length - completedCount;
 
     return metrics;
   }
