@@ -1420,6 +1420,13 @@
             // ========== WORKLOAD BY ASSIGNEE FUNCTIONS ==========
             let currentAssigneeFilter = null;
 
+            // Cache para datos de Team Workload
+            const workloadCache = {
+                all: null,
+                with_project: null,
+                without_project: null
+            };
+
             function displayWorkloadByAssignee(pendingList) {
                 if (!pendingList || pendingList.length === 0) return;
 
@@ -1542,6 +1549,31 @@
                         event.preventDefault();
                     }
 
+                    // Verificar si está en caché
+                    if (workloadCache[filter]) {
+                        const cachedData = workloadCache[filter];
+                        displayTeamWorkloadCards(cachedData.by_assignee, cachedData.total_issues, cachedData.cached_at);
+
+                        // Update timestamp
+                        const date = new Date(cachedData.cached_at);
+                        const timestamp = document.getElementById('workload-timestamp');
+                        if (timestamp) {
+                            timestamp.textContent = `Actualizado: ${date.toLocaleString('es-ES')}`;
+                        }
+
+                        // Update button styles
+                        document.querySelectorAll('.workload-filter-btn').forEach(btn => {
+                            if (btn.dataset.filter === filter) {
+                                btn.classList.remove('bg-surface-variant', 'text-on-surface-variant', 'hover:bg-outline');
+                                btn.classList.add('bg-primary', 'text-on-primary', 'active');
+                            } else {
+                                btn.classList.remove('bg-primary', 'text-on-primary', 'active');
+                                btn.classList.add('bg-surface-variant', 'text-on-surface-variant', 'hover:bg-outline');
+                            }
+                        });
+                        return;
+                    }
+
                     // Mostrar loading, ocultar container
                     const loadingEl = document.getElementById('team-workload-loading');
                     const containerEl = document.getElementById('team-workload-container');
@@ -1554,6 +1586,9 @@
                     }
 
                     const data = await response.json();
+                    // Guardar en caché
+                    workloadCache[filter] = data;
+
                     displayTeamWorkloadCards(data.by_assignee, data.total_issues, data.cached_at);
 
                     // Update timestamp
