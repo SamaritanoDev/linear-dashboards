@@ -233,6 +233,11 @@
             .dark .text-on-tertiary { color: #1a002e; }
             .dark .text-primary { color: #7dd3fc; }
             .dark .text-on-primary-container { color: #a0d8f7; }
+            /* Refresh Icon Spin Animation */
+            @keyframes spin {
+                from { transform: rotate(0deg); }
+                to { transform: rotate(360deg); }
+            }
             /* Light mode table backgrounds for Issues CE tab */
             html:not(.dark) #issues .glacier-surface {
                 background-color: #ffffff !important;
@@ -281,10 +286,15 @@
                     </nav>
                 </div>
                 <div class="mt-auto p-6">
-                    <button id="theme-toggle" onclick="toggleTheme()" class="w-full glacier-surface px-4 py-3 rounded-xl border border-primary/20 flex items-center justify-center gap-2 text-sm cursor-pointer hover:border-primary/40 transition-all mb-4" title="Cambiar tema">
-                        <span class="material-symbols-outlined text-primary" id="theme-icon">light_mode</span>
-                        <span class="text-on-surface-variant text-xs font-medium" id="theme-label">Modo Claro</span>
-                    </button>
+                    <div class="flex gap-2 mb-4">
+                        <button id="theme-toggle" onclick="toggleTheme()" class="flex-1 glacier-surface px-4 py-3 rounded-xl border border-primary/20 flex items-center justify-center gap-2 text-sm cursor-pointer hover:border-primary/40 transition-all" title="Cambiar tema">
+                            <span class="material-symbols-outlined text-primary" id="theme-icon">light_mode</span>
+                            <span class="text-on-surface-variant text-xs font-medium" id="theme-label">Modo Claro</span>
+                        </button>
+                        <button id="refresh-button" onclick="refreshAllData()" class="flex-1 glacier-surface px-4 py-3 rounded-xl border border-primary/20 flex items-center justify-center gap-2 text-sm cursor-pointer hover:border-primary/40 transition-all" title="Actualizar todos los datos">
+                            <span class="material-symbols-outlined text-primary" id="refresh-icon">refresh</span>
+                        </button>
+                    </div>
                     <div class="bg-surface-container rounded-xl p-4 border border-outline-variant/30">
                         <p class="text-xs text-primary font-semibold mb-1 uppercase tracking-tighter">Continuity Eng.</p>
                         <p class="text-[10px] text-on-surface-variant">v2.4.0 Glacier Stable</p>
@@ -860,16 +870,6 @@
             </div>
         </div>
 
-        <div id="assignee-workload-section" class="mb-10">
-            <h2 class="text-xl font-bold text-on-surface flex items-center gap-2 mb-6">
-                <span class="material-symbols-outlined text-primary">group</span>
-                Carga por Asignado
-            </h2>
-            <div id="workload-cards-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-                <!-- Se genera dinámicamente -->
-            </div>
-        </div>
-
         <div id="pending-issues-container" class="glacier-surface p-8 rounded-2xl shadow-xl shadow-black/40">
             <div class="flex items-center justify-between mb-8">
                 <h2 id="pending-issues-header" class="text-xl font-bold text-on-surface flex items-center gap-2">
@@ -1433,9 +1433,9 @@
                     }
                 });
 
-                // Mostrar tarjetas de carga por asignado
+                // Mostrar tarjetas de carga por asignado (removido - usar Carga del Equipo en su lugar)
                 window.currentPendingList = pendingList;
-                displayWorkloadByAssignee(pendingList);
+                // displayWorkloadByAssignee(pendingList);
                 currentAssigneeFilter = null;
             }
 
@@ -1680,6 +1680,91 @@
                 });
             }
             // ========== END TEAM WORKLOAD FUNCTIONS ==========
+
+            // ========== CACHE CLEARING & REFRESH FUNCTIONS ==========
+            function clearAllCache() {
+                // Clear all month metrics from localStorage
+                for (let i = 0; i < localStorage.length; i++) {
+                    const key = localStorage.key(i);
+                    if (key && key.startsWith('cache_metrics_')) {
+                        localStorage.removeItem(key);
+                    }
+                }
+
+                // Clear workload cache
+                workloadCache.all = null;
+                workloadCache.with_project = null;
+                workloadCache.without_project = null;
+
+                console.log('✓ All caches cleared successfully');
+            }
+
+            async function refreshAllData() {
+                try {
+                    const refreshBtn = document.getElementById('refresh-button');
+                    const refreshIcon = document.getElementById('refresh-icon');
+
+                    // Add spinning animation to icon
+                    if (refreshIcon) {
+                        refreshIcon.style.animation = 'spin 0.6s linear';
+                    }
+
+                    // Clear caches
+                    clearAllCache();
+
+                    // Get current active section
+                    const issuesSection = document.getElementById('issues');
+                    const projectsSection = document.getElementById('projects');
+                    const teamWorkloadSection = document.getElementById('team-workload');
+
+                    const activeSection = issuesSection.style.display !== 'none' ? 'issues' :
+                                        projectsSection.style.display !== 'none' ? 'projects' : 'team-workload';
+
+                    // Get current month if in Issues/Projects section
+                    const activeMonthBtn = document.querySelector('button[data-month].active') ||
+                                          Array.from(document.querySelectorAll('button[data-month]')).find(btn =>
+                                              btn.classList.contains('text-primary') && btn.classList.contains('bg-primary/10')
+                                          ) ||
+                                          document.querySelector('button[data-month="Mayo"]');
+
+                    const currentMonth = activeMonthBtn ? activeMonthBtn.getAttribute('data-month') : 'Mayo';
+
+                    // Show loading overlay
+                    showLoadingState();
+
+                    // Reload appropriate data
+                    if (activeSection === 'issues' || activeSection === 'projects') {
+                        await updateMonthData(currentMonth);
+                        await updateIssuesMonthData(currentMonth);
+                    } else if (activeSection === 'team-workload') {
+                        // Clear team workload container and reload
+                        const container = document.getElementById('team-workload-container');
+                        if (container) container.innerHTML = '';
+
+                        // Get current filter
+                        const activeFilterBtn = document.querySelector('.workload-filter-btn.active') ||
+                                               document.querySelector('[data-filter="all"]');
+                        const currentFilter = activeFilterBtn ? activeFilterBtn.dataset.filter : 'all';
+
+                        await loadTeamWorkload(currentFilter);
+                    }
+
+                    console.log(`✓ Data refreshed for ${activeSection} section`);
+
+                } catch (error) {
+                    console.error('Error refreshing data:', error);
+                    showErrorState('Error al actualizar datos. Por favor, intenta de nuevo.');
+                } finally {
+                    hideLoadingState();
+
+                    // Remove spinning animation
+                    const refreshIcon = document.getElementById('refresh-icon');
+                    if (refreshIcon) {
+                        refreshIcon.style.animation = 'none';
+                    }
+                }
+            }
+            // ========== END CACHE CLEARING & REFRESH FUNCTIONS ==========
 
             const monthButtons = document.querySelectorAll('button[data-month]');
             console.log('Botones encontrados:', monthButtons.length);
