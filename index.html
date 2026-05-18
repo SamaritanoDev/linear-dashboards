@@ -992,48 +992,12 @@
                             <span class="text-2xl">🔥</span>
                             Racha Perfecta
                         </h2>
-                        <p class="text-sm text-on-surface-variant mb-4">Personas que completaron un trimestre sin issues pendientes</p>
+                        <p class="text-sm text-on-surface-variant mb-4">Personas que completaron trimestres sin issues pendientes</p>
 
-                        <div class="space-y-6">
-                            <div id="q1-container" class="mb-6">
-                                <h3 class="text-sm font-semibold text-primary mb-3">Q1 (Enero - Marzo)</h3>
-                                <div id="q1-cards" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-                                    <!-- Tarjetas renderizadas dinámicamente -->
-                                </div>
-                                <p id="q1-empty" class="text-sm text-on-surface-variant italic" style="display: none;">No hay reconocimientos en este trimestre</p>
-                            </div>
-
-                            <div id="q2-container" class="mb-6">
-                                <div class="flex items-center gap-3 mb-3">
-                                    <h3 class="text-sm font-semibold text-primary">Q2 (Abril - Junio)</h3>
-                                    <div class="flex gap-2">
-                                        <span class="text-xs bg-surface-variant text-on-surface-variant px-2 py-1 rounded-full">Abril ✓</span>
-                                        <span class="text-xs bg-primary text-on-primary px-2 py-1 rounded-full">Mayo 🔄</span>
-                                        <span class="text-xs bg-surface-variant text-on-surface-variant px-2 py-1 rounded-full">Junio</span>
-                                    </div>
-                                </div>
-                                <div id="q2-cards" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-                                    <!-- Tarjetas renderizadas dinámicamente -->
-                                </div>
-                                <p id="q2-empty" class="text-sm text-on-surface-variant italic" style="display: none;">No hay reconocimientos en este trimestre</p>
-                            </div>
-
-                            <div id="q3-container" class="mb-6" style="display: none;">
-                                <h3 class="text-sm font-semibold text-primary mb-3">Q3 (Julio - Septiembre)</h3>
-                                <div id="q3-cards" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-                                    <!-- Tarjetas renderizadas dinámicamente -->
-                                </div>
-                                <p id="q3-empty" class="text-sm text-on-surface-variant italic" style="display: none;">No hay reconocimientos en este trimestre</p>
-                            </div>
-
-                            <div id="q4-container" style="display: none;">
-                                <h3 class="text-sm font-semibold text-primary mb-3">Q4 (Octubre - Diciembre)</h3>
-                                <div id="q4-cards" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-                                    <!-- Tarjetas renderizadas dinámicamente -->
-                                </div>
-                                <p id="q4-empty" class="text-sm text-on-surface-variant italic" style="display: none;">No hay reconocimientos en este trimestre</p>
-                            </div>
+                        <div id="racha-perfecta-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+                            <!-- Tarjetas renderizadas dinámicamente -->
                         </div>
+                        <p id="racha-perfecta-empty" class="text-sm text-on-surface-variant italic" style="display: none;">No hay reconocimientos en esta categoría</p>
                     </div>
 
                     <p class="text-xs text-on-surface-variant">
@@ -1845,33 +1809,38 @@
             }
 
             function displayRachaPerfecta(rachaData) {
-                const quarters = ['Q1', 'Q2', 'Q3', 'Q4'];
-                quarters.forEach(quarter => {
-                    const container = document.getElementById(`${quarter.toLowerCase()}-cards`);
-                    const emptyEl = document.getElementById(`${quarter.toLowerCase()}-empty`);
-                    if (!container) return;
+                const container = document.getElementById('racha-perfecta-container');
+                const emptyEl = document.getElementById('racha-perfecta-empty');
+                if (!container) return;
 
-                    container.innerHTML = '';
-                    const assignees = rachaData[quarter] || [];
+                container.innerHTML = '';
 
-                    if (assignees.length === 0) {
-                        if (emptyEl) emptyEl.style.display = 'block';
-                        return;
-                    }
-                    if (emptyEl) emptyEl.style.display = 'none';
+                // Convert object to array and sort by count descending
+                const sorted = Object.entries(rachaData)
+                    .map(([name, count]) => ({ name, count }))
+                    .sort((a, b) => b.count - a.count);
 
-                    assignees.forEach(assignee => {
-                        const card = document.createElement('div');
-                        card.className = 'glacier-card w-full px-6 py-6 rounded-xl flex flex-col items-center justify-center gap-3';
-                        card.innerHTML = `
-                            <span class="text-on-surface-variant text-xs font-bold uppercase tracking-tighter text-center line-clamp-2">
-                                ${assignee}
-                            </span>
-                            <span class="text-4xl">🔥</span>
-                            <span class="text-xs text-on-surface-variant text-center font-medium">${quarter}</span>
-                        `;
-                        container.appendChild(card);
-                    });
+                if (sorted.length === 0) {
+                    if (emptyEl) emptyEl.style.display = 'block';
+                    return;
+                }
+                if (emptyEl) emptyEl.style.display = 'none';
+
+                sorted.forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = 'glacier-card w-full px-6 py-6 rounded-xl flex flex-col items-center justify-center gap-3';
+
+                    // Create fire emojis string (repeated based on count)
+                    const fires = '🔥'.repeat(item.count);
+
+                    card.innerHTML = `
+                        <span class="text-on-surface-variant text-xs font-bold uppercase tracking-tighter text-center line-clamp-2">
+                            ${item.name}
+                        </span>
+                        <span class="text-3xl">${fires}</span>
+                        <span class="text-xs text-on-surface-variant text-center font-medium">${item.count} trimestre${item.count !== 1 ? 's' : ''}</span>
+                    `;
+                    container.appendChild(card);
                 });
             }
             // ========== END RECOGNITIONS FUNCTIONS ==========

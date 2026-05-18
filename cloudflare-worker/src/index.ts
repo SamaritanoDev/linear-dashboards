@@ -341,7 +341,7 @@ async function handleRecognitions(
       (assignee) => !assigneesWithIssues.has(assignee)
     );
 
-    // Get "Racha Perfecta" - assignees with 0 issues per quarter
+    // Get "Racha Perfecta" - count how many quarters each assignee completed without issues
     const quarters = [
       { name: "Q1", months: [1, 2, 3] },
       { name: "Q2", months: [4, 5, 6] },
@@ -349,7 +349,7 @@ async function handleRecognitions(
       { name: "Q4", months: [10, 11, 12] },
     ];
 
-    const rachaPerf: { [key: string]: string[] } = {};
+    const rachaCount: { [key: string]: number } = {};
 
     for (const quarter of quarters) {
       const quarterAssignees = new Set<string>();
@@ -367,17 +367,32 @@ async function handleRecognitions(
         }
       }
 
-      rachaPerf[quarter.name] = Array.from(allAssignees).filter(
-        (assignee) => !quarterAssignees.has(assignee)
-      );
+      // Count assignees with 0 issues in this quarter
+      Array.from(allAssignees).forEach((assignee) => {
+        if (!quarterAssignees.has(assignee)) {
+          rachaCount[assignee] = (rachaCount[assignee] || 0) + 1;
+        }
+      });
     }
+
+    // Sort by count descending
+    const rachaPerfect = Object.entries(rachaCount)
+      .filter(([_, count]) => count > 0)
+      .sort((a, b) => b[1] - a[1])
+      .reduce(
+        (acc, [name, count]) => {
+          acc[name] = count;
+          return acc;
+        },
+        {} as { [key: string]: number }
+      );
 
     return jsonResponse({
       mes_limpio: {
         month: getMonthName(previousMonth),
         assignees: mesLimpioAssignees,
       },
-      racha_perfecta: rachaPerf,
+      racha_perfecta: rachaPerfect,
       cached_at: new Date().toISOString(),
     });
   } catch (error) {
