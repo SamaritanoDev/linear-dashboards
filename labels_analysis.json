@@ -1,0 +1,1630 @@
+{
+  "deduced": [
+    {
+      "issue": "CE2-1811",
+      "title": "#9586 Airalo Error - Error HTTP en compra de eSIM - ICCID 8951201002923243371",
+      "month": "Enero",
+      "deducedLabel": "Airalo",
+      "url": "https://linear.app/guinea/issue/CE2-1811"
+    },
+    {
+      "issue": "CE2-1805",
+      "title": "9513 | App Cuy Móvil no permite activación de chip comprado meses atrás",
+      "month": "Enero",
+      "deducedLabel": "Cuy",
+      "url": "https://linear.app/guinea/issue/CE2-1805"
+    },
+    {
+      "issue": "CE2-1748",
+      "title": "9466 | CUY- Insertar TikTok Pixel",
+      "month": "Enero",
+      "deducedLabel": "Cuy",
+      "url": "https://linear.app/guinea/issue/CE2-1748"
+    },
+    {
+      "issue": "CE2-741",
+      "title": "9463 | CUY - No se muestra plan en el app CUY",
+      "month": "Enero",
+      "deducedLabel": "Cuy",
+      "url": "https://linear.app/guinea/issue/CE2-741"
+    },
+    {
+      "issue": "CE2-766",
+      "title": "#9222 Mensaje de error al intentar activar línea en app Cuy Móvil",
+      "month": "Enero",
+      "deducedLabel": "Cuy",
+      "url": "https://linear.app/guinea/issue/CE2-766"
+    },
+    {
+      "issue": "CE2-1643",
+      "title": "#9261 Habla+ / Registro en app ALMACEN",
+      "month": "Enero",
+      "deducedLabel": "Guinea",
+      "url": "https://linear.app/guinea/issue/CE2-1643"
+    },
+    {
+      "issue": "CE2-1037",
+      "title": "Publicar HTML en producción para rutas cuy.pe",
+      "month": "Febrero",
+      "deducedLabel": "Cuy",
+      "url": "https://linear.app/guinea/issue/CE2-1037"
+    },
+    {
+      "issue": "CE2-999",
+      "title": "12445 | Wings - Información sobre reactivación de línea",
+      "month": "Febrero",
+      "deducedLabel": "Wings",
+      "url": "https://linear.app/guinea/issue/CE2-999"
+    },
+    {
+      "issue": "CE2-914",
+      "title": "Reporte BOP Wings no muestra planes nuevos desde enero",
+      "month": "Febrero",
+      "deducedLabel": "Wings",
+      "url": "https://linear.app/guinea/issue/CE2-914"
+    },
+    {
+      "issue": "CE2-913",
+      "title": "Revisión de tráfico para línea Robada",
+      "month": "Febrero",
+      "deducedLabel": "Guinea",
+      "url": "https://linear.app/guinea/issue/CE2-913"
+    },
+    {
+      "issue": "CE2-1004",
+      "title": "Portabilidad CMS rechaza líneas IOT por tipo de servicio",
+      "month": "Febrero",
+      "deducedLabel": "Guinea",
+      "url": "https://linear.app/guinea/issue/CE2-1004"
+    },
+    {
+      "issue": "CE2-911",
+      "title": "12264 | Wings - Información sobre reactivación de línea",
+      "month": "Febrero",
+      "deducedLabel": "Wings",
+      "url": "https://linear.app/guinea/issue/CE2-911"
+    },
+    {
+      "issue": "CE2-909",
+      "title": "Wings - Información sobre reactivación de línea",
+      "month": "Febrero",
+      "deducedLabel": "Wings",
+      "url": "https://linear.app/guinea/issue/CE2-909"
+    },
+    {
+      "issue": "CE2-907",
+      "title": "12284 | CUY / Registro en la Lista Blanca de Excepciones",
+      "month": "Febrero",
+      "deducedLabel": "Cuy",
+      "url": "https://linear.app/guinea/issue/CE2-907"
+    },
+    {
+      "issue": "CE2-1657",
+      "title": "Buscar log de SMS",
+      "month": "Febrero",
+      "deducedLabel": "Cuy",
+      "url": "https://linear.app/guinea/issue/CE2-1657"
+    },
+    {
+      "issue": "CE2-895",
+      "title": "SOLICITUD PERMISOS BD",
+      "month": "Febrero",
+      "deducedLabel": "Guinea",
+      "url": "https://linear.app/guinea/issue/CE2-895"
+    },
+    {
+      "issue": "CE2-892",
+      "title": "Resolución | SUP2-868 | FIMO plan no aprovisionado pese a compra en app",
+      "month": "Febrero",
+      "deducedLabel": "Fimo",
+      "url": "https://linear.app/guinea/issue/CE2-892"
+    },
+    {
+      "issue": "CE2-1771",
+      "title": "12138 | B2B / Consumo detallado de empresa GPS SATELITAL PERU",
+      "month": "Febrero",
+      "deducedLabel": "B2B",
+      "url": "https://linear.app/guinea/issue/CE2-1771"
+    },
+    {
+      "issue": "CE2-891",
+      "title": "Constancias de pagos no visibles en el CMS2",
+      "month": "Febrero",
+      "deducedLabel": "Guinea",
+      "url": "https://linear.app/guinea/issue/CE2-891"
+    },
+    {
+      "issue": "CE2-889",
+      "title": "12113 | WINGS - Información sobre reactivación de línea",
+      "month": "Febrero",
+      "deducedLabel": "Wings",
+      "url": "https://linear.app/guinea/issue/CE2-889"
+    },
+    {
+      "issue": "CE2-1630",
+      "title": "12110 | B2B - Error en el flujo de portabilidades en la plataforma CMS",
+      "month": "Febrero",
+      "deducedLabel": "B2B",
+      "url": "https://linear.app/guinea/issue/CE2-1630"
+    },
+    {
+      "issue": "CE2-886",
+      "title": "Otorgar permisos a tabla para guinea backend: permission denied for relation mv_user_phone_lines",
+      "month": "Febrero",
+      "deducedLabel": "Guinea",
+      "url": "https://linear.app/guinea/issue/CE2-886"
+    },
+    {
+      "issue": "CE2-1631",
+      "title": "12032 | B2B / Empresas no paquetizadas correctamente",
+      "month": "Febrero",
+      "deducedLabel": "B2B",
+      "url": "https://linear.app/guinea/issue/CE2-1631"
+    },
+    {
+      "issue": "CE2-880",
+      "title": "Reporte de envíos de chip incluye clientes sin compra de chip",
+      "month": "Febrero",
+      "deducedLabel": "Cuy",
+      "url": "https://linear.app/guinea/issue/CE2-880"
+    },
+    {
+      "issue": "CE2-878",
+      "title": "11829 | BOP / Correcion o cambio de plan en Ventas PeruSIM",
+      "month": "Febrero",
+      "deducedLabel": "PeruSim+",
+      "url": "https://linear.app/guinea/issue/CE2-878"
+    },
+    {
+      "issue": "CE2-871",
+      "title": "11831 | WINGS - Información sobre reactivación de línea.",
+      "month": "Febrero",
+      "deducedLabel": "Wings",
+      "url": "https://linear.app/guinea/issue/CE2-871"
+    },
+    {
+      "issue": "CE2-876",
+      "title": "11840 | Wings - Información sobre reactivación de línea",
+      "month": "Febrero",
+      "deducedLabel": "Wings",
+      "url": "https://linear.app/guinea/issue/CE2-876"
+    },
+    {
+      "issue": "CE2-874",
+      "title": "11898 | Habla + / Reporte de lineas activas",
+      "month": "Febrero",
+      "deducedLabel": "Habla+",
+      "url": "https://linear.app/guinea/issue/CE2-874"
+    },
+    {
+      "issue": "CE2-1772",
+      "title": "11761 | B2B / Consulta IMEI asociados a ICCID",
+      "month": "Febrero",
+      "deducedLabel": "Guinea",
+      "url": "https://linear.app/guinea/issue/CE2-1772"
+    },
+    {
+      "issue": "CE2-867",
+      "title": "11747 | WINGS - Información sobre reactivación de línea.",
+      "month": "Febrero",
+      "deducedLabel": "Guinea",
+      "url": "https://linear.app/guinea/issue/CE2-867"
+    },
+    {
+      "issue": "CE2-1632",
+      "title": "11668 | B2B - Error en descarga de información de líneas IOT",
+      "month": "Febrero",
+      "deducedLabel": "Guinea",
+      "url": "https://linear.app/guinea/issue/CE2-1632"
+    },
+    {
+      "issue": "CE2-1739",
+      "title": "11552 | B2B / Compra de paquetes en líneas IOT genera interrupción de servicio",
+      "month": "Febrero",
+      "deducedLabel": "B2B",
+      "url": "https://linear.app/guinea/issue/CE2-1739"
+    },
+    {
+      "issue": "CE2-847",
+      "title": "Data de consumo por plan para Airalo",
+      "month": "Febrero",
+      "deducedLabel": "Airalo",
+      "url": "https://linear.app/guinea/issue/CE2-847"
+    },
+    {
+      "issue": "CE2-846",
+      "title": "11353 | Habla + / Navegacion en app Habla + sin datos",
+      "month": "Febrero",
+      "deducedLabel": "Cuy",
+      "url": "https://linear.app/guinea/issue/CE2-846"
+    },
+    {
+      "issue": "CE2-1740",
+      "title": "11279 | WINGS - Información sobre reactivación de línea.",
+      "month": "Febrero",
+      "deducedLabel": "Guinea",
+      "url": "https://linear.app/guinea/issue/CE2-1740"
+    },
+    {
+      "issue": "CE2-845",
+      "title": "cuy.pe/app redirige al home en vez de store",
+      "month": "Febrero",
+      "deducedLabel": "Cuy",
+      "url": "https://linear.app/guinea/issue/CE2-845"
+    },
+    {
+      "issue": "CE2-1773",
+      "title": "11267 | WINGS - Información sobre reactivación de línea.",
+      "month": "Febrero",
+      "deducedLabel": "Wings",
+      "url": "https://linear.app/guinea/issue/CE2-1773"
+    },
+    {
+      "issue": "CE2-1781",
+      "title": "Pruebas de eSIM",
+      "month": "Febrero",
+      "deducedLabel": "Airalo",
+      "url": "https://linear.app/guinea/issue/CE2-1781"
+    },
+    {
+      "issue": "CE2-1655",
+      "title": "subir el PR que realicé para fimo y si lo puedes subir a api.cuy.pe fix: subscription-yape-fimo by enriqueeee10 · Pull Request #17 · Guinea-Mobile/api-rest",
+      "month": "Febrero",
+      "deducedLabel": "Cuy",
+      "url": "https://linear.app/guinea/issue/CE2-1655"
+    },
+    {
+      "issue": "CE2-1634",
+      "title": "11180 | CUY - Agregar línea a la lista de excepciones",
+      "month": "Febrero",
+      "deducedLabel": "Cuy",
+      "url": "https://linear.app/guinea/issue/CE2-1634"
+    },
+    {
+      "issue": "CE2-1633",
+      "title": "11130 | AIRALO - Línea en estado inactivo",
+      "month": "Febrero",
+      "deducedLabel": "Airalo",
+      "url": "https://linear.app/guinea/issue/CE2-1633"
+    },
+    {
+      "issue": "CE2-839",
+      "title": "Eliminar planes inexistentes del App vendedor PeruSIM",
+      "month": "Febrero",
+      "deducedLabel": "Guinea",
+      "url": "https://linear.app/guinea/issue/CE2-839"
+    },
+    {
+      "issue": "CE2-838",
+      "title": "No se envían correos de Cuy vía Aldeamo",
+      "month": "Febrero",
+      "deducedLabel": "Cuy",
+      "url": "https://linear.app/guinea/issue/CE2-838"
+    },
+    {
+      "issue": "CE2-833",
+      "title": "Subir landings promo plan 19/29/39/49 a producción",
+      "month": "Febrero",
+      "deducedLabel": "Cuy",
+      "url": "https://linear.app/guinea/issue/CE2-833"
+    },
+    {
+      "issue": "CE2-831",
+      "title": "Carta 000266-2026-DFI/OSIPTEL",
+      "month": "Febrero",
+      "deducedLabel": "Legales",
+      "url": "https://linear.app/guinea/issue/CE2-831"
+    },
+    {
+      "issue": "CE2-1741",
+      "title": "10956 | B2B / Error en informacion de planes en DASHBOARD B2B",
+      "month": "Febrero",
+      "deducedLabel": "Guinea",
+      "url": "https://linear.app/guinea/issue/CE2-1741"
+    },
+    {
+      "issue": "CE2-1635",
+      "title": "10959 | B2B - INHABILITAR RESET A USUARIO",
+      "month": "Febrero",
+      "deducedLabel": "B2B",
+      "url": "https://linear.app/guinea/issue/CE2-1635"
+    },
+    {
+      "issue": "CE2-822",
+      "title": "Regularización de configuración de extras 1GB/2GB/3GB como planes en diccionario de bundles",
+      "month": "Febrero",
+      "deducedLabel": "Legales",
+      "url": "https://linear.app/guinea/issue/CE2-822"
+    },
+    {
+      "issue": "CE2-807",
+      "title": "10548 | Hablas+ - Recarga a través de YAPE no figura en nuestro sistema",
+      "month": "Febrero",
+      "deducedLabel": "Habla+",
+      "url": "https://linear.app/guinea/issue/CE2-807"
+    },
+    {
+      "issue": "CE2-806",
+      "title": "CMS 2.0 no muestra planes Express para registrar venta",
+      "month": "Febrero",
+      "deducedLabel": "PeruSim+",
+      "url": "https://linear.app/guinea/issue/CE2-806"
+    },
+    {
+      "issue": "CE2-805",
+      "title": "10760 PeruSIM / No se puede registrar ventas Express en BOP",
+      "month": "Febrero",
+      "deducedLabel": "Guinea",
+      "url": "https://linear.app/guinea/issue/CE2-805"
+    },
+    {
+      "issue": "CE2-804",
+      "title": "10865 Cuy Móvil - Revisión sobre envío de SMS",
+      "month": "Febrero",
+      "deducedLabel": "Cuy",
+      "url": "https://linear.app/guinea/issue/CE2-804"
+    },
+    {
+      "issue": "CE2-1759",
+      "title": "NOTIFICACION CARTA 000416-2026-DAPU/OSIPTEL",
+      "month": "Febrero",
+      "deducedLabel": "Cuy",
+      "url": "https://linear.app/guinea/issue/CE2-1759"
+    },
+    {
+      "issue": "CE2-800",
+      "title": "Publicar landing HTML de portabilidad en producción",
+      "month": "Febrero",
+      "deducedLabel": "Cuy",
+      "url": "https://linear.app/guinea/issue/CE2-800"
+    },
+    {
+      "issue": "CE2-799",
+      "title": "Publicar landing de portabilidad en producción (cuy.pe/portabilidad)",
+      "month": "Febrero",
+      "deducedLabel": "Cuy",
+      "url": "https://linear.app/guinea/issue/CE2-799"
+    },
+    {
+      "issue": "CE2-1742",
+      "title": "10588 | Guines (Afectación a todas las marcas) - Flujo de reactivaciones y visibilidad de solicitudes",
+      "month": "Febrero",
+      "deducedLabel": "Legales",
+      "url": "https://linear.app/guinea/issue/CE2-1742"
+    },
+    {
+      "issue": "CE2-1774",
+      "title": "10717 | B2B / Reporte de consumo de la linea 51919088727",
+      "month": "Febrero",
+      "deducedLabel": "B2B",
+      "url": "https://linear.app/guinea/issue/CE2-1774"
+    },
+    {
+      "issue": "CE2-796",
+      "title": "10075 B2B - No permite pasar huella en el app Guinea",
+      "month": "Febrero",
+      "deducedLabel": "Guinea",
+      "url": "https://linear.app/guinea/issue/CE2-796"
+    },
+    {
+      "issue": "CE2-782",
+      "title": "Fix Base CDR Telco",
+      "month": "Febrero",
+      "deducedLabel": "Guinea",
+      "url": "https://linear.app/guinea/issue/CE2-782"
+    },
+    {
+      "issue": "CE2-1782",
+      "title": "Reporte Vías de Pago Ene-26",
+      "month": "Febrero",
+      "deducedLabel": "Cuy",
+      "url": "https://linear.app/guinea/issue/CE2-1782"
+    },
+    {
+      "issue": "CE2-761",
+      "title": "Cupón GUINEAEMPLEO26: se puede usar en Web aunque el channel permitido es App",
+      "month": "Febrero",
+      "deducedLabel": "Guinea",
+      "url": "https://linear.app/guinea/issue/CE2-761"
+    },
+    {
+      "issue": "CE2-760",
+      "title": "Activacion ESIM (Bundle se muestra vacio)",
+      "month": "Febrero",
+      "deducedLabel": "Cuy",
+      "url": "https://linear.app/guinea/issue/CE2-760"
+    },
+    {
+      "issue": "CE2-759",
+      "title": "Problema de Activacion eSIM - Cuy Movil",
+      "month": "Febrero",
+      "deducedLabel": "Cuy",
+      "url": "https://linear.app/guinea/issue/CE2-759"
+    },
+    {
+      "issue": "CE2-758",
+      "title": "Diseñar flujo de compra eSIM para el escenario de portabilidad",
+      "month": "Febrero",
+      "deducedLabel": "Airalo",
+      "url": "https://linear.app/guinea/issue/CE2-758"
+    },
+    {
+      "issue": "CE2-756",
+      "title": "Referidos: no se acredita bono",
+      "month": "Febrero",
+      "deducedLabel": "Legales",
+      "url": "https://linear.app/guinea/issue/CE2-756"
+    },
+    {
+      "issue": "CE2-1743",
+      "title": "10271 | B2B / Discrepancia con Lineas Desactivadas",
+      "month": "Febrero",
+      "deducedLabel": "B2B",
+      "url": "https://linear.app/guinea/issue/CE2-1743"
+    },
+    {
+      "issue": "CE2-1801",
+      "title": "10157 | B2B / Reporte de Consumo de Datos",
+      "month": "Febrero",
+      "deducedLabel": "B2B",
+      "url": "https://linear.app/guinea/issue/CE2-1801"
+    },
+    {
+      "issue": "CE2-706",
+      "title": "10131 | CUY - Mensaje incorrecto al iniciar sesión en el app",
+      "month": "Febrero",
+      "deducedLabel": "Cuy",
+      "url": "https://linear.app/guinea/issue/CE2-706"
+    },
+    {
+      "issue": "CE2-1636",
+      "title": "10080 | Habla+ - REACTIVACIÓN DEL SKU 8000001680",
+      "month": "Febrero",
+      "deducedLabel": "Habla+",
+      "url": "https://linear.app/guinea/issue/CE2-1636"
+    },
+    {
+      "issue": "CE2-1802",
+      "title": "10045 | Habla + / Cliente no puede acceder a su app cliente",
+      "month": "Febrero",
+      "deducedLabel": "Habla+",
+      "url": "https://linear.app/guinea/issue/CE2-1802"
+    },
+    {
+      "issue": "CE2-1803",
+      "title": "8396 | CUY / Error en la compra CUY",
+      "month": "Febrero",
+      "deducedLabel": "Cuy",
+      "url": "https://linear.app/guinea/issue/CE2-1803"
+    },
+    {
+      "issue": "CE2-1775",
+      "title": "9879 | PeruSIM – Solicitud de corrección de vendedor asignado (venta Extra)",
+      "month": "Febrero",
+      "deducedLabel": "Guinea",
+      "url": "https://linear.app/guinea/issue/CE2-1775"
+    },
+    {
+      "issue": "CE2-702",
+      "title": "Documentar servicios de apps",
+      "month": "Febrero",
+      "deducedLabel": "Habla+",
+      "url": "https://linear.app/guinea/issue/CE2-702"
+    },
+    {
+      "issue": "CE2-1637",
+      "title": "9962 | WINGS - Cliente no puede recuperar su línea en el app",
+      "month": "Febrero",
+      "deducedLabel": "Wings",
+      "url": "https://linear.app/guinea/issue/CE2-1637"
+    },
+    {
+      "issue": "CE2-1374",
+      "title": "Reporte habla + activaciones por plan",
+      "month": "Marzo",
+      "deducedLabel": "Habla+",
+      "url": "https://linear.app/guinea/issue/CE2-1374"
+    },
+    {
+      "issue": "CE2-1331",
+      "title": "Solicitud de Código de Comercio - Proyecto PeruSIM",
+      "month": "Marzo",
+      "deducedLabel": "Cuy",
+      "url": "https://linear.app/guinea/issue/CE2-1331"
+    },
+    {
+      "issue": "CE2-1696",
+      "title": "Compra con Yape validada no aparece en BOP",
+      "month": "Marzo",
+      "deducedLabel": "Habla+",
+      "url": "https://linear.app/guinea/issue/CE2-1696"
+    },
+    {
+      "issue": "CE2-1697",
+      "title": "Diferencia en presentación quincenal de Wings 15%",
+      "month": "Marzo",
+      "deducedLabel": "Wings",
+      "url": "https://linear.app/guinea/issue/CE2-1697"
+    },
+    {
+      "issue": "CE2-1325",
+      "title": "Airalo - Investigación caída de voice incoming día 21-03-26 y los domingos en CDR",
+      "month": "Marzo",
+      "deducedLabel": "Airalo",
+      "url": "https://linear.app/guinea/issue/CE2-1325"
+    },
+    {
+      "issue": "CE2-1793",
+      "title": "15355 | Legal / Registrar Equipo en Lista Blanca / 946076740",
+      "month": "Marzo",
+      "deducedLabel": "Guinea",
+      "url": "https://linear.app/guinea/issue/CE2-1793"
+    },
+    {
+      "issue": "CE2-1318",
+      "title": "Solicitar nuevo código de comercio para PeruSIM",
+      "month": "Marzo",
+      "deducedLabel": "Cuy",
+      "url": "https://linear.app/guinea/issue/CE2-1318"
+    },
+    {
+      "issue": "CE2-1780",
+      "title": "Desactivación/Activacion de recargas manuales desde el CMS para vendedores PeruSIM",
+      "month": "Marzo",
+      "deducedLabel": "PeruSim+",
+      "url": "https://linear.app/guinea/issue/CE2-1780"
+    },
+    {
+      "issue": "CE2-1623",
+      "title": "15508 | Habla+ - CREACIÓN DE CDR NAME",
+      "month": "Marzo",
+      "deducedLabel": "Guinea",
+      "url": "https://linear.app/guinea/issue/CE2-1623"
+    },
+    {
+      "issue": "CE2-1700",
+      "title": "Recarga Habla+ no se refleja en BOP ni CMS",
+      "month": "Marzo",
+      "deducedLabel": "Habla+",
+      "url": "https://linear.app/guinea/issue/CE2-1700"
+    },
+    {
+      "issue": "CE2-1297",
+      "title": "Corregir registro de venta ingresado por error en BOP",
+      "month": "Marzo",
+      "deducedLabel": "PeruSim+",
+      "url": "https://linear.app/guinea/issue/CE2-1297"
+    },
+    {
+      "issue": "CE2-1282",
+      "title": "Error `Parámetros inválidos` al activar cliente extranjero con un solo apellido",
+      "month": "Marzo",
+      "deducedLabel": "Habla+",
+      "url": "https://linear.app/guinea/issue/CE2-1282"
+    },
+    {
+      "issue": "CE2-1758",
+      "title": "Crear vendedor en Wings",
+      "month": "Marzo",
+      "deducedLabel": "Guinea",
+      "url": "https://linear.app/guinea/issue/CE2-1758"
+    },
+    {
+      "issue": "CE2-1625",
+      "title": "15043 | PERUSIM - CREACIÓN DE CDR NAME",
+      "month": "Marzo",
+      "deducedLabel": "Guinea",
+      "url": "https://linear.app/guinea/issue/CE2-1625"
+    },
+    {
+      "issue": "CE2-1624",
+      "title": "Reporte de rentabilidad B2B sin ingresos en febrero",
+      "month": "Marzo",
+      "deducedLabel": "B2B",
+      "url": "https://linear.app/guinea/issue/CE2-1624"
+    },
+    {
+      "issue": "CE2-1375",
+      "title": "14691 | Legal - Validación de portabilidad – Inconsistencia entre CMS/DCRM y portal OSIPTEL",
+      "month": "Marzo",
+      "deducedLabel": "B2B",
+      "url": "https://linear.app/guinea/issue/CE2-1375"
+    },
+    {
+      "issue": "CE2-1795",
+      "title": "14639 | Legal / Registrar Equipo en Lista Blanca / 919087086",
+      "month": "Marzo",
+      "deducedLabel": "Guinea",
+      "url": "https://linear.app/guinea/issue/CE2-1795"
+    },
+    {
+      "issue": "CE2-1705",
+      "title": "14483 | Legal / Registrar Equipo en Lista Blanca",
+      "month": "Marzo",
+      "deducedLabel": "Guinea",
+      "url": "https://linear.app/guinea/issue/CE2-1705"
+    },
+    {
+      "issue": "CE2-1626",
+      "title": "14454 | B2B / NHABILITAR RESET A USUARIO de Autoladers",
+      "month": "Marzo",
+      "deducedLabel": "Guinea",
+      "url": "https://linear.app/guinea/issue/CE2-1626"
+    },
+    {
+      "issue": "CE2-1706",
+      "title": "14927 | B2B - Envíos de SMS CUY que cliente no reconoce",
+      "month": "Marzo",
+      "deducedLabel": "Cuy",
+      "url": "https://linear.app/guinea/issue/CE2-1706"
+    },
+    {
+      "issue": "CE2-1707",
+      "title": "CMS no permite ocultar portabilidades ya ejecutadas",
+      "month": "Marzo",
+      "deducedLabel": "B2B",
+      "url": "https://linear.app/guinea/issue/CE2-1707"
+    },
+    {
+      "issue": "CE2-1708",
+      "title": "Líneas Habla+ expiran o pasan a baja con recargas vigentes",
+      "month": "Marzo",
+      "deducedLabel": "Habla+",
+      "url": "https://linear.app/guinea/issue/CE2-1708"
+    },
+    {
+      "issue": "CE2-1254",
+      "title": "GUINEA reproceso de portabilidad no procesada",
+      "month": "Marzo",
+      "deducedLabel": "Guinea",
+      "url": "https://linear.app/guinea/issue/CE2-1254"
+    },
+    {
+      "issue": "CE2-1235",
+      "title": "Error de portabilidad muestra solicitud pendiente sin registro actual",
+      "month": "Marzo",
+      "deducedLabel": "Guinea",
+      "url": "https://linear.app/guinea/issue/CE2-1235"
+    },
+    {
+      "issue": "CE2-1234",
+      "title": "Otorgar permisos DML temporales en backend_efe_prod",
+      "month": "Marzo",
+      "deducedLabel": "Guinea",
+      "url": "https://linear.app/guinea/issue/CE2-1234"
+    },
+    {
+      "issue": "CE2-1222",
+      "title": "Desactivación de recargas manuales desde el CMS para vendedores PeruSIM",
+      "month": "Marzo",
+      "deducedLabel": "PeruSim+",
+      "url": "https://linear.app/guinea/issue/CE2-1222"
+    },
+    {
+      "issue": "CE2-1220",
+      "title": "Reserva de eSIM fallida",
+      "month": "Marzo",
+      "deducedLabel": "Airalo",
+      "url": "https://linear.app/guinea/issue/CE2-1220"
+    },
+    {
+      "issue": "CE2-1717",
+      "title": "Regularizar manualmente 9 transacciones Yape en BOP",
+      "month": "Marzo",
+      "deducedLabel": "Habla+",
+      "url": "https://linear.app/guinea/issue/CE2-1717"
+    },
+    {
+      "issue": "CE2-1218",
+      "title": "Revisar cambios en bundles de planes ilimitados",
+      "month": "Marzo",
+      "deducedLabel": "PeruSim+",
+      "url": "https://linear.app/guinea/issue/CE2-1218"
+    },
+    {
+      "issue": "CE2-1712",
+      "title": "Validar detalle de llamadas para cliente Wings",
+      "month": "Marzo",
+      "deducedLabel": "Wings",
+      "url": "https://linear.app/guinea/issue/CE2-1712"
+    },
+    {
+      "issue": "CE2-1648",
+      "title": "pasar a produccion la correccion",
+      "month": "Marzo",
+      "deducedLabel": "Guinea",
+      "url": "https://linear.app/guinea/issue/CE2-1648"
+    },
+    {
+      "issue": "CE2-1203",
+      "title": "Solicitud DDL",
+      "month": "Marzo",
+      "deducedLabel": "Cuy",
+      "url": "https://linear.app/guinea/issue/CE2-1203"
+    },
+    {
+      "issue": "CE2-1713",
+      "title": "Línea portada Wings queda con priceplan incorrecto",
+      "month": "Marzo",
+      "deducedLabel": "Wings",
+      "url": "https://linear.app/guinea/issue/CE2-1713"
+    },
+    {
+      "issue": "CE2-1756",
+      "title": "Crear documentación de los certificados de renteseg",
+      "month": "Marzo",
+      "deducedLabel": "Guinea",
+      "url": "https://linear.app/guinea/issue/CE2-1756"
+    },
+    {
+      "issue": "CE2-1199",
+      "title": "Error del servidor al activar con perfil vendedor PeruSIM",
+      "month": "Marzo",
+      "deducedLabel": "Guinea",
+      "url": "https://linear.app/guinea/issue/CE2-1199"
+    },
+    {
+      "issue": "CE2-1197",
+      "title": "DNIRUC HTTP Error (falso positivo)",
+      "month": "Marzo",
+      "deducedLabel": "Legales",
+      "url": "https://linear.app/guinea/issue/CE2-1197"
+    },
+    {
+      "issue": "CE2-1714",
+      "title": "13941 | Legal / Registrar Equipo en Lista Blanca",
+      "month": "Marzo",
+      "deducedLabel": "Guinea",
+      "url": "https://linear.app/guinea/issue/CE2-1714"
+    },
+    {
+      "issue": "CE2-1195",
+      "title": "Habilitar IP de lectura para acceso a bases",
+      "month": "Marzo",
+      "deducedLabel": "Cuy",
+      "url": "https://linear.app/guinea/issue/CE2-1195"
+    },
+    {
+      "issue": "CE2-1785",
+      "title": "DAR DE BAJA - CARTA 003435",
+      "month": "Marzo",
+      "deducedLabel": "B2B",
+      "url": "https://linear.app/guinea/issue/CE2-1785"
+    },
+    {
+      "issue": "CE2-1189",
+      "title": "Habla+ establecer data sources para dashboard",
+      "month": "Marzo",
+      "deducedLabel": "Habla+",
+      "url": "https://linear.app/guinea/issue/CE2-1189"
+    },
+    {
+      "issue": "CE2-1182",
+      "title": "Rechazo de consultas previas en portabilidad de líneas Guinea",
+      "month": "Marzo",
+      "deducedLabel": "Guinea",
+      "url": "https://linear.app/guinea/issue/CE2-1182"
+    },
+    {
+      "issue": "CE2-1180",
+      "title": "Solicitud de permisos en la base de datos",
+      "month": "Marzo",
+      "deducedLabel": "Guinea",
+      "url": "https://linear.app/guinea/issue/CE2-1180"
+    },
+    {
+      "issue": "CE2-1179",
+      "title": "Error actualizando beneficio de portabilidad",
+      "month": "Marzo",
+      "deducedLabel": "Cuy",
+      "url": "https://linear.app/guinea/issue/CE2-1179"
+    },
+    {
+      "issue": "CE2-1178",
+      "title": "Reporte OSIPTEL: contrataciones que involucren la activación de más de una línea realizadas durante el año 2025",
+      "month": "Marzo",
+      "deducedLabel": "Guinea",
+      "url": "https://linear.app/guinea/issue/CE2-1178"
+    },
+    {
+      "issue": "CE2-1719",
+      "title": "Starsoft remoto no permite acceso simultáneo esperado",
+      "month": "Marzo",
+      "deducedLabel": "Legales",
+      "url": "https://linear.app/guinea/issue/CE2-1719"
+    },
+    {
+      "issue": "CE2-1173",
+      "title": "Compartir ejemplo de reporte PeruSIM enero 2023",
+      "month": "Marzo",
+      "deducedLabel": "PeruSim+",
+      "url": "https://linear.app/guinea/issue/CE2-1173"
+    },
+    {
+      "issue": "CE2-1159",
+      "title": "Solicitud de acceso a bases de datos: EFE y CUPONES",
+      "month": "Marzo",
+      "deducedLabel": "Cuy",
+      "url": "https://linear.app/guinea/issue/CE2-1159"
+    },
+    {
+      "issue": "CE2-1722",
+      "title": "13738 | Legal / Registrar Equipo en Lista Blanca",
+      "month": "Marzo",
+      "deducedLabel": "Guinea",
+      "url": "https://linear.app/guinea/issue/CE2-1722"
+    },
+    {
+      "issue": "CE2-1148",
+      "title": "Revisión del reporte 045 SIGEP Trimestral. Año 2025",
+      "month": "Marzo",
+      "deducedLabel": "Guinea",
+      "url": "https://linear.app/guinea/issue/CE2-1148"
+    },
+    {
+      "issue": "CE2-1147",
+      "title": "Revisar Dashboard Airalo",
+      "month": "Marzo",
+      "deducedLabel": "Guinea",
+      "url": "https://linear.app/guinea/issue/CE2-1147"
+    },
+    {
+      "issue": "CE2-1778",
+      "title": "CARTA 000687-2026-DAPU/OSIPTEL",
+      "month": "Marzo",
+      "deducedLabel": "Legales",
+      "url": "https://linear.app/guinea/issue/CE2-1778"
+    },
+    {
+      "issue": "CE2-1797",
+      "title": "13724 |Legal / Registrar Equipo en Lista Blanca",
+      "month": "Marzo",
+      "deducedLabel": "Legales",
+      "url": "https://linear.app/guinea/issue/CE2-1797"
+    },
+    {
+      "issue": "CE2-1723",
+      "title": "13712 | CUY- CREACIÓN DE CDR NAME",
+      "month": "Marzo",
+      "deducedLabel": "Cuy",
+      "url": "https://linear.app/guinea/issue/CE2-1723"
+    },
+    {
+      "issue": "CE2-1721",
+      "title": "Líneas recicladas muestran la marca incorrecta en app",
+      "month": "Marzo",
+      "deducedLabel": "Habla+",
+      "url": "https://linear.app/guinea/issue/CE2-1721"
+    },
+    {
+      "issue": "CE2-1142",
+      "title": "Otorgar permiso update sobre public.user en cuymovil",
+      "month": "Marzo",
+      "deducedLabel": "Cuy",
+      "url": "https://linear.app/guinea/issue/CE2-1142"
+    },
+    {
+      "issue": "CE2-1642",
+      "title": "Agregar Ip a la lista blanca de api rest en produccion para Israel",
+      "month": "Marzo",
+      "deducedLabel": "Legales",
+      "url": "https://linear.app/guinea/issue/CE2-1642"
+    },
+    {
+      "issue": "CE2-1726",
+      "title": "Reporte de Empresas - Facturas ya no muestra IOT y B2B",
+      "month": "Marzo",
+      "deducedLabel": "B2B",
+      "url": "https://linear.app/guinea/issue/CE2-1726"
+    },
+    {
+      "issue": "CE2-1727",
+      "title": "Reporte de rentabilidad B2B aparece en 0",
+      "month": "Marzo",
+      "deducedLabel": "B2B",
+      "url": "https://linear.app/guinea/issue/CE2-1727"
+    },
+    {
+      "issue": "CE2-1139",
+      "title": "Validar inconsistencia en fecha de renovación de plan",
+      "month": "Marzo",
+      "deducedLabel": "Guinea",
+      "url": "https://linear.app/guinea/issue/CE2-1139"
+    },
+    {
+      "issue": "CE2-1376",
+      "title": "Requerimiento data Habla+",
+      "month": "Marzo",
+      "deducedLabel": "Habla+",
+      "url": "https://linear.app/guinea/issue/CE2-1376"
+    },
+    {
+      "issue": "CE2-1133",
+      "title": "Publicar landing portabilidad marzo y subir imágenes",
+      "month": "Marzo",
+      "deducedLabel": "Cuy",
+      "url": "https://linear.app/guinea/issue/CE2-1133"
+    },
+    {
+      "issue": "CE2-1783",
+      "title": "Reporte de Vías de pago Feb-26",
+      "month": "Marzo",
+      "deducedLabel": "Cuy",
+      "url": "https://linear.app/guinea/issue/CE2-1783"
+    },
+    {
+      "issue": "CE2-1627",
+      "title": "Recargas con Yape no se reflejan en CMS/BOP (Habla+)",
+      "month": "Marzo",
+      "deducedLabel": "Habla+",
+      "url": "https://linear.app/guinea/issue/CE2-1627"
+    },
+    {
+      "issue": "CE2-1644",
+      "title": "Finanzas: Reporte Ventas LAP (Aeropuerto Lima - PeruSIM)",
+      "month": "Marzo",
+      "deducedLabel": "PeruSim+",
+      "url": "https://linear.app/guinea/issue/CE2-1644"
+    },
+    {
+      "issue": "CE2-1728",
+      "title": "Agregar textos promocionales a términos y condiciones vigentes",
+      "month": "Marzo",
+      "deducedLabel": "Cuy",
+      "url": "https://linear.app/guinea/issue/CE2-1728"
+    },
+    {
+      "issue": "CE2-1109",
+      "title": "13164 | Habla+ - Línea de cliente no figura en portal de OSIPTEL",
+      "month": "Marzo",
+      "deducedLabel": "Habla+",
+      "url": "https://linear.app/guinea/issue/CE2-1109"
+    },
+    {
+      "issue": "CE2-1108",
+      "title": "BOP Airalo: boletas desordenadas y falta factura de setiembre",
+      "month": "Marzo",
+      "deducedLabel": "Airalo",
+      "url": "https://linear.app/guinea/issue/CE2-1108"
+    },
+    {
+      "issue": "CE2-1751",
+      "title": "Facturación: Generar Reporte Fimo",
+      "month": "Marzo",
+      "deducedLabel": "Fimo",
+      "url": "https://linear.app/guinea/issue/CE2-1751"
+    },
+    {
+      "issue": "CE2-1134",
+      "title": "No llega correo diario “Listado Delivery Cuy”",
+      "month": "Marzo",
+      "deducedLabel": "Cuy",
+      "url": "https://linear.app/guinea/issue/CE2-1134"
+    },
+    {
+      "issue": "CE2-1729",
+      "title": "No llega el correo diario de portabilidades a backoffice@guinea.pe",
+      "month": "Marzo",
+      "deducedLabel": "Guinea",
+      "url": "https://linear.app/guinea/issue/CE2-1729"
+    },
+    {
+      "issue": "CE2-1732",
+      "title": "Permitir IP para pruebas locales en API REST",
+      "month": "Marzo",
+      "deducedLabel": "Guinea",
+      "url": "https://linear.app/guinea/issue/CE2-1732"
+    },
+    {
+      "issue": "CE2-1105",
+      "title": "13065 | Legal / Linea no se valida en Checa tu linea de Osiptel",
+      "month": "Marzo",
+      "deducedLabel": "Legales",
+      "url": "https://linear.app/guinea/issue/CE2-1105"
+    },
+    {
+      "issue": "CE2-1734",
+      "title": "Query de Consumos PeruSIM no muestra planes Express nuevos",
+      "month": "Marzo",
+      "deducedLabel": "PeruSim+",
+      "url": "https://linear.app/guinea/issue/CE2-1734"
+    },
+    {
+      "issue": "CE2-1735",
+      "title": "No llega el correo diario de portabilidades a backoffice@guinea.pe",
+      "month": "Marzo",
+      "deducedLabel": "Guinea",
+      "url": "https://linear.app/guinea/issue/CE2-1735"
+    },
+    {
+      "issue": "CE2-1737",
+      "title": "BOP Empresas B2B/IOT no carga información (401)",
+      "month": "Marzo",
+      "deducedLabel": "Guinea",
+      "url": "https://linear.app/guinea/issue/CE2-1737"
+    },
+    {
+      "issue": "CE2-1629",
+      "title": "12956 | Legal / Cliente reporta que no se realizo su registro de Equipo",
+      "month": "Marzo",
+      "deducedLabel": "Legales",
+      "url": "https://linear.app/guinea/issue/CE2-1629"
+    },
+    {
+      "issue": "CE2-1646",
+      "title": "Finanzas: Generar reporte Habla+",
+      "month": "Marzo",
+      "deducedLabel": "Habla+",
+      "url": "https://linear.app/guinea/issue/CE2-1646"
+    },
+    {
+      "issue": "CE2-1090",
+      "title": "No llega el correo diario de portabilidades (04/03)",
+      "month": "Marzo",
+      "deducedLabel": "Legales",
+      "url": "https://linear.app/guinea/issue/CE2-1090"
+    },
+    {
+      "issue": "CE2-1810",
+      "title": "ABC IDENTIDAD DIGITAL - Renovación del servicio",
+      "month": "Marzo",
+      "deducedLabel": "Cuy",
+      "url": "https://linear.app/guinea/issue/CE2-1810"
+    },
+    {
+      "issue": "CE2-1799",
+      "title": "Solicitan un acceso adicional a escritorio remoto",
+      "month": "Marzo",
+      "deducedLabel": "Legales",
+      "url": "https://linear.app/guinea/issue/CE2-1799"
+    },
+    {
+      "issue": "CE2-1086",
+      "title": "Pruebas en wings cliente y agente para replicar bug",
+      "month": "Marzo",
+      "deducedLabel": "Wings",
+      "url": "https://linear.app/guinea/issue/CE2-1086"
+    },
+    {
+      "issue": "CE2-1080",
+      "title": "prod-guinea-n8n | Database not ready → instance shutdown",
+      "month": "Marzo",
+      "deducedLabel": "Guinea",
+      "url": "https://linear.app/guinea/issue/CE2-1080"
+    },
+    {
+      "issue": "CE2-1079",
+      "title": "prod-guinea-n8n | SIGABRT en proceso n8n",
+      "month": "Marzo",
+      "deducedLabel": "Guinea",
+      "url": "https://linear.app/guinea/issue/CE2-1079"
+    },
+    {
+      "issue": "CE2-1076",
+      "title": "guinea-backend | PubSub DNS Failure en GCE us-central1-c",
+      "month": "Marzo",
+      "deducedLabel": "Guinea",
+      "url": "https://linear.app/guinea/issue/CE2-1076"
+    },
+    {
+      "issue": "CE2-1070",
+      "title": "Habla+: Claro rechaza RG52 por IPs dinámicas del backend",
+      "month": "Marzo",
+      "deducedLabel": "Cuy",
+      "url": "https://linear.app/guinea/issue/CE2-1070"
+    },
+    {
+      "issue": "CE2-1067",
+      "title": "Cronjobs fallan por error de inyección de dependencias (Provide.handle)",
+      "month": "Marzo",
+      "deducedLabel": "Guinea",
+      "url": "https://linear.app/guinea/issue/CE2-1067"
+    },
+    {
+      "issue": "CE2-1060",
+      "title": "Reporte Excel de Transacciones Habla+ sin campos requeridos",
+      "month": "Marzo",
+      "deducedLabel": "Guinea",
+      "url": "https://linear.app/guinea/issue/CE2-1060"
+    },
+    {
+      "issue": "CE2-1059",
+      "title": "Parametrizado Perú SIM incompleto en 16/01 y 17/01",
+      "month": "Marzo",
+      "deducedLabel": "Guinea",
+      "url": "https://linear.app/guinea/issue/CE2-1059"
+    },
+    {
+      "issue": "CE2-1056",
+      "title": "Bloquear boleta y registrar cliente en app Habla+",
+      "month": "Marzo",
+      "deducedLabel": "Habla+",
+      "url": "https://linear.app/guinea/issue/CE2-1056"
+    },
+    {
+      "issue": "CE2-1051",
+      "title": "12556 | Wings - Información sobre reactivación de línea",
+      "month": "Marzo",
+      "deducedLabel": "Guinea",
+      "url": "https://linear.app/guinea/issue/CE2-1051"
+    },
+    {
+      "issue": "CE2-1050",
+      "title": "12557 | Wings - Información sobre reactivación de línea 51915100652",
+      "month": "Marzo",
+      "deducedLabel": "Guinea",
+      "url": "https://linear.app/guinea/issue/CE2-1050"
+    },
+    {
+      "issue": "CE2-1049",
+      "title": "12621 | Wings - Información sobre reactivación de línea",
+      "month": "Marzo",
+      "deducedLabel": "Wings",
+      "url": "https://linear.app/guinea/issue/CE2-1049"
+    },
+    {
+      "issue": "CE2-1045",
+      "title": "Actualizar HTML e íconos y video en páginas CUY en producción",
+      "month": "Marzo",
+      "deducedLabel": "Cuy",
+      "url": "https://linear.app/guinea/issue/CE2-1045"
+    },
+    {
+      "issue": "CE2-1669",
+      "title": "CMS no guarda corrección de plan e ICCID",
+      "month": "Abril",
+      "deducedLabel": "Guinea",
+      "url": "https://linear.app/guinea/issue/CE2-1669"
+    },
+    {
+      "issue": "CE2-1448",
+      "title": "Guinea - Subir registro de abonados",
+      "month": "Abril",
+      "deducedLabel": "Guinea",
+      "url": "https://linear.app/guinea/issue/CE2-1448"
+    },
+    {
+      "issue": "CE2-1807",
+      "title": "MSID-330948-Control de cambios - Planes PeruSIM ilimitados",
+      "month": "Abril",
+      "deducedLabel": "PeruSim+",
+      "url": "https://linear.app/guinea/issue/CE2-1807"
+    },
+    {
+      "issue": "CE2-1808",
+      "title": "MSID-331464-Creación de Planes Habla+",
+      "month": "Abril",
+      "deducedLabel": "Cuy",
+      "url": "https://linear.app/guinea/issue/CE2-1808"
+    },
+    {
+      "issue": "CE2-1652",
+      "title": "Generar reporte de lista de eSIM de PeruSIM, en estado disponible",
+      "month": "Abril",
+      "deducedLabel": "PeruSim+",
+      "url": "https://linear.app/guinea/issue/CE2-1652"
+    },
+    {
+      "issue": "CE2-1372",
+      "title": "Nuevo reporte de portabilidades por plan para Habla+",
+      "month": "Abril",
+      "deducedLabel": "Habla+",
+      "url": "https://linear.app/guinea/issue/CE2-1372"
+    },
+    {
+      "issue": "CE2-1695",
+      "title": "15656 | Legal / Registrar Equipo en Lista Blanca",
+      "month": "Abril",
+      "deducedLabel": "Guinea",
+      "url": "https://linear.app/guinea/issue/CE2-1695"
+    },
+    {
+      "issue": "CE2-1923",
+      "title": "Asignar permiso Cloud SQL Admin en proyecto GUINEA",
+      "month": "Mayo",
+      "deducedLabel": "Guinea",
+      "url": "https://linear.app/guinea/issue/CE2-1923"
+    },
+    {
+      "issue": "CE2-1857",
+      "title": "Leandro - Habilitar IP para acceso a bases de datos",
+      "month": "Mayo",
+      "deducedLabel": "Cuy",
+      "url": "https://linear.app/guinea/issue/CE2-1857"
+    }
+  ],
+  "needsClarity": [
+    {
+      "issue": "CE2-1033",
+      "title": "Bundles MINUTOS y SMS no se reflejan en CMS",
+      "month": "Febrero",
+      "deducedLabel": null,
+      "url": "https://linear.app/guinea/issue/CE2-1033"
+    },
+    {
+      "issue": "CE2-1031",
+      "title": "Completar CDR names en archivo para configurar planes en Optiva",
+      "month": "Febrero",
+      "deducedLabel": null,
+      "url": "https://linear.app/guinea/issue/CE2-1031"
+    },
+    {
+      "issue": "CE2-840",
+      "title": "Acceso bd Angel",
+      "month": "Febrero",
+      "deducedLabel": null,
+      "url": "https://linear.app/guinea/issue/CE2-840"
+    },
+    {
+      "issue": "CE2-832",
+      "title": "Ajuste de reporte SIGEP Formato 041",
+      "month": "Febrero",
+      "deducedLabel": null,
+      "url": "https://linear.app/guinea/issue/CE2-832"
+    },
+    {
+      "issue": "CE2-830",
+      "title": "Corregir Query Reportes SIGEP Anual 035 - 041 - 046",
+      "month": "Febrero",
+      "deducedLabel": null,
+      "url": "https://linear.app/guinea/issue/CE2-830"
+    },
+    {
+      "issue": "CE2-975",
+      "title": "Creación de ui de modulo de recarga",
+      "month": "Febrero",
+      "deducedLabel": null,
+      "url": "https://linear.app/guinea/issue/CE2-975"
+    },
+    {
+      "issue": "CE2-823",
+      "title": "Probar módulo BSS actions (Front + GOB + BSS Gateway)",
+      "month": "Febrero",
+      "deducedLabel": null,
+      "url": "https://linear.app/guinea/issue/CE2-823"
+    },
+    {
+      "issue": "CE2-821",
+      "title": "Regularizar venta de plan bundle 124600793 en BOP",
+      "month": "Febrero",
+      "deducedLabel": null,
+      "url": "https://linear.app/guinea/issue/CE2-821"
+    },
+    {
+      "issue": "CE2-811",
+      "title": "8875 | Afectación todas las marcas - Incluir el procedimiento de regularización de + 10 líneas móviles y registros inconsistentes, en los aplicativos vendedor",
+      "month": "Febrero",
+      "deducedLabel": null,
+      "url": "https://linear.app/guinea/issue/CE2-811"
+    },
+    {
+      "issue": "CE2-977",
+      "title": "Pruebas de los procesos batch",
+      "month": "Febrero",
+      "deducedLabel": null,
+      "url": "https://linear.app/guinea/issue/CE2-977"
+    },
+    {
+      "issue": "CE2-798",
+      "title": "CMS 2.0 no muestra planes Express para registrar venta",
+      "month": "Febrero",
+      "deducedLabel": null,
+      "url": "https://linear.app/guinea/issue/CE2-798"
+    },
+    {
+      "issue": "CE2-972",
+      "title": "Reunión con Enrique, Lissete y Daniel para consultar algunas dudas sobre el desarrollo",
+      "month": "Febrero",
+      "deducedLabel": null,
+      "url": "https://linear.app/guinea/issue/CE2-972"
+    },
+    {
+      "issue": "CE2-747",
+      "title": "Automatizar alertas de líneas y boletas",
+      "month": "Febrero",
+      "deducedLabel": null,
+      "url": "https://linear.app/guinea/issue/CE2-747"
+    },
+    {
+      "issue": "CE2-773",
+      "title": "Accesos para la DB del servicio payment and billing as a service",
+      "month": "Febrero",
+      "deducedLabel": null,
+      "url": "https://linear.app/guinea/issue/CE2-773"
+    },
+    {
+      "issue": "CE2-1804",
+      "title": "9944 | Solicitud de corrección/eliminación de registro en BOP",
+      "month": "Febrero",
+      "deducedLabel": null,
+      "url": "https://linear.app/guinea/issue/CE2-1804"
+    },
+    {
+      "issue": "CE2-1373",
+      "title": "Revisar si se puede apagar VM y validar cronjobs",
+      "month": "Marzo",
+      "deducedLabel": null,
+      "url": "https://linear.app/guinea/issue/CE2-1373"
+    },
+    {
+      "issue": "CE2-1753",
+      "title": "Generar las boletas, BCV1-5 y BCV1-6,",
+      "month": "Marzo",
+      "deducedLabel": null,
+      "url": "https://linear.app/guinea/issue/CE2-1753"
+    },
+    {
+      "issue": "CE2-1645",
+      "title": "Pasar a produccion la correccion",
+      "month": "Marzo",
+      "deducedLabel": null,
+      "url": "https://linear.app/guinea/issue/CE2-1645"
+    },
+    {
+      "issue": "CE2-1320",
+      "title": "Exportar historial de líneas activadas con plan",
+      "month": "Marzo",
+      "deducedLabel": null,
+      "url": "https://linear.app/guinea/issue/CE2-1320"
+    },
+    {
+      "issue": "CE2-1699",
+      "title": "Boletas de la serie BCV1 no procesadas",
+      "month": "Marzo",
+      "deducedLabel": null,
+      "url": "https://linear.app/guinea/issue/CE2-1699"
+    },
+    {
+      "issue": "CE2-1310",
+      "title": "Finanzas: Reporte LAP",
+      "month": "Marzo",
+      "deducedLabel": null,
+      "url": "https://linear.app/guinea/issue/CE2-1310"
+    },
+    {
+      "issue": "CE2-1308",
+      "title": "Eliminar registro duplicado de plan 5 GB en BOP",
+      "month": "Marzo",
+      "deducedLabel": null,
+      "url": "https://linear.app/guinea/issue/CE2-1308"
+    },
+    {
+      "issue": "CE2-1794",
+      "title": "Agregar correo electrónico al reporte diario de portabilidades",
+      "month": "Marzo",
+      "deducedLabel": null,
+      "url": "https://linear.app/guinea/issue/CE2-1794"
+    },
+    {
+      "issue": "CE2-1779",
+      "title": "Enviar reporte de Aldeamo a",
+      "month": "Marzo",
+      "deducedLabel": null,
+      "url": "https://linear.app/guinea/issue/CE2-1779"
+    },
+    {
+      "issue": "CE2-1752",
+      "title": "Facturación: Generar reporte LAP",
+      "month": "Marzo",
+      "deducedLabel": null,
+      "url": "https://linear.app/guinea/issue/CE2-1752"
+    },
+    {
+      "issue": "CE2-1649",
+      "title": "RENTESEG: Reunion, validacion de certificados de desarrollo y produccion",
+      "month": "Marzo",
+      "deducedLabel": null,
+      "url": "https://linear.app/guinea/issue/CE2-1649"
+    },
+    {
+      "issue": "CE2-1711",
+      "title": "Investigar lógica del SKU 8000001677 en catálogo",
+      "month": "Marzo",
+      "deducedLabel": null,
+      "url": "https://linear.app/guinea/issue/CE2-1711"
+    },
+    {
+      "issue": "CE2-1206",
+      "title": "fix: BSS Gateway — nil pointer panic en POST /transactions/recharge-credit",
+      "month": "Marzo",
+      "deducedLabel": null,
+      "url": "https://linear.app/guinea/issue/CE2-1206"
+    },
+    {
+      "issue": "CE2-1650",
+      "title": "Finanzas: Generar reporte LAP",
+      "month": "Marzo",
+      "deducedLabel": null,
+      "url": "https://linear.app/guinea/issue/CE2-1650"
+    },
+    {
+      "issue": "CE2-1755",
+      "title": "RENTESEG: Configuración y pruebas de los nuevos certificados valdiacion en local",
+      "month": "Marzo",
+      "deducedLabel": null,
+      "url": "https://linear.app/guinea/issue/CE2-1755"
+    },
+    {
+      "issue": "CE2-1659",
+      "title": "BOP omite facturas de enero en reporte de facturación",
+      "month": "Marzo",
+      "deducedLabel": null,
+      "url": "https://linear.app/guinea/issue/CE2-1659"
+    },
+    {
+      "issue": "CE2-1640",
+      "title": "Generar 2 CSRs (Certificate Signing Request o Solicitud de Firma de Certificado) para usar en RENTESEG (Prod y Dev)",
+      "month": "Marzo",
+      "deducedLabel": null,
+      "url": "https://linear.app/guinea/issue/CE2-1640"
+    },
+    {
+      "issue": "CE2-1720",
+      "title": "Enviar boletas de cada vía de pago",
+      "month": "Marzo",
+      "deducedLabel": null,
+      "url": "https://linear.app/guinea/issue/CE2-1720"
+    },
+    {
+      "issue": "CE2-1724",
+      "title": "No aparece febrero en reporte de Claro Billing",
+      "month": "Marzo",
+      "deducedLabel": null,
+      "url": "https://linear.app/guinea/issue/CE2-1724"
+    },
+    {
+      "issue": "CE2-1138",
+      "title": "Investigar los pasos 15 y de creación de suscripción para estas facturas específicas.",
+      "month": "Marzo",
+      "deducedLabel": null,
+      "url": "https://linear.app/guinea/issue/CE2-1138"
+    },
+    {
+      "issue": "CE2-1647",
+      "title": "Revisar transacciones Habla, rezaon: Fianzas- > Reporte no está saliendo completo",
+      "month": "Marzo",
+      "deducedLabel": null,
+      "url": "https://linear.app/guinea/issue/CE2-1647"
+    },
+    {
+      "issue": "CE2-1124",
+      "title": "Portabilidad - port out rejected no guarda el motivo de rechazo",
+      "month": "Marzo",
+      "deducedLabel": null,
+      "url": "https://linear.app/guinea/issue/CE2-1124"
+    },
+    {
+      "issue": "CE2-1122",
+      "title": "Fix en manejo de errores permanentes",
+      "month": "Marzo",
+      "deducedLabel": null,
+      "url": "https://linear.app/guinea/issue/CE2-1122"
+    },
+    {
+      "issue": "CE2-1812",
+      "title": "Step 13 (CreateClientPhone) - Error 401",
+      "month": "Marzo",
+      "deducedLabel": null,
+      "url": "https://linear.app/guinea/issue/CE2-1812"
+    },
+    {
+      "issue": "CE2-1117",
+      "title": "Passwords en texto plano se están registrando en logs",
+      "month": "Marzo",
+      "deducedLabel": null,
+      "url": "https://linear.app/guinea/issue/CE2-1117"
+    },
+    {
+      "issue": "CE2-1764",
+      "title": "Error en provisionamiento de bundle (bundles aparecen activos)",
+      "month": "Marzo",
+      "deducedLabel": null,
+      "url": "https://linear.app/guinea/issue/CE2-1764"
+    },
+    {
+      "issue": "CE2-1103",
+      "title": "Soporte para gestionar múltiples numeraciones en una misma solicitud de portabilidad",
+      "month": "Marzo",
+      "deducedLabel": null,
+      "url": "https://linear.app/guinea/issue/CE2-1103"
+    },
+    {
+      "issue": "CE2-1733",
+      "title": "Factura anulada en BOP sigue como pendiente",
+      "month": "Marzo",
+      "deducedLabel": null,
+      "url": "https://linear.app/guinea/issue/CE2-1733"
+    },
+    {
+      "issue": "CE2-1738",
+      "title": "BOP: no se visualizan facturas emitidas",
+      "month": "Marzo",
+      "deducedLabel": null,
+      "url": "https://linear.app/guinea/issue/CE2-1738"
+    },
+    {
+      "issue": "CE2-1087",
+      "title": "Detectar codigo que pone fecha de nacimiento por defecto 1969",
+      "month": "Marzo",
+      "deducedLabel": null,
+      "url": "https://linear.app/guinea/issue/CE2-1087"
+    },
+    {
+      "issue": "CE2-1653",
+      "title": "Dar baja permanente a numeros que estaban activos desde 11-2025 hacia atras",
+      "month": "Marzo",
+      "deducedLabel": null,
+      "url": "https://linear.app/guinea/issue/CE2-1653"
+    },
+    {
+      "issue": "CE2-1078",
+      "title": "prod-telco-cdr-renteseg-report-v1 | BigQuery dataset dictionaries no encontrado",
+      "month": "Marzo",
+      "deducedLabel": null,
+      "url": "https://linear.app/guinea/issue/CE2-1078"
+    },
+    {
+      "issue": "CE2-1077",
+      "title": "starsoft-vm | SQL Server PolyBase Data Movement en crash loop",
+      "month": "Marzo",
+      "deducedLabel": null,
+      "url": "https://linear.app/guinea/issue/CE2-1077"
+    },
+    {
+      "issue": "CE2-1670",
+      "title": "Permitir eliminar aun que haya pasado correctamente la consulta de portabilidad",
+      "month": "Abril",
+      "deducedLabel": null,
+      "url": "https://linear.app/guinea/issue/CE2-1670"
+    },
+    {
+      "issue": "CE2-1676",
+      "title": "Generar reporte y monitoreo de servicios de pagos",
+      "month": "Abril",
+      "deducedLabel": null,
+      "url": "https://linear.app/guinea/issue/CE2-1676"
+    },
+    {
+      "issue": "CE2-1458",
+      "title": "Ejercicio numero 1",
+      "month": "Abril",
+      "deducedLabel": null,
+      "url": "https://linear.app/guinea/issue/CE2-1458"
+    },
+    {
+      "issue": "CE2-1450",
+      "title": "Retirar accesos a bases de datos de Miguel Fernández",
+      "month": "Abril",
+      "deducedLabel": null,
+      "url": "https://linear.app/guinea/issue/CE2-1450"
+    },
+    {
+      "issue": "CE2-1390",
+      "title": "BDs no responden — posible servicio caído o sesión expirada",
+      "month": "Abril",
+      "deducedLabel": null,
+      "url": "https://linear.app/guinea/issue/CE2-1390"
+    },
+    {
+      "issue": "CE2-1357",
+      "title": "Solicitar acceso a BD de EFE para usuario e IP",
+      "month": "Abril",
+      "deducedLabel": null,
+      "url": "https://linear.app/guinea/issue/CE2-1357"
+    },
+    {
+      "issue": "CE2-1353",
+      "title": "Enviar activaciones mensuales de los últimos 6 meses",
+      "month": "Abril",
+      "deducedLabel": null,
+      "url": "https://linear.app/guinea/issue/CE2-1353"
+    },
+    {
+      "issue": "CE2-1926",
+      "title": "Farialis - Dar acceso de lectura a todas las tablas de backend_efe_dev",
+      "month": "Mayo",
+      "deducedLabel": null,
+      "url": "https://linear.app/guinea/issue/CE2-1926"
+    }
+  ]
+}

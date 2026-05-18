@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "Dashboard Dev",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "-d", "/Users/flutterinapps/Documents/FlutterinaDev/BLUE NEW/linear-dashboards", "0"],
+      "autoPort": true
+    }
+  ]
+}

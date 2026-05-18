@@ -1,0 +1,394 @@
+[
+  {
+    "issue": "CE2-1033",
+    "title": "Bundles MINUTOS y SMS no se reflejan en CMS",
+    "month": "Febrero",
+    "deducedLabel": null,
+    "url": "https://linear.app/guinea/issue/CE2-1033"
+  },
+  {
+    "issue": "CE2-1031",
+    "title": "Completar CDR names en archivo para configurar planes en Optiva",
+    "month": "Febrero",
+    "deducedLabel": null,
+    "url": "https://linear.app/guinea/issue/CE2-1031"
+  },
+  {
+    "issue": "CE2-840",
+    "title": "Acceso bd Angel",
+    "month": "Febrero",
+    "deducedLabel": null,
+    "url": "https://linear.app/guinea/issue/CE2-840"
+  },
+  {
+    "issue": "CE2-832",
+    "title": "Ajuste de reporte SIGEP Formato 041",
+    "month": "Febrero",
+    "deducedLabel": null,
+    "url": "https://linear.app/guinea/issue/CE2-832"
+  },
+  {
+    "issue": "CE2-830",
+    "title": "Corregir Query Reportes SIGEP Anual 035 - 041 - 046",
+    "month": "Febrero",
+    "deducedLabel": null,
+    "url": "https://linear.app/guinea/issue/CE2-830"
+  },
+  {
+    "issue": "CE2-975",
+    "title": "Creación de ui de modulo de recarga",
+    "month": "Febrero",
+    "deducedLabel": null,
+    "url": "https://linear.app/guinea/issue/CE2-975"
+  },
+  {
+    "issue": "CE2-823",
+    "title": "Probar módulo BSS actions (Front + GOB + BSS Gateway)",
+    "month": "Febrero",
+    "deducedLabel": null,
+    "url": "https://linear.app/guinea/issue/CE2-823"
+  },
+  {
+    "issue": "CE2-821",
+    "title": "Regularizar venta de plan bundle 124600793 en BOP",
+    "month": "Febrero",
+    "deducedLabel": null,
+    "url": "https://linear.app/guinea/issue/CE2-821"
+  },
+  {
+    "issue": "CE2-811",
+    "title": "8875 | Afectación todas las marcas - Incluir el procedimiento de regularización de + 10 líneas móviles y registros inconsistentes, en los aplicativos vendedor",
+    "month": "Febrero",
+    "deducedLabel": null,
+    "url": "https://linear.app/guinea/issue/CE2-811"
+  },
+  {
+    "issue": "CE2-977",
+    "title": "Pruebas de los procesos batch",
+    "month": "Febrero",
+    "deducedLabel": null,
+    "url": "https://linear.app/guinea/issue/CE2-977"
+  },
+  {
+    "issue": "CE2-798",
+    "title": "CMS 2.0 no muestra planes Express para registrar venta",
+    "month": "Febrero",
+    "deducedLabel": null,
+    "url": "https://linear.app/guinea/issue/CE2-798"
+  },
+  {
+    "issue": "CE2-972",
+    "title": "Reunión con Enrique, Lissete y Daniel para consultar algunas dudas sobre el desarrollo",
+    "month": "Febrero",
+    "deducedLabel": null,
+    "url": "https://linear.app/guinea/issue/CE2-972"
+  },
+  {
+    "issue": "CE2-747",
+    "title": "Automatizar alertas de líneas y boletas",
+    "month": "Febrero",
+    "deducedLabel": null,
+    "url": "https://linear.app/guinea/issue/CE2-747"
+  },
+  {
+    "issue": "CE2-773",
+    "title": "Accesos para la DB del servicio payment and billing as a service",
+    "month": "Febrero",
+    "deducedLabel": null,
+    "url": "https://linear.app/guinea/issue/CE2-773"
+  },
+  {
+    "issue": "CE2-1804",
+    "title": "9944 | Solicitud de corrección/eliminación de registro en BOP",
+    "month": "Febrero",
+    "deducedLabel": null,
+    "url": "https://linear.app/guinea/issue/CE2-1804"
+  },
+  {
+    "issue": "CE2-1373",
+    "title": "Revisar si se puede apagar VM y validar cronjobs",
+    "month": "Marzo",
+    "deducedLabel": null,
+    "url": "https://linear.app/guinea/issue/CE2-1373"
+  },
+  {
+    "issue": "CE2-1753",
+    "title": "Generar las boletas, BCV1-5 y BCV1-6,",
+    "month": "Marzo",
+    "deducedLabel": null,
+    "url": "https://linear.app/guinea/issue/CE2-1753"
+  },
+  {
+    "issue": "CE2-1645",
+    "title": "Pasar a produccion la correccion",
+    "month": "Marzo",
+    "deducedLabel": null,
+    "url": "https://linear.app/guinea/issue/CE2-1645"
+  },
+  {
+    "issue": "CE2-1320",
+    "title": "Exportar historial de líneas activadas con plan",
+    "month": "Marzo",
+    "deducedLabel": null,
+    "url": "https://linear.app/guinea/issue/CE2-1320"
+  },
+  {
+    "issue": "CE2-1699",
+    "title": "Boletas de la serie BCV1 no procesadas",
+    "month": "Marzo",
+    "deducedLabel": null,
+    "url": "https://linear.app/guinea/issue/CE2-1699"
+  },
+  {
+    "issue": "CE2-1310",
+    "title": "Finanzas: Reporte LAP",
+    "month": "Marzo",
+    "deducedLabel": null,
+    "url": "https://linear.app/guinea/issue/CE2-1310"
+  },
+  {
+    "issue": "CE2-1308",
+    "title": "Eliminar registro duplicado de plan 5 GB en BOP",
+    "month": "Marzo",
+    "deducedLabel": null,
+    "url": "https://linear.app/guinea/issue/CE2-1308"
+  },
+  {
+    "issue": "CE2-1794",
+    "title": "Agregar correo electrónico al reporte diario de portabilidades",
+    "month": "Marzo",
+    "deducedLabel": null,
+    "url": "https://linear.app/guinea/issue/CE2-1794"
+  },
+  {
+    "issue": "CE2-1779",
+    "title": "Enviar reporte de Aldeamo a",
+    "month": "Marzo",
+    "deducedLabel": null,
+    "url": "https://linear.app/guinea/issue/CE2-1779"
+  },
+  {
+    "issue": "CE2-1752",
+    "title": "Facturación: Generar reporte LAP",
+    "month": "Marzo",
+    "deducedLabel": null,
+    "url": "https://linear.app/guinea/issue/CE2-1752"
+  },
+  {
+    "issue": "CE2-1649",
+    "title": "RENTESEG: Reunion, validacion de certificados de desarrollo y produccion",
+    "month": "Marzo",
+    "deducedLabel": null,
+    "url": "https://linear.app/guinea/issue/CE2-1649"
+  },
+  {
+    "issue": "CE2-1711",
+    "title": "Investigar lógica del SKU 8000001677 en catálogo",
+    "month": "Marzo",
+    "deducedLabel": null,
+    "url": "https://linear.app/guinea/issue/CE2-1711"
+  },
+  {
+    "issue": "CE2-1206",
+    "title": "fix: BSS Gateway — nil pointer panic en POST /transactions/recharge-credit",
+    "month": "Marzo",
+    "deducedLabel": null,
+    "url": "https://linear.app/guinea/issue/CE2-1206"
+  },
+  {
+    "issue": "CE2-1650",
+    "title": "Finanzas: Generar reporte LAP",
+    "month": "Marzo",
+    "deducedLabel": null,
+    "url": "https://linear.app/guinea/issue/CE2-1650"
+  },
+  {
+    "issue": "CE2-1755",
+    "title": "RENTESEG: Configuración y pruebas de los nuevos certificados valdiacion en local",
+    "month": "Marzo",
+    "deducedLabel": null,
+    "url": "https://linear.app/guinea/issue/CE2-1755"
+  },
+  {
+    "issue": "CE2-1659",
+    "title": "BOP omite facturas de enero en reporte de facturación",
+    "month": "Marzo",
+    "deducedLabel": null,
+    "url": "https://linear.app/guinea/issue/CE2-1659"
+  },
+  {
+    "issue": "CE2-1640",
+    "title": "Generar 2 CSRs (Certificate Signing Request o Solicitud de Firma de Certificado) para usar en RENTESEG (Prod y Dev)",
+    "month": "Marzo",
+    "deducedLabel": null,
+    "url": "https://linear.app/guinea/issue/CE2-1640"
+  },
+  {
+    "issue": "CE2-1720",
+    "title": "Enviar boletas de cada vía de pago",
+    "month": "Marzo",
+    "deducedLabel": null,
+    "url": "https://linear.app/guinea/issue/CE2-1720"
+  },
+  {
+    "issue": "CE2-1724",
+    "title": "No aparece febrero en reporte de Claro Billing",
+    "month": "Marzo",
+    "deducedLabel": null,
+    "url": "https://linear.app/guinea/issue/CE2-1724"
+  },
+  {
+    "issue": "CE2-1138",
+    "title": "Investigar los pasos 15 y de creación de suscripción para estas facturas específicas.",
+    "month": "Marzo",
+    "deducedLabel": null,
+    "url": "https://linear.app/guinea/issue/CE2-1138"
+  },
+  {
+    "issue": "CE2-1647",
+    "title": "Revisar transacciones Habla, rezaon: Fianzas- > Reporte no está saliendo completo",
+    "month": "Marzo",
+    "deducedLabel": null,
+    "url": "https://linear.app/guinea/issue/CE2-1647"
+  },
+  {
+    "issue": "CE2-1124",
+    "title": "Portabilidad - port out rejected no guarda el motivo de rechazo",
+    "month": "Marzo",
+    "deducedLabel": null,
+    "url": "https://linear.app/guinea/issue/CE2-1124"
+  },
+  {
+    "issue": "CE2-1122",
+    "title": "Fix en manejo de errores permanentes",
+    "month": "Marzo",
+    "deducedLabel": null,
+    "url": "https://linear.app/guinea/issue/CE2-1122"
+  },
+  {
+    "issue": "CE2-1812",
+    "title": "Step 13 (CreateClientPhone) - Error 401",
+    "month": "Marzo",
+    "deducedLabel": null,
+    "url": "https://linear.app/guinea/issue/CE2-1812"
+  },
+  {
+    "issue": "CE2-1117",
+    "title": "Passwords en texto plano se están registrando en logs",
+    "month": "Marzo",
+    "deducedLabel": null,
+    "url": "https://linear.app/guinea/issue/CE2-1117"
+  },
+  {
+    "issue": "CE2-1764",
+    "title": "Error en provisionamiento de bundle (bundles aparecen activos)",
+    "month": "Marzo",
+    "deducedLabel": null,
+    "url": "https://linear.app/guinea/issue/CE2-1764"
+  },
+  {
+    "issue": "CE2-1103",
+    "title": "Soporte para gestionar múltiples numeraciones en una misma solicitud de portabilidad",
+    "month": "Marzo",
+    "deducedLabel": null,
+    "url": "https://linear.app/guinea/issue/CE2-1103"
+  },
+  {
+    "issue": "CE2-1733",
+    "title": "Factura anulada en BOP sigue como pendiente",
+    "month": "Marzo",
+    "deducedLabel": null,
+    "url": "https://linear.app/guinea/issue/CE2-1733"
+  },
+  {
+    "issue": "CE2-1738",
+    "title": "BOP: no se visualizan facturas emitidas",
+    "month": "Marzo",
+    "deducedLabel": null,
+    "url": "https://linear.app/guinea/issue/CE2-1738"
+  },
+  {
+    "issue": "CE2-1087",
+    "title": "Detectar codigo que pone fecha de nacimiento por defecto 1969",
+    "month": "Marzo",
+    "deducedLabel": null,
+    "url": "https://linear.app/guinea/issue/CE2-1087"
+  },
+  {
+    "issue": "CE2-1653",
+    "title": "Dar baja permanente a numeros que estaban activos desde 11-2025 hacia atras",
+    "month": "Marzo",
+    "deducedLabel": null,
+    "url": "https://linear.app/guinea/issue/CE2-1653"
+  },
+  {
+    "issue": "CE2-1078",
+    "title": "prod-telco-cdr-renteseg-report-v1 | BigQuery dataset dictionaries no encontrado",
+    "month": "Marzo",
+    "deducedLabel": null,
+    "url": "https://linear.app/guinea/issue/CE2-1078"
+  },
+  {
+    "issue": "CE2-1077",
+    "title": "starsoft-vm | SQL Server PolyBase Data Movement en crash loop",
+    "month": "Marzo",
+    "deducedLabel": null,
+    "url": "https://linear.app/guinea/issue/CE2-1077"
+  },
+  {
+    "issue": "CE2-1670",
+    "title": "Permitir eliminar aun que haya pasado correctamente la consulta de portabilidad",
+    "month": "Abril",
+    "deducedLabel": null,
+    "url": "https://linear.app/guinea/issue/CE2-1670"
+  },
+  {
+    "issue": "CE2-1676",
+    "title": "Generar reporte y monitoreo de servicios de pagos",
+    "month": "Abril",
+    "deducedLabel": null,
+    "url": "https://linear.app/guinea/issue/CE2-1676"
+  },
+  {
+    "issue": "CE2-1458",
+    "title": "Ejercicio numero 1",
+    "month": "Abril",
+    "deducedLabel": null,
+    "url": "https://linear.app/guinea/issue/CE2-1458"
+  },
+  {
+    "issue": "CE2-1450",
+    "title": "Retirar accesos a bases de datos de Miguel Fernández",
+    "month": "Abril",
+    "deducedLabel": null,
+    "url": "https://linear.app/guinea/issue/CE2-1450"
+  },
+  {
+    "issue": "CE2-1390",
+    "title": "BDs no responden — posible servicio caído o sesión expirada",
+    "month": "Abril",
+    "deducedLabel": null,
+    "url": "https://linear.app/guinea/issue/CE2-1390"
+  },
+  {
+    "issue": "CE2-1357",
+    "title": "Solicitar acceso a BD de EFE para usuario e IP",
+    "month": "Abril",
+    "deducedLabel": null,
+    "url": "https://linear.app/guinea/issue/CE2-1357"
+  },
+  {
+    "issue": "CE2-1353",
+    "title": "Enviar activaciones mensuales de los últimos 6 meses",
+    "month": "Abril",
+    "deducedLabel": null,
+    "url": "https://linear.app/guinea/issue/CE2-1353"
+  },
+  {
+    "issue": "CE2-1926",
+    "title": "Farialis - Dar acceso de lectura a todas las tablas de backend_efe_dev",
+    "month": "Mayo",
+    "deducedLabel": null,
+    "url": "https://linear.app/guinea/issue/CE2-1926"
+  }
+]
