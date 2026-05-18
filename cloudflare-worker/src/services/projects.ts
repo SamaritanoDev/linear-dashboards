@@ -59,7 +59,11 @@ export class ProjectsService {
       "B2B", "Finanzas", "Legales", "Partner"
     ];
 
+    // States that count as "pending" - must match frontend definition
+    const PENDING_STATES = ["backlog", "planned", "in progress", "blocked", "in review"];
+
     let completedCount = 0;
+    let pendingCount = 0;
 
     const metrics: ProjectMetrics = {
       total_projects: validProjects.length,
@@ -87,11 +91,14 @@ export class ProjectsService {
       metrics.by_lead[leadName] = (metrics.by_lead[leadName] || 0) + 1;
 
       const isCompleted = state === "completed";
-      const isPending = !isCompleted;
+      const isPending = PENDING_STATES.includes(state);
 
       if (isCompleted) {
         completedCount++;
         metrics.completed++;
+      }
+      if (isPending) {
+        pendingCount++;
       }
       if (state === "in progress") metrics.in_progress++;
       if (state === "blocked") metrics.blocked++;
@@ -115,7 +122,8 @@ export class ProjectsService {
       }
     }
 
-    metrics.pending_ce2 = validProjects.length - completedCount;
+    // Use whitelist-based calculation for pending: only states that explicitly count as pending
+    metrics.pending_ce2 = pendingCount;
 
     return metrics;
   }
