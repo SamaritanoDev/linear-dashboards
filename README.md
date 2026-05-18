@@ -35,17 +35,16 @@ Dashboard unificado para monitorear **proyectos CE2** e **issues L1/L2** de CE1 
 - **Por Estado**: Distribución de proyectos por estado
 - **Por Lead**: Asignación de liderazgo de proyectos
 
-## 🚀 Actualización Automática
+## 🚀 Actualización de Datos
 
-### GitHub Actions Workflow
-- **Hora**: 8:00 AM UTC diariamente
-- **Trigger Manual**: Disponible via GitHub Actions UI
-- **Proceso**:
-  1. Ejecuta `generate_unified_dashboard.py`
-  2. Genera `index.html` actualizado
-  3. Auto-commit si hay cambios
-  4. Auto-push a `main`
-  5. Vercel deploya automáticamente
+### Backend: Cloudflare Worker API
+- **Tipo**: Dinámico - datos en tiempo real desde Linear
+- **Actualización**: Bajo demanda (cuando usuario carga página o cambia mes)
+- **Cacheo**: 5 minutos para optimizar performance
+- **Endpoints**:
+  - `GET /api/metrics?month={month}&filter={with_project|without_project}`
+  - `GET /api/issues/{month}`
+  - `GET /api/projects/{month}`
 
 ### Variables de Entorno Requeridas
 ```bash
@@ -83,11 +82,11 @@ Se configura en GitHub Secrets de forma segura.
 - **Discarded**: Descartado (excluido)
 
 ### Estados de Proyectos
-- **Planned**: Planeado
-- **Started**: En progreso
-- **Completed**: Completado
-- **Canceled**: Cancelado (no suma en total)
 - **Backlog**: En backlog
+- **Planned**: Planeado
+- **In Progress**: En progreso
+- **Blocked**: Bloqueado
+- **Completed**: Completado
 
 ### Severidad
 - **L1 (High)**: Crítico, requiere atención inmediata
@@ -98,36 +97,45 @@ Se configura en GitHub Secrets de forma segura.
 
 ```
 .
-├── generate_unified_dashboard.py  # Script principal de generación
-├── index.html                     # Dashboard generado
-├── .github/workflows/
-│   └── update-dashboard.yml       # GitHub Actions workflow
-├── README.md                      # Este archivo
-└── .claude/launch.json            # Configuración de preview local
+├── index.html                              # Dashboard dinámico
+├── cloudflare-worker/                      # Backend API
+│   ├── src/
+│   │   ├── index.ts                       # Handler principal
+│   │   ├── linear/
+│   │   │   ├── client.ts                 # Cliente GraphQL
+│   │   │   └── queries.ts                # Queries a Linear API
+│   │   └── services/
+│   │       ├── projects.ts               # Lógica de proyectos
+│   │       └── issues.ts                 # Lógica de issues
+│   └── wrangler.toml                      # Configuración Cloudflare
+├── README.md                               # Este archivo
+└── .claude/launch.json                     # Configuración de preview local
 ```
 
 ## 🔧 Desarrollo Local
 
 ### Requisitos
-- Python 3.11+
-- curl (para GraphQL queries)
+- Node.js 18+ (para Cloudflare Worker)
+- Python 3.11+ (opcional, si ejecutas scripts independientes)
 - LINEAR_API_KEY configurada
 
-### Ejecutar localmente
+### Ejecutar Dashboard Localmente
 ```bash
-# Generar dashboard
-python3 generate_unified_dashboard.py
+# Opción 1: Usar Claude Code preview
+# Simplemente abre index.html en el navegador - obtiene datos del Cloudflare Worker
 
-# Previewizar en navegador
+# Opción 2: Servidor HTTP local
 python3 -m http.server --directory . --bind 0.0.0.0 8000
 # Abre http://localhost:8000
 ```
 
-### Estructura del Script
-1. `get_projects()` - Obtiene proyectos CE2
-2. `get_projects_for_month()` - Filtra por mes (timezone-aware)
-3. `get_issues_for_month()` - Obtiene issues sin proyecto
-4. `calculate_metrics()` - Calcula métricas de issues
+### Deployar Cloudflare Worker
+```bash
+cd cloudflare-worker
+wrangler publish
+```
+
+Requiere que `LINEAR_API_KEY` esté configurada en variables de entorno de Cloudflare.
 5. `calculate_project_metrics()` - Calcula métricas de proyectos
 6. `generate_html()` - Genera HTML con CSS y JavaScript
 
