@@ -14,6 +14,7 @@ const CUSTOMER_LABELS = [
   "Finanzas",
   "Legales",
   "Partner",
+  "Tech",
 ];
 
 const PENDING_STATES = [
