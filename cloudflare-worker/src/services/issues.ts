@@ -126,13 +126,13 @@ export class IssuesService {
       if (hasProductLabel) {
         for (const product of productLabels) {
           metrics.by_product[product] = (metrics.by_product[product] || 0) + 1;
-          if (!["Closed", "Discarded"].includes(state)) {
+          if (isPending) {
             metrics.pending_by_product[product] =
               (metrics.pending_by_product[product] || 0) + 1;
           }
         }
 
-        if (!["Closed", "Discarded"].includes(state)) {
+        if (isPending) {
           metrics.pending_issues_list.push({
             id: issue.identifier,
             title: issue.title,

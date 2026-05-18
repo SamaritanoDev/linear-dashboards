@@ -59,6 +59,8 @@ export class ProjectsService {
       "B2B", "Finanzas", "Legales", "Partner"
     ];
 
+    const PENDING_PROJECT_STATES = ["backlog", "planned", "in progress", "blocked", "in review", "started"];
+
     const metrics: ProjectMetrics = {
       total_projects: validProjects.length,
       pending_ce2: 0,
@@ -87,7 +89,7 @@ export class ProjectsService {
 
       const statusLower = statusName.toLowerCase();
       const isCompleted = statusLower === "completed";
-      const isPending = !["closed", "discarded", "canceled"].includes(statusLower);
+      const isPending = PENDING_PROJECT_STATES.includes(statusLower);
 
       if (isPending) {
         metrics.pending_ce2++;
