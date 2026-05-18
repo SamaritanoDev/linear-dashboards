@@ -1236,6 +1236,9 @@
                 const closedEl = document.getElementById('metric-issues-closed');
                 if (closedEl) closedEl.textContent = closedIssues;
 
+                const unlabeledEl = document.getElementById('metric-issues-unlabeled');
+                if (unlabeledEl) unlabeledEl.textContent = untrackedIssues;
+
                 // Actualizar tabla de estados por team - buscar por el h2 "Por Estado"
                 const stateHeaders = Array.from(document.querySelectorAll('#tab-issues h2'));
                 const stateHeader = stateHeaders.find(h2 => h2.textContent.includes('Por Estado'));
