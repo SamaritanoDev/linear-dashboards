@@ -286,15 +286,14 @@
                     </nav>
                 </div>
                 <div class="mt-auto p-6">
-                    <div class="flex gap-2 mb-4">
-                        <button id="theme-toggle" onclick="toggleTheme()" class="flex-1 glacier-surface px-4 py-3 rounded-xl border border-primary/20 flex items-center justify-center gap-2 text-sm cursor-pointer hover:border-primary/40 transition-all" title="Cambiar tema">
-                            <span class="material-symbols-outlined text-primary" id="theme-icon">light_mode</span>
-                            <span class="text-on-surface-variant text-xs font-medium" id="theme-label">Modo Claro</span>
-                        </button>
-                        <button id="refresh-button" onclick="refreshAllData()" class="flex-1 glacier-surface px-4 py-3 rounded-xl border border-primary/20 flex items-center justify-center gap-2 text-sm cursor-pointer hover:border-primary/40 transition-all" title="Actualizar todos los datos">
-                            <span class="material-symbols-outlined text-primary" id="refresh-icon">refresh</span>
-                        </button>
-                    </div>
+                    <button id="theme-toggle" onclick="toggleTheme()" class="w-full glacier-surface px-4 py-3 rounded-xl border border-primary/20 flex items-center justify-center gap-2 text-sm cursor-pointer hover:border-primary/40 transition-all mb-3" title="Cambiar tema">
+                        <span class="material-symbols-outlined text-primary" id="theme-icon">light_mode</span>
+                        <span class="text-on-surface-variant text-xs font-medium" id="theme-label">Modo Claro</span>
+                    </button>
+                    <button id="refresh-button" onclick="refreshAllData()" class="w-full glacier-surface px-4 py-3 rounded-xl border border-primary/20 flex items-center justify-center gap-2 text-sm cursor-pointer hover:border-primary/40 transition-all mb-4" title="Actualizar todos los datos">
+                        <span class="material-symbols-outlined text-primary" id="refresh-icon">refresh</span>
+                        <span class="text-on-surface-variant text-xs font-medium">Actualizar</span>
+                    </button>
                     <div class="bg-surface-container rounded-xl p-4 border border-outline-variant/30">
                         <p class="text-xs text-primary font-semibold mb-1 uppercase tracking-tighter">Continuity Eng.</p>
                         <p class="text-[10px] text-on-surface-variant">v2.4.0 Glacier Stable</p>
