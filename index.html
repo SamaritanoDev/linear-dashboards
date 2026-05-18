@@ -264,18 +264,18 @@
                         Dashboard
                     </h2>
                     <nav class="space-y-2">
-                        <div class="drawer-item flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer hover:bg-surface-variant text-on-surface-variant font-medium text-sm" onclick="switchSection('issues', event)">
+                        <div class="drawer-item active flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer hover:bg-surface-variant text-on-surface-variant font-medium text-sm" onclick="switchSection('issues', event)">
                             <span class="material-symbols-outlined text-lg">bug_report</span>
                             Issues CE
                         </div>
-                        <div class="drawer-item active flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer font-medium text-sm" onclick="switchSection('projects', event)">
+                        <div class="drawer-item flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer font-medium text-sm" onclick="switchSection('projects', event)">
                             <span class="material-symbols-outlined text-lg">inventory_2</span>
                             Proyectos CE
                         </div>
                     </nav>
                 </div>
                 <div class="mt-auto p-6">
-                    <button id="theme-toggle" class="w-full glacier-surface px-4 py-3 rounded-xl border border-primary/20 flex items-center justify-center gap-2 text-sm cursor-pointer hover:border-primary/40 transition-all mb-4" title="Cambiar tema">
+                    <button id="theme-toggle" onclick="toggleTheme()" class="w-full glacier-surface px-4 py-3 rounded-xl border border-primary/20 flex items-center justify-center gap-2 text-sm cursor-pointer hover:border-primary/40 transition-all mb-4" title="Cambiar tema">
                         <span class="material-symbols-outlined text-primary" id="theme-icon">light_mode</span>
                         <span class="text-on-surface-variant text-xs font-medium" id="theme-label">Modo Claro</span>
                     </button>
@@ -299,7 +299,7 @@
                     <p id="error-text">Error al cargar datos</p>
                 </div>
 
-                <section class="max-w-6xl mx-auto" id="projects">
+                <section class="max-w-6xl mx-auto" id="projects" style="display: none;">
                     <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
                         <div>
                             <h1 class="text-4xl font-bold text-on-surface tracking-tight flex items-center gap-3">
@@ -575,7 +575,7 @@
                     </div>
                 </section>
 
-                <section id="issues" style="display: none;">
+                <section id="issues">
 <div class="max-w-6xl mx-auto">
     <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
         <div>
@@ -613,43 +613,43 @@
     <div class="tab-content" id="tab-issues" data-month="Mayo">
         <div class="flex items-center gap-2 mb-6">
             <span class="h-2 w-2 rounded-full bg-primary"></span>
-            <span class="text-sm font-medium text-on-surface-variant uppercase tracking-widest">Mayo 2026: 58 issues totales | Pendientes: 29</span>
+            <span id="issues-month-header" class="text-sm font-medium text-on-surface-variant uppercase tracking-widest">Mayo 2026: 58 issues totales | Pendientes: 29</span>
         </div>
 
         <div class="glacier-card p-6 rounded-xl mb-10">
             <div class="flex justify-between items-center mb-4">
                 <h4 class="text-sm font-bold text-on-surface">Progreso General</h4>
-                <span class="text-lg font-bold text-primary">50%</span>
+                <span id="issues-progress-percent" class="text-lg font-bold text-primary">50%</span>
             </div>
             <div class="w-full bg-surface-container rounded-full overflow-hidden h-6">
-                <div class="h-full rounded-full transition-all duration-1000" style="width: 50%; background: linear-gradient(90deg, rgb(125, 211, 252) 0%, rgb(186, 230, 253) 100%);"></div>
+                <div id="issues-progress-bar" class="h-full rounded-full transition-all duration-1000" style="width: 50%; background: linear-gradient(90deg, rgb(125, 211, 252) 0%, rgb(186, 230, 253) 100%);"></div>
             </div>
         </div>
 
         <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-10 lg:grid-cols-6">
-            <div class="bg-surface-container-low p-4 rounded-lg flex flex-col items-center justify-center text-center border border-outline-variant/20 shadow-sm">
+            <div id="metric-issues-total-card" class="bg-surface-container-low p-4 rounded-lg flex flex-col items-center justify-center text-center border border-outline-variant/20 shadow-sm">
                 <span class="text-on-surface-variant text-[10px] font-bold uppercase mb-2 tracking-widest">Total Issues</span>
-                <span class="text-3xl font-bold text-on-surface">58</span>
+                <span id="metric-issues-total" class="text-3xl font-bold text-on-surface">58</span>
             </div>
-            <div class="bg-surface-container-low p-4 rounded-lg flex flex-col items-center justify-center text-center border border-outline-variant/20 shadow-sm">
+            <div id="metric-issues-progress-card" class="bg-surface-container-low p-4 rounded-lg flex flex-col items-center justify-center text-center border border-outline-variant/20 shadow-sm">
                 <span class="text-on-surface-variant text-[10px] font-bold uppercase mb-2 tracking-widest">En Progreso</span>
-                <span class="text-3xl font-bold text-primary">6</span>
+                <span id="metric-issues-progress" class="text-3xl font-bold text-primary">6</span>
             </div>
-            <div class="bg-surface-container-low p-4 rounded-lg flex flex-col items-center justify-center text-center border border-outline-variant/20 shadow-sm">
+            <div id="metric-issues-pending-card" class="bg-surface-container-low p-4 rounded-lg flex flex-col items-center justify-center text-center border border-outline-variant/20 shadow-sm">
                 <span class="text-on-surface-variant text-[10px] font-bold uppercase mb-2 tracking-widest">Pendientes</span>
-                <span class="text-3xl font-bold text-on-surface">29</span>
+                <span id="metric-issues-pending" class="text-3xl font-bold text-on-surface">29</span>
             </div>
-            <div class="bg-surface-container-low p-4 rounded-lg flex flex-col items-center justify-center text-center border border-outline-variant/20 shadow-sm">
+            <div id="metric-issues-blocked-card" class="bg-surface-container-low p-4 rounded-lg flex flex-col items-center justify-center text-center border border-outline-variant/20 shadow-sm">
                 <span class="text-on-surface-variant text-[10px] font-bold uppercase mb-2 tracking-widest">Bloqueados</span>
-                <span class="text-3xl font-bold text-error">0</span>
+                <span id="metric-issues-blocked" class="text-3xl font-bold text-error">0</span>
             </div>
-            <div class="bg-surface-container-low p-4 rounded-lg flex flex-col items-center justify-center text-center border border-outline-variant/20 shadow-sm">
+            <div id="metric-issues-unlabeled-card" class="bg-surface-container-low p-4 rounded-lg flex flex-col items-center justify-center text-center border border-outline-variant/20 shadow-sm">
                 <span class="text-on-surface-variant text-[10px] font-bold uppercase mb-2 tracking-widest">Sin Label</span>
-                <span class="text-3xl font-bold text-on-surface-variant">0</span>
+                <span id="metric-issues-unlabeled" class="text-3xl font-bold text-on-surface-variant">0</span>
             </div>
-            <div class="bg-tertiary-container/30 p-4 rounded-lg flex flex-col items-center justify-center text-center border border-tertiary/20 shadow-sm">
+            <div id="metric-issues-closed-card" class="bg-tertiary-container/30 p-4 rounded-lg flex flex-col items-center justify-center text-center border border-tertiary/20 shadow-sm">
                 <span class="text-tertiary text-[10px] font-bold uppercase mb-2 tracking-widest">Cerrados</span>
-                <span class="text-3xl font-bold text-tertiary">29</span>
+                <span id="metric-issues-closed" class="text-3xl font-bold text-tertiary">29</span>
             </div>
         </div>
 
@@ -1285,33 +1285,29 @@
 
         <script data-purpose="ui-interactions">
             // ========== THEME TOGGLE ==========
-            const themeToggle = document.getElementById('theme-toggle');
-            const themeIcon = document.getElementById('theme-icon');
-            const themeLabel = document.getElementById('theme-label');
-            const htmlElement = document.documentElement;
-
-            // Restaurar preferencia de tema guardada
-            const savedTheme = localStorage.getItem('theme') || 'light';
-            if (savedTheme === 'dark') {
-                htmlElement.classList.add('dark');
-                updateThemeUI(true);
-            }
-
-            function updateThemeUI(isDark) {
-                if (isDark) {
-                    themeIcon.textContent = 'dark_mode';
-                    themeLabel.textContent = 'Modo Oscuro';
-                } else {
-                    themeIcon.textContent = 'light_mode';
-                    themeLabel.textContent = 'Modo Claro';
-                }
-            }
-
-            themeToggle.addEventListener('click', () => {
-                const isDark = htmlElement.classList.toggle('dark');
+            window.toggleTheme = function() {
+                const html = document.documentElement;
+                const isDark = html.classList.toggle('dark');
                 localStorage.setItem('theme', isDark ? 'dark' : 'light');
-                updateThemeUI(isDark);
-            });
+
+                const themeIcon = document.getElementById('theme-icon');
+                const themeLabel = document.getElementById('theme-label');
+                if (themeIcon) themeIcon.textContent = isDark ? 'dark_mode' : 'light_mode';
+                if (themeLabel) themeLabel.textContent = isDark ? 'Modo Oscuro' : 'Modo Claro';
+            };
+
+            // Restaurar preferencia de tema guardada al cargar
+            (function() {
+                const html = document.documentElement;
+                const savedTheme = localStorage.getItem('theme') || 'light';
+                if (savedTheme === 'dark') {
+                    html.classList.add('dark');
+                    const themeIcon = document.getElementById('theme-icon');
+                    const themeLabel = document.getElementById('theme-label');
+                    if (themeIcon) themeIcon.textContent = 'dark_mode';
+                    if (themeLabel) themeLabel.textContent = 'Modo Oscuro';
+                }
+            })();
             // ========== END THEME TOGGLE ==========
 
             // ========== WORKER API INTEGRATION ==========
@@ -1431,10 +1427,10 @@
                     if (API_CONFIG.enableDynamicFetch) {
                         try {
                             const response = await fetch(`${API_CONFIG.baseUrl}/api/metrics?month=${monthName}&filter=with_project`);
-                        if (response.ok) {
-                            const responseData = await response.json();
-                            data = responseData.projects;
-                        }
+                            if (response.ok) {
+                                const responseData = await response.json();
+                                data = responseData.projects;
+                            }
                         } catch (e) {
                             console.warn('Error fetching from worker, using embedded data:', e);
                         }
@@ -1543,12 +1539,13 @@
                     if (API_CONFIG.enableDynamicFetch) {
                         try {
                             const response = await fetch(`${API_CONFIG.baseUrl}/api/metrics?month=${monthName}&filter=without_project`);
-                        if (response.ok) {
-                            const data = await response.json();
-                            fullData = { issues: data.issues };
+                            if (response.ok) {
+                                const data = await response.json();
+                                fullData = { issues: data.issues };
+                            }
+                        } catch (e) {
+                            console.warn('Error fetching from worker, using embedded data:', e);
                         }
-                    } catch (e) {
-                        console.warn('Error fetching from worker, using embedded data:', e);
                     }
 
                     // Fallback a datos embebidos si el endpoint falla
@@ -1568,7 +1565,7 @@
                     pendingList = issues.pending_issues_list || [];
                     pendingIssues = pendingList.length;
 
-                    const headerSpan = document.querySelector('#tab-issues .flex.items-center span:nth-of-type(2)');
+                    const headerSpan = document.getElementById('issues-month-header');
                     if (headerSpan) {
                         headerSpan.textContent = monthName + ' 2026: ' + totalIssues + ' issues totales | Pendientes: ' + pendingIssues;
                     }
@@ -1589,24 +1586,34 @@
                 // Actualizar progreso
                 const closedIssues = issues.closed || 0;
                 const progress = totalIssues > 0 ? Math.round((closedIssues / totalIssues) * 100) : 0;
-                document.querySelector('#tab-issues .text-lg.font-bold.text-primary').textContent = progress + '%';
-                const progressBar = document.querySelector('#tab-issues .h-full.rounded-full');
-                if (progressBar) {
-                    progressBar.style.width = progress + '%';
-                }
+
+                const progressPercentEl = document.getElementById('issues-progress-percent');
+                if (progressPercentEl) progressPercentEl.textContent = progress + '%';
+
+                const progressBarEl = document.getElementById('issues-progress-bar');
+                if (progressBarEl) progressBarEl.style.width = progress + '%';
 
                 // Actualizar métricas de issues
-                const metricsElement = document.querySelectorAll('#tab-issues .bg-surface-container-low');
-                if (metricsElement.length > 0) {
-                    metricsElement[0].querySelector('span:last-child').textContent = totalIssues;
-                }
-                if (metricsElement.length > 1) {
+                const totalEl = document.getElementById('metric-issues-total');
+                if (totalEl) totalEl.textContent = totalIssues;
+
+                const inProgressEl = document.getElementById('metric-issues-progress');
+                if (inProgressEl) {
                     const inProgress = issues.by_state['In Progress'] || 0;
-                    metricsElement[1].querySelector('span:last-child').textContent = inProgress;
+                    inProgressEl.textContent = inProgress;
                 }
-                if (metricsElement.length > 2) {
-                    metricsElement[2].querySelector('span:last-child').textContent = pendingIssues;
+
+                const pendingEl = document.getElementById('metric-issues-pending');
+                if (pendingEl) pendingEl.textContent = pendingIssues;
+
+                const blockedEl = document.getElementById('metric-issues-blocked');
+                if (blockedEl) {
+                    const blocked = issues.by_state['Blocked'] || 0;
+                    blockedEl.textContent = blocked;
                 }
+
+                const closedEl = document.getElementById('metric-issues-closed');
+                if (closedEl) closedEl.textContent = closedIssues;
 
                 // Actualizar tabla de estados por team
                 const statusRows = document.querySelectorAll('#tab-issues table tbody tr');
