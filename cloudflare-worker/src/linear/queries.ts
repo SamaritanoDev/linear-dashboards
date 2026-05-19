@@ -31,7 +31,8 @@ export const PROJECTS_QUERY = `
 
 export function getIssuesQueryForMonth(
   year: number,
-  month: number
+  month: number,
+  includeWithProject: boolean = false
 ): string {
   const startDate = new Date(year, month - 1, 1);
   const endDate = new Date(
@@ -43,14 +44,21 @@ export function getIssuesQueryForMonth(
   const startStr = startDate.toISOString().split("T")[0];
   const endStr = endDate.toISOString().split("T")[0];
 
+  // Build filter object based on includeWithProject flag
+  let filterStr = `
+      team: {key: {in: ["CE1", "CE2"]}}
+      createdAt: {gte: "${startStr}T00:00:00Z", lt: "${endStr}T00:00:00Z"}`;
+
+  if (!includeWithProject) {
+    filterStr += `
+      project: {null: true}`;
+  }
+
   return `
 {
   issues(
     first: 250
-    filter: {
-      team: {key: {in: ["CE1", "CE2"]}}
-      createdAt: {gte: "${startStr}T00:00:00Z", lt: "${endStr}T00:00:00Z"}
-      project: {null: true}
+    filter: {${filterStr}
     }
   ) {
     nodes {

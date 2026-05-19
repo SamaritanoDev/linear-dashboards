@@ -38,7 +38,10 @@ export class IssuesService {
     month: number,
     filter: "with_project" | "without_project" = "without_project"
   ): Promise<LinearIssue[]> {
-    const query = getIssuesQueryForMonth(year, month);
+    // Get query based on filter type
+    // For "with_project": includeWithProject = true (gets ALL issues, no project filter)
+    // For "without_project": includeWithProject = false (gets only issues without project)
+    const query = getIssuesQueryForMonth(year, month, filter === "with_project");
     const result = await this.client.query<{ issues: { nodes: LinearIssue[] } }>(
       query
     );
@@ -47,6 +50,7 @@ export class IssuesService {
 
     const issues = result.issues.nodes;
 
+    // Filter by project status and exclude Discarded
     if (filter === "with_project") {
       return issues.filter((i) => i.project && i.state.name !== "Discarded");
     }
