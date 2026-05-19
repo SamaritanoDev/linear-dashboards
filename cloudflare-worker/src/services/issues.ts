@@ -50,12 +50,12 @@ export class IssuesService {
 
     const issues = result.issues.nodes;
 
-    // Filter by project status and exclude Discarded
+    // Filter by project status and exclude Discarded and Duplicate
     if (filter === "with_project") {
-      return issues.filter((i) => i.project && i.state.name !== "Discarded");
+      return issues.filter((i) => i.project && i.state.name !== "Discarded" && i.state.name !== "Duplicate");
     }
 
-    return issues.filter((i) => !i.project && i.state.name !== "Discarded");
+    return issues.filter((i) => !i.project && i.state.name !== "Discarded" && i.state.name !== "Duplicate");
   }
 
   async calculateMetrics(
@@ -96,8 +96,8 @@ export class IssuesService {
         metrics.pending_ce2 += 1;
       }
 
-      // Contar issues sin etiqueta de producto (pero NO Closed/Discarded)
-      if (!hasProductLabel && state !== "Closed" && state !== "Discarded") {
+      // Contar issues sin etiqueta de producto (pero NO Closed/Discarded/Duplicate)
+      if (!hasProductLabel && state !== "Closed" && state !== "Discarded" && state !== "Duplicate") {
         metrics.untracked_issues += 1;
         // Agregar a lista solo si está en estado pendiente
         if (isPending) {
