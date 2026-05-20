@@ -1061,7 +1061,7 @@
             }
 
             async function fetchMonthMetrics(monthName) {
-                const url = `${WORKER_CONFIG.baseUrl}/api/metrics?month=${monthName}&filter=without_project`;
+                const url = `${WORKER_CONFIG.baseUrl}/api/metrics?month=${monthName}&filter=without_project&_t=${Date.now()}`;
 
                 try {
                     const response = await Promise.race([
@@ -1156,7 +1156,7 @@
                         return;
                     }
 
-                    const response = await fetch(`${API_CONFIG.baseUrl}/api/metrics?month=${monthName}&filter=with_project`);
+                    const response = await fetch(`${API_CONFIG.baseUrl}/api/metrics?month=${monthName}&filter=with_project&_t=${Date.now()}`);
                     if (!response.ok) {
                         throw new Error(`API responded with status ${response.status}`);
                     }
@@ -1263,7 +1263,7 @@
                         return;
                     }
 
-                    const apiUrl = `${API_CONFIG.baseUrl}/api/metrics?month=${monthName}&filter=without_project`;
+                    const apiUrl = `${API_CONFIG.baseUrl}/api/metrics?month=${monthName}&filter=without_project&_t=${Date.now()}`;
                     console.log('DEBUG: Fetching from API:', apiUrl);
                     const response = await fetch(apiUrl);
                     console.log('DEBUG: API response status:', response.status);
@@ -1651,7 +1651,7 @@
                     if (loadingEl) loadingEl.style.display = 'flex';
                     if (containerEl) containerEl.innerHTML = '';
 
-                    const response = await fetch(`${WORKER_CONFIG.baseUrl}/api/team-workload?filter=${filter}`);
+                    const response = await fetch(`${WORKER_CONFIG.baseUrl}/api/team-workload?filter=${filter}&_t=${Date.now()}`);
                     if (!response.ok) {
                         throw new Error(`API error: ${response.status}`);
                     }
@@ -1745,7 +1745,7 @@
                     const loadingOverlay = document.getElementById('loading-overlay');
                     if (loadingOverlay) loadingOverlay.style.display = 'flex';
 
-                    const response = await fetch(`${WORKER_CONFIG.baseUrl}/api/recognitions`);
+                    const response = await fetch(`${WORKER_CONFIG.baseUrl}/api/recognitions?_t=${Date.now()}`);
                     if (!response.ok) {
                         throw new Error(`API error: ${response.status}`);
                     }
