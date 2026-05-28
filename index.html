@@ -2439,14 +2439,31 @@
                         tooltip.classList.toggle('visible');
                     });
                 });
+            }
 
-                // Close tooltips when clicking outside
-                document.addEventListener('click', () => {
+            // Global click handler to close CE2 tooltips (added once)
+            let ce2TooltipCloseHandlerAdded = false;
+            function addCE2TooltipCloseHandler() {
+                if (ce2TooltipCloseHandlerAdded) return;
+                ce2TooltipCloseHandlerAdded = true;
+
+                document.addEventListener('click', (e) => {
+                    // Don't close if clicking on a tooltip or info icon
+                    if (e.target.closest('.ce2-tooltip') || e.target.closest('.ce2-info-icon')) {
+                        return;
+                    }
+                    // Close all visible tooltips
                     document.querySelectorAll('.ce2-tooltip.visible').forEach(t => {
                         t.classList.remove('visible');
                     });
-                }, { once: false });
+                });
             }
+
+            // Call this when metrics are first rendered
+            (function setupCE2Tooltips() {
+                addCE2TooltipCloseHandler();
+            })();
+
             // ========== END CE2 METRICS FUNCTIONS ==========
 
             // ========== INITIALIZE PAGE WITH DEFAULT MONTH DATA ==========
