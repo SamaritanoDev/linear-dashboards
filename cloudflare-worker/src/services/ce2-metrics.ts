@@ -104,6 +104,18 @@ export class CE2MetricsService {
 
     console.log(`[CE2 Metrics] Priority breakdown: P1=${p1Issues.length} (completed=${completedP1}), P2=${p2Issues.length} (completed=${completedP2})`);
 
+    // Log all unique state names to debug state filtering
+    const uniqueStates = new Set(issues.map(i => i.state?.name));
+    console.log(`[CE2 Metrics] All unique states in issues: ${Array.from(uniqueStates).join(', ')}`);
+
+    // Log some sample states for issues
+    if (issues.length > 0) {
+      console.log(`[CE2 Metrics] Sample state values:`);
+      issues.slice(0, 10).forEach((issue, idx) => {
+        console.log(`  [${idx}] ${issue.identifier}: state.name="${issue.state?.name}" (type: ${typeof issue.state?.name})`);
+      });
+    }
+
     const prevMonthIssues = await this.getPreviousMonthIssues(year, month);
 
     return {
