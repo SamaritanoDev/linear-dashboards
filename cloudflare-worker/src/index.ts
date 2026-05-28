@@ -499,7 +499,8 @@ async function handleCE2MetricsSummary(
 
     return jsonResponse(summary);
   } catch (error) {
-    console.error("CE2 Metrics Summary error:", error);
-    return errorResponse("Failed to calculate metrics summary", 500);
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    console.error("CE2 Metrics Summary error:", errorMessage, error);
+    return errorResponse(`Failed to calculate metrics summary: ${errorMessage}`, 500);
   }
 }
