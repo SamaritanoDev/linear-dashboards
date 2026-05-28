@@ -334,11 +334,11 @@
             }
             .ce2-tooltip {
                 position: absolute;
-                background-color: rgb(var(--md-sys-color-tertiary-container, 179, 157, 219) / 0.1);
-                color: var(--md-sys-color-on-surface-variant, #49454e);
+                background-color: rgba(220, 184, 255, 0.08);
+                color: #49454e;
                 padding: 1rem;
                 border-radius: 0.5rem;
-                border: 1px solid rgb(var(--md-sys-color-tertiary-container, 179, 157, 219) / 0.3);
+                border: 1px solid rgba(220, 184, 255, 0.25);
                 width: 400px;
                 max-width: 90vw;
                 z-index: 1000;
@@ -360,8 +360,9 @@
                 pointer-events: auto;
             }
             .dark .ce2-tooltip {
-                background-color: #0a1428;
-                border: 1px solid #1a3a52;
+                background-color: rgba(100, 181, 246, 0.08);
+                border: 1px solid rgba(100, 181, 246, 0.25);
+                color: #b4b0b6;
             }
             .ce2-tooltip-icon {
                 display: inline-flex;
@@ -371,17 +372,23 @@
             .ce2-tooltip-icon .material-symbols-outlined {
                 flex-shrink: 0;
                 font-size: 1.25rem;
-                color: var(--md-sys-color-tertiary, #7d5260);
+                color: #7d5260;
                 margin-top: 0.125rem;
+            }
+            .dark .ce2-tooltip-icon .material-symbols-outlined {
+                color: #64b5f6;
             }
             .ce2-tooltip-title {
                 margin: 0;
                 font-size: 0.875rem;
                 font-weight: 700;
-                color: var(--md-sys-color-tertiary, #7d5260);
+                color: #7d5260;
                 display: flex;
                 align-items: center;
                 gap: 0.5rem;
+            }
+            .dark .ce2-tooltip-title {
+                color: #64b5f6;
             }
             .ce2-tooltip-content {
                 display: flex;
@@ -392,25 +399,28 @@
                 margin: 0;
                 font-size: 0.75rem;
                 line-height: 1.5;
-                color: var(--md-sys-color-on-surface-variant, #49454e);
+                color: #49454e;
             }
             .dark .ce2-tooltip-section {
                 color: #b4b0b6;
             }
             .ce2-tooltip-section-title {
                 font-weight: 700;
-                color: var(--md-sys-color-tertiary, #7d5260);
+                color: #7d5260;
                 display: block;
                 margin-bottom: 0.25rem;
+            }
+            .dark .ce2-tooltip-section-title {
+                color: #64b5f6;
             }
             .ce2-tooltip-formula {
                 display: block;
                 background: rgba(125, 82, 96, 0.08);
                 padding: 0.5rem 0.75rem;
-                border-left: 3px solid var(--md-sys-color-tertiary, #7d5260);
+                border-left: 3px solid #7d5260;
                 border-radius: 0.25rem;
                 font-size: 0.7rem;
-                color: var(--md-sys-color-on-surface, #1c1b1f);
+                color: #1c1b1f;
                 margin: 0.5rem 0;
                 word-break: break-word;
                 font-family: 'Courier New', monospace;
@@ -419,6 +429,7 @@
             .dark .ce2-tooltip-formula {
                 background: rgba(100, 181, 246, 0.08);
                 color: #e0e8f0;
+                border-left-color: #64b5f6;
             }
             .ce2-tooltip-ranges {
                 list-style: none;
@@ -428,7 +439,7 @@
             }
             .ce2-tooltip-ranges li {
                 padding: 0.25rem 0;
-                color: var(--md-sys-color-on-surface-variant, #49454e);
+                color: #49454e;
             }
             .dark .ce2-tooltip-ranges li {
                 color: #b4b0b6;
