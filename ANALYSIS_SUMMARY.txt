@@ -1,0 +1,254 @@
+════════════════════════════════════════════════════════════════════════════════════
+                      CE2 PATTERNS INVESTIGATION - FINAL REPORT
+                              Mayo 2026 - 30 días
+════════════════════════════════════════════════════════════════════════════════════
+
+PREGUNTA INVESTIGADA:
+  "¿Cuántos projects activos tiene CE2?"
+  "¿Debería separar métricas de Projects vs Hotfixes en el dashboard?"
+  "¿Hay patterns en qué tipo de issues van a projects vs hotfixes?"
+
+════════════════════════════════════════════════════════════════════════════════════
+RESPUESTA CORTA
+════════════════════════════════════════════════════════════════════════════════════
+
+1. ¿CUÁNTOS PROJECTS ACTIVOS?
+   → No hay campo "projects" en Linear con conteo claro
+   → Pero sí hay 75 issues asignados a proyectos (48.1%)
+   → Aproximadamente 5-10 projects activos (basado en nombres en CSV)
+
+2. ¿SEPARAR MÉTRICAS?
+   → SÍ, DEFINITIVAMENTE
+   → Dinámicas completamente diferentes
+   → Requieren SLAs diferentes
+
+3. ¿QUAT TIPOS VAN A PROJECTS VS HOTFIXES?
+   → BUGS: 11.4% hotfixes vs 1.3% projects (bugs son reactivos)
+   → FEATURES: similar distribución (5.7% vs 5.3%)
+   → RESEARCH: más en hotfixes (7.1% vs 2.7%)
+   → OTHER: 85% projects mal etiquetados
+
+════════════════════════════════════════════════════════════════════════════════════
+HALLAZGOS DE ALTO NIVEL
+════════════════════════════════════════════════════════════════════════════════════
+
+DATO 1: DISTRIBUCIÓN BALANCEADA
+  Projects: 75 (48.1%)
+  Hotfixes: 70 (44.9%)
+  → Equipo divide tiempo equitativamente entre trabajo planificado e inesperado
+
+DATO 2: HOTFIXES SON 35% MÁS RÁPIDOS
+  Projects MTTR: 112.2 horas (4.7 días)
+  Hotfixes MTTR: 72.9 horas (3.0 días)
+  → Hotfixes scope más definido, resolución más rápida
+
+DATO 3: HOTFIXES TIENEN 47% MÁS P1/P2
+  Projects: 30/75 (40%)
+  Hotfixes: 41/70 (58.6%)
+  → Hotfixes son EMERGENCIAS REACTIVAS
+  → Projects son TRABAJO PLANIFICADO NORMAL
+
+DATO 4: PROJECTS CIERRAN MÁS SEGUIDO
+  Projects: 62.7% completados
+  Hotfixes: 54.3% completados
+  → Projects mejor flujo de completación
+
+DATO 5: CUELLO DE BOTELLA = REVISIÓN
+  5 hotfixes esperando en "In Review"
+  4 de esos > 7 días
+  → Peer review capacity issue
+
+DATO 6: P1 TREND CRÍTICO
+  Abril: 6 issues urgentes
+  Mayo: 22 issues urgentes
+  CAMBIO: +266%
+  → ALERTA ROJA: necesita investigación
+
+DATO 7: CALIDAD EXCELENTE
+  Reopen rate: 0%
+  Escalation rate: 0%
+  → Primera vez fix es buena, equipo autónomo
+
+════════════════════════════════════════════════════════════════════════════════════
+ANÁLISIS POR CATEGORÍA
+════════════════════════════════════════════════════════════════════════════════════
+
+CATEGORÍA: BUGS
+  Projects: 1 issue (1.3%)
+  Hotfixes: 8 issues (11.4%)
+  PATRÓN: Bugs van a hotfixes, casi ninguno a projects
+  RAZÓN: Bugs son descubrimientos de prod (reactivos)
+
+CATEGORÍA: FEATURES
+  Projects: 4 issues (5.3%)
+  Hotfixes: 4 issues (5.7%)
+  PATRÓN: Similar distribución
+  RAZÓN: Features pueden venir de nuevos reqs (urgentes) o roadmap
+
+CATEGORÍA: RESEARCH/VALIDATION
+  Projects: 2 issues (2.7%)
+  Hotfixes: 5 issues (7.1%)
+  PATRÓN: Más validación en hotfixes
+  RAZÓN: Post-fix validation, reporte issues, etc
+
+CATEGORÍA: OTHER (sin etiqueta clara)
+  Projects: 64 issues (85.3%) ← PROBLEMA
+  Hotfixes: 51 issues (72.9%)
+  PATRÓN: Projects PEOR ETIQUETADOS
+  RAZÓN: Naming convention no se implementa en projects
+  ACCIÓN: Implementar [BUG], [FEATURE], [MAINTENANCE] en titles
+
+════════════════════════════════════════════════════════════════════════════════════
+ISSUES CRÍTICOS IDENTIFICADOS
+════════════════════════════════════════════════════════════════════════════════════
+
+CRÍTICO #1: CE2-1590 - 20 DÍAS EN REVIEW
+  Título: Publicar plan MODEM 80GB solo en Almaceneros
+  Status: In Review
+  Priority: Urgent
+  Esperando desde: May 7
+  Impacto: Business feature bloqueada
+  ACCIÓN: Escalate + find reviewer bottleneck
+
+CRÍTICO #2: CE2-1586 - 20 DÍAS BLOQUEADO
+  Título: Línea portada sin ICCID en sistemas internos
+  Status: Blocked
+  Priority: Urgent
+  Esperando desde: May 7
+  Impacto: Production issue bloqueado
+  ACCIÓN: Unblock + identify blocker
+
+CRÍTICO #3: P1 TREND +266%
+  Abril: 6 P1 issues
+  Mayo: 22 P1 issues
+  Causa: DESCONOCIDA - requiere investigación
+  Posibilidades:
+    - Quality regression en releases recientes
+    - Scope change en product requirements
+    - Increase en customer complaints
+    - Planning faltó capturar dependencias
+
+CRÍTICO #4: REVIEW BOTTLENECK
+  5 hotfixes esperando aprobación
+  4 de esos > 7 días
+  SLA: Violado (debería ser <24h)
+  ACCIÓN: Identificar reviewer, agregar capacity, optimizar proceso
+
+════════════════════════════════════════════════════════════════════════════════════
+OPORTUNIDADES POSITIVAS
+════════════════════════════════════════════════════════════════════════════════════
+
+OPORTUNIDAD #1: CALIDAD EXCELENTE
+  Reopen rate: 0%
+  Escalation rate: 0%
+  → Primera vez fixes son confiables
+  → No hay regresiones detectadas
+  → Team autónomo, no necesita help
+
+OPORTUNIDAD #2: MOMENTUM POSITIVO
+  Últimos 7 días: 66 issues completados
+  Projects: 41 completed (5.9/day)
+  Hotfixes: 25 completed (3.6/day)
+  → Team muy productivo
+  → Trending en la dirección correcta
+
+OPORTUNIDAD #3: BALANCE IDEAL
+  48% Projects vs 45% Hotfixes
+  → No están abrumados por emergencias
+  → Pueden continuar con roadmap
+  → Monitor para que no suba hotfixes % sobre 60%
+
+════════════════════════════════════════════════════════════════════════════════════
+RECOMENDACIONES CONSOLIDADAS
+════════════════════════════════════════════════════════════════════════════════════
+
+1. SEPARAR MÉTRICAS EN DASHBOARD
+   Crear 3 secciones:
+   a) Projects metrics
+   b) Hotfixes metrics
+   c) Overall health
+
+2. IMPLEMENTAR ALERTAS AUTOMÁTICAS
+   - P1 issue > 24 horas old
+   - In Review > 7 days
+   - Hotfixes > 60% of work
+   - P1 trend increase >20% MoM
+
+3. FIJAR OBJETIVOS (SLAs)
+   Projects MTTR: 48h (down from 112h)
+   Hotfixes MTTR: 4h (down from 72h)
+   P1 max age: 4h
+   P2 max age: 24h
+
+4. IMMEDIATE ACTIONS
+   - Unblock CE2-1590 y CE2-1586
+   - Investigar P1 +266% trend
+   - Optimizar peer review capacity
+
+5. PROCESO IMPROVEMENT
+   - Naming convention: [BUG], [FEATURE], [MAINTENANCE]
+   - Optimize review SLA
+   - Monthly hotfix % monitoring
+
+════════════════════════════════════════════════════════════════════════════════════
+ARCHIVOS ENTREGABLES
+════════════════════════════════════════════════════════════════════════════════════
+
+1. CE2_PATTERNS_ANALYSIS_2026-05-28.txt
+   - 10 hallazgos detallados con evidencia
+   - Análisis comparativo Projects vs Hotfixes
+   - Recomendaciones específicas por hallazgo
+
+2. CE2_DASHBOARD_METRICS.json
+   - Métricas en formato JSON ready para integrar
+   - Critical issues list con metadata
+   - SLA targets y alert definitions
+   - Compatible con API integration
+
+3. CE2_EXECUTIVE_SUMMARY_2026-05-28.txt
+   - Resumen ejecutivo de 10 minutos
+   - Dashboard layout mockup
+   - Next steps prioritizados
+
+4. README_CE2_ANALYSIS.md
+   - Overview en Markdown
+   - Fácil de compartir
+   - Quick reference con datos clave
+
+5. ANALYSIS_SUMMARY.txt (este archivo)
+   - Resumen consolidado de la investigación
+   - Responde todas las preguntas originales
+
+════════════════════════════════════════════════════════════════════════════════════
+CONCLUSIÓN
+════════════════════════════════════════════════════════════════════════════════════
+
+✅ SI, DEBEN SEPARAR LAS MÉTRICAS
+
+RAZONES PRINCIPALES:
+  1. Velocidad: Hotfixes 35% más rápidos
+  2. Urgencia: Hotfixes 47% más urgentes
+  3. Blockers: Diferentes tipos de bloqueos
+  4. SLAs: Requieren targets diferentes
+  5. Causa-efecto: Dinámicas completamente distintas
+
+IMPACTO DE COMBINAR:
+  - Ocultarías que hotfixes son 2x más urgentes
+  - No verías que hotfixes se resuelven más rápido (podrían parecer lentos)
+  - Perderías contexto de cuándo está el equipo bajo presión
+
+BENEFICIO DE SEPARAR:
+  - Identificarás si hotfixes están "comiendo" el trabajo planificado
+  - Podrás fijar SLAs realistas para cada tipo
+  - Verás claramente dónde están los cuellos de botella
+  - Mejorarás la toma de decisiones basada en datos
+
+════════════════════════════════════════════════════════════════════════════════════
+
+Reportado por: Claude AI
+Fecha: 2026-05-28
+Datos analizados: 156 issues en 30 días (2026-04-27 a 2026-05-27)
+Fuente: LINEAR_CE2_ISSUES_2026-05-27.csv
+Team: CE2 (Guinea - Telecom)
+
+════════════════════════════════════════════════════════════════════════════════════

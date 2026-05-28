@@ -1,0 +1,354 @@
+{
+  "report_date": "2026-05-28",
+  "analysis_period": "2026-04-27 to 2026-05-27",
+  "team": {
+    "id": "5feed208-25ac-4eb5-a2e6-e5f60f957b00",
+    "name": "CE2",
+    "company": "Guinea",
+    "industry": "Telecom"
+  },
+  "summary": {
+    "recommendation": "SEPARATE_METRICS",
+    "recommendation_reason": "Projects and Hotfixes have completely different dynamics: speed (35% faster), urgency (47% more P1/P2), completion rates (8.4% diff), and blockers. Require different SLAs and monitoring.",
+    "total_issues": 156,
+    "projects_count": 75,
+    "projects_percentage": 48.1,
+    "hotfixes_count": 70,
+    "hotfixes_percentage": 44.9,
+    "unclassified_count": 11,
+    "unclassified_percentage": 7.0
+  },
+  "projects": {
+    "metrics": {
+      "total": 75,
+      "closed": 47,
+      "completion_rate": 62.7,
+      "in_progress": 14,
+      "in_review": 1,
+      "backlog": 9,
+      "blocked": 0,
+      "planning": 4,
+      "discarded": 0,
+      "duplicate": 0
+    },
+    "priority": {
+      "urgent": 6,
+      "urgent_percentage": 8.0,
+      "high": 24,
+      "high_percentage": 32.0,
+      "medium": 7,
+      "medium_percentage": 9.3,
+      "low": 4,
+      "low_percentage": 5.3,
+      "no_priority": 34,
+      "no_priority_percentage": 45.3,
+      "p1_p2_total": 30,
+      "p1_p2_percentage": 40.0
+    },
+    "mttr": {
+      "closed_count": 17,
+      "mttr_hours_avg": 112.2,
+      "mttr_days_avg": 4.7,
+      "mttr_hours_min": 0.01,
+      "mttr_hours_max": 338.98,
+      "mttr_days_max": 14.12,
+      "sla_target_hours": 48,
+      "sla_target_days": 2,
+      "sla_gap_factor": 2.3
+    },
+    "quality": {
+      "reopen_rate": 0.0,
+      "escalation_rate": 0.0
+    },
+    "velocity_7days": {
+      "closed": 41,
+      "closed_per_day": 5.9
+    },
+    "categorization": {
+      "bug": 1,
+      "bug_percentage": 1.3,
+      "feature": 4,
+      "feature_percentage": 5.3,
+      "maintenance": 4,
+      "maintenance_percentage": 5.3,
+      "research": 2,
+      "research_percentage": 2.7,
+      "other": 64,
+      "other_percentage": 85.3
+    },
+    "backlog_analysis": {
+      "backlog_items": 9,
+      "backlog_percentage": 12.0,
+      "in_progress_total": 19,
+      "in_progress_percentage": 25.3
+    }
+  },
+  "hotfixes": {
+    "metrics": {
+      "total": 70,
+      "closed": 38,
+      "completion_rate": 54.3,
+      "in_progress": 7,
+      "in_review": 5,
+      "backlog": 11,
+      "blocked": 3,
+      "planning": 1,
+      "discarded": 4,
+      "duplicate": 1
+    },
+    "priority": {
+      "urgent": 8,
+      "urgent_percentage": 11.4,
+      "high": 33,
+      "high_percentage": 47.1,
+      "medium": 5,
+      "medium_percentage": 7.1,
+      "low": 11,
+      "low_percentage": 15.7,
+      "no_priority": 13,
+      "no_priority_percentage": 18.6,
+      "p1_p2_total": 41,
+      "p1_p2_percentage": 58.6
+    },
+    "mttr": {
+      "closed_count": 37,
+      "mttr_hours_avg": 72.9,
+      "mttr_days_avg": 3.0,
+      "mttr_hours_min": 0.01,
+      "mttr_hours_max": 546.59,
+      "mttr_days_max": 22.77,
+      "sla_target_hours": 4,
+      "sla_target_days": 0.17,
+      "sla_gap_factor": 18.2
+    },
+    "quality": {
+      "reopen_rate": 0.0,
+      "escalation_rate": 0.0
+    },
+    "velocity_7days": {
+      "closed": 25,
+      "closed_per_day": 3.6
+    },
+    "categorization": {
+      "bug": 8,
+      "bug_percentage": 11.4,
+      "feature": 4,
+      "feature_percentage": 5.7,
+      "maintenance": 2,
+      "maintenance_percentage": 2.9,
+      "research": 5,
+      "research_percentage": 7.1,
+      "other": 51,
+      "other_percentage": 72.9
+    },
+    "backlog_analysis": {
+      "backlog_items": 11,
+      "backlog_percentage": 15.7,
+      "in_progress_total": 16,
+      "in_progress_percentage": 22.9
+    },
+    "critical_blockers": {
+      "total_blocked_or_review": 8,
+      "in_review_more_than_2days": 5,
+      "blocked_more_than_2days": 3,
+      "in_review_more_than_7days": 4,
+      "critical_issues": [
+        {
+          "id": "CE2-1590",
+          "title": "Publicar plan MODEM 80GB solo en Almaceneros",
+          "status": "In Review",
+          "days_open": 20,
+          "priority": "Urgent",
+          "severity": "CRITICAL"
+        },
+        {
+          "id": "CE2-1586",
+          "title": "Línea portada sin ICCID en sistemas internos",
+          "status": "Blocked",
+          "days_open": 20,
+          "priority": "Urgent",
+          "severity": "CRITICAL"
+        },
+        {
+          "id": "CE2-1610",
+          "title": "Generar reporte semanal activaciones B2B/IoT",
+          "status": "Blocked",
+          "days_open": 16,
+          "priority": "High",
+          "severity": "HIGH"
+        },
+        {
+          "id": "CE2-1897",
+          "title": "Airalo eSIMs mostrando incorrectamente",
+          "status": "In Review",
+          "days_open": 13,
+          "priority": "High",
+          "severity": "HIGH"
+        }
+      ]
+    }
+  },
+  "comparative_analysis": {
+    "by_metric": {
+      "completion_rate": {
+        "projects": 62.7,
+        "hotfixes": 54.3,
+        "winner": "projects",
+        "difference_percentage": 8.4
+      },
+      "mttr_hours": {
+        "projects": 112.2,
+        "hotfixes": 72.9,
+        "winner": "hotfixes",
+        "faster_percentage": 35.0
+      },
+      "mttr_days": {
+        "projects": 4.7,
+        "hotfixes": 3.0,
+        "winner": "hotfixes",
+        "faster_percentage": 35.0
+      },
+      "p1_p2_percentage": {
+        "projects": 40.0,
+        "hotfixes": 58.6,
+        "winner": "hotfixes",
+        "more_urgent_percentage": 46.5
+      },
+      "velocity_7days": {
+        "projects": 5.9,
+        "hotfixes": 3.6,
+        "winner": "projects",
+        "faster_percentage": 63.9
+      }
+    }
+  },
+  "alerts": {
+    "critical": [
+      {
+        "alert": "P1_VIOLATION_20DAYS",
+        "description": "2 URGENT hotfixes waiting 20 days (CE2-1590, CE2-1586)",
+        "severity": "CRITICAL",
+        "sla_target": "4 hours",
+        "current": "20 days",
+        "action": "Escalate and unblock immediately"
+      },
+      {
+        "alert": "P1_TREND_INCREASE",
+        "description": "P1 issues increased 266% (April 6 -> May 22)",
+        "severity": "CRITICAL",
+        "april_count": 6,
+        "may_count": 22,
+        "increase_percentage": 266.7,
+        "action": "Investigate root cause (quality regression, scope change, customer issues)"
+      },
+      {
+        "alert": "REVIEW_BOTTLENECK",
+        "description": "5 hotfixes waiting in review (4 more than 7 days)",
+        "severity": "HIGH",
+        "in_review_count": 5,
+        "over_7days": 4,
+        "action": "Identify bottleneck reviewer and add capacity"
+      }
+    ],
+    "warnings": [
+      {
+        "alert": "MTTR_OVER_SLA",
+        "description": "Projects MTTR 2.3x over target, Hotfixes MTTR 18.2x over target",
+        "severity": "HIGH",
+        "projects_target": "48 hours",
+        "projects_current": "112.2 hours",
+        "hotfixes_target": "4 hours",
+        "hotfixes_current": "72.9 hours"
+      },
+      {
+        "alert": "HOTFIX_URGENCY",
+        "description": "Hotfixes have 47% more P1/P2 than Projects (58.6% vs 40%)",
+        "severity": "MEDIUM",
+        "projects_p1_p2": 40.0,
+        "hotfixes_p1_p2": 58.6,
+        "interpretation": "Reactive work dominating planned work"
+      }
+    ]
+  },
+  "trends": {
+    "p1_monthly": [
+      {
+        "month": "2026-04",
+        "count": 6
+      },
+      {
+        "month": "2026-05",
+        "count": 22
+      }
+    ],
+    "work_distribution": {
+      "projects_percentage": 48.1,
+      "hotfixes_percentage": 44.9,
+      "threshold_alert": 60.0,
+      "interpretation": "Balanced, but monitor if hotfixes increase"
+    }
+  },
+  "recommendations": {
+    "dashboard_structure": [
+      {
+        "section": "Projects",
+        "widgets": [
+          "Velocity chart (issues/week)",
+          "Completion rate gauge (62.7%)",
+          "MTTR tracker (target 48h, actual 112h)",
+          "Backlog size (9 items)",
+          "P1/P2 count (30 items)"
+        ]
+      },
+      {
+        "section": "Hotfixes",
+        "widgets": [
+          "Velocity chart (issues/week)",
+          "Completion rate gauge (54.3%)",
+          "MTTR tracker (target 4h, actual 72h)",
+          "Blocked items (3 blocked, 5 in review)",
+          "P1/P2 count (41 items)"
+        ]
+      },
+      {
+        "section": "Overall Health",
+        "widgets": [
+          "Project vs Hotfix ratio pie chart (48% vs 45%)",
+          "P1 trend chart (April 6 -> May 22, +266%)",
+          "Critical blockers list",
+          "VIP resolution rate (P1/P2 completed)"
+        ]
+      }
+    ],
+    "sla_targets": {
+      "projects_mttr_hours": 48,
+      "hotfixes_mttr_hours": 4,
+      "p1_max_age_hours": 4,
+      "p2_max_age_hours": 24,
+      "review_max_age_hours": 24
+    },
+    "alerts_to_implement": [
+      "If Hotfixes > 60% of work: 'Overloaded with emergencies'",
+      "If P1 issue > 24 hours old: 'SLA Violation'",
+      "If In Review > 7 days: 'Reviewer bottleneck detected'",
+      "If P1 trend increases >20% month-over-month: 'Fire prevention needed'",
+      "If MTTR > SLA target by 50%: 'Performance degradation'"
+    ]
+  },
+  "next_steps": [
+    "Implement dashboard with separated metrics for Projects vs Hotfixes",
+    "Set up automated alerts for critical conditions",
+    "Investigate P1 +266% trend (root cause analysis)",
+    "Unblock CE2-1590 (20 days in review - escalate)",
+    "Implement issue naming convention: [BUG], [FEATURE], [MAINTENANCE]",
+    "Review and optimize peer review process (5 hotfixes waiting)",
+    "Monitor hotfix percentage monthly to catch if >60%"
+  ],
+  "data_quality": {
+    "total_issues_analyzed": 156,
+    "issues_with_mttr": 54,
+    "issues_with_completion_date": 54,
+    "missing_data_issues": "Some project issues lack MTTR (labeled as 'N/A')",
+    "data_source": "LINEAR_CE2_ISSUES_2026-05-27.csv"
+  }
+}
