@@ -260,6 +260,157 @@
             .dark #issues .glacier-surface table tbody tr:hover {
                 background-color: #1a2438 !important;
             }
+            /* CE2 Metrics Card Styles */
+            .ce2-metric-card {
+                position: relative;
+                padding: 1.5rem;
+                border-radius: 1rem;
+                background-color: #ffffff;
+                border: 1px solid rgba(125, 211, 252, 0.1);
+                transition: all 0.3s ease;
+                cursor: pointer;
+            }
+            .ce2-metric-card:hover {
+                border-color: #7dd3fc;
+                box-shadow: 0 4px 12px rgba(125, 211, 252, 0.12);
+            }
+            .dark .ce2-metric-card {
+                background-color: #141c2e;
+                border: 1px solid rgba(125, 211, 252, 0.1);
+            }
+            .dark .ce2-metric-card:hover {
+                background-color: #1a2438;
+                border-color: #7dd3fc;
+                box-shadow: 0 4px 12px rgba(125, 211, 252, 0.12);
+            }
+            .ce2-metric-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+                margin-bottom: 1rem;
+            }
+            .ce2-metric-label {
+                font-size: 0.875rem;
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+                color: #70787d;
+            }
+            .dark .ce2-metric-label {
+                color: #a0b4c4;
+            }
+            .ce2-info-icon {
+                cursor: help;
+                font-size: 1.25rem;
+                opacity: 0.6;
+                transition: opacity 0.2s;
+                user-select: none;
+            }
+            .ce2-metric-card:hover .ce2-info-icon {
+                opacity: 1;
+            }
+            .ce2-metric-value {
+                font-size: 2.5rem;
+                font-weight: 700;
+                color: #191c1e;
+                margin-bottom: 0.5rem;
+            }
+            .dark .ce2-metric-value {
+                color: #e0e8f0;
+            }
+            .ce2-metric-trend {
+                font-size: 0.875rem;
+                font-weight: 500;
+                color: #70787d;
+            }
+            .dark .ce2-metric-trend {
+                color: #a0b4c4;
+            }
+            .ce2-tooltip {
+                position: absolute;
+                background-color: #1a1a1a;
+                color: #ffffff;
+                padding: 1rem;
+                border-radius: 0.5rem;
+                border: 1px solid #333;
+                width: 320px;
+                z-index: 50;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+                top: 100%;
+                left: 50%;
+                transform: translateX(-50%) translateY(0.5rem);
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.2s;
+                pointer-events: none;
+            }
+            .dark .ce2-tooltip {
+                background-color: #0a0e1a;
+                border: 1px solid #2a3a48;
+            }
+            .ce2-metric-card:hover .ce2-tooltip {
+                opacity: 1;
+                visibility: visible;
+            }
+            .ce2-tooltip-title {
+                margin: 0 0 0.75rem 0;
+                font-size: 0.875rem;
+                font-weight: 700;
+                color: #fa76b1;
+            }
+            .ce2-tooltip-section {
+                margin: 0.5rem 0;
+                font-size: 0.75rem;
+                line-height: 1.4;
+            }
+            .ce2-tooltip-section strong {
+                color: #fa76b1;
+            }
+            .ce2-tooltip-formula {
+                display: block;
+                background: rgba(250, 118, 177, 0.1);
+                padding: 0.5rem;
+                border-radius: 0.25rem;
+                font-size: 0.7rem;
+                color: #fa76b1;
+                margin: 0.5rem 0;
+                word-break: break-word;
+                font-family: 'Courier New', monospace;
+            }
+            .ce2-tooltip-ranges {
+                list-style: none;
+                padding: 0;
+                margin: 0.5rem 0;
+                font-size: 0.7rem;
+            }
+            .ce2-tooltip-ranges li {
+                padding: 0.25rem 0;
+            }
+            .ce2-metric-status {
+                display: inline-block;
+                padding: 0.25rem 0.75rem;
+                border-radius: 9999px;
+                font-size: 0.75rem;
+                font-weight: 600;
+                text-transform: uppercase;
+                margin-top: 0.5rem;
+            }
+            .ce2-metric-status.good {
+                background-color: #c8e6c9;
+                color: #1b5e20;
+            }
+            .ce2-metric-status.excellent {
+                background-color: #b3e5fc;
+                color: #01579b;
+            }
+            .dark .ce2-metric-status.good {
+                background-color: #1b5e20;
+                color: #c8e6c9;
+            }
+            .dark .ce2-metric-status.excellent {
+                background-color: #01579b;
+                color: #b3e5fc;
+            }
         </style>
     </head>
     <body class="min-h-screen bg-background text-on-surface">
@@ -286,6 +437,10 @@
                         <div class="drawer-item flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer font-medium text-sm" onclick="switchSection('recognitions', event)">
                             <span class="material-symbols-outlined text-lg">emoji_events</span>
                             Logros
+                        </div>
+                        <div class="drawer-item flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer font-medium text-sm" onclick="switchSection('ce2-impact', event)">
+                            <span class="material-symbols-outlined text-lg">auto_awesome</span>
+                            CE2 Impact
                         </div>
                     </nav>
                 </div>
@@ -1002,6 +1157,42 @@
                         <span id="recognitions-timestamp">Cargando datos...</span>
                     </p>
                 </section>
+
+                <section class="max-w-7xl mx-auto" id="ce2-impact" style="display: none;">
+                    <div class="mb-8">
+                        <h1 class="text-3xl font-bold text-on-surface mb-2">CE2 Impact Dashboard</h1>
+                        <p class="text-on-surface-variant">Métricas de resolución y calidad de incidentes críticos</p>
+                    </div>
+
+                    <div class="mb-6 flex gap-4">
+                        <select id="ce2-month-select" class="px-4 py-2 rounded-lg border border-outline bg-surface text-on-surface text-sm">
+                            <option value="Enero">Enero</option>
+                            <option value="Febrero">Febrero</option>
+                            <option value="Marzo">Marzo</option>
+                            <option value="Abril">Abril</option>
+                            <option value="Mayo" selected>Mayo</option>
+                            <option value="Junio">Junio</option>
+                        </select>
+                        <button onclick="loadCE2Metrics()" class="px-6 py-2 rounded-lg bg-primary text-on-primary font-medium text-sm hover:bg-primary/90 transition-all">
+                            Cargar
+                        </button>
+                    </div>
+
+                    <div id="ce2-metrics-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                        <!-- Métricas renderizadas dinámicamente aquí -->
+                    </div>
+
+                    <div class="glacier-card rounded-2xl p-6">
+                        <h3 class="text-lg font-semibold text-on-surface mb-4">Resumen de Período</h3>
+                        <div id="ce2-summary" class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <!-- Resumen renderizado dinámicamente aquí -->
+                        </div>
+                    </div>
+
+                    <p class="text-xs text-on-surface-variant mt-6">
+                        <span id="ce2-timestamp">Cargando datos...</span>
+                    </p>
+                </section>
             </main>
         </div>
 
@@ -1141,6 +1332,7 @@
                 document.getElementById('issues').style.display = section === 'issues' ? 'block' : 'none';
                 document.getElementById('team-workload').style.display = section === 'team-workload' ? 'block' : 'none';
                 document.getElementById('recognitions').style.display = section === 'recognitions' ? 'block' : 'none';
+                document.getElementById('ce2-impact').style.display = section === 'ce2-impact' ? 'block' : 'none';
                 document.querySelectorAll('.drawer-item').forEach(item => item.classList.remove('active'));
                 evt.target.closest('.drawer-item').classList.add('active');
 
@@ -1881,9 +2073,11 @@
                     const issuesSection = document.getElementById('issues');
                     const projectsSection = document.getElementById('projects');
                     const teamWorkloadSection = document.getElementById('team-workload');
+                    const ce2Section = document.getElementById('ce2-impact');
 
                     const activeSection = issuesSection.style.display !== 'none' ? 'issues' :
-                                        projectsSection.style.display !== 'none' ? 'projects' : 'team-workload';
+                                        projectsSection.style.display !== 'none' ? 'projects' :
+                                        teamWorkloadSection.style.display !== 'none' ? 'team-workload' : 'ce2-impact';
 
                     // Get current month if in Issues/Projects section
                     const activeMonthBtn = document.querySelector('button[data-month].active') ||
@@ -1912,6 +2106,8 @@
                         const currentFilter = activeFilterBtn ? activeFilterBtn.dataset.filter : 'all';
 
                         await loadTeamWorkload(currentFilter);
+                    } else if (activeSection === 'ce2-impact') {
+                        await loadCE2Metrics();
                     }
 
                     console.log(`✓ Data refreshed for ${activeSection} section`);
@@ -1960,6 +2156,83 @@
                     }
                 });
             });
+
+            // ========== CE2 METRICS FUNCTIONS ==========
+            window.loadCE2Metrics = async function() {
+                const monthSelect = document.getElementById('ce2-month-select');
+                const month = monthSelect?.value || 'Mayo';
+
+                showLoadingState();
+                try {
+                    const metricsGrid = document.getElementById('ce2-metrics-grid');
+                    metricsGrid.innerHTML = '<p class="text-on-surface-variant col-span-full">Cargando métricas...</p>';
+
+                    const response = await fetch(`${WORKER_CONFIG.baseUrl}/api/ce2/metrics/summary?month=${month}&_t=${Date.now()}`);
+                    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+                    const data = await response.json();
+                    renderCE2Metrics(data);
+
+                    const timestamp = document.getElementById('ce2-timestamp');
+                    if (timestamp) {
+                        timestamp.textContent = `Actualizado: ${new Date(data.cached_at).toLocaleString('es-ES')}`;
+                    }
+                } catch (error) {
+                    console.error('Error loading CE2 metrics:', error);
+                    const metricsGrid = document.getElementById('ce2-metrics-grid');
+                    metricsGrid.innerHTML = '<p class="text-error col-span-full">Error al cargar métricas</p>';
+                } finally {
+                    hideLoadingState();
+                }
+            };
+
+            function renderCE2Metrics(data) {
+                const metricsGrid = document.getElementById('ce2-metrics-grid');
+                metricsGrid.innerHTML = '';
+
+                const metrics = data.summary;
+                const metricsList = [
+                    { key: 'vip_resolution_rate', label: 'VIP Resolution Rate' },
+                    { key: 'fcrr', label: 'FCRR' },
+                    { key: 'reopen_rate', label: 'Re-open Rate' },
+                    { key: 'containment_rate', label: 'Containment Rate' },
+                    { key: 'mttr_urgent_hours', label: 'MTTR (P1)' },
+                    { key: 'mttr_high_hours', label: 'MTTR (P2)' },
+                    { key: 'downtime_saved', label: 'Downtime Saved' },
+                    { key: 'fire_prevention', label: 'Fire Prevention' },
+                    { key: 'noise_reduction', label: 'Noise Reduction' },
+                ];
+
+                metricsList.forEach(({ key, label }) => {
+                    const metric = metrics[key];
+                    if (!metric) return;
+
+                    const card = document.createElement('div');
+                    card.className = 'ce2-metric-card';
+
+                    const status = metric.value >= 85 ? 'excellent' : metric.value >= 70 ? 'good' : 'warning';
+
+                    card.innerHTML = `
+                        <div class="ce2-metric-header">
+                            <span class="ce2-metric-label">${label}</span>
+                            <span class="ce2-info-icon" title="Pasar mouse para más información">ℹ️</span>
+                        </div>
+                        <div class="ce2-metric-value">${metric.value.toFixed(1)}<span style="font-size: 0.6em; margin-left: 0.5rem;">${metric.unit}</span></div>
+                        <div class="ce2-metric-trend">${metric.tooltip}</div>
+                        <span class="ce2-metric-status ${status}">${status}</span>
+
+                        <div class="ce2-tooltip">
+                            <div class="ce2-tooltip-title">${label}</div>
+                            <div class="ce2-tooltip-section">
+                                <strong>Audiencia:</strong> ${metric.audience}
+                            </div>
+                        </div>
+                    `;
+
+                    metricsGrid.appendChild(card);
+                });
+            }
+            // ========== END CE2 METRICS FUNCTIONS ==========
 
             // ========== INITIALIZE PAGE WITH DEFAULT MONTH DATA ==========
             (async function initializePageData() {

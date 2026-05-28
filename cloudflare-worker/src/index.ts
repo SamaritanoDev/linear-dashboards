@@ -1,6 +1,7 @@
 import { LinearClient } from "./linear/client";
 import { IssuesService } from "./services/issues";
 import { ProjectsService } from "./services/projects";
+import { CE2MetricsService } from "./services/ce2-metrics";
 import { getMonthNumber, getMonthName, getCurrentYear, jsonResponse, errorResponse } from "./utils";
 
 interface Env {
@@ -47,6 +48,42 @@ export default {
 
     if (pathname === "/api/recognitions") {
       return handleRecognitions(request, env, client);
+    }
+
+    if (pathname === "/api/ce2/metrics/vip-resolution-rate") {
+      return handleCE2VIPResolutionRate(request, env, client);
+    }
+
+    if (pathname === "/api/ce2/metrics/fcrr") {
+      return handleCE2FCRR(request, env, client);
+    }
+
+    if (pathname === "/api/ce2/metrics/reopen-rate") {
+      return handleCE2ReopenRate(request, env, client);
+    }
+
+    if (pathname === "/api/ce2/metrics/containment-rate") {
+      return handleCE2ContainmentRate(request, env, client);
+    }
+
+    if (pathname === "/api/ce2/metrics/mttr") {
+      return handleCE2MTTR(request, env, client);
+    }
+
+    if (pathname === "/api/ce2/metrics/downtime-saved") {
+      return handleCE2DowntimeSaved(request, env, client);
+    }
+
+    if (pathname === "/api/ce2/metrics/fire-prevention") {
+      return handleCE2FirePrevention(request, env, client);
+    }
+
+    if (pathname === "/api/ce2/metrics/noise-reduction") {
+      return handleCE2NoiseReduction(request, env, client);
+    }
+
+    if (pathname === "/api/ce2/metrics/summary") {
+      return handleCE2MetricsSummary(request, env, client);
     }
 
     return errorResponse("Not found", 404);
@@ -408,5 +445,310 @@ async function handleRecognitions(
   } catch (error) {
     console.error("Recognitions error:", error);
     return errorResponse("Failed to calculate recognitions", 500);
+  }
+}
+
+async function handleCE2VIPResolutionRate(
+  request: Request,
+  env: Env,
+  client: LinearClient
+): Promise<Response> {
+  try {
+    const url = new URL(request.url);
+    const monthParam = url.searchParams.get("month");
+
+    if (!monthParam) {
+      return errorResponse("month parameter is required");
+    }
+
+    const monthNum = getMonthNumber(monthParam);
+    const year = getCurrentYear();
+
+    const ce2Service = new CE2MetricsService(client);
+    const metric = await ce2Service.calculateVIPResolutionRate(year, monthNum);
+
+    return jsonResponse(metric);
+  } catch (error) {
+    console.error("CE2 VIP Resolution Rate error:", error);
+    return errorResponse("Failed to calculate VIP resolution rate", 500);
+  }
+}
+
+async function handleCE2FCRR(
+  request: Request,
+  env: Env,
+  client: LinearClient
+): Promise<Response> {
+  try {
+    const url = new URL(request.url);
+    const monthParam = url.searchParams.get("month");
+
+    if (!monthParam) {
+      return errorResponse("month parameter is required");
+    }
+
+    const monthNum = getMonthNumber(monthParam);
+    const year = getCurrentYear();
+
+    const ce2Service = new CE2MetricsService(client);
+    const metric = await ce2Service.calculateFCRR(year, monthNum);
+
+    return jsonResponse(metric);
+  } catch (error) {
+    console.error("CE2 FCRR error:", error);
+    return errorResponse("Failed to calculate FCRR", 500);
+  }
+}
+
+async function handleCE2ReopenRate(
+  request: Request,
+  env: Env,
+  client: LinearClient
+): Promise<Response> {
+  try {
+    const url = new URL(request.url);
+    const monthParam = url.searchParams.get("month");
+
+    if (!monthParam) {
+      return errorResponse("month parameter is required");
+    }
+
+    const monthNum = getMonthNumber(monthParam);
+    const year = getCurrentYear();
+
+    const ce2Service = new CE2MetricsService(client);
+    const metric = await ce2Service.calculateReopenRate(year, monthNum);
+
+    return jsonResponse(metric);
+  } catch (error) {
+    console.error("CE2 Reopen Rate error:", error);
+    return errorResponse("Failed to calculate reopen rate", 500);
+  }
+}
+
+async function handleCE2ContainmentRate(
+  request: Request,
+  env: Env,
+  client: LinearClient
+): Promise<Response> {
+  try {
+    const url = new URL(request.url);
+    const monthParam = url.searchParams.get("month");
+
+    if (!monthParam) {
+      return errorResponse("month parameter is required");
+    }
+
+    const monthNum = getMonthNumber(monthParam);
+    const year = getCurrentYear();
+
+    const ce2Service = new CE2MetricsService(client);
+    const metric = await ce2Service.calculateContainmentRate(year, monthNum);
+
+    return jsonResponse(metric);
+  } catch (error) {
+    console.error("CE2 Containment Rate error:", error);
+    return errorResponse("Failed to calculate containment rate", 500);
+  }
+}
+
+async function handleCE2MTTR(
+  request: Request,
+  env: Env,
+  client: LinearClient
+): Promise<Response> {
+  try {
+    const url = new URL(request.url);
+    const monthParam = url.searchParams.get("month");
+
+    if (!monthParam) {
+      return errorResponse("month parameter is required");
+    }
+
+    const monthNum = getMonthNumber(monthParam);
+    const year = getCurrentYear();
+
+    const ce2Service = new CE2MetricsService(client);
+    const metric = await ce2Service.calculateMTTR(year, monthNum);
+
+    return jsonResponse(metric);
+  } catch (error) {
+    console.error("CE2 MTTR error:", error);
+    return errorResponse("Failed to calculate MTTR", 500);
+  }
+}
+
+async function handleCE2DowntimeSaved(
+  request: Request,
+  env: Env,
+  client: LinearClient
+): Promise<Response> {
+  try {
+    const url = new URL(request.url);
+    const monthParam = url.searchParams.get("month");
+
+    if (!monthParam) {
+      return errorResponse("month parameter is required");
+    }
+
+    const monthNum = getMonthNumber(monthParam);
+    const year = getCurrentYear();
+
+    const ce2Service = new CE2MetricsService(client);
+    const metric = await ce2Service.calculateDowntimeSaved(year, monthNum);
+
+    return jsonResponse(metric);
+  } catch (error) {
+    console.error("CE2 Downtime Saved error:", error);
+    return errorResponse("Failed to calculate downtime saved", 500);
+  }
+}
+
+async function handleCE2FirePrevention(
+  request: Request,
+  env: Env,
+  client: LinearClient
+): Promise<Response> {
+  try {
+    const url = new URL(request.url);
+    const monthParam = url.searchParams.get("month");
+
+    if (!monthParam) {
+      return errorResponse("month parameter is required");
+    }
+
+    const monthNum = getMonthNumber(monthParam);
+    const year = getCurrentYear();
+
+    const ce2Service = new CE2MetricsService(client);
+    const metric = await ce2Service.calculateFirePrevention(year, monthNum);
+
+    return jsonResponse(metric);
+  } catch (error) {
+    console.error("CE2 Fire Prevention error:", error);
+    return errorResponse("Failed to calculate fire prevention", 500);
+  }
+}
+
+async function handleCE2NoiseReduction(
+  request: Request,
+  env: Env,
+  client: LinearClient
+): Promise<Response> {
+  try {
+    const url = new URL(request.url);
+    const monthParam = url.searchParams.get("month");
+
+    if (!monthParam) {
+      return errorResponse("month parameter is required");
+    }
+
+    const monthNum = getMonthNumber(monthParam);
+    const year = getCurrentYear();
+
+    const ce2Service = new CE2MetricsService(client);
+    const metric = await ce2Service.calculateNoiseReduction(year, monthNum);
+
+    return jsonResponse(metric);
+  } catch (error) {
+    console.error("CE2 Noise Reduction error:", error);
+    return errorResponse("Failed to calculate noise reduction", 500);
+  }
+}
+
+async function handleCE2MetricsSummary(
+  request: Request,
+  env: Env,
+  client: LinearClient
+): Promise<Response> {
+  try {
+    const url = new URL(request.url);
+    const monthParam = url.searchParams.get("month");
+
+    if (!monthParam) {
+      return errorResponse("month parameter is required");
+    }
+
+    const monthNum = getMonthNumber(monthParam);
+    const year = getCurrentYear();
+
+    const ce2Service = new CE2MetricsService(client);
+    const [vipRate, fcrr, reopen, containment, mttr, downtime, firePrev, noise] = await Promise.all([
+      ce2Service.calculateVIPResolutionRate(year, monthNum),
+      ce2Service.calculateFCRR(year, monthNum),
+      ce2Service.calculateReopenRate(year, monthNum),
+      ce2Service.calculateContainmentRate(year, monthNum),
+      ce2Service.calculateMTTR(year, monthNum),
+      ce2Service.calculateDowntimeSaved(year, monthNum),
+      ce2Service.calculateFirePrevention(year, monthNum),
+      ce2Service.calculateNoiseReduction(year, monthNum),
+    ]);
+
+    const summary = {
+      period: vipRate.period,
+      team: "CE2",
+      summary: {
+        vip_resolution_rate: {
+          value: vipRate.value,
+          unit: vipRate.unit,
+          tooltip: vipRate.disclaimer.what_measures,
+          audience: "Gerencia / Stakeholders",
+        },
+        fcrr: {
+          value: fcrr.value,
+          unit: fcrr.unit,
+          tooltip: fcrr.disclaimer.what_measures,
+          audience: "CTO / PM",
+        },
+        reopen_rate: {
+          value: reopen.value,
+          unit: reopen.unit,
+          tooltip: reopen.disclaimer.what_measures,
+          audience: "CTO / Tech Leads",
+        },
+        containment_rate: {
+          value: containment.value,
+          unit: containment.unit,
+          tooltip: containment.disclaimer.what_measures,
+          audience: "PM / Back Office",
+        },
+        mttr_urgent_hours: {
+          value: mttr.data.urgent.mttr_hours,
+          unit: "hours",
+          tooltip: `Tiempo promedio resolver P1 | Fórmula: ${mttr.disclaimer.how_calculated}`,
+          audience: "CTO / PM",
+        },
+        mttr_high_hours: {
+          value: mttr.data.high.mttr_hours,
+          unit: "hours",
+          tooltip: `Tiempo promedio resolver P2 | Fórmula: ${mttr.disclaimer.how_calculated}`,
+          audience: "CTO / PM",
+        },
+        downtime_saved: {
+          value: downtime.value,
+          unit: downtime.unit,
+          tooltip: downtime.disclaimer.what_measures,
+          audience: "Gerencia / Stakeholders",
+        },
+        fire_prevention: {
+          value: firePrev.value,
+          unit: firePrev.unit,
+          tooltip: firePrev.disclaimer.what_measures,
+          audience: "CTO / Gerencia",
+        },
+        noise_reduction: {
+          value: noise.value,
+          unit: noise.unit,
+          tooltip: noise.disclaimer.what_measures,
+          audience: "PM / Back Office",
+        },
+      },
+      cached_at: new Date().toISOString(),
+    };
+
+    return jsonResponse(summary);
+  } catch (error) {
+    console.error("CE2 Metrics Summary error:", error);
+    return errorResponse("Failed to calculate metrics summary", 500);
   }
 }

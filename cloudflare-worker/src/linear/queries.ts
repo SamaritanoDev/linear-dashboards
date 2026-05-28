@@ -81,3 +81,55 @@ export function getIssuesQueryForMonth(
 }
 `;
 }
+
+export function getCE2MetricsQueryForMonth(
+  year: number,
+  month: number
+): string {
+  const startDate = new Date(year, month - 1, 1);
+  const endDate = new Date(
+    month === 12 ? year + 1 : year,
+    month === 12 ? 0 : month,
+    1
+  );
+
+  const startStr = startDate.toISOString().split("T")[0];
+  const endStr = endDate.toISOString().split("T")[0];
+
+  return `
+{
+  issues(
+    first: 500
+    filter: {
+      team: {key: "CE2"}
+      project: {null: true}
+      createdAt: {gte: "${startStr}T00:00:00Z", lt: "${endStr}T00:00:00Z"}
+    }
+  ) {
+    nodes {
+      id
+      identifier
+      title
+      state {name}
+      priority
+      createdAt
+      completedAt
+      assignee {name}
+      team {key}
+      historyEntries(first: 100) {
+        nodes {
+          id
+          type
+          fromState {name}
+          toState {name}
+          fromPriority
+          toPriority
+          updatedAt
+          actor {name}
+        }
+      }
+    }
+  }
+}
+`;
+}
