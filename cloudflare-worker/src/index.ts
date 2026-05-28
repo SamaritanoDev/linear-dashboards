@@ -54,6 +54,10 @@ export default {
       return handleCE2MetricsSummary(request, env, client);
     }
 
+    if (pathname === "/api/ce2/debug/raw-issues") {
+      return handleCE2DebugRawIssues(request, env, client);
+    }
+
     return errorResponse("Not found", 404);
   },
 };
@@ -502,5 +506,59 @@ async function handleCE2MetricsSummary(
     const errorMessage = error instanceof Error ? error.message : String(error);
     console.error("CE2 Metrics Summary error:", errorMessage, error);
     return errorResponse(`Failed to calculate metrics summary: ${errorMessage}`, 500);
+  }
+}
+
+async function handleCE2DebugRawIssues(
+  request: Request,
+  env: Env,
+  client: LinearClient
+): Promise<Response> {
+  try {
+    const url = new URL(request.url);
+    const monthParam = url.searchParams.get("month");
+
+    if (!monthParam) {
+      return errorResponse("month parameter is required");
+    }
+
+    const monthNum = getMonthNumber(monthParam);
+    const year = getCurrentYear();
+
+    const ce2Service = new CE2MetricsService(client);
+
+    // Access the private query method indirectly by importing it
+    const { getCE2MetricsQueryForMonth } = await import("./linear/queries");
+    const query = getCE2MetricsQueryForMonth(year, monthNum);
+
+    const result = await client.query<{ issues: { nodes: any[] } }>(query);
+
+    if (!result?.issues?.nodes) {
+      return jsonResponse({ error: "No issues found", query });
+    }
+
+    // Return sample of raw issues with all fields
+    const sample = result.issues.nodes.slice(0, 5).map((issue: any) => ({
+      identifier: issue.identifier,
+      title: issue.title,
+      state: issue.state,
+      priority: issue.priority,
+      createdAt: issue.createdAt,
+      completedAt: issue.completedAt,
+      updatedAt: issue.updatedAt,
+      team: issue.team,
+    }));
+
+    return jsonResponse({
+      total_issues: result.issues.nodes.length,
+      unique_states: [...new Set(result.issues.nodes.map((i: any) => i.state?.name))],
+      unique_priorities: [...new Set(result.issues.nodes.map((i: any) => i.priority))],
+      sample_issues: sample,
+      period: `${year}-${monthNum.toString().padStart(2, "0")}`,
+    });
+  } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    console.error("CE2 Debug error:", errorMessage);
+    return errorResponse(`Debug error: ${errorMessage}`, 500);
   }
 }
