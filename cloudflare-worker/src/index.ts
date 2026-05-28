@@ -432,6 +432,7 @@ async function handleCE2MetricsSummary(
   try {
     const url = new URL(request.url);
     const monthParam = url.searchParams.get("month");
+    const filterParam = url.searchParams.get("filter") as "with_project" | "without_project" | null;
 
     if (!monthParam) {
       return errorResponse("month parameter is required");
@@ -439,9 +440,10 @@ async function handleCE2MetricsSummary(
 
     const monthNum = getMonthNumber(monthParam);
     const year = getCurrentYear();
+    const filter = filterParam || "without_project";
 
     const ce2Service = new CE2MetricsService(client);
-    const metrics = await ce2Service.getMetricsForMonth(year, monthNum);
+    const metrics = await ce2Service.getMetricsForMonth(year, monthNum, filter);
 
     const summary = {
       period: metrics.vipResolutionRate.period,

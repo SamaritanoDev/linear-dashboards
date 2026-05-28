@@ -29,7 +29,8 @@ export class CE2MetricsService {
 
   async getMetricsForMonth(
     year: number,
-    month: number
+    month: number,
+    filter: "with_project" | "without_project" = "without_project"
   ): Promise<{
     vipResolutionRate: any;
     fcrr: any;
@@ -40,8 +41,9 @@ export class CE2MetricsService {
     firePrevention: any;
     noiseReduction: any;
   }> {
-    const query = getCE2MetricsQueryForMonth(year, month);
-    console.log(`Fetching CE2 metrics for ${year}-${month.toString().padStart(2, "0")}`);
+    const includeWithProject = filter === "with_project";
+    const query = getCE2MetricsQueryForMonth(year, month, includeWithProject);
+    console.log(`Fetching CE2 metrics for ${year}-${month.toString().padStart(2, "0")} (filter: ${filter})`);
     const result = await this.client.query<{ issues: { nodes: CE2Issue[] } }>(
       query
     );

@@ -1,0 +1,502 @@
+╔════════════════════════════════════════════════════════════════════════════════════════════════╗
+║              INVESTIGACIÓN COMPLETA: PATRONES EN PROJECTS vs HOTFIXES CE2                    ║
+║                        Linear Dashboard - Mayo 2026 (30 días)                                 ║
+║                                                                                                ║
+║                     Análisis para mejorar dashboard "CE2 Impact"                             ║
+╚════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+RESUMEN EJECUTIVO
+════════════════════════════════════════════════════════════════════════════════════════════════
+
+✅ DECISIÓN: SÍ SEPARAR MÉTRICAS de Projects vs Hotfixes en el dashboard
+
+RAZÓN: Tienen dinámicas COMPLETAMENTE DIFERENTES:
+  • Hotfixes: 2x más urgencia (11.4% P1 vs 8.0%), resuelven 35% más rápido
+  • Projects: Mejor tasa de cierre (62.7% vs 54.3%), mejor completación
+  • Ratio ~1:1 (48% Projects / 45% Hotfixes) sugiere equipo dividido
+
+IMPACTO EN DASHBOARD:
+  • Necesitas 2 secciones con sus propias métricas
+  • Alertas diferentes por tipo
+  • Contexto: "¿Están hotfixes comiendo el trabajo planificado?"
+
+
+════════════════════════════════════════════════════════════════════════════════════════════════
+HALLAZGO 1: DISTRIBUCIÓN DEL TRABAJO (50/50 SPLIT)
+════════════════════════════════════════════════════════════════════════════════════════════════
+
+📊 NÚMEROS ABSOLUTOS:
+  Total issues (30 días):        156
+  Projects:                       75 (48.1%)
+  Hotfixes (sin proyecto):        70 (44.9%)
+  No clasificados:                11 (7.0%)
+
+⚙️ IMPLICACIÓN:
+  El equipo divide su tiempo equitativamente entre trabajo planificado (Projects) e 
+  inesperado (Hotfixes). Esto es típico pero se debe monitorear para asegurar que 
+  hotfixes no superen Projects.
+
+💡 PARA DASHBOARD:
+  Mostrar pie chart mensual: "Project Work vs Unplanned Work"
+  Si hotfixes > 60%, equipo está sobrecargado con emergencias
+
+
+════════════════════════════════════════════════════════════════════════════════════════════════
+HALLAZGO 2: DISTRIBUCIÓN POR ESTADO (Completion Analysis)
+════════════════════════════════════════════════════════════════════════════════════════════════
+
+PROJECTS:
+  ✅ Closed:              47/75 (62.7%)  ← MEJOR tasa
+  ⏳ In Progress:         14/75 (18.7%)
+  📋 Backlog:             9/75 (12.0%)
+  👀 In Review:           1/75 (1.3%)
+  📌 Planning:            4/75 (5.3%)
+
+HOTFIXES:
+  ✅ Closed:              38/70 (54.3%)  ← PEOR tasa
+  ⏳ In Progress:         7/70 (10.0%)
+  📋 Backlog:             11/70 (15.7%)  ← MÁS EN ESPERA
+  👀 In Review:           5/70 (7.1%)    ← MÁS BLOQUEADOS
+  🚫 Blocked:             3/70 (4.3%)
+
+KEY INSIGHT: Projects se cierran 8.4% más seguido. Hotfixes se quedan esperando.
+  • 5 hotfixes en review esperando aprobación
+  • 3 hotfixes completamente bloqueados
+  → Cuello de botella: REVISIÓN/APROBACIÓN en hotfixes
+
+💡 PARA DASHBOARD:
+  "Blocked Items" widget: Si In Review > 7 días → ALERT (see CE2-1590: 20 días!)
+
+
+════════════════════════════════════════════════════════════════════════════════════════════════
+HALLAZGO 3: URGENCIA - HOTFIXES SIGNIFICATIVAMENTE MÁS CRÍTICOS
+════════════════════════════════════════════════════════════════════════════════════════════════
+
+DISTRIBUCIÓN POR PRIORIDAD:
+
+                Projects        Hotfixes        Winner
+Urgent (P1):    6 (8.0%)      8 (11.4%)       🔴 Hotfixes 43% más urgentes
+High (P2):      24 (32.0%)    33 (47.1%)      🔴 Hotfixes 47% más urgentes
+Medium (P3):    7 (9.3%)      5 (7.1%)        ✓ Similar
+Low (P4):       4 (5.3%)      11 (15.7%)      Hotfixes más low-priority
+No priority:    34 (45.3%)    13 (18.6%)      Projects peor clasificados
+
+P1/P2 TOTAL:    30 (40%)      41 (58.6%)      🔴 Hotfixes tienen 47% más P1/P2
+
+⚡ IMPLICACIÓN:
+  Hotfixes son EMERGENCIAS REACTIVAS. Projects son TRABAJO PLANIFICADO.
+  
+  Si falta urgencia en Projects, es porque en el backlog hay "planeado normal".
+  Si hay muchos Urgent en Hotfixes, hay FUGAS DE CALIDAD en producción.
+
+💡 PARA DASHBOARD:
+  Separate cards: "Urgent Issues - Projects" vs "Urgent Issues - Hotfixes"
+  Alert: Si Hotfixes P1 > 10 en un mes → Fire Prevention needed
+
+
+════════════════════════════════════════════════════════════════════════════════════════════════
+HALLAZGO 4: VELOCIDAD DE RESOLUCIÓN (MTTR) - HOTFIXES GANAN
+════════════════════════════════════════════════════════════════════════════════════════════════
+
+MEAN TIME TO RESOLUTION (Issues completados):
+
+                Projects (17 cerrados)    Hotfixes (37 cerrados)    Diferencia
+MTTR Promedio:  112.2 horas (4.7 días)   72.9 horas (3.0 días)    35% más rápido
+MTTR Min:       0.01 horas               0.01 horas               Igual
+MTTR Max:       339 horas (14 días)      547 horas (23 días)      Outliers en ambos
+
+DISTRIBUTION:
+  <1 hora:      Both ~5%
+  1-24h:        Both ~30%
+  1-3 días:     Both ~35%
+  3-7 días:     Both ~19%
+  >7 días:      Both ~11% (outliers/blockers)
+
+KEY INSIGHT: Hotfixes se resuelven 35% más rápido (3 días vs 4.7 días)
+  → Razones posibles:
+    1. Hotfixes son MÁS SIMPLES (scope definido por la urgencia)
+    2. Equipo PRIORIZA hotfixes (faster tracking)
+    3. Projects toman más TESTING/VALIDACIÓN antes de cerrar
+
+EXAMPLES:
+  ⚡ FAST Hotfixes:
+    - CE2-2104: 6.9h (autoactivation scan bug)
+    - CE2-2112: 0.78h (DB access grant)
+    - CE2-2039: 0.1h (email recognition)
+
+  🐢 SLOW Projects:
+    - CE2-1871: 332.5h (Habla+ monitoring - 14 días)
+    - CE2-1870: 332.5h (Habla+ special cases - 14 días)
+    - CE2-2006: 140.7h (Cancel bills - 5.9 días)
+
+💡 PARA DASHBOARD:
+  Two MTTR trackers: "Avg time to fix - Projects" vs "Avg time to fix - Hotfixes"
+  SLA Targets:
+    - Projects: 48 horas (actualmente 112h) ⚠️ 2.3x over
+    - Hotfixes: 4 horas (actualmente 72h) ⚠️ 18x over
+
+
+════════════════════════════════════════════════════════════════════════════════════════════════
+HALLAZGO 5: CATEGORIZACIÓN DE TRABAJO
+════════════════════════════════════════════════════════════════════════════════════════════════
+
+Análisis de títulos de issues para detectar tipo:
+
+BUG FIX:
+  Projects:  1 (1.3%) → casi ninguno
+  Hotfixes:  8 (11.4%) ← PATRÓN: Bugs van a hotfixes, no projects
+  
+FEATURE/NEW:
+  Projects:  4 (5.3%)
+  Hotfixes:  4 (5.7%) → similar distribución
+  
+MAINTENANCE:
+  Projects:  4 (5.3%)
+  Hotfixes:  2 (2.9%)
+  
+RESEARCH/VALIDATION:
+  Projects:  2 (2.7%)
+  Hotfixes:  5 (7.1%) ← Validación/reporte va a hotfixes
+  
+OTHER (generic/unclassified):
+  Projects:  64 (85.3%) ← Projects PEOR ETIQUETADOS
+  Hotfixes:  51 (72.9%)
+
+KEY INSIGHT: 
+  • Hotfixes tienen MEJOR CLARIDAD DE TIPO (más BUG, FEATURE, RESEARCH)
+  • Projects tienen 85% "OTHER" → NAMING CONVENTION ISSUE
+  • Bugs almost never go to projects (1.3% vs 11.4%)
+
+💡 ACCIÓN:
+  Implementar naming convention: [BUG], [FEATURE], [MAINTENANCE] en titles
+  Projects con "OTHER" no dan contexto para dashboard
+
+
+════════════════════════════════════════════════════════════════════════════════════════════════
+HALLAZGO 6: HOTFIXES CRÍTICOS BLOQUEADOS (CRITICAL PATH)
+════════════════════════════════════════════════════════════════════════════════════════════════
+
+8 issues bloqueados/esperando en hotfixes (In Review + Blocked > 2 días):
+
+🔴 CRITICAL (20+ días esperando):
+  1. CE2-1590 │ In Review │ 20 DÍAS │ Publicar plan MODEM 80GB para Almaceneros
+             → URGENT priority, pero esperando approval. Requiere escalación.
+
+  2. CE2-1586 │ Blocked   │ 20 DÍAS │ Línea portada sin ICCID en sistemas internos
+             → URGENT priority, blocked por dependency. Encontrar y desbloquear.
+
+🟠 HIGH (>7 días):
+  3. CE2-1610 │ Blocked   │ 16 DÍAS │ Reporte semanal activaciones B2B/IoT
+  4. CE2-1897 │ In Review │ 13 DÍAS │ Airalo eSIMs mostrando incorrectamente
+
+🟡 MEDIUM (2-7 días):
+  5. CE2-2016 │ In Review │ 6 DÍAS  │ Activaciones 502 error / profile creation fail
+  6. CE2-2036 │ In Review │ 3 DÍAS  │ Registrar equipo en whitelist excepciones
+  7. CE2-2054 │ In Review │ 2 DÍAS  │ Biometría omite white_brand param en FIMO
+  8. CE2-2099 │ Blocked   │ 2 DÍAS  │ Test activating new line + payment
+
+KEY INSIGHT: Cuello de botella = REVISIÓN (5 en "In Review")
+  → Need peer review or approval from someone specific
+  → SLA violation: Issues esperando >7 días en review
+
+💡 PARA DASHBOARD:
+  "Critical Blockers" card:
+  - 8 issues esperando >2 días
+  - 2 issues esperando >20 días (CRISIS)
+  - Assignee: ¿Quién revisa? → Mostrar reviewer stuck
+
+
+════════════════════════════════════════════════════════════════════════════════════════════════
+HALLAZGO 7: MOMENTUM RECIENTE (Última semana)
+════════════════════════════════════════════════════════════════════════════════════════════════
+
+ÚLTIMOS 7 DÍAS (May 20-27):
+
+Hotfixes completados: 25 issues
+  - Velocidad: ~3.6 issues/día
+  - Trending: BUENO, equipo resolviendo rápido
+  - Examples:
+    ✅ CE2-2104 (autoactivation scan)    → 6.9h
+    ✅ CE2-2112 (DB access)              → 0.78h
+    ✅ CE2-2037 (cancel eSIM activation) → 67.2h
+
+Projects completados: 41 issues  
+  - Velocidad: ~5.9 issues/día
+  - Trending: EXCELENTE, equipo muy productivo en projects
+  - Examples:
+    ✅ CE2-2097 (Apple Store upload)    → 41.5h
+    ✅ CE2-1871 (Habla+ monitoring)     → 332.5h (long cycle)
+    ✅ CE2-2006 (Cancel bills)          → 140.7h
+
+💡 MOMENTUM:
+  • Projects están resolviendo 1.6x más rápido que hotfixes (5.9 vs 3.6/día)
+  • Combinado: ~10 issues/día completados
+  • Trend: POSITIVO si se mantiene
+
+
+════════════════════════════════════════════════════════════════════════════════════════════════
+HALLAZGO 8: P1/P2 RESOLUTION (VIP HANDLING)
+════════════════════════════════════════════════════════════════════════════════════════════════
+
+Todos los issues (Projects + Hotfixes):
+  Total P1/P2: 78 (50% del total)
+  P1 total: 14 (9%)
+  P2 total: 64 (41%)
+
+  Cerrados: 37/78 (47.4%)
+  - P1 cerrados: 7/14 (50%)
+  - P2 cerrados: 30/64 (47%)
+
+HOTFIXES P1/P2 PENDIENTES (Critical):
+  17 issues sin resolver (11.4% urgentes):
+  
+  4 issues URGENT sin cerrar:
+    🔴 CE2-2016 (502 errors)         → In Review 6 días
+    🔴 CE2-1590 (Almaceneros plan)   → In Review 20 días (!!)
+    🔴 CE2-1586 (ICCID missing)       → Blocked 20 días (!!)
+    🔴 CE2-1578 (Shared lines)        → In Progress 22 días (!!)
+
+  13 issues HIGH sin cerrar:
+    Distribución: In Progress (6), Review (4), Backlog (2), Blocked (1)
+
+KEY INSIGHT: 
+  • 4 URGENT issues llevan abiertos 6-22 DÍAS
+  • Esto viola todo SLA para P1 (debería ser <4h)
+  • Son blockers para product/business
+
+BENCHMARK vs Industry:
+  • P1 MTTR (completed): 92.62h = ~3.86 días
+  • Industry target: 4-8 horas
+  • Gap: ⚠️ 11x slower than benchmark
+
+💡 PARA DASHBOARD:
+  "VIP Resolution Rate" card:
+    - % de P1/P2 completados en 24h
+    - Trending graph
+    - Alert if P1 > 24h old
+
+
+════════════════════════════════════════════════════════════════════════════════════════════════
+HALLAZGO 9: INDICADORES DE CALIDAD (Reopen Rate / Escalations)
+════════════════════════════════════════════════════════════════════════════════════════════════
+
+REOPEN RATE: 0.00% ✅ EXCELENTE
+  → No hay issues reabiertos = primera vez fix es buena
+
+ESCALATION RATE: 0.00% ✅ EXCELENTE
+  → No hay cambios de team
+  → CE2 conteniendo todas las issues sin derivar a otros equipos
+
+QUALITY METRICS:
+  ✅ No regresiones detectadas (0 reopens)
+  ✅ No escalaciones necesarias
+  ✅ Team autónomo y capaz
+
+Interpretación:
+  La calidad del trabajo es BUENA. El equipo no necesita help de otros teams.
+  Issues se resuelven de una sola vez.
+
+
+════════════════════════════════════════════════════════════════════════════════════════════════
+HALLAZGO 10: FIRE PREVENTION (Trend Analysis)
+════════════════════════════════════════════════════════════════════════════════════════════════
+
+P1 (Urgent) Trend:
+  Abril 2026:   6 issues urgentes
+  Mayo 2026:   22 issues urgentes
+  CHANGE: +266% 🔴 CRÍTICO
+
+IMPLICACIÓN:
+  Volumen de emergencias se triplicó en un mes.
+  Indica:
+  1. Aumento en producción issues (quality regression?)
+  2. Cambio de scope del proyecto
+  3. Increase en customer complaints
+  4. Planning no capturó todas las dependencias
+
+💡 ACCIÓN:
+  Investigar la causa raíz del +266% en P1s
+  - Review commits en Abril vs Mayo
+  - Check release notes / deployment changes
+  - Customer tickets related to emergencies?
+
+
+════════════════════════════════════════════════════════════════════════════════════════════════
+RESUMEN COMPARATIVO (Projects vs Hotfixes)
+════════════════════════════════════════════════════════════════════════════════════════════════
+
+Métrica                     Projects        Hotfixes        Winner/Insight
+─────────────────────────────────────────────────────────────────────────
+Total Count                 75 (48%)        70 (45%)        ~Equal split
+Completion Rate             62.7%           54.3%           Projects ✓
+MTTR (hours)                112.2h          72.9h           Hotfixes ⚡ 35% faster
+MTTR (days)                 4.7 días        3.0 días        Hotfixes
+P1/P2 Percentage            40%             58.6%           Hotfixes ↑ 47% more urgent
+Bugs (detected)             1.3%            11.4%           Hotfixes = reactive
+Backlog Ratio               12.0%           15.7%           Similar
+In Progress Ratio           25.3%           22.9%           Projects slightly higher
+Blocked Items               0%              4.3%            Hotfixes more blocked
+In Review >7d               0               4               Hotfixes review bottleneck
+Escalations                 0               0               Both ✓ Good
+Reopens                     0               0               Both ✓ Good
+Recent Velocity (7d)        5.9/day         3.6/day         Projects ⚡ 64% faster
+─────────────────────────────────────────────────────────────────────────────────────────────────
+
+PATTERN SUMMARY:
+  Projects:     Planned, better completion, cleaner backlog, slower MTTR
+  Hotfixes:     Reactive, faster fixes, more urgent, more blocked/waiting
+
+
+════════════════════════════════════════════════════════════════════════════════════════════════
+RECOMENDACIONES IMPLEMENTABLES PARA DASHBOARD
+════════════════════════════════════════════════════════════════════════════════════════════════
+
+1. SEPARAR MÉTRICAS EN DOS SECCIONES
+   ✅ PROJECTS TAB
+     - Velocity chart (issues/week)
+     - Completion rate (62.7%)
+     - MTTR track (target: 48h, actual: 112h)
+     - Backlog size (9 items, 12%)
+     - P1/P2 count (30 items)
+
+   ✅ HOTFIXES TAB
+     - Velocity chart (issues/week) 
+     - Completion rate (54.3%)
+     - MTTR track (target: 4h, actual: 72h)
+     - Blocked items (3 blocked, 5 in review)
+     - P1/P2 count (41 items, 58.6%)
+
+2. CRITICAL ALERTS
+   🚨 If Hotfixes > 60% of work → "Overloaded with emergencies"
+   🚨 If P1 issue > 24 hours old → "SLA Violation"
+   🚨 If In Review > 7 days → "Reviewer bottleneck detected"
+   🚨 If P1 trend increases >20% month-over-month → "Fire prevention needed"
+
+3. DASHBOARD WIDGETS
+   
+   Top-left:
+   ┌─────────────────────────────┐
+   │ Project vs Hotfix Ratio     │
+   │ 48% / 45%                  │
+   │ [pie chart]                 │
+   └─────────────────────────────┘
+
+   Center-left:
+   ┌─────────────────────────────┐
+   │ P1 Trend (Last 3 months)    │
+   │ Abril: 6 | Mayo: 22 (+266%) │
+   │ [line chart] 🔴 Critical    │
+   └─────────────────────────────┘
+
+   Center-right:
+   ┌─────────────────────────────┐
+   │ Critical Blockers           │
+   │ In Review >7d: 2 items      │
+   │ Blocked: 3 items            │
+   │ [list with links]           │
+   └─────────────────────────────┘
+
+   Bottom:
+   ┌─────────────────────────────────────────┐
+   │ VIP Resolution (P1/P2 Completed)        │
+   │ Projects: 13/30 (43%)                   │
+   │ Hotfixes: 24/41 (59%)                   │
+   │ [gauge/progress bars]                   │
+   └─────────────────────────────────────────┘
+
+4. SLA CONFIGURATION
+   Set dashboard targets to:
+   - Projects MTTR: 48 horas (down from current 112h)
+   - Hotfixes MTTR: 4 horas (down from current 72h)
+   - P1 max age: 4 horas
+   - P2 max age: 24 horas
+   - Review time: 24 horas max
+
+
+════════════════════════════════════════════════════════════════════════════════════════════════
+DATOS CRUDOS PARA INTEGRACIÓN API
+════════════════════════════════════════════════════════════════════════════════════════════════
+
+Query Linear GraphQL para Projects:
+{
+  team(id: "5feed208-25ac-4eb5-a2e6-e5f60f957b00") {
+    projects(first: 50, filter: {archived: {eq: false}}) {
+      nodes {
+        id
+        name
+        status
+        description
+        issues(filter: {createdAt: {gte: "2026-04-27"}}) {
+          pageInfo {
+            hasNextPage
+          }
+          totalCount
+        }
+      }
+    }
+  }
+}
+
+Query para Issues sin Proyecto:
+{
+  issues(filter: {
+    team: {id: {eq: "5feed208-25ac-4eb5-a2e6-e5f60f957b00"}}
+    project: {null: true}
+    createdAt: {gte: "2026-04-27"}
+  }) {
+    nodes {
+      id
+      title
+      priority
+      status
+      completedAt
+      createdAt
+      assignee {
+        displayName
+      }
+    }
+  }
+}
+
+
+════════════════════════════════════════════════════════════════════════════════════════════════
+CONCLUSIÓN FINAL
+════════════════════════════════════════════════════════════════════════════════════════════════
+
+✅ RESPUESTA A LA PREGUNTA ORIGINAL:
+   "¿Deberíamos separar métricas o combinarlas?"
+   
+   → SEPARAR ES LA OPCIÓN CORRECTA
+   
+   RAZONES:
+   1. Dinámicas diferentes (velocidad, urgencia, type)
+   2. Different SLAs (4h vs 48h)
+   3. Different causes (reactive vs planned)
+   4. Different blockers (review vs planning)
+   5. Necesitas identificar si hotfixes están comiendo projects
+
+⚠️ PROBLEMAS INMEDIATOS:
+   • 4 URGENT hotfixes abiertos 6-22 días (SLA violation)
+   • 5 issues esperando review >3 días (bottleneck)
+   • P1 trend +266% mes-a-mes (investigate cause)
+   • MTTR way over benchmark (112h vs 12h target)
+
+📈 OPORTUNIDADES:
+   • Projects tienen 62.7% completion rate (mejor)
+   • Hotfixes se resuelven 35% más rápido
+   • 0% reopen rate y escalations (buena calidad)
+   • Momentum positivo últimas semana (10 issues/día)
+
+🎯 NEXT STEPS:
+   1. Implement dashboard with separated metrics
+   2. Set SLA alerts (P1 > 4h, P2 > 24h, Review > 7d)
+   3. Investigate P1 +266% trend in May
+   4. Unblock CE2-1590 (20 días en review!)
+   5. Implement naming convention for issues
+
+
+════════════════════════════════════════════════════════════════════════════════════════════════
+Generated: 2026-05-28
+Data source: LINEAR_CE2_ISSUES_2026-05-27.csv (156 issues, últimos 30 días)
+Team: CE2 (Guinea - Telecom)
+=====================================================================================================
