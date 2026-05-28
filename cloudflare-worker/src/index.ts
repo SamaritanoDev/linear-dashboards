@@ -1,6 +1,7 @@
 import { LinearClient } from "./linear/client";
 import { IssuesService } from "./services/issues";
 import { ProjectsService } from "./services/projects";
+import { CE2MetricsService } from "./services/ce2-metrics";
 import { getMonthNumber, getMonthName, getCurrentYear, jsonResponse, errorResponse } from "./utils";
 
 interface Env {
@@ -47,6 +48,10 @@ export default {
 
     if (pathname === "/api/recognitions") {
       return handleRecognitions(request, env, client);
+    }
+
+    if (pathname === "/api/ce2/metrics/summary") {
+      return handleCE2MetricsSummary(request, env, client);
     }
 
     return errorResponse("Not found", 404);
@@ -408,5 +413,94 @@ async function handleRecognitions(
   } catch (error) {
     console.error("Recognitions error:", error);
     return errorResponse("Failed to calculate recognitions", 500);
+  }
+}
+
+async function handleCE2MetricsSummary(
+  request: Request,
+  env: Env,
+  client: LinearClient
+): Promise<Response> {
+  try {
+    const url = new URL(request.url);
+    const monthParam = url.searchParams.get("month");
+
+    if (!monthParam) {
+      return errorResponse("month parameter is required");
+    }
+
+    const monthNum = getMonthNumber(monthParam);
+    const year = getCurrentYear();
+
+    const ce2Service = new CE2MetricsService(client);
+    const metrics = await ce2Service.getMetricsForMonth(year, monthNum);
+
+    const summary = {
+      period: metrics.vipResolutionRate.period,
+      team: "CE2",
+      summary: {
+        vip_resolution_rate: {
+          value: metrics.vipResolutionRate.value,
+          unit: metrics.vipResolutionRate.unit,
+          tooltip: metrics.vipResolutionRate.disclaimer.what_measures,
+          audience: "Gerencia / Stakeholders",
+        },
+        fcrr: {
+          value: metrics.fcrr.value,
+          unit: metrics.fcrr.unit,
+          tooltip: metrics.fcrr.disclaimer.what_measures,
+          audience: "CTO / PM",
+        },
+        reopen_rate: {
+          value: metrics.reopenRate.value,
+          unit: metrics.reopenRate.unit,
+          tooltip: metrics.reopenRate.disclaimer.what_measures,
+          audience: "CTO / Tech Leads",
+        },
+        containment_rate: {
+          value: metrics.containmentRate.value,
+          unit: metrics.containmentRate.unit,
+          tooltip: metrics.containmentRate.disclaimer.what_measures,
+          audience: "PM / Back Office",
+        },
+        mttr_urgent_hours: {
+          value: metrics.mttr.data.urgent.mttr_hours,
+          unit: "hours",
+          tooltip: `Tiempo promedio resolver P1 | Fórmula: ${metrics.mttr.disclaimer.how_calculated}`,
+          audience: "CTO / PM",
+        },
+        mttr_high_hours: {
+          value: metrics.mttr.data.high.mttr_hours,
+          unit: "hours",
+          tooltip: `Tiempo promedio resolver P2 | Fórmula: ${metrics.mttr.disclaimer.how_calculated}`,
+          audience: "CTO / PM",
+        },
+        downtime_saved: {
+          value: metrics.downtimeSaved.value,
+          unit: metrics.downtimeSaved.unit,
+          tooltip: metrics.downtimeSaved.disclaimer.what_measures,
+          audience: "Gerencia / Stakeholders",
+        },
+        fire_prevention: {
+          value: metrics.firePrevention.value,
+          unit: metrics.firePrevention.unit,
+          tooltip: metrics.firePrevention.disclaimer.what_measures,
+          audience: "CTO / Gerencia",
+        },
+        noise_reduction: {
+          value: metrics.noiseReduction.value,
+          unit: metrics.noiseReduction.unit,
+          tooltip: metrics.noiseReduction.disclaimer.what_measures,
+          audience: "PM / Back Office",
+        },
+      },
+      cached_at: new Date().toISOString(),
+    };
+
+    return jsonResponse(summary);
+  } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    console.error("CE2 Metrics Summary error:", errorMessage, error);
+    return errorResponse(`Failed to calculate metrics summary: ${errorMessage}`, 500);
   }
 }

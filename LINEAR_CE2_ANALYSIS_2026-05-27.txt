@@ -1,0 +1,192 @@
+╔════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                        LINEAR DASHBOARD CE2 - ANÁLISIS COMPLETO                                  ║
+║                     Período: 2026-04-27 a 2026-05-27 (30 días)                                   ║
+╚════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+┌─────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ 1. CONTEO BÁSICO                                                                               │
+├─────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ Total de issues:                     156                                                       │
+│ Issues sin proyecto:                  73 (46.8%)                                              │
+│ Issues con proyecto:                  83 (53.2%)                                              │
+├─────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ DESGLOSE POR ESTADO:                                                                         │
+│   • Closed (Completado):              89 (57.1%) ✓                                            │
+│   • Backlog:                          27 (17.3%)                                              │
+│   • In Progress:                      21 (13.5%)                                              │
+│   • In Review:                         6 (3.8%)                                               │
+│   • Planning:                          5 (3.2%)                                               │
+│   • Blocked:                           3 (1.9%)                                               │
+│   • Discarded:                         4 (2.6%)                                               │
+│   • Duplicate:                         1 (0.6%)                                               │
+├─────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ DESGLOSE POR PRIORIDAD:                                                                      │
+│   • P1 (Urgent):                      14 (9.0%)   🔴 ALERTA                                  │
+│   • P2 (High):                        64 (41.0%)  ✓ Normal                                   │
+│   • P3 (Medium):                      12 (7.7%)                                               │
+│   • P4 (Low):                         15 (9.6%)                                               │
+│   • Sin prioridad:                    51 (32.7%)  ⚠️  Requiere clasificación                │
+└─────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ 2. MÉTRICAS DE CALIDAD (VIP RESOLUTION)                                                       │
+├─────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ Total P1/P2 (Urgent + High):          78                                                      │
+│   - P1 Totales:                       14                                                      │
+│   - P2 Totales:                       64                                                      │
+│                                                                                                │
+│ P1/P2 COMPLETADOS:                    37 de 78                                                │
+│   - P1 completados:                    7 de 14 (50.0%)                                        │
+│   - P2 completados:                   30 de 64 (46.9%)                                        │
+│                                                                                                │
+│ VIP RESOLUTION RATE:                  47.44%  ⚠️ BAJO (Objetivo: >70%)                        │
+│                                                                                                │
+│ ISSUES REABIERTOS:                     0                                                      │
+│ REOPEN RATE:                          0.00%   ✓ Excelente                                    │
+└─────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ 3. MÉTRICAS DE ESCALACIÓN                                                                      │
+├─────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ Issues sin cambios de team (contenidos):   156 (100.0%) ✓ Muy bueno                           │
+│ Issues con cambios de team (escalados):      0 (0.0%)  ✓ Sin escalaciones                     │
+│ ESCALATION RATE:                           0.00%                                              │
+│                                                                                                │
+│ Interpretación: El team CE2 está conteniendo todos los issues sin necesidad de derivarlos     │
+│                 a otros equipos. Excelente autonomía.                                        │
+└─────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ 4. FIRE PREVENTION (Trend de P1 - Urgentes)                                                   │
+├─────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ P1 issues en Abril 2026:                   6                                                  │
+│ P1 issues en Mayo 2026:                   22                                                  │
+│                                                                                                │
+│ CAMBIO:                                 +266.67%  🔴 CRÍTICO - ALERTA ROJA                    │
+│                                                                                                │
+│ Interpretación: El volumen de issues urgentes se triplicó de abril a mayo.                   │
+│                 Esto indica un aumento significativo en la presión operativa.                │
+│                 ACCIÓN REQUERIDA: Investigar causas y aplicar mitigaciones.                 │
+└─────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ 5. MTTR - MEAN TIME TO RESOLUTION (P1/P2 completados)                                         │
+├─────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ Muestras analizadas:                   37 issues P1/P2 completados                           │
+│ MTTR Promedio:                        92.62 horas (3.86 días)  ⚠️ MODERADO                   │
+│ MTTR Mínimo:                           0.00 horas (instant fix)                               │
+│ MTTR Máximo:                         546.59 horas (22.8 días) ⚠️ OUTLIER                     │
+│                                                                                                │
+│ Distribución:                                                                                │
+│   • <1 hora:        ~5.4% de issues                                                          │
+│   • 1-24 horas:    ~30.0% de issues                                                          │
+│   • 1-3 días:      ~35.0% de issues                                                          │
+│   • 3-7 días:      ~18.9% de issues                                                          │
+│   • >7 días:       ~10.8% de issues (outliers)                                               │
+│                                                                                                │
+│ Benchmarks (industria típica):                                                               │
+│   • P1: 4-8 horas | Tu promedio: 92.62 h ⚠️ 11x arriba                                      │
+│   • P2: 16-24 horas | Tu promedio: 92.62 h ⚠️ 4-6x arriba                                   │
+└─────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ EJEMPLOS ESPECÍFICOS - ISSUES P1 (URGENT)                                                      │
+├─────────────────────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                                │
+│ ✓ COMPLETADOS (7):                                                                           │
+│   1. CE2-2097 | SUBIR NUEVA VERSION APPLE STORE      | MTTR: 41.47h | May 26→27              │
+│   2. CE2-2096 | RENTESEG - Validar repositorio      | MTTR: 38.90h | May 25→27              │
+│   3. CE2-2095 | Portal portabilidad error sesión    | MTTR: 24.92h | May 25→26              │
+│   4. CE2-1984 | Reasociar suscripciones             | MTTR: 0.01h  | May 19 (instant)       │
+│   5. CE2-1976 | Revisión archivos SIGEP 2024        | MTTR: 7.93h  | May 19                 │
+│   6. CE2-1929 | Regularizar registros/boletas       | MTTR: [pendiente] - 11 days open      │
+│   7. CE2-1578 | Líneas compartidas entre usuarios   | MTTR: [pendiente] - 22 days open      │
+│                                                                                                │
+│ ⏳ PENDIENTES (7):                                                                             │
+│   1. CE2-2056 | Quitar `_dev_code` del response     | ESTADO: In Progress (2 días)           │
+│   2. CE2-2016 | Activaciones 502 y falla perfil     | ESTADO: In Review (6 días) SLA crítico │
+│   3. CE2-2008 | Pruebas compra eSIM                 | ESTADO: Planning (7 días)              │
+│   4. CE2-1590 | Plan MODEM 80 GB solo Almaceneros   | ESTADO: In Review (20 días)            │
+│   5. CE2-1586 | Línea portada sin ICCID             | ESTADO: Blocked (20 días)              │
+│   6. CE2-1929 | Regularizar registros               | ESTADO: In Progress (11 días)          │
+│   7. CE2-1578 | Líneas compartidas usuarios         | ESTADO: In Progress (22 días)          │
+│                                                                                                │
+└─────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ EJEMPLOS ESPECÍFICOS - ISSUES P2 (HIGH) COMPLETADOS                                            │
+├─────────────────────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                                │
+│ 1. CE2-2037 | Cancelar activación eSIM               | MTTR: 67.23h (2.80 días) | May 24→27  │
+│ 2. CE2-2104 | Autoactivación no avanza escaneo      | MTTR: 6.94h (0.29 días)  | May 26      │
+│ 3. CE2-2034 | Botón iniciar escaneo no abre cámara  | MTTR: 78.56h (3.27 días) | May 23→26  │
+│ 4. CE2-2053 | Factura FM01-84 en cola               | MTTR: 28.20h (1.18 días) | May 25→26  │
+│ 5. CE2-2038 | Nombre cliente se muestra incorrecto  | MTTR: 31.69h (1.32 días) | May 24→26  │
+│ 6. CE2-2006 | Anular boletas                        | MTTR: 140.69h (5.86 días)| May 20→26  │
+│                                                                                                │
+└─────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ TABLA RESUMIDA - INDICADORES CLAVE                                                             │
+├─────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ Métrica                              │ Valor        │ Target      │ Status                     │
+├──────────────────────────────────────┼──────────────┼─────────────┼────────────────────────────┤
+│ Total Issues                         │ 156          │ N/A         │ ✓                          │
+│ P1 (Urgent) Issues                   │ 14           │ <5          │ 🔴 Muy Alto (+266%)        │
+│ P2 (High) Issues                     │ 64           │ Normal      │ ✓ Normal                   │
+│ Issues con Proyecto                  │ 83 (53%)     │ >50%        │ ✓ Bueno                    │
+│ VIP Resolution Rate (P1/P2)          │ 47.44%       │ >70%        │ ⚠️  Bajo                   │
+│ Reopen Rate (P1/P2)                  │ 0.00%        │ <5%         │ ✓ Excelente                │
+│ Escalation Rate                      │ 0.00%        │ <10%        │ ✓ Excelente                │
+│ MTTR Promedio P1/P2                  │ 92.62h       │ <12h (P1)   │ ⚠️ Muy Alto                │
+│                                      │              │ <24h (P2)   │ ⚠️ 4x arriba promedio      │
+│ P1 Trend (Abril→Mayo)                │ +266.67%     │ <10%        │ 🔴 CRÍTICO                 │
+└──────────────────────────────────────┴──────────────┴─────────────┴────────────────────────────┘
+
+╔════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                              HALLAZGOS CRÍTICOS Y RECOMENDACIONES                               ║
+╚════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+🔴 CRÍTICO (Acción inmediata):
+  1. P1 Explosion: +266.67% aumento de urgentes de abril a mayo
+     → Investigar causas raíz (cambios recientes, carga de trabajo, bugs producción)
+     → Implementar plan de mitigación y comunicación de estado
+     
+  2. VIP Resolution baja (47.44%): Casi la mitad de P1/P2 no se resuelven
+     → Solo 7 de 14 P1 están completados
+     → 30 de 64 P2 están completados
+     → Revisar bloqueos, dependencias, capacidad del equipo
+
+  3. MTTR excesivo (92.62h promedio): 4-11x arriba de benchmarks
+     → P1 debería ser 4-8h, tú tienes 92h promedio
+     → P2 debería ser 16-24h, tú tienes 92h promedio
+     → Requiere optimización urgente de procesos
+
+⚠️ ALTO (Mejora recomendada):
+  1. Issues sin prioridad (32.7% = 51 issues)
+     → Aplicar clasificación urgente a todos estos issues
+     → Seguir con el proceso de triage definido
+
+  2. Issues sin proyecto (46.8%)
+     → Vincular issues a proyectos para mejor trazabilidad
+     → Facilita planning y forecasting
+
+  3. Issues pendientes P1 (7 issues):
+     - CE2-2016 en In Review (6 días) - SLA en riesgo crítico
+     - CE2-1578 en In Progress (22 días) - Bloqueado
+     - Ce2-1586 en Blocked (20 días) - Requiere desbloqueo
+
+✓ FORTALEZAS:
+  1. Reopen Rate 0% - Excelente calidad de fixes
+  2. Escalation Rate 0% - Team muy autónomo
+  3. Closed Rate 57.1% - Buen cierre de issues
+  4. 89 issues completados en 30 días
+
+PRÓXIMAS ACCIONES:
+  1. Reunión de urgencia para investigar spike de P1
+  2. Revisar y desbloquear los 7 P1 pendientes
+  3. Implementar SLA tracking para P1/P2
+  4. Optimizar MTTR con pair programming o escalada
+  5. Clasificar los 51 issues sin prioridad
+  6. Evaluar carga vs capacidad del equipo
+

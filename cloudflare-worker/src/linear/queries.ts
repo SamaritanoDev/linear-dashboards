@@ -46,7 +46,7 @@ export function getIssuesQueryForMonth(
 
   // Build filter object based on includeWithProject flag
   let filterStr = `
-      team: {key: {in: ["CE1", "CE2"]}}
+      team: {id: {in: ["5feed208-25ac-4eb5-a2e6-e5f60f957b00", "c79c921c-5ef9-4539-bf19-5d8161cfe6ee"]}}
       createdAt: {gte: "${startStr}T00:00:00Z", lt: "${endStr}T00:00:00Z"}`;
 
   if (!includeWithProject) {
@@ -76,6 +76,36 @@ export function getIssuesQueryForMonth(
       labels(first: 10) {
         nodes {name}
       }
+    }
+  }
+}
+`;
+}
+
+export function getCE2MetricsQueryForMonth(
+  year: number,
+  month: number
+): string {
+  return `
+{
+  issues(
+    first: 250
+    filter: {
+      team: {id: {eq: "5feed208-25ac-4eb5-a2e6-e5f60f957b00"}}
+      project: {null: true}
+    }
+  ) {
+    nodes {
+      id
+      identifier
+      title
+      state {name}
+      priority
+      createdAt
+      completedAt
+      updatedAt
+      assignee {name}
+      team {key}
     }
   }
 }
