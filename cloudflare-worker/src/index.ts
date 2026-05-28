@@ -54,8 +54,8 @@ export default {
       return handleCE2MetricsSummary(request, env, client);
     }
 
-    if (pathname === "/api/ce2/debug/raw-issues") {
-      return handleCE2DebugRawIssues(request, env, client);
+    if (pathname === "/api/debug/ce2-issues") {
+      return handleDebugCE2Issues(request, env, client);
     }
 
     return errorResponse("Not found", 404);
@@ -509,56 +509,46 @@ async function handleCE2MetricsSummary(
   }
 }
 
-async function handleCE2DebugRawIssues(
+async function handleDebugCE2Issues(
   request: Request,
   env: Env,
   client: LinearClient
 ): Promise<Response> {
   try {
     const url = new URL(request.url);
-    const monthParam = url.searchParams.get("month");
-
-    if (!monthParam) {
-      return errorResponse("month parameter is required");
-    }
-
+    const monthParam = url.searchParams.get("month") || "Mayo";
     const monthNum = getMonthNumber(monthParam);
     const year = getCurrentYear();
 
-    const ce2Service = new CE2MetricsService(client);
-
-    // Access the private query method indirectly by importing it
     const { getCE2MetricsQueryForMonth } = await import("./linear/queries");
     const query = getCE2MetricsQueryForMonth(year, monthNum);
 
     const result = await client.query<{ issues: { nodes: any[] } }>(query);
 
     if (!result?.issues?.nodes) {
-      return jsonResponse({ error: "No issues found", query });
+      return jsonResponse({ error: "No issues found" });
     }
 
-    // Return sample of raw issues with all fields
-    const sample = result.issues.nodes.slice(0, 5).map((issue: any) => ({
-      identifier: issue.identifier,
-      title: issue.title,
-      state: issue.state,
-      priority: issue.priority,
-      createdAt: issue.createdAt,
-      completedAt: issue.completedAt,
-      updatedAt: issue.updatedAt,
-      team: issue.team,
-    }));
+    const issues = result.issues.nodes;
+    const stateNames = new Set(issues.map((i: any) => i.state?.name));
+    const p1p2 = issues.filter((i: any) => i.priority === 1 || i.priority === 2);
+    const closedCount = issues.filter((i: any) => i.state?.name === "Closed").length;
 
     return jsonResponse({
-      total_issues: result.issues.nodes.length,
-      unique_states: [...new Set(result.issues.nodes.map((i: any) => i.state?.name))],
-      unique_priorities: [...new Set(result.issues.nodes.map((i: any) => i.priority))],
-      sample_issues: sample,
-      period: `${year}-${monthNum.toString().padStart(2, "0")}`,
+      total_issues: issues.length,
+      p1p2_issues: p1p2.length,
+      state_names: Array.from(stateNames),
+      closed_issues_count: closedCount,
+      sample_issues: issues.slice(0, 3).map((i: any) => ({
+        id: i.identifier,
+        state: i.state?.name,
+        priority: i.priority,
+        completedAt: i.completedAt || "null",
+      })),
     });
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : String(error);
-    console.error("CE2 Debug error:", errorMessage);
-    return errorResponse(`Debug error: ${errorMessage}`, 500);
+    console.error("Debug error:", errorMessage);
+    return errorResponse(errorMessage, 500);
   }
 }
