@@ -26,6 +26,10 @@ export default {
 
     const client = new LinearClient({ apiKey: env.LINEAR_API_KEY });
 
+    if (pathname === "/test") {
+      return jsonResponse({ message: "API is working" });
+    }
+
     if (pathname === "/api/issues-ce") {
       return handleIssuesCE(request, env, client);
     }
