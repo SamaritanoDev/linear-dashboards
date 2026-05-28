@@ -56,14 +56,19 @@ export class CE2MetricsService {
     }
 
     // Filter by date range in code (GraphQL filter combination had issues)
-    const startDate = new Date(year, month - 1, 1);
-    const endDate = new Date(
+    // Use ISO string comparison to avoid timezone issues
+    const startDateISO = new Date(year, month - 1, 1)
+      .toISOString()
+      .split("T")[0]; // YYYY-MM-DD
+    const endDateISO = new Date(
       month === 12 ? year + 1 : year,
       month === 12 ? 0 : month,
       1
-    );
+    )
+      .toISOString()
+      .split("T")[0]; // YYYY-MM-DD
 
-    console.log(`[CE2 Metrics] Date range: ${startDate.toISOString()} to ${endDate.toISOString()}`);
+    console.log(`[CE2 Metrics] Date range: ${startDateISO} to ${endDateISO}`);
     console.log(`[CE2 Metrics] Total issues from API: ${result.issues.nodes.length}`);
 
     if (result.issues.nodes.length > 0) {
@@ -71,8 +76,9 @@ export class CE2MetricsService {
     }
 
     const issues = result.issues.nodes.filter((issue) => {
-      const createdDate = new Date(issue.createdAt);
-      return createdDate >= startDate && createdDate < endDate;
+      // Extract date part from ISO string (YYYY-MM-DD)
+      const issueDateISO = issue.createdAt.split("T")[0];
+      return issueDateISO >= startDateISO && issueDateISO < endDateISO;
     });
 
     console.log(`[CE2 Metrics] Filtered to ${issues.length} issues for month ${month}/${year}`);
@@ -120,16 +126,22 @@ export class CE2MetricsService {
     }
 
     // Filter by date range in code (same as getMetricsForMonth)
-    const startDate = new Date(prevYear, prevMonth - 1, 1);
-    const endDate = new Date(
+    // Use ISO string comparison to avoid timezone issues
+    const startDateISO = new Date(prevYear, prevMonth - 1, 1)
+      .toISOString()
+      .split("T")[0]; // YYYY-MM-DD
+    const endDateISO = new Date(
       prevMonth === 12 ? prevYear + 1 : prevYear,
       prevMonth === 12 ? 0 : prevMonth,
       1
-    );
+    )
+      .toISOString()
+      .split("T")[0]; // YYYY-MM-DD
 
     return result.issues.nodes.filter((issue) => {
-      const createdDate = new Date(issue.createdAt);
-      return createdDate >= startDate && createdDate < endDate;
+      // Extract date part from ISO string (YYYY-MM-DD)
+      const issueDateISO = issue.createdAt.split("T")[0];
+      return issueDateISO >= startDateISO && issueDateISO < endDateISO;
     });
   }
 
