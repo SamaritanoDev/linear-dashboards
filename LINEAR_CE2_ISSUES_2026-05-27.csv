@@ -1,0 +1,157 @@
+ID,Title,Priority,Status,Project,Created,Completed,MTTR_Hours,MTTR_Days,Days_Open,Assignee
+CE2-2016,Activaciones muestran 502 y no crean perfil,Urgent,In Review,No,2026-05-21T03:27:57.548Z,,,,6,Leandro Ramirez
+CE2-2054,Requerimiento | Ruta de biometría omite `white_brand` en FIMO Agent,High,In Review,No,2026-05-25T18:25:54.273Z,,,,2,Leandro Ramirez
+CE2-1897,Airalo muestra eSIMs finalizados con paquetes activos,High,In Review,No,2026-05-14T18:15:34.418Z,,,,13,Leandro Ramirez
+CE2-1980,Línea activada no se puede asociar al perfil CMS,High,In Progress,No,2026-05-19T20:00:06.054Z,,,,8,Leandro Ramirez
+CE2-2035,Activación nueva falla con error de cuenta MNO,High,Backlog,No,2026-05-23T23:36:02.907Z,,,,4,Leandro Ramirez
+CE2-2017,Requerimiento | Agregar opción Kasnet y popup informativo en Habla+,Low,Backlog,Yes,2026-05-21T16:50:42.798Z,,,,6,Alberto Pereda
+CE2-2104,Autoactivación no avanza al iniciar escaneo facial,High,Closed,No,2026-05-26T14:38:15.309Z,2026-05-26T21:34:51.032Z,6.94,0.29,,Alberto Pereda
+CE2-1972,Recarga Yape de S/5 no aparece en CMS,High,Planning,Yes,2026-05-19T00:58:28.461Z,,,,8,Alex Estrada
+CE2-1882,"Extras de 1, 5 y 10 GB no aparecen en la app",High,Backlog,No,2026-05-13T18:22:43.032Z,,,,14,Alberto Pereda
+CE2-1959,Registrar IMEI en lista blanca de excepciones,High,Closed,No,2026-05-18T21:36:19.434Z,2026-05-20T16:12:36.137Z,42.6,1.78,,Alex Estrada
+CE2-2034,Botón Iniciar Escaneo no abre cámara en activación,High,Closed,No,2026-05-23T15:00:59.840Z,2026-05-26T21:34:49.010Z,78.56,3.27,,Alberto Pereda
+CE2-1898,Actualizar reporte B2B/IoT cada lunes,High,Discarded,No,2026-05-14T19:40:38.811Z,,,,13,Patrick Bolaños
+CE2-2033,Columnas supplyId y phone vacias en user_transaction,High,Closed,Yes,2026-05-22T23:28:24.255Z,2026-05-25T22:23:14.240Z,70.91,2.95,,Farialis Martinez
+CE2-1923,Asignar permiso Cloud SQL Admin en proyecto GUINEA,Medium,Backlog,No,2026-05-15T14:15:42.991Z,,,,12,Lesly Samaritano
+CE2-1925,Enviar SMS de OSIPTEL a abonados en mayo 2026,High,Planning,Yes,2026-05-15T20:34:29.517Z,,,,12,Alex Estrada
+CE2-1884,Regularizar transacciones y boletas de casos Yape reportados,Medium,In Progress,Yes,2026-05-13T21:18:31.990Z,,,,14,Alex Estrada
+CE2-2043,Requerimiento | Integración Planes Airalo- App Cliente PeruSIM,No priority,Discarded,No,2026-05-25T15:08:36.166Z,,,,2,Alex Estrada
+CE2-1927,Completar actualización semanal de líneas activas y recargas,Low,Closed,No,2026-05-15T21:59:37.376Z,2026-05-21T14:11:14.218Z,136.19,5.67,,Daniel Alvarez
+CE2-1982,cuy agent - Create login screen for Cuy agent,No priority,Closed,Yes,2026-05-19T17:36:13.439Z,2026-05-22T07:54:30.746Z,62.3,2.6,,Alberto Pereda
+CE2-1499,Recargas recientes no aparecen en historial de Cuy,High,In Progress,No,2026-04-28T20:59:56.841Z,,,,29,Farialis Martinez
+CE2-1929,Regularizar registros/boletas/transacciones de pago,Urgent,In Progress,Yes,2026-05-16T03:05:27.853Z,,,,11,Alex Estrada
+CE2-1613,Regularizar boleta del caso de recarga Yape,Low,In Progress,Yes,2026-05-11T22:10:15.868Z,,,,16,Alex Estrada
+CE2-1578,Causa raiz: lineas compartidas entre usuarios - validacion de duplicidad faltante en activacion,Urgent,In Progress,No,2026-05-05T20:15:26.518Z,,,,22,Leandro Ramirez
+CE2-2032,RENTESEG - Subsanación del RA (Registro de Abonados) Nuevo Flujo,High,In Progress,No,2026-05-22T22:28:50.341Z,,,,5,Patrick Bolaños
+CE2-1976,GUINEA - Revisión de archivos SIGEP 2024,Urgent,Closed,No,2026-05-19T15:04:39.010Z,2026-05-19T23:00:44.829Z,7.93,0.33,,Patrick Bolaños
+CE2-1587,Error al reservar ICCID al cambiar tipo de activación,High,Planning,No,2026-05-07T17:07:55.657Z,,,,20,Alberto Pereda
+CE2-1957,Pago por Yape no se asigna a línea Habla+,High,In Progress,No,2026-05-18T16:12:55.293Z,,,,9,Leandro Ramirez
+CE2-1910,Pago Yape no visible bloquea preactivación de chip,High,In Progress,Yes,2026-05-14T21:13:57.695Z,,,,13,Alex Estrada
+CE2-1881,Recargas Yape autorizadas no se reflejan en CMS/BOP,High,Closed,Yes,2026-05-13T17:43:27.254Z,2026-05-13T21:13:17.270Z,3.5,0.15,,Farialis Martinez
+CE2-1590,Publicar plan MODEM 80 GB solo en Almaceneros,Urgent,In Review,No,2026-05-07T20:17:16.846Z,,,,20,Farialis Martinez
+CE2-2097,SUBIR LA NUEVA VERSION A APPLE STORE 1.0.37+50,Urgent,Closed,Yes,2026-05-26T01:10:32.844Z,2026-05-27T18:38:31.204Z,41.47,1.73,,Alberto Pereda
+CE2-2094,Bug: NC contra factura FM01 rechazada por SUNAT — client_doc_type vacío no se infiere como RUC,High,Backlog,No,2026-05-25T21:14:39.744Z,,,,2,Alex Estrada
+CE2-2093,Dar acceso de escritura a tablas en backend_efe_dev,Low,Closed,No,2026-05-25T20:28:17.599Z,2026-05-26T14:15:58.000Z,17.79,0.74,,Patrick Bolaños
+CE2-2146,cuy agent - create home screen,No priority,Closed,Yes,2026-05-22T08:54:42.929Z,2026-05-22T08:54:46.423Z,,,,Alberto Pereda
+CE2-2145,cuy agent - remove voucher option in activation page for cuy agents,No priority,Closed,Yes,2026-05-22T09:23:57.538Z,2026-05-22T09:24:06.466Z,,,,Alberto Pereda
+CE2-2144,cuy agent - create activated lines screen,No priority,Closed,Yes,2026-05-22T08:55:40.740Z,2026-05-22T08:56:26.617Z,0.01,,,Alberto Pereda
+CE2-2143,cuy agent - create sim card inventory screen,No priority,Closed,Yes,2026-05-22T08:56:18.399Z,2026-05-22T08:56:24.345Z,,,,Alberto Pereda
+CE2-2039,App Habla+ no reconoce correo registrado,High,Closed,No,2026-05-24T23:05:38.920Z,2026-05-24T23:11:39.107Z,0.1,,,Alex Estrada
+CE2-2037,Cancelar activación pendiente de eSIM en app,High,Closed,No,2026-05-24T19:33:38.076Z,2026-05-27T14:47:17.780Z,67.23,2.8,,Alex Estrada
+CE2-1760,Corregir nombre de cliente en CMS y BOP,Medium,Closed,No,2026-05-07T14:36:26.852Z,2026-05-08T15:06:42.020Z,24.5,1.02,,Alex Estrada
+CE2-1845,BOP no muestra resultados al filtrar abril,Low,Backlog,No,2026-05-04T15:39:54.394Z,,,,23,Alex Estrada
+CE2-2012,Validar reactivación de suscripción al cambiar tarjeta,Low,In Review,Yes,2026-05-20T20:21:07.403Z,,,,7,Alex Estrada
+CE2-2112,Habilitar acceso a BDs para IP 162.120.186.189,Low,Closed,No,2026-05-26T22:15:45.432Z,2026-05-26T23:02:29.698Z,0.78,0.03,,Patrick Bolaños
+CE2-2096,RENTESEG - Validar nuevo repositorio para migración de cron a Cloud Run,Urgent,Closed,No,2026-05-25T23:08:57.607Z,2026-05-27T14:02:51.948Z,38.9,1.62,,Patrick Bolaños
+CE2-1487,Generar reporte de tarifas Airalo para Cuy y PeruSIM,Medium,Backlog,No,2026-04-27T20:25:33.487Z,,,,30,Patrick Bolaños
+CE2-2113,Renovación automática cobra pero no acredita el plan,High,Backlog,No,2026-05-26T23:33:07.213Z,,,,1,Leandro Ramirez
+CE2-2105,client + agent - check if plan 80gb modem only appears for agents but not for clients,No priority,In Progress,No,2026-05-26T15:53:16.486Z,,,,1,Alberto Pereda
+CE2-1600,Validar falla recurrente en renovación automática de plan,High,In Progress,Yes,2026-05-10T22:55:32.948Z,,,,17,Leandro Ramirez
+CE2-2109,habla+ client - publish to play store version 1.0.31+41,No priority,Closed,No,2026-05-26T18:41:04.391Z,2026-05-26T21:34:43.379Z,2.89,0.12,,Alberto Pereda
+CE2-1501,Generar preactivación y boleta CMS para cliente,Medium,In Progress,Yes,2026-04-29T15:28:54.760Z,,,,28,Alex Estrada
+CE2-2095,Portal de portabilidad muestra error de sesión,Urgent,Closed,No,2026-05-25T21:30:07.355Z,2026-05-26T22:25:33.969Z,24.92,1.04,,Farialis Martinez
+CE2-2102,Propuesta de migración y optimización: Flujo de Reclamos BOP a Zendesk,No priority,Duplicate,No,2026-05-26T14:26:04.590Z,,,,1,Unassigned
+CE2-2103,Propuesta de migración y optimización: Flujo de Reclamos BOP a Zendesk,No priority,Backlog,No,2026-05-26T14:26:28.627Z,,,,1,Alex Estrada
+CE2-1857,Leandro - Habilitar IP para acceso a bases de datos,Low,Closed,No,2026-05-12T15:22:18.068Z,2026-05-12T15:33:48.470Z,0.19,0.01,,Patrick Bolaños
+CE2-2111,Regularizar registros/boletas faltantes en Hilos mezclados,No priority,Backlog,Yes,2026-05-26T22:11:34.291Z,,,,1,Unassigned
+CE2-2010,[Sub-issue #2] Workflow GitHub Actions con Claude Code (ambos repos),High,Planning,Yes,2026-05-20T18:35:30.773Z,,,,7,Alex Estrada
+CE2-2053,Factura FM01-84 de Auto Leaders sigue en cola,High,Closed,No,2026-05-25T16:38:36.711Z,2026-05-26T20:50:53.971Z,28.2,1.18,,Alex Estrada
+CE2-2108,"Portabilidad completada sin registro en CMS, BOP y DCRM",High,Backlog,No,2026-05-26T18:51:34.060Z,,,,1,Farialis Martinez
+CE2-2110,Dar acceso de solo lectura a tabla de revenue,Low,Closed,No,2026-05-26T20:26:25.644Z,2026-05-26T20:27:07.061Z,0.01,,,Patrick Bolaños
+CE2-2100,Habla+ client - Fix error displaying saved debit cards,No priority,Closed,No,2026-05-25T17:38:23.182Z,2026-05-26T18:13:10.257Z,24.58,1.02,,Alberto Pereda
+CE2-1934,Habla+ client - Test guinea_portability_app_sdk v2.1.0,No priority,Closed,No,2026-05-13T23:13:48.962Z,2026-05-21T05:31:45.834Z,174.3,7.26,,Alberto Pereda
+CE2-2101,habla+ client - test activating new line + paying with new izipay v2.3.1 (Yape),No priority,Closed,No,2026-05-25T15:31:17.776Z,2026-05-25T15:31:17.809Z,,,,Alberto Pereda
+CE2-1871,[Habla+] Monitoreo periódico de líneas y vencimientos (prevención),No priority,Closed,Yes,2026-05-12T22:54:24.420Z,2026-05-26T19:23:51.291Z,332.49,13.85,,Alex Estrada
+CE2-1870,[Habla+] Aprovisionar casos especiales Fase 2 (7 líneas anómalas),No priority,Closed,Yes,2026-05-12T22:54:23.473Z,2026-05-26T19:23:50.168Z,332.49,13.85,,Alex Estrada
+CE2-2106,cuy client - Test guinea_portability_app_sdk v2.1.0 (activate chip flow),No priority,Closed,No,2026-05-26T17:14:14.185Z,2026-05-26T17:44:36.847Z,0.51,0.02,,Alberto Pereda
+CE2-1991,Inventariar cronjobs: instance-8-data,High,Backlog,Yes,2026-05-19T23:18:17.434Z,,,,8,Patrick Bolaños
+CE2-1988,Inventariar cronjobs: instance-5,High,Backlog,Yes,2026-05-19T23:17:57.984Z,,,,8,Patrick Bolaños
+CE2-2107,Inventariar cronjobs - instance-5,No priority,Backlog,No,2026-05-26T17:24:36.397Z,,,,1,Patrick Bolaños
+CE2-1617,Exportar CSV falla en portabilidad de Guinea,High,Closed,No,2026-04-28T14:07:16.018Z,2026-05-12T22:34:58.392Z,344.46,14.35,,Farialis Martinez
+CE2-2020,App rechaza registro de tarjeta BCP,High,In Progress,No,2026-05-22T17:33:04.118Z,,,,5,Farialis Martinez
+CE2-2098,fimo agent - new users cant pass biometric check,No priority,Closed,No,2026-05-26T14:00:52.165Z,2026-05-26T14:15:53.393Z,0.25,0.01,,Alberto Pereda
+CE2-2099,habla+ client - test activating new line + paying with new izipay v2.3.1 (Card),No priority,Blocked,No,2026-05-25T17:47:17.145Z,,,,2,Alberto Pereda
+CE2-2040,Ventas en efectivo y POS muestran fecha incorrecta,High,Closed,No,2026-05-25T13:04:36.667Z,2026-05-25T15:34:42.246Z,2.5,0.1,,Patrick Bolaños
+CE2-2038,Nombre de cliente se muestra incorrecto tras activación,High,Closed,No,2026-05-24T19:35:16.900Z,2026-05-26T03:16:42.045Z,31.69,1.32,,Alex Estrada
+CE2-2092,CREACIÓN DE PLANES MB FIMO,No priority,Discarded,No,2026-05-25T18:57:06.549Z,,,,2,Farialis Martinez
+CE2-2006,Anular las boletas,High,Closed,Yes,2026-05-20T04:28:16.689Z,2026-05-26T01:09:32.500Z,140.69,5.86,,Lesly Samaritano
+CE2-1915,MG-01 · Crear alta de línea B2C desde el BOP,High,Backlog,Yes,2026-05-14T22:54:41.171Z,,,,13,Unassigned
+CE2-1917,MG-03 · Acciones de gestión: Cambiar IMSI + Activar línea,Medium,Backlog,Yes,2026-05-14T22:54:55.615Z,,,,13,Unassigned
+CE2-1924,Guinea - Reproceso de Vinculaciones 10-04-26,High,Closed,No,2026-05-15T14:59:11.051Z,2026-05-25T23:04:28.772Z,248.09,10.34,,Patrick Bolaños
+CE2-1610,Generar reporte semanal de activaciones B2B/IoT Guinea,High,Blocked,No,2026-05-11T19:52:24.969Z,,,,16,Patrick Bolaños
+CE2-1985,Regularizar líneas recicladas con dueño anterior activo,High,Closed,No,2026-05-19T22:29:13.078Z,2026-05-25T21:34:37.990Z,143.09,5.96,,Patrick Bolaños
+CE2-2041,Revisar bloqueo de registro cuando RENIEC no devuelve datos,Medium,Closed,No,2026-05-25T13:29:17.085Z,2026-05-25T19:09:00.509Z,5.66,0.24,,Leandro Ramirez
+CE2-2036,Registrar equipo en lista blanca de excepciones,High,In Review,No,2026-05-24T19:30:47.482Z,,,,3,Alex Estrada
+CE2-1926,Farialis - Dar acceso de lectura a todas las tablas de backend_efe_dev,Low,Closed,No,2026-05-15T21:54:19.734Z,2026-05-15T22:49:04.995Z,0.91,0.04,,Patrick Bolaños
+CE2-1931,Alex - Acceso a la BD,High,Closed,No,2026-05-18T13:59:34.950Z,2026-05-18T14:07:27.147Z,0.13,0.01,,Patrick Bolaños
+CE2-2022,Integracion - Pre-validación Yape — Compra Chip con Plan,High,Closed,Yes,2026-05-22T19:35:07.335Z,2026-05-22T19:35:14.344Z,,,,Farialis Martinez
+CE2-1896,Automatizar extras promocionales por 3 ciclos en planes Fimo,Low,Discarded,No,2026-05-14T18:15:30.621Z,,,,13,Farialis Martinez
+CE2-2075,billing-as-a-service — emitDocument aplica templates por concept,No priority,In Progress,Yes,2026-05-25T18:31:14.880Z,,,,2,Rawil Ceballo
+CE2-2091,Workers Builds connect en superapp-bff (auto-deploy desde main),No priority,Closed,Yes,2026-05-25T18:31:49.720Z,2026-05-25T18:31:49.788Z,,,,Rawil Ceballo
+CE2-2090,"JWT keypair rotation entre user-aaS, Gateway y wallet-aaS",No priority,Closed,Yes,2026-05-25T18:31:48.778Z,2026-05-25T18:31:48.852Z,,,,Rawil Ceballo
+CE2-2089,Production — secrets en Secret Manager + IAM bindings + Cloud Run env merge,No priority,Closed,Yes,2026-05-25T18:31:47.714Z,2026-05-25T18:31:47.772Z,,,,Rawil Ceballo
+CE2-2088,cloudbuild.prod.yaml — agregar URLs cuy_agents a `--set-env-vars`,No priority,Closed,Yes,2026-05-25T18:31:46.352Z,2026-05-25T18:31:46.408Z,,,,Rawil Ceballo
+CE2-2087,Terraform — env_variables y secret_env_variables de cuy_agents en cloud_run_app prod,No priority,Closed,Yes,2026-05-25T18:31:45.538Z,2026-05-25T18:31:45.624Z,,,,Rawil Ceballo
+CE2-2086,Terraform — `cuy_agents.*` keys en secrets_config catalog,No priority,Closed,Yes,2026-05-25T18:31:44.743Z,2026-05-25T18:31:44.830Z,,,,Rawil Ceballo
+CE2-2085,guinea-frontend (BOP) — Toast amigable cuando user ya existe (409),No priority,Closed,Yes,2026-05-25T18:31:43.863Z,2026-05-25T18:31:43.955Z,,,,Rawil Ceballo
+CE2-2084,"guinea-frontend (BOP) — Menu ""Registro de agentes"" con visibilidad role-based + permission",No priority,Closed,Yes,2026-05-25T18:31:42.922Z,2026-05-25T18:31:43.000Z,,,,Rawil Ceballo
+CE2-2083,guinea-frontend (BOP) — Página `CuyAgentsProvisionPage`,No priority,Closed,Yes,2026-05-25T18:31:42.099Z,2026-05-25T18:31:42.194Z,,,,Rawil Ceballo
+CE2-2082,wallet-portal — `VITE_GATEWAY_URL` en `.env.production`,No priority,Closed,Yes,2026-05-25T18:31:41.238Z,2026-05-25T18:31:41.372Z,,,,Rawil Ceballo
+CE2-2081,wallet-portal — Pantalla `SelfOnboardForm` para clientes existentes,No priority,Closed,Yes,2026-05-25T18:31:20.317Z,2026-05-25T18:31:20.395Z,,,,Rawil Ceballo
+CE2-2080,wallet-portal — Form login solo con email (no DNI/teléfono),No priority,Closed,Yes,2026-05-25T18:31:19.517Z,2026-05-25T18:31:19.623Z,,,,Rawil Ceballo
+CE2-2079,wallet-portal — AgentApp con state machine (login/forgot/mustChange/dashboard/recharge/onboard),No priority,Closed,Yes,2026-05-25T18:31:18.290Z,2026-05-25T18:31:18.353Z,,,,Rawil Ceballo
+CE2-2078,"superapp-bff (Gateway) — wrap login/refresh response en `{tokens, user}`",No priority,Closed,Yes,2026-05-25T18:31:17.474Z,2026-05-25T18:31:17.545Z,,,,Rawil Ceballo
+CE2-2077,superapp-bff (Gateway) — `CORS_ORIGINS` incluye mywallet.guinea.pe,No priority,Closed,Yes,2026-05-25T18:31:16.670Z,2026-05-25T18:31:16.757Z,,,,Rawil Ceballo
+CE2-2076,"superapp-bff (Gateway) — rutas `/app/agent/auth/*`, `/wallet/*`, `/catalogs/*`, `/admin/*`, `/onboar",No priority,Closed,Yes,2026-05-25T18:31:15.619Z,2026-05-25T18:31:15.698Z,,,,Rawil Ceballo
+CE2-2074,billing-as-a-service — tabla `tenant_document_templates`,No priority,Closed,Yes,2026-05-25T18:31:14.115Z,2026-05-25T18:31:14.178Z,,,,Rawil Ceballo
+CE2-2073,inventory-as-a-service — endpoint `GET /admin/inventory/stock`,No priority,Closed,Yes,2026-05-25T18:31:13.348Z,2026-05-25T18:31:13.441Z,,,,Rawil Ceballo
+CE2-2072,inventory-as-a-service — endpoint `POST /admin/esims/{iccid}/use` (mark_used),No priority,Closed,Yes,2026-05-25T18:31:12.516Z,2026-05-25T18:31:12.581Z,,,,Rawil Ceballo
+CE2-2071,inventory-as-a-service — columnas `chip_order_id` y `msisdn` en esims,No priority,Closed,Yes,2026-05-25T18:30:52.383Z,2026-05-25T18:30:52.480Z,,,,Rawil Ceballo
+CE2-2070,wallet-as-a-service — endpoint `POST /v1/agents/self-onboard` autenticado por JWT,No priority,Closed,Yes,2026-05-25T18:30:50.967Z,2026-05-25T18:30:51.046Z,,,,Rawil Ceballo
+CE2-2069,"wallet-as-a-service — endpoints `/v1/agents/me`, `/v1/agents/me/password-changed`, `/v1/admin/agents",No priority,Closed,Yes,2026-05-25T18:30:50.153Z,2026-05-25T18:30:50.268Z,,,,Rawil Ceballo
+CE2-2068,wallet-as-a-service — catálogo `recharge_presets` y campos de concept,No priority,Closed,Yes,2026-05-25T18:30:48.155Z,2026-05-25T18:30:48.544Z,,,,Rawil Ceballo
+CE2-2067,wallet-as-a-service — flag `must_change_password` en agents,No priority,Closed,Yes,2026-05-25T18:30:47.297Z,2026-05-25T18:30:47.354Z,,,,Rawil Ceballo
+CE2-2066,wallet-as-a-service — tabla `agents` y vínculo con `wallets`,No priority,Closed,Yes,2026-05-25T18:30:46.520Z,2026-05-25T18:30:46.585Z,,,,Rawil Ceballo
+CE2-2065,user-as-a-service — endpoint admin `POST /v1/admin/users`,No priority,Closed,Yes,2026-05-25T18:30:45.649Z,2026-05-25T18:30:45.765Z,,,,Rawil Ceballo
+CE2-2064,Endpoint `POST /cuy/agent-chip-orders` en GOB con idempotencia,No priority,Closed,Yes,2026-05-25T18:30:44.681Z,2026-05-25T18:30:44.800Z,,,,Rawil Ceballo
+CE2-2063,Endpoint `POST /cuy/agents` en GOB para provisión desde BOP,No priority,Closed,Yes,2026-05-25T18:30:43.772Z,2026-05-25T18:30:43.926Z,,,,Rawil Ceballo
+CE2-2062,Estructura inicial del contexto `cuy_agents` en GOB,No priority,Closed,Yes,2026-05-25T18:30:42.636Z,2026-05-25T18:30:42.696Z,,,,Rawil Ceballo
+CE2-2061,Enviar `concept` a BaaS desde recarga y compra de chips,Low,In Progress,Yes,2026-05-25T18:26:50.444Z,,,,2,Rawil Ceballo
+CE2-2060,Habilitar activaciones del agente Cuy desde Gateway,Medium,In Progress,Yes,2026-05-25T18:26:44.486Z,,,,2,Rawil Ceballo
+CE2-2059,Completar soporte de activación para agentes Cuy en AaaS,Medium,In Progress,Yes,2026-05-25T18:26:34.511Z,,,,2,Rawil Ceballo
+CE2-2058,Configurar deploy automático de BOP desde main,Medium,In Progress,Yes,2026-05-25T18:26:29.747Z,,,,2,Rawil Ceballo
+CE2-2057,Provisionar brand `cuy` en producción en inventory-as-a-service,High,In Progress,Yes,2026-05-25T18:26:24.719Z,,,,2,Rawil Ceballo
+CE2-2056,Quitar `_dev_code` del response en producción,Urgent,In Progress,Yes,2026-05-25T18:26:19.179Z,,,,2,Rawil Ceballo
+CE2-2055,Integrar envío real de email en user-aaS,High,In Progress,Yes,2026-05-25T18:26:13.477Z,,,,2,Rawil Ceballo
+CE2-1968,Diseñar el nuevo mapa TO-BE de integración de agentes,High,Backlog,Yes,2026-05-19T00:05:54.906Z,,,,8,Lesly Samaritano
+CE2-1966,Diseñar el mapa AS-IS de la atención de issues sin agentes.,High,Backlog,Yes,2026-05-19T00:04:39.033Z,,,,8,Lesly Samaritano
+CE2-1663,Faltan facturas en descarga del reporte BOP,High,Closed,No,2026-05-06T14:24:45.207Z,2026-05-11T15:20:47.650Z,120.93,5.04,,Enrique Lezama
+CE2-1963,Pruebas de pre validación para compra de plan y chip con código y sin código de descuento.,High,Closed,Yes,2026-05-18T23:32:00.650Z,2026-05-25T16:25:49.475Z,160.9,6.7,,Lesly Samaritano
+CE2-2052,Pruebas para esim de viajes,High,Closed,Yes,2026-05-25T16:03:18.908Z,2026-05-25T16:03:52.818Z,0.01,,,Unassigned
+CE2-2042,Quitar email de Manuel de notificaciones de n8n,Low,Backlog,No,2026-05-25T15:06:15.912Z,,,,2,Alex Estrada
+CE2-1586,Línea portada no muestra ICCID en sistemas internos,Urgent,Blocked,No,2026-05-07T14:36:31.095Z,,,,20,Farialis Martinez
+CE2-1588,Registrar response de pasarela en user_transaction,Low,Backlog,No,2026-05-07T17:25:14.146Z,,,,20,Farialis Martinez
+CE2-1975,Registrar equipo en lista blanca de excepciones,High,Closed,No,2026-05-19T13:23:31.526Z,2026-05-19T16:49:44.787Z,3.44,0.14,,Alex Estrada
+CE2-2031,Añadir columna de tipo de línea en Dashboard de Cuy,Low,Backlog,No,2026-05-22T22:20:35.180Z,,,,5,Patrick Bolaños
+CE2-2019,"Revisar módulos Cuy B2C, IoT y B2B en Guinea Business",High,Backlog,No,2026-05-22T16:20:42.187Z,,,,5,federico.brond@guinea.pe
+CE2-1978,Analizar si se va a activar o no la suscripción,High,Closed,Yes,2026-05-19T16:45:21.085Z,2026-05-25T14:47:39.701Z,142.04,5.92,,Leandro Ramirez
+CE2-1928,Error interno al activar línea en App FIMO,High,Closed,No,2026-05-16T03:03:21.274Z,2026-05-21T15:11:35.784Z,132.14,5.51,,Leandro Ramirez
+CE2-2008,Pruebas de compra esim y plan con los medios de pagos disponibles,Urgent,Planning,Yes,2026-05-20T17:50:41.176Z,,,,7,Lesly Samaritano
+CE2-1965,Pruebas con otros métodos de pago como tarjeta izipay y niubiz,High,Backlog,Yes,2026-05-18T23:32:48.242Z,,,,9,Lesly Samaritano
+CE2-2002,"Probar flujo de compra chip con yape, tarjeta izipay, tarjeta niubiz",High,Backlog,Yes,2026-05-20T04:27:17.410Z,,,,7,Lesly Samaritano
+CE2-2003,"Probar flujo de comprar plan esim con yape, tarjeta izipay, tarjeta niubiz",High,Backlog,Yes,2026-05-20T04:27:38.426Z,,,,7,Lesly Samaritano
+CE2-2004,"Probar recargas con yape, tarjeta izipay, tarjeta niubiz",High,Backlog,Yes,2026-05-20T04:28:00.926Z,,,,7,Lesly Samaritano
+CE2-2005,"Probar compra de extras con yape, tarjeta izipay, tarjeta niubiz",High,Backlog,Yes,2026-05-20T04:28:09.242Z,,,,7,Lesly Samaritano
+CE2-1594,Pago de eSIM no genera activación pendiente,High,Closed,Yes,2026-05-04T19:28:37.007Z,2026-05-18T22:27:33.770Z,338.98,14.12,,Leandro Ramirez
+CE2-1572,Compras con Yape en secure web no generan preactivación,High,Closed,No,2026-05-04T20:45:30.427Z,2026-05-07T19:48:40.674Z,71.05,2.96,,Farialis Martinez
+CE2-1497,CMS muestra portabilidad activa sin solicitud en curso,High,Closed,No,2026-04-28T20:16:25.774Z,2026-05-21T14:51:44.441Z,546.59,22.77,,Farialis Martinez
+CE2-2015,MG-08 · Lista y búsqueda de SIM Cards (ICCIDs),Medium,Closed,Yes,2026-05-20T23:20:55.763Z,2026-05-22T17:00:14.135Z,41.66,1.74,,Unassigned
+CE2-1914,Plan de implementación — Gap System ↔ BOP en /phone/b2c,High,Closed,Yes,2026-05-14T22:44:17.198Z,2026-05-15T22:11:10.211Z,23.45,0.98,,Unassigned
+CE2-1919,MG-05 · Transacciones: Listado y detalle por línea,High,Closed,Yes,2026-05-14T22:55:19.017Z,2026-05-20T23:16:15.854Z,144.35,6.01,,Unassigned
+CE2-1984,Reasociar/desactivar suscripciones al eliminar y crear tarjeta (gateway context),Urgent,Closed,Yes,2026-05-19T21:54:16.712Z,2026-05-19T21:54:35.836Z,0.01,,,Leandro Ramirez
+CE2-1602,Validar estado real de 37 líneas en BAJA DEFINITIVA,High,Closed,Yes,2026-05-11T00:21:45.867Z,2026-05-13T23:48:18.905Z,71.44,2.98,,Alex Estrada
+CE2-1583,Error al reservar eSIM en portabilidad Cuy,High,Closed,No,2026-05-06T20:20:07.896Z,2026-05-12T17:29:30.634Z,141.16,5.88,,Farialis Martinez
+CE2-1668,Error 502 al finalizar activación en Habla+,High,Closed,No,2026-04-29T21:28:24.288Z,2026-05-07T15:18:40.739Z,185.84,7.74,,Leandro Ramirez
+CE2-1580,Ejercicio 4 y 5 totogi,Medium,Closed,No,2026-05-05T22:15:40.421Z,2026-05-06T16:31:48.155Z,18.27,0.76,,Farialis Martinez
+CE2-1502,Demora en envío de códigos de registro por correo,Urgent,Closed,No,2026-04-29T17:35:14.668Z,2026-04-30T16:16:51.047Z,22.69,0.95,,Leandro Ramirez
+CE2-1912,Implementación del nuevo response de YAPE,Urgent,Closed,Yes,2026-05-14T22:08:20.969Z,2026-05-14T22:08:21.015Z,,,,Leandro Ramirez

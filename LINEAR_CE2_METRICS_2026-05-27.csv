@@ -1,0 +1,21 @@
+Metric,Value,Target,Status
+Total Issues,156,N/A,OK
+P1 (Urgent),14,<5,CRITICAL
+P2 (High),64,Normal,OK
+P3 (Medium),12,N/A,OK
+P4 (Low),15,N/A,OK
+Sin Prioridad,51,N/A,WARNING
+---,---,---,---
+Issues sin Proyecto,73,<46.8%,OK
+Issues con Proyecto,83,>53.2%,OK
+---,---,---,---
+Closed (Completados),89,>50%,OK
+P1/P2 Total,78,N/A,OK
+P1/P2 Completados,37,>70%,WARNING
+VIP Resolution Rate %,47.44,>70%,LOW
+Reopen Rate %,0.0,<5%,EXCELLENT
+Escalation Rate %,0.0,<10%,EXCELLENT
+---,---,---,---
+MTTR Promedio (hours),92.62,<12,HIGH
+MTTR Mínimo (hours),0.0,N/A,OK
+MTTR Máximo (hours),546.59,N/A,OUTLIER
