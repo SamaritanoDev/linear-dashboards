@@ -300,14 +300,20 @@
                 color: #a0b4c4;
             }
             .ce2-info-icon {
-                cursor: help;
+                cursor: pointer;
                 font-size: 1.25rem;
                 opacity: 0.6;
                 transition: opacity 0.2s;
                 user-select: none;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
             }
             .ce2-metric-card:hover .ce2-info-icon {
                 opacity: 1;
+            }
+            .ce2-info-icon:hover {
+                color: #0099cc;
             }
             .ce2-metric-value {
                 font-size: 2.5rem;
@@ -328,14 +334,15 @@
             }
             .ce2-tooltip {
                 position: absolute;
-                background-color: #1a1a1a;
-                color: #ffffff;
+                background-color: rgb(var(--md-sys-color-tertiary-container, 179, 157, 219) / 0.1);
+                color: var(--md-sys-color-on-surface-variant, #49454e);
                 padding: 1rem;
                 border-radius: 0.5rem;
-                border: 1px solid #333;
-                width: 320px;
-                z-index: 50;
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+                border: 1px solid rgb(var(--md-sys-color-tertiary-container, 179, 157, 219) / 0.3);
+                width: 400px;
+                max-width: 90vw;
+                z-index: 1000;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
                 top: 100%;
                 left: 50%;
                 transform: translateX(-50%) translateY(0.5rem);
@@ -343,39 +350,75 @@
                 visibility: hidden;
                 transition: all 0.2s;
                 pointer-events: none;
+                display: flex;
+                flex-direction: column;
+                gap: 0.75rem;
             }
-            .dark .ce2-tooltip {
-                background-color: #0a0e1a;
-                border: 1px solid #2a3a48;
-            }
-            .ce2-metric-card:hover .ce2-tooltip {
+            .ce2-tooltip.visible {
                 opacity: 1;
                 visibility: visible;
+                pointer-events: auto;
+            }
+            .dark .ce2-tooltip {
+                background-color: #0a1428;
+                border: 1px solid #1a3a52;
+            }
+            .ce2-tooltip-icon {
+                display: inline-flex;
+                align-items: flex-start;
+                gap: 0.75rem;
+            }
+            .ce2-tooltip-icon .material-symbols-outlined {
+                flex-shrink: 0;
+                font-size: 1.25rem;
+                color: var(--md-sys-color-tertiary, #7d5260);
+                margin-top: 0.125rem;
             }
             .ce2-tooltip-title {
-                margin: 0 0 0.75rem 0;
+                margin: 0;
                 font-size: 0.875rem;
                 font-weight: 700;
-                color: #fa76b1;
+                color: var(--md-sys-color-tertiary, #7d5260);
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+            .ce2-tooltip-content {
+                display: flex;
+                flex-direction: column;
+                gap: 0.75rem;
             }
             .ce2-tooltip-section {
-                margin: 0.5rem 0;
+                margin: 0;
                 font-size: 0.75rem;
-                line-height: 1.4;
+                line-height: 1.5;
+                color: var(--md-sys-color-on-surface-variant, #49454e);
             }
-            .ce2-tooltip-section strong {
-                color: #fa76b1;
+            .dark .ce2-tooltip-section {
+                color: #b4b0b6;
+            }
+            .ce2-tooltip-section-title {
+                font-weight: 700;
+                color: var(--md-sys-color-tertiary, #7d5260);
+                display: block;
+                margin-bottom: 0.25rem;
             }
             .ce2-tooltip-formula {
                 display: block;
-                background: rgba(250, 118, 177, 0.1);
-                padding: 0.5rem;
+                background: rgba(125, 82, 96, 0.08);
+                padding: 0.5rem 0.75rem;
+                border-left: 3px solid var(--md-sys-color-tertiary, #7d5260);
                 border-radius: 0.25rem;
                 font-size: 0.7rem;
-                color: #fa76b1;
+                color: var(--md-sys-color-on-surface, #1c1b1f);
                 margin: 0.5rem 0;
                 word-break: break-word;
                 font-family: 'Courier New', monospace;
+                line-height: 1.4;
+            }
+            .dark .ce2-tooltip-formula {
+                background: rgba(100, 181, 246, 0.08);
+                color: #e0e8f0;
             }
             .ce2-tooltip-ranges {
                 list-style: none;
@@ -385,6 +428,22 @@
             }
             .ce2-tooltip-ranges li {
                 padding: 0.25rem 0;
+                color: var(--md-sys-color-on-surface-variant, #49454e);
+            }
+            .dark .ce2-tooltip-ranges li {
+                color: #b4b0b6;
+            }
+            .ce2-tooltip-close {
+                position: absolute;
+                top: 0.5rem;
+                right: 0.5rem;
+                cursor: pointer;
+                opacity: 0.6;
+                transition: opacity 0.2s;
+                font-size: 1.25rem;
+            }
+            .ce2-tooltip-close:hover {
+                opacity: 1;
             }
             .ce2-metric-status {
                 display: inline-block;
@@ -2190,21 +2249,115 @@
                 }
             };
 
+            // Metric descriptions for tooltips
+            const CE2_METRIC_DESCRIPTIONS = {
+                vip_resolution_rate: {
+                    whatMeasures: 'Porcentaje de incidentes críticos (Priority 1 o 2) que fueron completados exitosamente durante el período.',
+                    howCalculated: '(Issues completados con state="Completed" Y priority IN [1,2]) / (Total issues con priority IN [1,2]) × 100',
+                    whatMeans: [
+                        '✅ 85-100%: Excelente - El equipo resuelve casi todos los incidentes críticos',
+                        '🟡 70-84%: Bueno - La mayoría de incidentes se resuelven',
+                        '⚠️ 50-69%: Medio - Muchos incidentes críticos sin resolver',
+                        '🔴 <50%: Crítico - Demasiados incidentes pendientes'
+                    ]
+                },
+                fcrr: {
+                    whatMeasures: 'Porcentaje de hotfixes que se resolvieron correctamente a la PRIMERA vez, sin necesidad de reapertura.',
+                    howCalculated: '(Issues completados que NUNCA fueron reabiertos) / (Total issues completados con P1/P2) × 100',
+                    whatMeans: [
+                        '✅ 90-100%: Excelente - Los hotfixes son muy durables',
+                        '🟡 75-89%: Bueno - La mayoría de soluciones rápidas funcionan bien',
+                        '⚠️ 50-74%: Medio - Muchos hotfixes necesitan reparches',
+                        '🔴 <50%: Crítico - Los hotfixes fallan frecuentemente'
+                    ]
+                },
+                reopen_rate: {
+                    whatMeasures: 'Porcentaje de incidentes que fueron REABIERTOS porque el hotfix/workaround falló o fue insuficiente.',
+                    howCalculated: '(Issues con transición "Completed → In Progress") / (Total issues priority 1 o 2) × 100',
+                    whatMeans: [
+                        '✅ 0-5%: Excelente - Casi ningún hotfix falla',
+                        '🟡 5-10%: Bueno - Baja tasa de fallos',
+                        '⚠️ 10-20%: Medio - Muchos hotfixes necesitan reparches',
+                        '🔴 >20%: Crítico - Hotfixes muy inestables'
+                    ]
+                },
+                containment_rate: {
+                    whatMeasures: 'Porcentaje de incidentes resueltos por CE2 sin necesidad de escalación a otro equipo.',
+                    howCalculated: '(Issues que NUNCA cambiaron de equipo) / (Total issues priority 1 o 2) × 100',
+                    whatMeans: [
+                        '✅ 90-100%: Excelente - El equipo es muy autónomo',
+                        '🟡 75-89%: Bueno - El equipo resuelve la mayoría sin ayuda',
+                        '⚠️ 50-74%: Medio - Muchas escalaciones necesarias',
+                        '🔴 <50%: Crítico - El equipo no puede resolver casi nada sin ayuda'
+                    ]
+                },
+                mttr_urgent_hours: {
+                    whatMeasures: 'Tiempo PROMEDIO en horas para resolver incidentes URGENTES (Priority 1).',
+                    howCalculated: 'PROMEDIO(completedAt - createdAt) para todos los issues con priority=1',
+                    whatMeans: [
+                        '✅ <1h: Excelente - Respuesta casi inmediata',
+                        '🟡 1-4h: Bueno - Resolución rápida',
+                        '⚠️ 4-8h: Medio - Podría ser más rápido',
+                        '🔴 >8h: Crítico - Demasiado tiempo en resolverse'
+                    ]
+                },
+                mttr_high_hours: {
+                    whatMeasures: 'Tiempo PROMEDIO en horas para resolver incidentes ALTOS (Priority 2).',
+                    howCalculated: 'PROMEDIO(completedAt - createdAt) para todos los issues con priority=2',
+                    whatMeans: [
+                        '✅ <4h: Excelente - Rápido',
+                        '🟡 4-12h: Bueno - Razonable',
+                        '⚠️ 12-24h: Medio - Lento',
+                        '🔴 >24h: Crítico - Muy lento'
+                    ]
+                },
+                downtime_saved: {
+                    whatMeasures: 'Número total de horas de inactividad del sistema evitadas al resolver incidentes por debajo del SLA target.',
+                    howCalculated: 'Suma de (SLA Target - MTTR Real) para cada incidente cerrado',
+                    whatMeans: [
+                        '✅ >20h: Excelente - El equipo evita mucho downtime',
+                        '🟡 10-20h: Bueno - Resoluciones rápidas ahorran tiempo',
+                        '⚠️ 5-10h: Medio - Algunos incidentes tocan SLA',
+                        '🔴 <5h: Crítico - Poco ahorro, muchos incidentes exceden SLA'
+                    ]
+                },
+                fire_prevention: {
+                    whatMeasures: 'Porcentaje de REDUCCIÓN en incidentes críticos (P1) comparando mes actual vs mes anterior.',
+                    howCalculated: '((P1 Mes Anterior - P1 Mes Actual) / P1 Mes Anterior) × 100',
+                    whatMeans: [
+                        '✅ >20%: Excelente - El equipo es proactivo, evita incendios repetitivos',
+                        '🟡 10-20%: Bueno - Mejora visible en reducción de incidentes',
+                        '⚠️ 0-10%: Medio - Poco progreso o incendios estables',
+                        '🔴 Negativo: Crítico - AUMENTO de incidentes'
+                    ]
+                },
+                noise_reduction: {
+                    whatMeasures: 'Porcentaje de issues que fueron RECLASIFICADOS de P1 (urgente) a P3 (bajo) porque eran falsas alarmas.',
+                    howCalculated: '(Issues reclasificados P1→P3 / Total issues reportados como P1) × 100',
+                    whatMeans: [
+                        '✅ 20-35%: Excelente - Buen filtrado, protege el foco del equipo',
+                        '🟡 10-20%: Bueno - Razonable nivel de discriminación',
+                        '⚠️ 5-10%: Medio - Muchas falsas alarmas no se detectan',
+                        '🔴 <5%: Crítico - Equipo recibe mucho noise'
+                    ]
+                }
+            };
+
             function renderCE2Metrics(data) {
                 const metricsGrid = document.getElementById('ce2-metrics-grid');
                 metricsGrid.innerHTML = '';
 
                 const metrics = data.summary;
                 const metricsList = [
-                    { key: 'vip_resolution_rate', label: 'VIP Resolution Rate' },
-                    { key: 'fcrr', label: 'FCRR' },
-                    { key: 'reopen_rate', label: 'Re-open Rate' },
-                    { key: 'containment_rate', label: 'Containment Rate' },
-                    { key: 'mttr_urgent_hours', label: 'MTTR (P1)' },
-                    { key: 'mttr_high_hours', label: 'MTTR (P2)' },
-                    { key: 'downtime_saved', label: 'Downtime Saved' },
-                    { key: 'fire_prevention', label: 'Fire Prevention' },
-                    { key: 'noise_reduction', label: 'Noise Reduction' },
+                    { key: 'vip_resolution_rate', label: 'Tasa de Resolución VIP' },
+                    { key: 'fcrr', label: 'Resolución a Primera Vez (FCRR)' },
+                    { key: 'reopen_rate', label: 'Tasa de Reapertura' },
+                    { key: 'containment_rate', label: 'Tasa de Contención' },
+                    { key: 'mttr_urgent_hours', label: 'Tiempo de Resolución: Urgentes' },
+                    { key: 'mttr_high_hours', label: 'Tiempo de Resolución: Altos' },
+                    { key: 'downtime_saved', label: 'Tiempo de Inactividad Evitado' },
+                    { key: 'fire_prevention', label: 'Prevención de Incendios' },
+                    { key: 'noise_reduction', label: 'Reducción de Falsas Alarmas' },
                 ];
 
                 metricsList.forEach(({ key, label }) => {
@@ -2213,28 +2366,86 @@
 
                     const card = document.createElement('div');
                     card.className = 'ce2-metric-card';
+                    card.style.position = 'relative';
 
                     const status = metric.value >= 85 ? 'excellent' : metric.value >= 70 ? 'good' : 'warning';
+                    const desc = CE2_METRIC_DESCRIPTIONS[key] || {};
+                    const tooltipId = `ce2-tooltip-${key}`;
 
                     card.innerHTML = `
                         <div class="ce2-metric-header">
                             <span class="ce2-metric-label">${label}</span>
-                            <span class="ce2-info-icon" title="Pasar mouse para más información">ℹ️</span>
+                            <span class="ce2-info-icon" data-tooltip="${tooltipId}" title="Click para más información">
+                                <span class="material-symbols-outlined">info</span>
+                            </span>
                         </div>
                         <div class="ce2-metric-value">${metric.value.toFixed(1)}<span style="font-size: 0.6em; margin-left: 0.5rem;">${metric.unit}</span></div>
                         <div class="ce2-metric-trend">${metric.tooltip}</div>
                         <span class="ce2-metric-status ${status}">${status}</span>
 
-                        <div class="ce2-tooltip">
-                            <div class="ce2-tooltip-title">${label}</div>
-                            <div class="ce2-tooltip-section">
-                                <strong>Audiencia:</strong> ${metric.audience}
+                        <div class="ce2-tooltip" id="${tooltipId}">
+                            <div class="ce2-tooltip-icon">
+                                <span class="material-symbols-outlined">info</span>
+                                <div class="ce2-tooltip-content" style="flex: 1;">
+                                    <div class="ce2-tooltip-title">${label}</div>
+
+                                    ${desc.whatMeasures ? `
+                                    <div class="ce2-tooltip-section">
+                                        <span class="ce2-tooltip-section-title">¿Qué mide?</span>
+                                        ${desc.whatMeasures}
+                                    </div>
+                                    ` : ''}
+
+                                    ${desc.howCalculated ? `
+                                    <div class="ce2-tooltip-section">
+                                        <span class="ce2-tooltip-section-title">¿Cómo se calcula?</span>
+                                        <code class="ce2-tooltip-formula">${desc.howCalculated}</code>
+                                    </div>
+                                    ` : ''}
+
+                                    ${desc.whatMeans && desc.whatMeans.length > 0 ? `
+                                    <div class="ce2-tooltip-section">
+                                        <span class="ce2-tooltip-section-title">¿Qué significa?</span>
+                                        <ul class="ce2-tooltip-ranges">
+                                            ${desc.whatMeans.map(m => `<li>${m}</li>`).join('')}
+                                        </ul>
+                                    </div>
+                                    ` : ''}
+
+                                    ${metric.audience ? `
+                                    <div class="ce2-tooltip-section">
+                                        <span class="ce2-tooltip-section-title">Audiencia</span>
+                                        ${metric.audience}
+                                    </div>
+                                    ` : ''}
+                                </div>
                             </div>
                         </div>
                     `;
 
                     metricsGrid.appendChild(card);
+
+                    // Add click handler for info icon
+                    const infoIcon = card.querySelector('.ce2-info-icon');
+                    const tooltip = card.querySelector('.ce2-tooltip');
+
+                    infoIcon.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        // Close all other tooltips
+                        document.querySelectorAll('.ce2-tooltip.visible').forEach(t => {
+                            if (t !== tooltip) t.classList.remove('visible');
+                        });
+                        // Toggle current tooltip
+                        tooltip.classList.toggle('visible');
+                    });
                 });
+
+                // Close tooltips when clicking outside
+                document.addEventListener('click', () => {
+                    document.querySelectorAll('.ce2-tooltip.visible').forEach(t => {
+                        t.classList.remove('visible');
+                    });
+                }, { once: false });
             }
             // ========== END CE2 METRICS FUNCTIONS ==========
 
