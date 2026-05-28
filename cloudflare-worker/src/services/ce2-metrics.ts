@@ -99,8 +99,8 @@ export class CE2MetricsService {
     // Log priority breakdown
     const p1Issues = issues.filter(i => i.priority === 1);
     const p2Issues = issues.filter(i => i.priority === 2);
-    const completedP1 = p1Issues.filter(i => i.state.name === "Completed").length;
-    const completedP2 = p2Issues.filter(i => i.state.name === "Completed").length;
+    const completedP1 = p1Issues.filter(i => i.state.name === "Done" || i.state.name === "Completed").length;
+    const completedP2 = p2Issues.filter(i => i.state.name === "Done" || i.state.name === "Completed").length;
 
     console.log(`[CE2 Metrics] Priority breakdown: P1=${p1Issues.length} (completed=${completedP1}), P2=${p2Issues.length} (completed=${completedP2})`);
 
