@@ -503,6 +503,12 @@ async function handleCE2MetricsSummary(
         },
       },
       cached_at: new Date().toISOString(),
+      _debug: {
+        total_vip_issues: metrics.vipResolutionRate.total_vip_issues,
+        completed_vip_issues: metrics.vipResolutionRate.completed_vip_issues,
+        total_critical_issues: metrics.containmentRate.total_critical_issues,
+        contained_issues: metrics.containmentRate.contained_issues,
+      }
     };
 
     return jsonResponse(summary);
