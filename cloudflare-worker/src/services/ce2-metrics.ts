@@ -63,12 +63,27 @@ export class CE2MetricsService {
       1
     );
 
+    console.log(`[CE2 Metrics] Date range: ${startDate.toISOString()} to ${endDate.toISOString()}`);
+    console.log(`[CE2 Metrics] Total issues from API: ${result.issues.nodes.length}`);
+
+    if (result.issues.nodes.length > 0) {
+      console.log(`[CE2 Metrics] Sample issue createdAt: ${result.issues.nodes[0].createdAt}`);
+    }
+
     const issues = result.issues.nodes.filter((issue) => {
       const createdDate = new Date(issue.createdAt);
       return createdDate >= startDate && createdDate < endDate;
     });
 
-    console.log(`Fetched ${result.issues.nodes.length} issues, filtered to ${issues.length} for month range`);
+    console.log(`[CE2 Metrics] Filtered to ${issues.length} issues for month ${month}/${year}`);
+
+    // Log priority breakdown
+    const p1Count = issues.filter(i => i.priority === 1).length;
+    const p2Count = issues.filter(i => i.priority === 2).length;
+    console.log(`[CE2 Metrics] P1 issues: ${p1Count}, P2 issues: ${p2Count}`);
+
+    const completedCount = issues.filter(i => i.state.name === "Completed").length;
+    console.log(`[CE2 Metrics] Completed issues: ${completedCount}`);
 
     const prevMonthIssues = await this.getPreviousMonthIssues(year, month);
 

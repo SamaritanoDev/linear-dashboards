@@ -2171,10 +2171,12 @@
                     const metricsGrid = document.getElementById('ce2-metrics-grid');
                     metricsGrid.innerHTML = '<p class="text-on-surface-variant col-span-full">Cargando métricas...</p>';
 
+                    console.log(`[CE2] Loading metrics for month: ${month}`);
                     const response = await fetch(`${WORKER_CONFIG.baseUrl}/api/ce2/metrics/summary?month=${month}&_t=${Date.now()}`);
                     if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
                     const data = await response.json();
+                    console.log('[CE2] Metrics data received:', data);
                     renderCE2Metrics(data);
 
                     const timestamp = document.getElementById('ce2-timestamp');
@@ -2189,6 +2191,15 @@
                     hideLoadingState();
                 }
             };
+
+            // Auto-load metrics when month selector changes
+            const monthSelect = document.getElementById('ce2-month-select');
+            if (monthSelect) {
+                monthSelect.addEventListener('change', function() {
+                    console.log(`[CE2] Month changed to: ${this.value}`);
+                    loadCE2Metrics();
+                });
+            }
 
             function renderCE2Metrics(data) {
                 const metricsGrid = document.getElementById('ce2-metrics-grid');
