@@ -99,8 +99,8 @@ export class CE2MetricsService {
     // Log priority breakdown
     const p1Issues = issues.filter(i => i.priority === 1);
     const p2Issues = issues.filter(i => i.priority === 2);
-    const completedP1 = p1Issues.filter(i => i.state.name === "Done" || i.state.name === "Completed").length;
-    const completedP2 = p2Issues.filter(i => i.state.name === "Done" || i.state.name === "Completed").length;
+    const completedP1 = p1Issues.filter(i => i.state.name === "completed" || i.state.name === "Done" || i.state.name === "Completed").length;
+    const completedP2 = p2Issues.filter(i => i.state.name === "completed" || i.state.name === "Done" || i.state.name === "Completed").length;
 
     console.log(`[CE2 Metrics] Priority breakdown: P1=${p1Issues.length} (completed=${completedP1}), P2=${p2Issues.length} (completed=${completedP2})`);
 
@@ -177,7 +177,7 @@ export class CE2MetricsService {
   ): any {
     const p1p2Issues = issues.filter((i) => i.priority === 1 || i.priority === 2);
     const completed = p1p2Issues.filter(
-      (i) => i.state.name === "Done" || i.state.name === "Completed"
+      (i) => i.state.name === "completed" || i.state.name === "Done" || i.state.name === "Completed"
     ).length;
 
     const value =
@@ -253,7 +253,7 @@ export class CE2MetricsService {
   ): any {
     const p1p2Completed = issues.filter(
       (i) =>
-        (i.priority === 1 || i.priority === 2) && (i.state.name === "Done" || i.state.name === "Completed")
+        (i.priority === 1 || i.priority === 2) && (i.state.name === "completed" || i.state.name === "Done" || i.state.name === "Completed")
     );
 
     // Without historyEntries API support, assume all completed issues were resolved on first try
@@ -424,7 +424,7 @@ export class CE2MetricsService {
   }
 
   private calculateMTTR(issues: CE2Issue[], year: number, month: number): any {
-    const completed = issues.filter((i) => i.state.name === "Done" || i.state.name === "Completed");
+    const completed = issues.filter((i) => i.state.name === "completed" || i.state.name === "Done" || i.state.name === "Completed");
 
     const calculateByPriority = (priority: number) => {
       const filtered = completed.filter((i) => i.priority === priority);
@@ -532,7 +532,7 @@ export class CE2MetricsService {
     const SLA_P1 = 4;
     const SLA_P2 = 8;
 
-    const completed = issues.filter((i) => i.state.name === "Done" || i.state.name === "Completed");
+    const completed = issues.filter((i) => i.state.name === "completed" || i.state.name === "Done" || i.state.name === "Completed");
 
     let totalSaved = 0;
     let p1Saved = 0;
