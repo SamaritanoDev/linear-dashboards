@@ -68,28 +68,41 @@ export class CE2MetricsService {
       .toISOString()
       .split("T")[0]; // YYYY-MM-DD
 
-    console.log(`[CE2 Metrics] Date range: ${startDateISO} to ${endDateISO}`);
+    console.log(`[CE2 Metrics] Looking for issues between ${startDateISO} and ${endDateISO}`);
     console.log(`[CE2 Metrics] Total issues from API: ${result.issues.nodes.length}`);
 
     if (result.issues.nodes.length > 0) {
-      console.log(`[CE2 Metrics] Sample issue createdAt: ${result.issues.nodes[0].createdAt}`);
+      // Log first 5 issues and their dates
+      const sampleIssues = result.issues.nodes.slice(0, 5);
+      console.log(`[CE2 Metrics] First ${sampleIssues.length} issues:`);
+      sampleIssues.forEach((issue, idx) => {
+        const dateISO = issue.createdAt.split("T")[0];
+        console.log(`  [${idx}] ${issue.identifier}: created=${dateISO}, priority=${issue.priority}, state=${issue.state.name}`);
+      });
+
+      // Check date range of all issues
+      const allDates = result.issues.nodes.map(i => i.createdAt.split("T")[0]);
+      const minDate = allDates.sort()[0];
+      const maxDate = allDates.sort().pop();
+      console.log(`[CE2 Metrics] Date range in API response: ${minDate} to ${maxDate}`);
     }
 
     const issues = result.issues.nodes.filter((issue) => {
       // Extract date part from ISO string (YYYY-MM-DD)
       const issueDateISO = issue.createdAt.split("T")[0];
-      return issueDateISO >= startDateISO && issueDateISO < endDateISO;
+      const passes = issueDateISO >= startDateISO && issueDateISO < endDateISO;
+      return passes;
     });
 
-    console.log(`[CE2 Metrics] Filtered to ${issues.length} issues for month ${month}/${year}`);
+    console.log(`[CE2 Metrics] After date filter ${startDateISO} to ${endDateISO}: ${issues.length} issues`);
 
     // Log priority breakdown
-    const p1Count = issues.filter(i => i.priority === 1).length;
-    const p2Count = issues.filter(i => i.priority === 2).length;
-    console.log(`[CE2 Metrics] P1 issues: ${p1Count}, P2 issues: ${p2Count}`);
+    const p1Issues = issues.filter(i => i.priority === 1);
+    const p2Issues = issues.filter(i => i.priority === 2);
+    const completedP1 = p1Issues.filter(i => i.state.name === "Completed").length;
+    const completedP2 = p2Issues.filter(i => i.state.name === "Completed").length;
 
-    const completedCount = issues.filter(i => i.state.name === "Completed").length;
-    console.log(`[CE2 Metrics] Completed issues: ${completedCount}`);
+    console.log(`[CE2 Metrics] Priority breakdown: P1=${p1Issues.length} (completed=${completedP1}), P2=${p2Issues.length} (completed=${completedP2})`);
 
     const prevMonthIssues = await this.getPreviousMonthIssues(year, month);
 
