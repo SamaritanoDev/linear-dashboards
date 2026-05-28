@@ -86,6 +86,16 @@ export function getCE2MetricsQueryForMonth(
   year: number,
   month: number
 ): string {
+  const startDate = new Date(year, month - 1, 1);
+  const endDate = new Date(
+    month === 12 ? year + 1 : year,
+    month === 12 ? 0 : month,
+    1
+  );
+
+  const startStr = startDate.toISOString().split("T")[0];
+  const endStr = endDate.toISOString().split("T")[0];
+
   return `
 {
   issues(
@@ -93,6 +103,7 @@ export function getCE2MetricsQueryForMonth(
     filter: {
       team: {id: {eq: "5feed208-25ac-4eb5-a2e6-e5f60f957b00"}}
       project: {null: true}
+      createdAt: {gte: "${startStr}T00:00:00Z", lt: "${endStr}T00:00:00Z"}
     }
   ) {
     nodes {
