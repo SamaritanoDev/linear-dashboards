@@ -333,26 +333,25 @@
                 color: #a0b4c4;
             }
             .ce2-tooltip {
-                position: absolute;
-                background-color: rgba(220, 184, 255, 0.08);
+                position: fixed;
+                background-color: rgba(220, 184, 255, 0.95);
                 color: #49454e;
-                padding: 1rem;
-                border-radius: 0.5rem;
-                border: 1px solid rgba(220, 184, 255, 0.25);
-                width: 400px;
+                padding: 1.25rem;
+                border-radius: 0.75rem;
+                border: 2px solid rgba(125, 82, 96, 0.3);
+                width: 420px;
                 max-width: 90vw;
-                z-index: 1000;
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-                top: 100%;
-                left: 50%;
-                transform: translateX(-50%) translateY(0.5rem);
+                z-index: 9999;
+                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
                 opacity: 0;
                 visibility: hidden;
-                transition: all 0.2s;
+                transition: all 0.2s ease;
                 pointer-events: none;
                 display: flex;
                 flex-direction: column;
                 gap: 0.75rem;
+                max-height: 80vh;
+                overflow-y: auto;
             }
             .ce2-tooltip.visible {
                 opacity: 1;
@@ -360,9 +359,9 @@
                 pointer-events: auto;
             }
             .dark .ce2-tooltip {
-                background-color: rgba(100, 181, 246, 0.08);
-                border: 1px solid rgba(100, 181, 246, 0.25);
-                color: #b4b0b6;
+                background-color: rgba(15, 30, 50, 0.95);
+                border: 2px solid rgba(100, 181, 246, 0.3);
+                color: #e0e8f0;
             }
             .ce2-tooltip-icon {
                 display: inline-flex;
@@ -2448,6 +2447,23 @@
                         });
                         // Toggle current tooltip
                         tooltip.classList.toggle('visible');
+
+                        // Position tooltip near the info icon
+                        if (tooltip.classList.contains('visible')) {
+                            const rect = infoIcon.getBoundingClientRect();
+                            tooltip.style.top = (rect.bottom + 10) + 'px';
+                            tooltip.style.left = (rect.left - 200) + 'px';
+
+                            // Adjust if tooltip goes off-screen right
+                            const tooltipRect = tooltip.getBoundingClientRect();
+                            if (tooltipRect.right > window.innerWidth - 10) {
+                                tooltip.style.left = (window.innerWidth - 420 - 10) + 'px';
+                            }
+                            // Adjust if tooltip goes off-screen left
+                            if (tooltipRect.left < 10) {
+                                tooltip.style.left = '10px';
+                            }
+                        }
                     });
                 });
             }
