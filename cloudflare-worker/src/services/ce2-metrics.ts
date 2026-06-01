@@ -1,6 +1,7 @@
 import { LinearClient } from "../linear/client";
 import { getCE2MetricsQueryForMonth } from "../linear/queries";
 import type { LinearIssue } from "../types";
+import { StateHistoryService } from "./state-history";
 
 interface CE2Issue extends LinearIssue {
   updatedAt: string;
@@ -22,9 +23,11 @@ interface MetricDisclaimer {
 
 export class CE2MetricsService {
   private client: LinearClient;
+  private historyService: StateHistoryService;
 
-  constructor(client: LinearClient) {
+  constructor(client: LinearClient, historyService: StateHistoryService) {
     this.client = client;
+    this.historyService = historyService;
   }
 
   async getMetricsForMonth(
@@ -41,8 +44,8 @@ export class CE2MetricsService {
     firePrevention: any;
     noiseReduction: any;
   }> {
-    const includeWithProject = filter === "with_project";
-    const query = getCE2MetricsQueryForMonth(year, month, includeWithProject);
+    // Note: CE2 metrics always filters by project: null (no project)
+    const query = getCE2MetricsQueryForMonth(year, month);
     console.log(`Fetching CE2 metrics for ${year}-${month.toString().padStart(2, "0")} (filter: ${filter})`);
     const result = await this.client.query<{ issues: { nodes: CE2Issue[] } }>(
       query
@@ -123,8 +126,8 @@ export class CE2MetricsService {
     return {
       vipResolutionRate: this.calculateVIPResolutionRate(issues, year, month),
       fcrr: this.calculateFCRR(issues, year, month),
-      reopenRate: this.calculateReopenRate(issues, year, month),
-      containmentRate: this.calculateContainmentRate(issues, year, month),
+      reopenRate: await this.calculateReopenRate(issues, year, month),
+      containmentRate: await this.calculateContainmentRate(issues, year, month),
       mttr: this.calculateMTTR(issues, year, month),
       downtimeSaved: this.calculateDowntimeSaved(issues, year, month),
       firePrevention: this.calculateFirePrevention(
@@ -310,17 +313,31 @@ export class CE2MetricsService {
     };
   }
 
-  private calculateReopenRate(
+  private async calculateReopenRate(
     issues: CE2Issue[],
     year: number,
     month: number
-  ): any {
+  ): Promise<any> {
     const p1p2Issues = issues.filter((i) => i.priority === 1 || i.priority === 2);
 
-    // Without historyEntries API support, we can't detect reopens
-    // Assume 0% reopen rate as a baseline
+    // Usar historial de estado para detectar reaperturas
     const reopened: any[] = [];
-    const value = 0;
+
+    for (const issue of p1p2Issues) {
+      const wasReopened = await this.historyService.wasReopened(issue.id);
+      if (wasReopened) {
+        reopened.push({
+          id: issue.id,
+          identifier: issue.identifier,
+          title: issue.title,
+        });
+      }
+    }
+
+    const value =
+      p1p2Issues.length > 0
+        ? parseFloat(((reopened.length / p1p2Issues.length) * 100).toFixed(1))
+        : 0;
     const status = value < 5 ? "good" : value < 10 ? "fair" : "poor";
 
     const startDate = new Date(year, month - 1, 1)
@@ -367,17 +384,28 @@ export class CE2MetricsService {
     };
   }
 
-  private calculateContainmentRate(
+  private async calculateContainmentRate(
     issues: CE2Issue[],
     year: number,
     month: number
-  ): any {
+  ): Promise<any> {
     const p1p2Issues = issues.filter((i) => i.priority === 1 || i.priority === 2);
 
-    // Without historyEntries API support, we can't detect team changes
-    // Assume all issues are contained (no escalations detected)
+    // Usar historial para detectar cambios de team (escalaciones)
     const escalated: any[] = [];
-    const contained = p1p2Issues.length;
+
+    for (const issue of p1p2Issues) {
+      const hadTeamChange = await this.historyService.hadTeamChange(issue.id);
+      if (hadTeamChange) {
+        escalated.push({
+          id: issue.id,
+          identifier: issue.identifier,
+          title: issue.title,
+        });
+      }
+    }
+
+    const contained = p1p2Issues.length - escalated.length;
     const value =
       p1p2Issues.length > 0
         ? parseFloat(((contained / p1p2Issues.length) * 100).toFixed(1))

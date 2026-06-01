@@ -2,11 +2,14 @@ import { LinearClient } from "./linear/client";
 import { IssuesService } from "./services/issues";
 import { ProjectsService } from "./services/projects";
 import { CE2MetricsService } from "./services/ce2-metrics";
+import { StateHistoryService } from "./services/state-history";
+import { LinearWebhookHandler } from "./linear/webhook-handler";
 import { getMonthNumber, getMonthName, getCurrentYear, jsonResponse, errorResponse } from "./utils";
 
 interface Env {
   LINEAR_API_KEY: string;
   CACHE?: KVNamespace;
+  CE2_HISTORY?: KVNamespace;
 }
 
 export default {
@@ -60,6 +63,14 @@ export default {
 
     if (pathname === "/api/debug/ce2-issues") {
       return handleDebugCE2Issues(request, env, client);
+    }
+
+    if (pathname === "/webhook/linear" && request.method === "POST") {
+      return handleLinearWebhook(request, env);
+    }
+
+    if (pathname === "/api/debug/webhook") {
+      return handleDebugWebhook(request, env);
     }
 
     return errorResponse("Not found", 404);
@@ -442,7 +453,8 @@ async function handleCE2MetricsSummary(
     const year = getCurrentYear();
     const filter = filterParam || "without_project";
 
-    const ce2Service = new CE2MetricsService(client);
+    const historyService = new StateHistoryService(env.CE2_HISTORY!);
+    const ce2Service = new CE2MetricsService(client, historyService);
     const metrics = await ce2Service.getMetricsForMonth(year, monthNum, filter);
 
     const summary = {
@@ -562,5 +574,81 @@ async function handleDebugCE2Issues(
     const errorMessage = error instanceof Error ? error.message : String(error);
     console.error("Debug error:", errorMessage);
     return errorResponse(errorMessage, 500);
+  }
+}
+
+async function handleLinearWebhook(
+  request: Request,
+  env: Env
+): Promise<Response> {
+  try {
+    // Validar que KV está disponible
+    if (!env.CE2_HISTORY) {
+      console.error("[Webhook] CE2_HISTORY KV namespace not available");
+      return errorResponse("KV namespace not configured", 500);
+    }
+
+    // Parsear el payload
+    const payload = await request.json() as any;
+
+    // Crear servicio de historial y manejador
+    const historyService = new StateHistoryService(env.CE2_HISTORY);
+    const webhookHandler = new LinearWebhookHandler(historyService);
+
+    // Procesar el webhook
+    const result = await webhookHandler.handleWebhook(payload);
+
+    if (!result.success) {
+      console.warn(`[Webhook] Processing failed: ${result.error}`);
+      return jsonResponse({ success: false, error: result.error }, 400);
+    }
+
+    console.log(`[Webhook] Successfully processed: ${result.recorded}`);
+    return jsonResponse({
+      success: true,
+      recorded: result.recorded,
+      message: "Webhook processed successfully",
+    });
+  } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    console.error(`[Webhook] Error: ${errorMessage}`);
+    return errorResponse(`Webhook processing failed: ${errorMessage}`, 500);
+  }
+}
+
+async function handleDebugWebhook(
+  request: Request,
+  env: Env
+): Promise<Response> {
+  try {
+    if (!env.CE2_HISTORY) {
+      return jsonResponse({
+        error: "CE2_HISTORY KV namespace not available",
+        configuration: "missing",
+      });
+    }
+
+    const historyService = new StateHistoryService(env.CE2_HISTORY);
+
+    // Obtener estadísticas del almacenamiento
+    const allKeys = await env.CE2_HISTORY.list({ prefix: "transition:" });
+
+    return jsonResponse({
+      status: "webhook system operational",
+      kv_configured: true,
+      stored_transitions: allKeys.keys.length,
+      namespace_binding: "CE2_HISTORY",
+      webhook_endpoint: "/webhook/linear",
+      setup_instructions: {
+        linear_webhook_url: `${request.url.split("/api/debug")[0]}/webhook/linear`,
+        method: "POST",
+        expected_content_type: "application/json",
+      },
+      sample_transitions: allKeys.keys.slice(0, 5).map((k) => k.name),
+    });
+  } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    console.error("[Debug Webhook] Error:", errorMessage);
+    return errorResponse(`Debug failed: ${errorMessage}`, 500);
   }
 }
