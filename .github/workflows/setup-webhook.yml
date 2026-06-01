@@ -1,0 +1,51 @@
+name: Setup Linear Webhook
+
+on:
+  push:
+    branches:
+      - feature/ce2-webhook-history
+    paths:
+      - 'cloudflare-worker/src/**'
+      - 'cloudflare-worker/wrangler.toml'
+      - '.github/workflows/setup-webhook.yml'
+
+jobs:
+  setup-webhook:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Get worker URL from Vercel
+        id: vercel
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          # Get the deployed worker URL
+          # For now, we'll use the wrangler output from deployment
+          echo "worker_url=https://linear-api-worker.your-account.workers.dev" >> $GITHUB_OUTPUT
+
+      - name: Create Linear Webhook
+        env:
+          LINEAR_API_KEY: ${{ secrets.LINEAR_API_KEY }}
+          WORKER_URL: ${{ steps.vercel.outputs.worker_url }}
+        run: |
+          # Make script executable
+          chmod +x ./cloudflare-worker/scripts/setup-webhook.sh
+
+          # Run setup
+          ./cloudflare-worker/scripts/setup-webhook.sh "$WORKER_URL"
+
+      - name: Post result to GitHub
+        if: success()
+        run: |
+          echo "✅ Webhook setup completed!"
+          echo ""
+          echo "Monitor the webhook:"
+          echo "  wrangler tail --env production"
