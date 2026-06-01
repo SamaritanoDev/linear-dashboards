@@ -2391,6 +2391,36 @@
                     { key: 'noise_reduction', label: 'Reducción de Falsas Alarmas' },
                 ];
 
+                // Function to calculate status based on metric type and value
+                function getMetricStatus(metricKey, value) {
+                    // Metrics where LOWER values are BETTER (inverse logic)
+                    const inverseMetrics = ['reopen_rate', 'mttr_urgent_hours', 'mttr_high_hours'];
+
+                    if (inverseMetrics.includes(metricKey)) {
+                        // For reopen_rate: 0-5% = excellent, 5-10% = good, 10-20% = medium, >20% = critical
+                        // For MTTR hours: less is better
+                        if (metricKey === 'reopen_rate') {
+                            if (value <= 5) return 'excellent';
+                            if (value <= 10) return 'good';
+                            if (value <= 20) return 'medium';
+                            return 'critical';
+                        }
+                        // MTTR: less time is better
+                        if (metricKey.includes('mttr')) {
+                            if (value <= 5) return 'excellent';  // <= 5 hours
+                            if (value <= 12) return 'good';      // <= 12 hours
+                            if (value <= 24) return 'medium';    // <= 24 hours
+                            return 'critical';
+                        }
+                    }
+
+                    // Standard metrics where HIGHER values are BETTER
+                    if (value >= 90) return 'excellent';
+                    if (value >= 75) return 'good';
+                    if (value >= 50) return 'medium';
+                    return 'critical';
+                }
+
                 metricsList.forEach(({ key, label }) => {
                     const metric = metrics[key];
                     if (!metric) return;
@@ -2399,7 +2429,7 @@
                     card.className = 'ce2-metric-card';
                     card.style.position = 'relative';
 
-                    const status = metric.value >= 85 ? 'excellent' : metric.value >= 70 ? 'good' : 'warning';
+                    const status = getMetricStatus(key, metric.value);
                     const desc = CE2_METRIC_DESCRIPTIONS[key] || {};
                     const tooltipId = `ce2-tooltip-${key}`;
 
