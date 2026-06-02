@@ -1260,20 +1260,6 @@
                         <p class="text-on-surface-variant">Métricas de resolución y calidad de incidentes críticos</p>
                     </div>
 
-                    <div class="mb-6 flex gap-4">
-                        <select id="ce2-month-select" class="px-4 py-2 rounded-lg border border-outline bg-surface text-on-surface text-sm">
-                            <option value="Enero">Enero</option>
-                            <option value="Febrero">Febrero</option>
-                            <option value="Marzo">Marzo</option>
-                            <option value="Abril">Abril</option>
-                            <option value="Mayo" selected>Mayo</option>
-                            <option value="Junio">Junio</option>
-                        </select>
-                        <button onclick="loadCE2Metrics()" class="px-6 py-2 rounded-lg bg-primary text-on-primary font-medium text-sm hover:bg-primary/90 transition-all">
-                            Cargar
-                        </button>
-                    </div>
-
                     <!-- ====== YEARLY TREND SECTION ====== -->
                     <div id="ce2-yearly-trend" class="mb-8">
                         <div class="glacier-card rounded-2xl p-6 mb-2">
@@ -1318,11 +1304,25 @@
                     </div>
                     <!-- ====== END YEARLY TREND SECTION ====== -->
 
-                    <!-- Divider -->
+                    <!-- Divider + Filter -->
                     <div class="flex items-center gap-4 my-6">
                         <div style="flex:1; height:1px; background: linear-gradient(to right, transparent, rgba(148,163,184,0.25), transparent);"></div>
                         <span class="text-xs font-semibold uppercase tracking-widest" style="color:rgba(148,163,184,0.5);">Métricas del mes</span>
                         <div style="flex:1; height:1px; background: linear-gradient(to right, transparent, rgba(148,163,184,0.25), transparent);"></div>
+                    </div>
+
+                    <div class="mb-6 flex gap-3 items-center">
+                        <select id="ce2-month-select" class="px-4 py-2 rounded-lg border border-outline bg-surface text-on-surface text-sm">
+                            <option value="Enero">Enero</option>
+                            <option value="Febrero">Febrero</option>
+                            <option value="Marzo">Marzo</option>
+                            <option value="Abril">Abril</option>
+                            <option value="Mayo" selected>Mayo</option>
+                            <option value="Junio">Junio</option>
+                        </select>
+                        <button onclick="loadCE2Metrics()" class="px-6 py-2 rounded-lg bg-primary text-on-primary font-medium text-sm hover:bg-primary/90 transition-all">
+                            Cargar
+                        </button>
                     </div>
 
                     <div id="ce2-metrics-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
