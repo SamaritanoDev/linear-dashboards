@@ -2376,10 +2376,10 @@
                     whatMeasures: 'Porcentaje de REDUCCIÓN en incidentes críticos (P1) comparando mes actual vs mes anterior.',
                     howCalculated: '((P1 Mes Anterior - P1 Mes Actual) / P1 Mes Anterior) × 100',
                     whatMeans: [
-                        '✅ >20%: Excelente - El equipo es proactivo, evita incendios repetitivos',
-                        '🟡 10-20%: Bueno - Mejora visible en reducción de incidentes',
-                        '⚠️ 0-10%: Medio - Poco progreso o incendios estables',
-                        '🔴 Negativo: Crítico - AUMENTO de incidentes'
+                        '✅ >5%: Excelente - Muy proactivo, supera tu meta de sostenibilidad',
+                        '🟢 3-5%: Bueno - Tu objetivo de sostenibilidad logrado',
+                        '🟡 0-3%: Medio - P1s estables, sin mejora',
+                        '🔴 <0%: Crítico - P1s aumentando, equipo reactivo'
                     ]
                 },
                 noise_reduction: {
@@ -2413,6 +2413,14 @@
 
                 // Function to calculate status based on metric type and value
                 function getMetricStatus(metricKey, value) {
+                    // Fire Prevention: reduction % month-over-month (target: 3-5% reduction)
+                    if (metricKey === 'fire_prevention') {
+                        if (value < 0) return 'critical';      // P1s aumentando
+                        if (value < 3) return 'medium';        // 0-3%: Estable pero sin mejora
+                        if (value <= 5) return 'good';         // 3-5%: Tu objetivo
+                        return 'excellent';                     // >5%: Muy proactivo
+                    }
+
                     // Metrics where LOWER values are BETTER (inverse logic)
                     const inverseMetrics = ['reopen_rate', 'mttr_urgent_hours', 'mttr_high_hours'];
 
