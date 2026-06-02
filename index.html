@@ -1298,8 +1298,8 @@
                         </div>
 
                         <!-- Insight alert -->
-                        <div id="ce2-trend-insight" class="hidden rounded-xl px-5 py-3 flex items-start gap-3 text-sm" style="background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);">
-                            <span class="text-lg mt-0.5">🔴</span>
+                        <div id="ce2-trend-insight" class="hidden rounded-xl px-5 py-3 flex items-center gap-3 text-sm" style="background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);">
+                            <span class="material-symbols-outlined" style="font-size:18px;color:#ef4444;flex-shrink:0;">warning</span>
                             <div id="ce2-trend-insight-text" class="text-on-surface"></div>
                         </div>
                     </div>
@@ -2837,7 +2837,7 @@
                 });
 
                 if (criticals.length > 0) {
-                    insightText.innerHTML = `⚠️ <strong>Métricas que necesitan mejora:</strong> ${criticals.join(' · ')}`;
+                    insightText.innerHTML = `<strong>Métricas que necesitan mejora:</strong> ${criticals.join(' · ')}`;
                     insight.classList.remove('hidden');
                 }
             }
