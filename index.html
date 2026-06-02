@@ -476,6 +476,14 @@
                 background-color: #ffe0b2;
                 color: #e65100;
             }
+            .ce2-metric-status.medium {
+                background-color: #fff9c4;
+                color: #f57f17;
+            }
+            .ce2-metric-status.critical {
+                background-color: #ffcdd2;
+                color: #d32f2f;
+            }
             .dark .ce2-metric-status.good {
                 background-color: #c8e6c9;
                 color: #1b5e20;
@@ -487,6 +495,14 @@
             .dark .ce2-metric-status.warning {
                 background-color: #ffe0b2;
                 color: #e65100;
+            }
+            .dark .ce2-metric-status.medium {
+                background-color: #fff9c4;
+                color: #f57f17;
+            }
+            .dark .ce2-metric-status.critical {
+                background-color: #ffcdd2;
+                color: #d32f2f;
             }
         </style>
     </head>
@@ -1263,7 +1279,7 @@
 
                     <div class="glacier-card rounded-2xl p-6">
                         <h3 class="text-lg font-semibold text-on-surface mb-4">Interpretación de Indicadores</h3>
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                             <div class="flex gap-3 items-start">
                                 <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold flex-shrink-0" style="background-color: #b3e5fc; color: #01579b;">EXCELLENT</span>
                                 <p class="text-xs text-on-surface-variant pt-1">Todo está funcionando bien. Mantener esta performance.</p>
@@ -1273,8 +1289,12 @@
                                 <p class="text-xs text-on-surface-variant pt-1">Está bien, pero hay margen de mejora. Monitorear.</p>
                             </div>
                             <div class="flex gap-3 items-start">
-                                <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold flex-shrink-0" style="background-color: #ffe0b2; color: #e65100;">WARNING</span>
-                                <p class="text-xs text-on-surface-variant pt-1">Requiere atención inmediata. Investiga y actúa.</p>
+                                <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold flex-shrink-0" style="background-color: #fff9c4; color: #f57f17;">MEDIUM</span>
+                                <p class="text-xs text-on-surface-variant pt-1">Requiere atención. Mejora es necesaria.</p>
+                            </div>
+                            <div class="flex gap-3 items-start">
+                                <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold flex-shrink-0" style="background-color: #ffcdd2; color: #d32f2f;">CRITICAL</span>
+                                <p class="text-xs text-on-surface-variant pt-1">Problema grave. Acción inmediata requerida.</p>
                             </div>
                         </div>
                     </div>
