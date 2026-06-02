@@ -338,7 +338,7 @@ export class CE2MetricsService {
       p1p2Issues.length > 0
         ? parseFloat(((reopened.length / p1p2Issues.length) * 100).toFixed(1))
         : 0;
-    const status = value < 5 ? "good" : value < 10 ? "fair" : "poor";
+    const status = value <= 5 ? "excellent" : value <= 10 ? "good" : value <= 20 ? "medium" : "critical";
 
     const startDate = new Date(year, month - 1, 1)
       .toISOString()
@@ -559,8 +559,8 @@ export class CE2MetricsService {
     year: number,
     month: number
   ): any {
-    const SLA_P1 = 4;
-    const SLA_P2 = 8;
+    const SLA_P1 = 72;  // 3 días para P1 (Urgente)
+    const SLA_P2 = 120; // 5 días para P2 (Alto)
 
     const completed = issues.filter((i) => i.state.name === "Closed");
 
@@ -610,7 +610,7 @@ export class CE2MetricsService {
       value: parseFloat(totalSaved.toFixed(1)),
       unit: "hours",
       trend: "+2.3 hrs",
-      status: totalSaved > 15 ? "excellent" : totalSaved > 5 ? "good" : "fair",
+      status: totalSaved > 20 ? "excellent" : totalSaved > 10 ? "good" : totalSaved > 5 ? "medium" : "critical",
       disclaimer: {
         title: "Downtime Saved - Tiempo de Inactividad Evitado",
         what_measures:
@@ -678,8 +678,8 @@ export class CE2MetricsService {
       metric: "fire_prevention",
       value: reduction,
       unit: "%",
-      trend: reduction > 20 ? "↑ +8.3%" : "↑ +2.1%",
-      status: reduction >= 20 ? "excellent" : reduction >= 10 ? "good" : "fair",
+      trend: reduction > 5 ? "↑ +8.3%" : "↑ +2.1%",
+      status: reduction > 5 ? "excellent" : reduction >= 3 ? "good" : reduction >= 0 ? "medium" : "critical",
       disclaimer: {
         title: "Fire Prevention - Reducción de Incendios Repetitivos",
         what_measures:
@@ -687,12 +687,12 @@ export class CE2MetricsService {
         how_calculated:
           "Fórmula: ((P1 Mes Anterior - P1 Mes Actual) / P1 Mes Anterior) × 100",
         what_means: {
-          above_20:
-            "✅ Excelente - El equipo está siendo proactivo, evita que incendios se repitan",
-          "10_20":
-            "🟡 Bueno - Mejora visible en reducción de incidentes",
-          "0_10": "⚠️ Medio - Poco progreso o incendios estables",
-          negative: "🔴 Crítico - AUMENTO de incidentes, algo está mal",
+          above_5:
+            "✅ Excelente - Muy proactivo, supera tu meta de sostenibilidad",
+          "3_5":
+            "🟢 Bueno - Tu objetivo de sostenibilidad logrado",
+          "0_3": "🟡 Medio - P1s estables, sin mejora",
+          negative: "🔴 Crítico - P1s aumentando, equipo reactivo",
         },
         use_case:
           "Demuestra LIDERAZGO PROACTIVO del equipo. Para CTO = indicador de root-cause analysis y prevención.",
