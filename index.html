@@ -2343,23 +2343,23 @@
                     ]
                 },
                 mttr_urgent_hours: {
-                    whatMeasures: 'Tiempo PROMEDIO en horas para resolver incidentes URGENTES (Priority 1).',
-                    howCalculated: 'PROMEDIO(completedAt - createdAt) para todos los issues con priority=1',
+                    whatMeasures: 'Tiempo PROMEDIO en horas para resolver incidentes URGENTES (Priority 1) - Resolución completa.',
+                    howCalculated: 'PROMEDIO(completedAt - createdAt) para todos los issues con priority=1 | SLA: máximo 5 días (120h)',
                     whatMeans: [
-                        '✅ <1h: Excelente - Respuesta casi inmediata',
-                        '🟡 1-4h: Bueno - Resolución rápida',
-                        '⚠️ 4-8h: Medio - Podría ser más rápido',
-                        '🔴 >8h: Crítico - Demasiado tiempo en resolverse'
+                        '✅ ≤24h (1 día): Excelente - Bien dentro del SLA',
+                        '🟡 24-120h (1-5 días): Bueno - Dentro del SLA',
+                        '⚠️ 120-180h (5-7.5 días): Medio - Ligeramente fuera del SLA (1-1.5x)',
+                        '🔴 >180h (>7.5 días): Crítico - Significativamente fuera del SLA (>1.5x)'
                     ]
                 },
                 mttr_high_hours: {
-                    whatMeasures: 'Tiempo PROMEDIO en horas para resolver incidentes ALTOS (Priority 2).',
-                    howCalculated: 'PROMEDIO(completedAt - createdAt) para todos los issues con priority=2',
+                    whatMeasures: 'Tiempo PROMEDIO en horas para resolver incidentes ALTOS (Priority 2) - Resolución completa.',
+                    howCalculated: 'PROMEDIO(completedAt - createdAt) para todos los issues con priority=2 | SLA: máximo 5 días (120h)',
                     whatMeans: [
-                        '✅ <4h: Excelente - Rápido',
-                        '🟡 4-12h: Bueno - Razonable',
-                        '⚠️ 12-24h: Medio - Lento',
-                        '🔴 >24h: Crítico - Muy lento'
+                        '✅ ≤24h (1 día): Excelente - Bien dentro del SLA',
+                        '🟡 24-120h (1-5 días): Bueno - Dentro del SLA',
+                        '⚠️ 120-180h (5-7.5 días): Medio - Ligeramente fuera del SLA (1-1.5x)',
+                        '🔴 >180h (>7.5 días): Crítico - Significativamente fuera del SLA (>1.5x)'
                     ]
                 },
                 downtime_saved: {
@@ -2426,11 +2426,12 @@
                             return 'critical';
                         }
                         // MTTR: less time is better
+                        // Based on SLA: Resolution must complete within 5 days (120 hours)
                         if (metricKey.includes('mttr')) {
-                            if (value <= 5) return 'excellent';  // <= 5 hours
-                            if (value <= 12) return 'good';      // <= 12 hours
-                            if (value <= 24) return 'medium';    // <= 24 hours
-                            return 'critical';
+                            if (value <= 24) return 'excellent';   // <= 1 day (well within SLA)
+                            if (value <= 120) return 'good';       // <= 5 days (meets SLA)
+                            if (value <= 180) return 'medium';     // 5-7.5 days (1-1.5x SLA, slightly over)
+                            return 'critical';                     // > 7.5 days (1.5x+ SLA, significantly over)
                         }
                     }
 
