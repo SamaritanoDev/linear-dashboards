@@ -678,8 +678,8 @@ export class CE2MetricsService {
       metric: "fire_prevention",
       value: reduction,
       unit: "%",
-      trend: reduction > 20 ? "↑ +8.3%" : "↑ +2.1%",
-      status: reduction >= 20 ? "excellent" : reduction >= 10 ? "good" : "fair",
+      trend: reduction > 5 ? "↑ +8.3%" : "↑ +2.1%",
+      status: reduction > 5 ? "excellent" : reduction >= 3 ? "good" : reduction >= 0 ? "medium" : "critical",
       disclaimer: {
         title: "Fire Prevention - Reducción de Incendios Repetitivos",
         what_measures:
@@ -687,12 +687,12 @@ export class CE2MetricsService {
         how_calculated:
           "Fórmula: ((P1 Mes Anterior - P1 Mes Actual) / P1 Mes Anterior) × 100",
         what_means: {
-          above_20:
-            "✅ Excelente - El equipo está siendo proactivo, evita que incendios se repitan",
-          "10_20":
-            "🟡 Bueno - Mejora visible en reducción de incidentes",
-          "0_10": "⚠️ Medio - Poco progreso o incendios estables",
-          negative: "🔴 Crítico - AUMENTO de incidentes, algo está mal",
+          above_5:
+            "✅ Excelente - Muy proactivo, supera tu meta de sostenibilidad",
+          "3_5":
+            "🟢 Bueno - Tu objetivo de sostenibilidad logrado",
+          "0_3": "🟡 Medio - P1s estables, sin mejora",
+          negative: "🔴 Crítico - P1s aumentando, equipo reactivo",
         },
         use_case:
           "Demuestra LIDERAZGO PROACTIVO del equipo. Para CTO = indicador de root-cause analysis y prevención.",
