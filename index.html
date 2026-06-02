@@ -7,6 +7,7 @@
         <link rel="icon" type="image/svg+xml" href="./logo.svg"/>
         <title>Continuity Engineering</title>
         <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
         <script id="tailwind-config">
             tailwind.config = {
@@ -1273,6 +1274,50 @@
                         </button>
                     </div>
 
+                    <!-- ====== YEARLY TREND SECTION ====== -->
+                    <div id="ce2-yearly-trend" class="mb-8">
+                        <div class="glacier-card rounded-2xl p-6 mb-2">
+                            <div class="flex items-center justify-between mb-6">
+                                <div>
+                                    <h2 class="text-xl font-bold text-on-surface">Evolución Anual 2026</h2>
+                                    <p class="text-sm text-on-surface-variant mt-1">Enero → presente · <span id="ce2-trend-subtitle">Cargando meses...</span></p>
+                                </div>
+                                <div class="flex gap-2">
+                                    <button id="ce2-trend-btn-pct" onclick="ce2TrendToggle('pct')" class="px-3 py-1.5 rounded-lg text-xs font-semibold transition-all" style="background:var(--trend-btn-pct-bg,rgba(6,182,212,0.2));color:#06b6d4;border:1px solid #06b6d4;">
+                                        % Métricas
+                                    </button>
+                                    <button id="ce2-trend-btn-hrs" onclick="ce2TrendToggle('hrs')" class="px-3 py-1.5 rounded-lg text-xs font-semibold transition-all" style="background:transparent;color:var(--on-surface-variant,#94a3b8);border:1px solid rgba(148,163,184,0.3);">
+                                        ⏱ Tiempos (h)
+                                    </button>
+                                    <button onclick="loadCE2YearlyTrend()" class="px-3 py-1.5 rounded-lg text-xs font-semibold transition-all" style="background:rgba(148,163,184,0.1);color:var(--on-surface-variant,#94a3b8);border:1px solid rgba(148,163,184,0.2);">
+                                        ↻
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Chart container -->
+                            <div id="ce2-trend-loading" class="flex items-center justify-center py-16 text-on-surface-variant text-sm">
+                                <span class="animate-spin mr-2">⟳</span> Cargando datos de todos los meses...
+                            </div>
+                            <div id="ce2-trend-chart-container" style="display:none; position:relative; height:320px;">
+                                <canvas id="ce2-trend-chart-pct"></canvas>
+                            </div>
+                            <div id="ce2-trend-chart-hrs-container" style="display:none; position:relative; height:320px;">
+                                <canvas id="ce2-trend-chart-hrs"></canvas>
+                            </div>
+
+                            <!-- Status summary row below chart -->
+                            <div id="ce2-trend-summary" class="hidden mt-6 grid grid-cols-3 md:grid-cols-9 gap-2 pt-4 border-t border-outline/20"></div>
+                        </div>
+
+                        <!-- Insight alert -->
+                        <div id="ce2-trend-insight" class="hidden rounded-xl px-5 py-3 flex items-start gap-3 text-sm" style="background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);">
+                            <span class="text-lg mt-0.5">🔴</span>
+                            <div id="ce2-trend-insight-text" class="text-on-surface"></div>
+                        </div>
+                    </div>
+                    <!-- ====== END YEARLY TREND SECTION ====== -->
+
                     <div id="ce2-metrics-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
                         <!-- Métricas renderizadas dinámicamente aquí -->
                     </div>
@@ -1452,6 +1497,10 @@
 
                 if (section === 'ce2-impact') {
                     loadCE2Metrics();
+                    // Load trend chart if not yet loaded
+                    if (!ce2TrendDataCache) {
+                        loadCE2YearlyTrend();
+                    }
                 }
             }
 
@@ -2563,12 +2612,257 @@
 
             // ========== END CE2 METRICS FUNCTIONS ==========
 
+            // ========== CE2 YEARLY TREND CHART ==========
+            const CE2_MONTHS = ['Enero','Febrero','Marzo','Abril','Mayo','Junio'];
+            let ce2TrendChartPct = null;
+            let ce2TrendChartHrs = null;
+            let ce2TrendMode = 'pct'; // 'pct' or 'hrs'
+            let ce2TrendDataCache = null;
+
+            // Metrics config: key, label, color, inverse (lower=better), unit
+            const CE2_TREND_PCT_METRICS = [
+                { key: 'vip_resolution_rate', label: 'VIP Resolution', color: '#06b6d4', inverse: false },
+                { key: 'fcrr',                label: 'FCRR',           color: '#22d3ee', inverse: false },
+                { key: 'reopen_rate',         label: 'Reapertura',     color: '#ef4444', inverse: true  },
+                { key: 'containment_rate',    label: 'Contención',     color: '#a78bfa', inverse: false },
+                { key: 'fire_prevention',     label: 'Fire Prevention',color: '#f59e0b', inverse: false },
+                { key: 'noise_reduction',     label: 'Noise Reduction',color: '#64748b', inverse: false },
+            ];
+            const CE2_TREND_HRS_METRICS = [
+                { key: 'mttr_urgent_hours',   label: 'MTTR Urgentes',  color: '#ef4444', inverse: true  },
+                { key: 'mttr_high_hours',     label: 'MTTR Altos',     color: '#f97316', inverse: true  },
+                { key: 'downtime_saved',      label: 'Downtime Saved', color: '#22c55e', inverse: false },
+            ];
+
+            window.loadCE2YearlyTrend = async function() {
+                const loading = document.getElementById('ce2-trend-loading');
+                const chartPctContainer = document.getElementById('ce2-trend-chart-container');
+                const chartHrsContainer = document.getElementById('ce2-trend-chart-hrs-container');
+                const summary = document.getElementById('ce2-trend-summary');
+                const insight = document.getElementById('ce2-trend-insight');
+
+                loading.style.display = 'flex';
+                chartPctContainer.style.display = 'none';
+                chartHrsContainer.style.display = 'none';
+                summary.classList.add('hidden');
+                insight.classList.add('hidden');
+
+                // Fetch all months in parallel
+                const currentMonthIdx = new Date().getMonth(); // 0-based
+                const monthsToLoad = CE2_MONTHS.slice(0, Math.min(currentMonthIdx + 1, CE2_MONTHS.length));
+
+                const subtitle = document.getElementById('ce2-trend-subtitle');
+                if (subtitle) subtitle.textContent = `${monthsToLoad[0]} → ${monthsToLoad[monthsToLoad.length - 1]}`;
+
+                try {
+                    const results = await Promise.all(
+                        monthsToLoad.map(m =>
+                            fetch(`${WORKER_CONFIG.baseUrl}/api/ce2/metrics/summary?month=${m}&_t=${Date.now()}`)
+                                .then(r => r.ok ? r.json() : null)
+                                .catch(() => null)
+                        )
+                    );
+
+                    // Build dataset per metric
+                    const labels = monthsToLoad;
+                    ce2TrendDataCache = { labels, results, monthsToLoad };
+
+                    buildTrendCharts(labels, results, monthsToLoad);
+
+                    // Show insight
+                    generateTrendInsight(results, monthsToLoad);
+
+                } catch (err) {
+                    console.error('Error loading yearly trend:', err);
+                    loading.innerHTML = '<span style="color:#ef4444">Error al cargar tendencia anual</span>';
+                    loading.style.display = 'flex';
+                }
+            };
+
+            function buildTrendCharts(labels, results, months) {
+                const loading = document.getElementById('ce2-trend-loading');
+                loading.style.display = 'none';
+
+                // Destroy old charts if exist
+                if (ce2TrendChartPct) { ce2TrendChartPct.destroy(); ce2TrendChartPct = null; }
+                if (ce2TrendChartHrs) { ce2TrendChartHrs.destroy(); ce2TrendChartHrs = null; }
+
+                const isDark = document.documentElement.classList.contains('dark');
+                const gridColor = isDark ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.07)';
+                const textColor = isDark ? '#94a3b8' : '#64748b';
+
+                const commonOptions = (yLabel) => ({
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: { mode: 'index', intersect: false },
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: { color: textColor, font: { size: 11, family: 'Inter' }, padding: 16, usePointStyle: true, pointStyleWidth: 8 }
+                        },
+                        tooltip: {
+                            backgroundColor: isDark ? '#1e293b' : '#fff',
+                            titleColor: isDark ? '#f1f5f9' : '#1e293b',
+                            bodyColor: isDark ? '#94a3b8' : '#64748b',
+                            borderColor: isDark ? '#334155' : '#e2e8f0',
+                            borderWidth: 1,
+                            padding: 12,
+                            cornerRadius: 8,
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { color: gridColor },
+                            ticks: { color: textColor, font: { size: 11 } }
+                        },
+                        y: {
+                            grid: { color: gridColor },
+                            ticks: { color: textColor, font: { size: 11 } },
+                            title: { display: true, text: yLabel, color: textColor, font: { size: 11 } }
+                        }
+                    }
+                });
+
+                // ---- % Chart ----
+                const ctxPct = document.getElementById('ce2-trend-chart-pct').getContext('2d');
+                const pctDatasets = CE2_TREND_PCT_METRICS.map(m => ({
+                    label: m.label,
+                    data: results.map(r => r?.summary?.[m.key]?.value ?? null),
+                    borderColor: m.color,
+                    backgroundColor: m.color + '20',
+                    borderWidth: 2,
+                    pointRadius: 4,
+                    pointHoverRadius: 6,
+                    tension: 0.35,
+                    fill: false,
+                    spanGaps: true,
+                }));
+                ce2TrendChartPct = new Chart(ctxPct, {
+                    type: 'line',
+                    data: { labels, datasets: pctDatasets },
+                    options: commonOptions('Porcentaje (%)')
+                });
+
+                // ---- Hours Chart ----
+                const ctxHrs = document.getElementById('ce2-trend-chart-hrs').getContext('2d');
+                const hrsDatasets = CE2_TREND_HRS_METRICS.map(m => ({
+                    label: m.label,
+                    data: results.map(r => r?.summary?.[m.key]?.value ?? null),
+                    borderColor: m.color,
+                    backgroundColor: m.color + '20',
+                    borderWidth: 2,
+                    pointRadius: 4,
+                    pointHoverRadius: 6,
+                    tension: 0.35,
+                    fill: false,
+                    spanGaps: true,
+                }));
+                ce2TrendChartHrs = new Chart(ctxHrs, {
+                    type: 'line',
+                    data: { labels, datasets: hrsDatasets },
+                    options: commonOptions('Horas (h)')
+                });
+
+                // Show correct chart
+                ce2TrendToggle(ce2TrendMode, false);
+
+                // Build mini summary badges
+                buildTrendSummaryBadges(results, months);
+            }
+
+            function buildTrendSummaryBadges(results, months) {
+                const summary = document.getElementById('ce2-trend-summary');
+                const allMetrics = [...CE2_TREND_PCT_METRICS, ...CE2_TREND_HRS_METRICS];
+                summary.innerHTML = '';
+                summary.classList.remove('hidden');
+
+                allMetrics.forEach(m => {
+                    const firstVal = results.find(r => r?.summary?.[m.key]?.value != null)?.summary?.[m.key]?.value;
+                    const lastVal = [...results].reverse().find(r => r?.summary?.[m.key]?.value != null)?.summary?.[m.key]?.value;
+
+                    if (firstVal == null || lastVal == null) return;
+
+                    const delta = lastVal - firstVal;
+                    // For inverse metrics, going down is GOOD
+                    const improved = m.inverse ? delta < 0 : delta > 0;
+                    const neutral = Math.abs(delta) < 0.5;
+                    const arrow = neutral ? '→' : (improved ? '↑' : '↓');
+                    const color = neutral ? '#94a3b8' : (improved ? '#22c55e' : '#ef4444');
+                    const unit = m.key.includes('hours') || m.key === 'downtime_saved' ? 'h' : '%';
+
+                    const badge = document.createElement('div');
+                    badge.className = 'flex flex-col items-center gap-1 py-2 px-1 rounded-lg';
+                    badge.style.background = 'rgba(148,163,184,0.06)';
+                    badge.innerHTML = `
+                        <span style="font-size:9px;color:#94a3b8;text-align:center;line-height:1.2;">${m.label}</span>
+                        <span style="font-size:13px;font-weight:700;color:${m.color};">${lastVal.toFixed(1)}${unit}</span>
+                        <span style="font-size:10px;font-weight:600;color:${color};">${arrow} ${Math.abs(delta).toFixed(1)}${unit}</span>
+                    `;
+                    summary.appendChild(badge);
+                });
+            }
+
+            function generateTrendInsight(results, months) {
+                const insight = document.getElementById('ce2-trend-insight');
+                const insightText = document.getElementById('ce2-trend-insight-text');
+
+                const criticals = [];
+                [...CE2_TREND_PCT_METRICS, ...CE2_TREND_HRS_METRICS].forEach(m => {
+                    const vals = results.map(r => r?.summary?.[m.key]?.value ?? null).filter(v => v !== null);
+                    if (vals.length < 2) return;
+                    const first = vals[0], last = vals[vals.length - 1];
+                    const delta = last - first;
+                    const worsened = m.inverse ? delta > 0 : delta < 0;
+                    if (worsened && Math.abs(delta) > 5) {
+                        const unit = m.key.includes('hours') || m.key === 'downtime_saved' ? 'h' : '%';
+                        criticals.push(`<strong>${m.label}</strong> empeoró ${Math.abs(delta).toFixed(1)}${unit} (${months[0]} → ${months[months.length-1]})`);
+                    }
+                });
+
+                if (criticals.length > 0) {
+                    insightText.innerHTML = `⚠️ <strong>Métricas que necesitan mejora:</strong> ${criticals.join(' · ')}`;
+                    insight.classList.remove('hidden');
+                }
+            }
+
+            window.ce2TrendToggle = function(mode, animate = true) {
+                ce2TrendMode = mode;
+                const pctContainer = document.getElementById('ce2-trend-chart-container');
+                const hrsContainer = document.getElementById('ce2-trend-chart-hrs-container');
+                const btnPct = document.getElementById('ce2-trend-btn-pct');
+                const btnHrs = document.getElementById('ce2-trend-btn-hrs');
+
+                if (mode === 'pct') {
+                    pctContainer.style.display = 'block';
+                    hrsContainer.style.display = 'none';
+                    btnPct.style.background = 'rgba(6,182,212,0.2)';
+                    btnPct.style.color = '#06b6d4';
+                    btnPct.style.borderColor = '#06b6d4';
+                    btnHrs.style.background = 'transparent';
+                    btnHrs.style.color = 'var(--on-surface-variant,#94a3b8)';
+                    btnHrs.style.borderColor = 'rgba(148,163,184,0.3)';
+                } else {
+                    pctContainer.style.display = 'none';
+                    hrsContainer.style.display = 'block';
+                    btnHrs.style.background = 'rgba(6,182,212,0.2)';
+                    btnHrs.style.color = '#06b6d4';
+                    btnHrs.style.borderColor = '#06b6d4';
+                    btnPct.style.background = 'transparent';
+                    btnPct.style.color = 'var(--on-surface-variant,#94a3b8)';
+                    btnPct.style.borderColor = 'rgba(148,163,184,0.3)';
+                }
+            };
+            // ========== END CE2 YEARLY TREND CHART ==========
+
             // ========== INITIALIZE PAGE WITH DEFAULT MONTH DATA ==========
             (async function initializePageData() {
                 console.log('Initializing page with CE2 Impact dashboard');
                 try {
                     // Load CE2 Metrics as default
                     await loadCE2Metrics();
+
+                    // Load yearly trend chart
+                    loadCE2YearlyTrend();
 
                     // Load team workload (cumulative across all months)
                     loadTeamWorkload();
