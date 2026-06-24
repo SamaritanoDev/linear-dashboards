@@ -12,7 +12,8 @@
  */
 
 import { StateHistoryService } from "./state-history";
-import type { CE2Issue } from "../types";
+import { LinearClient } from "../linear/client";
+import type { LinearIssue as CE2Issue } from "../types";
 
 export interface HistoricalMetricCalculation {
   period: string;
@@ -31,7 +32,7 @@ export interface HistoricalMetricCalculation {
 export class CE2MetricsWithHistory {
   constructor(
     private historyService: StateHistoryService,
-    private client: any // LinearClient
+    private client: LinearClient
   ) {}
 
   /**

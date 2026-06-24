@@ -537,6 +537,10 @@
                             <span class="material-symbols-outlined text-lg">emoji_events</span>
                             Logros
                         </div>
+                        <div class="drawer-item flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer font-medium text-sm" onclick="switchSection('cto-metrics', event)">
+                            <span class="material-symbols-outlined text-lg">query_stats</span>
+                            Métricas CTO
+                        </div>
                     </nav>
                 </div>
                 <div class="mt-auto p-6">
@@ -1356,6 +1360,111 @@
                         <span id="ce2-timestamp">Cargando datos...</span>
                     </p>
                 </section>
+
+                <!-- ========== MÉTRICAS CTO ========== -->
+                <section id="cto-metrics" style="display: none;">
+                    <div class="mb-8">
+                        <h1 class="text-3xl font-bold text-on-surface mb-2">Métricas CTO</h1>
+                        <p class="text-on-surface-variant">Volumen, tiempo de atención y carga total de tickets por marca y tipo</p>
+                    </div>
+
+                    <!-- Filtros -->
+                    <div class="glacier-card rounded-2xl p-6 mb-6">
+                        <div class="flex flex-wrap gap-6 items-end">
+                            <!-- Período -->
+                            <div>
+                                <label class="block text-xs font-semibold uppercase tracking-widest text-on-surface-variant mb-2">Período</label>
+                                <div class="flex gap-2">
+                                    <button class="cto-period-btn px-4 py-2 rounded-lg text-sm font-medium border border-outline-variant hover:border-primary transition-all" data-period="week" onclick="setCTOPeriod('week')">Semana</button>
+                                    <button class="cto-period-btn active-period px-4 py-2 rounded-lg text-sm font-medium border border-primary bg-primary/10 text-primary transition-all" data-period="month" onclick="setCTOPeriod('month')">Mes</button>
+                                    <button class="cto-period-btn px-4 py-2 rounded-lg text-sm font-medium border border-outline-variant hover:border-primary transition-all" data-period="quarter" onclick="setCTOPeriod('quarter')">Trimestre</button>
+                                    <button class="cto-period-btn px-4 py-2 rounded-lg text-sm font-medium border border-outline-variant hover:border-primary transition-all" data-period="year" onclick="setCTOPeriod('year')">Año</button>
+                                </div>
+                            </div>
+
+                            <!-- Valor dinámico del período -->
+                            <div id="cto-period-value-wrap">
+                                <label class="block text-xs font-semibold uppercase tracking-widest text-on-surface-variant mb-2">Mes</label>
+                                <select id="cto-month-select" class="px-4 py-2 rounded-lg border border-outline bg-surface text-on-surface text-sm">
+                                    <option value="Enero">Enero</option><option value="Febrero">Febrero</option>
+                                    <option value="Marzo">Marzo</option><option value="Abril">Abril</option>
+                                    <option value="Mayo" selected>Mayo</option><option value="Junio">Junio</option>
+                                    <option value="Julio">Julio</option><option value="Agosto">Agosto</option>
+                                    <option value="Septiembre">Septiembre</option><option value="Octubre">Octubre</option>
+                                    <option value="Noviembre">Noviembre</option><option value="Diciembre">Diciembre</option>
+                                </select>
+                                <select id="cto-quarter-select" class="px-4 py-2 rounded-lg border border-outline bg-surface text-on-surface text-sm hidden">
+                                    <option value="1">Q1 (Ene–Mar)</option><option value="2">Q2 (Abr–Jun)</option>
+                                    <option value="3">Q3 (Jul–Sep)</option><option value="4">Q4 (Oct–Dic)</option>
+                                </select>
+                                <select id="cto-week-select" class="px-4 py-2 rounded-lg border border-outline bg-surface text-on-surface text-sm hidden">
+                                </select>
+                                <span id="cto-year-label" class="hidden px-4 py-2 rounded-lg border border-outline bg-surface text-on-surface text-sm inline-block">2026</span>
+                            </div>
+
+                            <!-- Filtro Marca -->
+                            <div>
+                                <label class="block text-xs font-semibold uppercase tracking-widest text-on-surface-variant mb-2">Marca</label>
+                                <select id="cto-brand-filter" class="px-4 py-2 rounded-lg border border-outline bg-surface text-on-surface text-sm" onchange="applyCTOFilters()">
+                                    <option value="all">Todas las marcas</option>
+                                    <option value="Cuy">Cuy</option><option value="Guinea">Guinea</option>
+                                    <option value="Habla+">Habla+</option><option value="Wings">Wings</option>
+                                    <option value="PeruSim+">PeruSim+</option><option value="Fimo">Fimo</option>
+                                    <option value="Airalo">Airalo</option><option value="B2B">B2B</option>
+                                    <option value="Finanzas">Finanzas</option><option value="Legales">Legales</option>
+                                    <option value="Partner">Partner</option><option value="Tech">Tech</option>
+                                </select>
+                            </div>
+
+                            <!-- Filtro Tipo -->
+                            <div>
+                                <label class="block text-xs font-semibold uppercase tracking-widest text-on-surface-variant mb-2">Tipo</label>
+                                <select id="cto-type-filter" class="px-4 py-2 rounded-lg border border-outline bg-surface text-on-surface text-sm" onchange="applyCTOFilters()">
+                                    <option value="all">Todos los tipos</option>
+                                    <option value="Error">Error</option>
+                                    <option value="Requerimiento">Requerimiento</option>
+                                    <option value="Hallazgo">Hallazgo</option>
+                                    <option value="Sin tipo">Sin tipo</option>
+                                </select>
+                            </div>
+
+                            <button onclick="loadCTOMetrics()" class="px-6 py-2 rounded-lg bg-primary text-on-primary font-medium text-sm hover:bg-primary/90 transition-all">
+                                Cargar
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Tarjetas de resumen -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6" id="cto-summary-cards">
+                        <div class="glacier-card rounded-2xl p-6">
+                            <p class="text-xs font-semibold uppercase tracking-widest text-on-surface-variant mb-2">Total Tickets</p>
+                            <p class="text-4xl font-bold text-on-surface" id="cto-total-count">—</p>
+                            <p class="text-xs text-on-surface-variant mt-1" id="cto-total-sub"></p>
+                        </div>
+                        <div class="glacier-card rounded-2xl p-6">
+                            <p class="text-xs font-semibold uppercase tracking-widest text-on-surface-variant mb-2">Tiempo Promedio de Atención</p>
+                            <p class="text-4xl font-bold text-on-surface" id="cto-avg-time">—</p>
+                            <p class="text-xs text-on-surface-variant mt-1">Desde In Progress → Closed</p>
+                        </div>
+                        <div class="glacier-card rounded-2xl p-6">
+                            <p class="text-xs font-semibold uppercase tracking-widest text-on-surface-variant mb-2">Tiempo Total Invertido</p>
+                            <p class="text-4xl font-bold text-on-surface" id="cto-total-time">—</p>
+                            <p class="text-xs text-on-surface-variant mt-1" id="cto-time-sub">Tickets con datos de tiempo</p>
+                        </div>
+                    </div>
+
+                    <!-- Tabla Marca × Tipo -->
+                    <div class="glacier-card rounded-2xl p-6 mb-6 overflow-x-auto">
+                        <h3 class="text-lg font-semibold text-on-surface mb-4">Detalle por Marca y Tipo</h3>
+                        <div id="cto-table-container">
+                            <p class="text-on-surface-variant text-sm">Selecciona un período y haz clic en <strong>Cargar</strong>.</p>
+                        </div>
+                    </div>
+
+                    <p class="text-xs text-on-surface-variant mt-2">
+                        <span id="cto-timestamp"></span>
+                    </p>
+                </section>
             </main>
         </div>
 
@@ -1496,6 +1605,7 @@
                 document.getElementById('team-workload').style.display = section === 'team-workload' ? 'block' : 'none';
                 document.getElementById('recognitions').style.display = section === 'recognitions' ? 'block' : 'none';
                 document.getElementById('ce2-impact').style.display = section === 'ce2-impact' ? 'block' : 'none';
+                document.getElementById('cto-metrics').style.display = section === 'cto-metrics' ? 'block' : 'none';
                 document.querySelectorAll('.drawer-item').forEach(item => item.classList.remove('active'));
                 evt.target.closest('.drawer-item').classList.add('active');
 
@@ -1509,6 +1619,10 @@
                     if (!ce2TrendDataCache) {
                         loadCE2YearlyTrend();
                     }
+                }
+
+                if (section === 'cto-metrics') {
+                    initCTOWeekSelect();
                 }
             }
 
@@ -2920,6 +3034,258 @@
                 }
             });
             // ========== END TABLE HEADER FIX ==========
+
+            // ========== MÉTRICAS CTO ==========
+            let ctoRawData = null;
+            let ctoCurrentPeriod = 'month';
+
+            function initCTOWeekSelect() {
+                const sel = document.getElementById('cto-week-select');
+                if (sel.options.length > 1) return;
+                const now = new Date();
+                const jan4 = new Date(now.getFullYear(), 0, 4);
+                const mon = new Date(jan4);
+                mon.setDate(jan4.getDate() - ((jan4.getDay() + 6) % 7));
+                const currentWeek = Math.max(1, Math.floor((now - mon) / (7 * 24 * 60 * 60 * 1000)) + 1);
+                for (let w = 1; w <= 52; w++) {
+                    const opt = document.createElement('option');
+                    opt.value = w;
+                    opt.textContent = `Semana ${w}`;
+                    if (w === currentWeek) opt.selected = true;
+                    sel.appendChild(opt);
+                }
+            }
+
+            function setCTOPeriod(period) {
+                ctoCurrentPeriod = period;
+                document.querySelectorAll('.cto-period-btn').forEach(b => {
+                    b.classList.remove('active-period', 'border-primary', 'bg-primary/10', 'text-primary');
+                    b.classList.add('border-outline-variant');
+                });
+                const active = document.querySelector(`.cto-period-btn[data-period="${period}"]`);
+                if (active) {
+                    active.classList.add('active-period', 'border-primary', 'bg-primary/10', 'text-primary');
+                    active.classList.remove('border-outline-variant');
+                }
+                const monthSel = document.getElementById('cto-month-select');
+                const quarterSel = document.getElementById('cto-quarter-select');
+                const weekSel = document.getElementById('cto-week-select');
+                const yearLbl = document.getElementById('cto-year-label');
+                const wrap = document.getElementById('cto-period-value-wrap');
+                monthSel.classList.add('hidden');
+                quarterSel.classList.add('hidden');
+                weekSel.classList.add('hidden');
+                yearLbl.classList.add('hidden');
+                const labels = { week: 'Semana', month: 'Mes', quarter: 'Trimestre', year: 'Año' };
+                wrap.querySelector('label').textContent = labels[period];
+                if (period === 'month') monthSel.classList.remove('hidden');
+                else if (period === 'quarter') quarterSel.classList.remove('hidden');
+                else if (period === 'week') { initCTOWeekSelect(); weekSel.classList.remove('hidden'); }
+                else yearLbl.classList.remove('hidden');
+            }
+
+            function getCTOCacheKey() {
+                const year = new Date().getFullYear();
+                if (ctoCurrentPeriod === 'month') {
+                    const m = document.getElementById('cto-month-select').value;
+                    return `cache_cto_month_${m}_${year}`;
+                } else if (ctoCurrentPeriod === 'quarter') {
+                    const q = document.getElementById('cto-quarter-select').value;
+                    return `cache_cto_quarter_${q}_${year}`;
+                } else if (ctoCurrentPeriod === 'week') {
+                    const w = document.getElementById('cto-week-select').value;
+                    return `cache_cto_week_${w}_${year}`;
+                }
+                return `cache_cto_year_${year}`;
+            }
+
+            async function loadCTOMetrics() {
+                const year = new Date().getFullYear();
+                let url = `${WORKER_CONFIG.baseUrl}/api/cto/metrics?period=${ctoCurrentPeriod}&year=${year}&_t=${Date.now()}`;
+                if (ctoCurrentPeriod === 'month') {
+                    url += `&month=${document.getElementById('cto-month-select').value}`;
+                } else if (ctoCurrentPeriod === 'quarter') {
+                    url += `&quarter=${document.getElementById('cto-quarter-select').value}`;
+                } else if (ctoCurrentPeriod === 'week') {
+                    url += `&week=${document.getElementById('cto-week-select').value}`;
+                }
+
+                const cacheKey = getCTOCacheKey();
+                const cached = localStorage.getItem(cacheKey);
+                if (cached) {
+                    try {
+                        const { data, timestamp } = JSON.parse(cached);
+                        if (Date.now() - timestamp < 900000) {
+                            ctoRawData = data;
+                            applyCTOFilters();
+                            return;
+                        }
+                    } catch (e) {}
+                }
+
+                document.getElementById('cto-table-container').innerHTML =
+                    '<p class="text-on-surface-variant text-sm animate-pulse">Cargando datos desde Linear...</p>';
+                document.getElementById('cto-total-count').textContent = '…';
+                document.getElementById('cto-avg-time').textContent = '…';
+                document.getElementById('cto-total-time').textContent = '…';
+
+                try {
+                    const res = await fetch(url);
+                    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                    const data = await res.json();
+                    ctoRawData = data;
+                    localStorage.setItem(cacheKey, JSON.stringify({ data, timestamp: Date.now() }));
+                    applyCTOFilters();
+                    document.getElementById('cto-timestamp').textContent =
+                        `Actualizado: ${new Date(data.cached_at || Date.now()).toLocaleString('es-PE')}`;
+                } catch (err) {
+                    document.getElementById('cto-table-container').innerHTML =
+                        `<p class="text-error text-sm">Error al cargar datos: ${err.message}</p>`;
+                }
+            }
+
+            function applyCTOFilters() {
+                if (!ctoRawData) return;
+                const brandFilter = document.getElementById('cto-brand-filter').value;
+                const typeFilter = document.getElementById('cto-type-filter').value;
+                const BRANDS = ['Cuy','Guinea','Habla+','Wings','PeruSim+','Fimo','Airalo','B2B','Finanzas','Legales','Partner','Tech'];
+                const TYPES = ['Error','Requerimiento','Hallazgo','Sin tipo'];
+
+                const brandsToShow = brandFilter === 'all' ? BRANDS : [brandFilter];
+                const typesToShow = typeFilter === 'all' ? TYPES : [typeFilter];
+
+                // Calcular totales filtrados sumando desde by_brand_and_type
+                let totalCount = 0, totalTimedCount = 0, totalTimeHours = 0;
+                for (const brand of brandsToShow) {
+                    const brandData = ctoRawData.by_brand_and_type?.[brand];
+                    if (!brandData) continue;
+                    for (const type of typesToShow) {
+                        const cell = brandData[type];
+                        if (!cell) continue;
+                        totalCount += cell.count || 0;
+                        totalTimedCount += cell.timed_count || 0;
+                        totalTimeHours += cell.total_time_hours || 0;
+                    }
+                }
+
+                const avgHours = totalTimedCount > 0 ? totalTimeHours / totalTimedCount : null;
+
+                // Resumen
+                document.getElementById('cto-total-count').textContent = totalCount;
+                document.getElementById('cto-total-sub').textContent =
+                    `${ctoRawData.period_label || ''}`;
+                document.getElementById('cto-avg-time').textContent =
+                    avgHours !== null ? formatHours(avgHours) : '—';
+                document.getElementById('cto-total-time').textContent =
+                    totalTimedCount > 0 ? formatHours(totalTimeHours) : '—';
+                document.getElementById('cto-time-sub').textContent =
+                    totalTimedCount > 0 ? `Basado en ${totalTimedCount} tickets cerrados` : 'Sin tickets cerrados con datos de tiempo';
+
+                // Tabla
+                renderCTOTable(brandsToShow, typesToShow);
+            }
+
+            function formatHours(h) {
+                if (h === null || h === undefined) return '—';
+                if (h < 1) return `${Math.round(h * 60)}m`;
+                if (h < 24) return `${h.toFixed(1)}h`;
+                const days = h / 24;
+                return days < 2 ? `${h.toFixed(1)}h` : `${days.toFixed(1)}d`;
+            }
+
+            function renderCTOTable(brands, types) {
+                const isDark = document.documentElement.classList.contains('dark');
+                const headerBg = isDark ? '#1a2438' : '#f0f4f8';
+                const borderColor = isDark ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.07)';
+
+                let html = `<table class="w-full text-sm border-collapse min-w-max">
+                    <thead>
+                        <tr style="background:${headerBg};">
+                            <th class="text-left px-4 py-3 font-semibold text-on-surface-variant rounded-tl-lg" style="border-bottom:2px solid ${borderColor};">Marca</th>`;
+
+                for (const type of types) {
+                    const typeColors = {
+                        'Error': '#ef4444', 'Requerimiento': '#3b82f6',
+                        'Hallazgo': '#f59e0b', 'Sin tipo': '#94a3b8'
+                    };
+                    const color = typeColors[type] || '#94a3b8';
+                    html += `<th colspan="3" class="text-center px-4 py-3 font-semibold" style="border-bottom:2px solid ${borderColor};border-left:1px solid ${borderColor};color:${color};">${type}</th>`;
+                }
+                html += `<th colspan="3" class="text-center px-4 py-3 font-semibold text-on-surface rounded-tr-lg" style="border-bottom:2px solid ${borderColor};border-left:2px solid ${borderColor};">Total</th></tr>
+                    <tr style="background:${headerBg};">
+                        <th class="px-4 py-2" style="border-bottom:1px solid ${borderColor};"></th>`;
+
+                const subHeaders = types.map(() =>
+                    `<th class="text-center px-3 py-2 text-xs text-on-surface-variant font-medium" style="border-bottom:1px solid ${borderColor};border-left:1px solid ${borderColor};">#</th>
+                     <th class="text-center px-3 py-2 text-xs text-on-surface-variant font-medium" style="border-bottom:1px solid ${borderColor};">Prom.</th>
+                     <th class="text-center px-3 py-2 text-xs text-on-surface-variant font-medium" style="border-bottom:1px solid ${borderColor};">Total</th>`
+                ).join('');
+                html += subHeaders;
+                html += `<th class="text-center px-3 py-2 text-xs text-on-surface-variant font-medium" style="border-bottom:1px solid ${borderColor};border-left:2px solid ${borderColor};">#</th>
+                         <th class="text-center px-3 py-2 text-xs text-on-surface-variant font-medium" style="border-bottom:1px solid ${borderColor};">Prom.</th>
+                         <th class="text-center px-3 py-2 text-xs text-on-surface-variant font-medium" style="border-bottom:1px solid ${borderColor};">Total</th>
+                    </tr></thead><tbody>`;
+
+                const totals = { count: 0, timed: 0, hours: 0 };
+                const typeTotals = {};
+                types.forEach(t => { typeTotals[t] = { count: 0, timed: 0, hours: 0 }; });
+
+                for (const brand of brands) {
+                    const brandData = ctoRawData.by_brand_and_type?.[brand] || {};
+                    let rowCount = 0, rowTimed = 0, rowHours = 0;
+                    let rowCells = '';
+
+                    for (const type of types) {
+                        const cell = brandData[type] || { count: 0, avg_attention_hours: null, total_time_hours: null, timed_count: 0 };
+                        rowCount += cell.count || 0;
+                        rowTimed += cell.timed_count || 0;
+                        rowHours += cell.total_time_hours || 0;
+                        typeTotals[type].count += cell.count || 0;
+                        typeTotals[type].timed += cell.timed_count || 0;
+                        typeTotals[type].hours += cell.total_time_hours || 0;
+                        rowCells += `<td class="text-center px-3 py-3 font-semibold text-on-surface" style="border-left:1px solid ${borderColor};">${cell.count || 0}</td>
+                            <td class="text-center px-3 py-3 text-on-surface-variant">${formatHours(cell.avg_attention_hours)}</td>
+                            <td class="text-center px-3 py-3 text-on-surface-variant">${cell.total_time_hours ? formatHours(cell.total_time_hours) : '—'}</td>`;
+                    }
+
+                    totals.count += rowCount;
+                    totals.timed += rowTimed;
+                    totals.hours += rowHours;
+                    const rowAvg = rowTimed > 0 ? rowHours / rowTimed : null;
+
+                    if (rowCount > 0) {
+                        html += `<tr class="hover:bg-surface-container/50 transition-colors">
+                            <td class="px-4 py-3 font-medium text-on-surface" style="border-bottom:1px solid ${borderColor};">${brand}</td>
+                            ${rowCells.replace(/style="/g, `style="border-bottom:1px solid ${borderColor};`)}
+                            <td class="text-center px-3 py-3 font-bold text-on-surface" style="border-left:2px solid ${borderColor};border-bottom:1px solid ${borderColor};">${rowCount}</td>
+                            <td class="text-center px-3 py-3 font-medium text-on-surface" style="border-bottom:1px solid ${borderColor};">${formatHours(rowAvg)}</td>
+                            <td class="text-center px-3 py-3 font-medium text-on-surface" style="border-bottom:1px solid ${borderColor};">${rowTimed > 0 ? formatHours(rowHours) : '—'}</td>
+                        </tr>`;
+                    }
+                }
+
+                // Fila de totales
+                const totalAvg = totals.timed > 0 ? totals.hours / totals.timed : null;
+                let totalCells = '';
+                for (const type of types) {
+                    const t = typeTotals[type];
+                    const tAvg = t.timed > 0 ? t.hours / t.timed : null;
+                    totalCells += `<td class="text-center px-3 py-3 font-bold text-on-surface" style="border-left:1px solid ${borderColor};">${t.count}</td>
+                        <td class="text-center px-3 py-3 font-medium text-on-surface">${formatHours(tAvg)}</td>
+                        <td class="text-center px-3 py-3 font-medium text-on-surface">${t.timed > 0 ? formatHours(t.hours) : '—'}</td>`;
+                }
+                html += `<tr style="background:${headerBg};font-weight:700;">
+                    <td class="px-4 py-3 text-on-surface font-bold">TOTAL</td>
+                    ${totalCells}
+                    <td class="text-center px-3 py-3 text-on-surface font-bold" style="border-left:2px solid ${borderColor};">${totals.count}</td>
+                    <td class="text-center px-3 py-3 text-on-surface font-bold">${formatHours(totalAvg)}</td>
+                    <td class="text-center px-3 py-3 text-on-surface font-bold">${totals.timed > 0 ? formatHours(totals.hours) : '—'}</td>
+                </tr>`;
+
+                html += '</tbody></table>';
+                document.getElementById('cto-table-container').innerHTML = html;
+            }
+            // ========== END MÉTRICAS CTO ==========
         </script>
     </body>
     </html>

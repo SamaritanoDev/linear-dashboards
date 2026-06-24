@@ -82,6 +82,37 @@ export function getIssuesQueryForMonth(
 `;
 }
 
+export function getIssuesQueryForDateRange(startDate: string, endDate: string): string {
+  return `
+{
+  issues(
+    first: 500
+    filter: {
+      team: {id: {in: ["5feed208-25ac-4eb5-a2e6-e5f60f957b00", "c79c921c-5ef9-4539-bf19-5d8161cfe6ee"]}}
+      createdAt: {gte: "${startDate}T00:00:00Z", lt: "${endDate}T00:00:00Z"}
+    }
+  ) {
+    nodes {
+      id
+      identifier
+      title
+      state {name}
+      priority
+      createdAt
+      startedAt
+      completedAt
+      assignee {name}
+      team {key}
+      project {id}
+      labels(first: 15) {
+        nodes {name}
+      }
+    }
+  }
+}
+`;
+}
+
 export function getCE2MetricsQueryForMonth(
   year: number,
   month: number

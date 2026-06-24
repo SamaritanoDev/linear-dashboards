@@ -38,6 +38,46 @@ export function getCurrentYear(): number {
   return new Date().getFullYear();
 }
 
+export function getWeekDateRange(week: number, year: number): { start: string; end: string } {
+  const jan4 = new Date(year, 0, 4);
+  const startOfWeek1 = new Date(jan4);
+  startOfWeek1.setDate(jan4.getDate() - ((jan4.getDay() + 6) % 7));
+  const start = new Date(startOfWeek1);
+  start.setDate(startOfWeek1.getDate() + (week - 1) * 7);
+  const end = new Date(start);
+  end.setDate(start.getDate() + 7);
+  return {
+    start: start.toISOString().split("T")[0],
+    end: end.toISOString().split("T")[0],
+  };
+}
+
+export function getQuarterDateRange(quarter: number, year: number): { start: string; end: string } {
+  const startMonth = (quarter - 1) * 3;
+  const start = new Date(year, startMonth, 1);
+  const end = new Date(year, startMonth + 3, 1);
+  return {
+    start: start.toISOString().split("T")[0],
+    end: end.toISOString().split("T")[0],
+  };
+}
+
+export function getYearDateRange(year: number): { start: string; end: string } {
+  return {
+    start: `${year}-01-01`,
+    end: `${year + 1}-01-01`,
+  };
+}
+
+export function getCurrentWeekNumber(): number {
+  const now = new Date();
+  const jan4 = new Date(now.getFullYear(), 0, 4);
+  const startOfWeek1 = new Date(jan4);
+  startOfWeek1.setDate(jan4.getDate() - ((jan4.getDay() + 6) % 7));
+  const diff = now.getTime() - startOfWeek1.getTime();
+  return Math.max(1, Math.floor(diff / (7 * 24 * 60 * 60 * 1000)) + 1);
+}
+
 export function jsonResponse<T>(
   data: T,
   status = 200,

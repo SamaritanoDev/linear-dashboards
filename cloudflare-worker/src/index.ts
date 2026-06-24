@@ -2,9 +2,14 @@ import { LinearClient } from "./linear/client";
 import { IssuesService } from "./services/issues";
 import { ProjectsService } from "./services/projects";
 import { CE2MetricsService } from "./services/ce2-metrics";
+import { CTOMetricsService } from "./services/cto-metrics";
 import { StateHistoryService } from "./services/state-history";
 import { LinearWebhookHandler } from "./linear/webhook-handler";
-import { getMonthNumber, getMonthName, getCurrentYear, jsonResponse, errorResponse } from "./utils";
+import {
+  getMonthNumber, getMonthName, getCurrentYear,
+  getWeekDateRange, getQuarterDateRange, getYearDateRange,
+  jsonResponse, errorResponse,
+} from "./utils";
 
 interface Env {
   LINEAR_API_KEY: string;
@@ -59,6 +64,10 @@ export default {
 
     if (pathname === "/api/ce2/metrics/summary") {
       return handleCE2MetricsSummary(request, env, client);
+    }
+
+    if (pathname === "/api/cto/metrics") {
+      return handleCTOMetrics(request, env, client);
     }
 
     if (pathname === "/api/debug/ce2-issues") {
@@ -530,6 +539,59 @@ async function handleCE2MetricsSummary(
     const errorMessage = error instanceof Error ? error.message : String(error);
     console.error("CE2 Metrics Summary error:", errorMessage, error);
     return errorResponse(`Failed to calculate metrics summary: ${errorMessage}`, 500);
+  }
+}
+
+async function handleCTOMetrics(
+  request: Request,
+  env: Env,
+  client: LinearClient
+): Promise<Response> {
+  try {
+    const url = new URL(request.url);
+    const period = url.searchParams.get("period") || "month";
+    const year = parseInt(url.searchParams.get("year") || String(getCurrentYear()), 10);
+
+    let startDate: string;
+    let endDate: string;
+    let periodLabel: string;
+
+    if (period === "week") {
+      const week = parseInt(url.searchParams.get("week") || "1", 10);
+      const range = getWeekDateRange(week, year);
+      startDate = range.start;
+      endDate = range.end;
+      periodLabel = `Semana ${week} · ${year}`;
+    } else if (period === "quarter") {
+      const quarter = parseInt(url.searchParams.get("quarter") || "1", 10);
+      const range = getQuarterDateRange(quarter, year);
+      startDate = range.start;
+      endDate = range.end;
+      periodLabel = `Q${quarter} · ${year}`;
+    } else if (period === "year") {
+      const range = getYearDateRange(year);
+      startDate = range.start;
+      endDate = range.end;
+      periodLabel = `${year}`;
+    } else {
+      const monthParam = url.searchParams.get("month") || "Enero";
+      const monthNum = getMonthNumber(monthParam);
+      const startD = new Date(year, monthNum - 1, 1);
+      const endD = new Date(monthNum === 12 ? year + 1 : year, monthNum === 12 ? 0 : monthNum, 1);
+      startDate = startD.toISOString().split("T")[0];
+      endDate = endD.toISOString().split("T")[0];
+      periodLabel = `${getMonthName(monthNum)} · ${year}`;
+    }
+
+    const ctoService = new CTOMetricsService(client);
+    const issues = await ctoService.getIssuesForDateRange(startDate, endDate);
+    const metrics = ctoService.calculateMetrics(issues, periodLabel);
+
+    return jsonResponse({ ...metrics, cached_at: new Date().toISOString() });
+  } catch (error) {
+    const msg = error instanceof Error ? error.message : String(error);
+    console.error("CTO Metrics error:", msg);
+    return errorResponse(`Failed to calculate CTO metrics: ${msg}`, 500);
   }
 }
 

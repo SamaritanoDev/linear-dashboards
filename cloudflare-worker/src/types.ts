@@ -9,6 +9,7 @@ export interface LinearIssue {
   createdAt: string;
   startedAt: string | null;
   completedAt: string | null;
+  updatedAt: string;
   assignee: {
     name: string;
   } | null;
@@ -92,6 +93,21 @@ export interface ProjectMetrics {
   by_state: Record<string, number>;
   by_lead: Record<string, number>;
   brands: Record<string, { total: number; pending: number; completed: number }>;
+}
+
+export interface PeriodMetrics {
+  count: number;
+  avg_attention_hours: number | null;
+  total_time_hours: number | null;
+  timed_count: number;
+}
+
+export interface CTOTicketMetrics {
+  period_label: string;
+  total: PeriodMetrics;
+  by_brand: Record<string, PeriodMetrics>;
+  by_type: Record<string, PeriodMetrics>;
+  by_brand_and_type: Record<string, Record<string, PeriodMetrics>>;
 }
 
 export interface LinearResponse<T> {
