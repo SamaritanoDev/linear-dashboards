@@ -517,7 +517,11 @@
                         Dashboard
                     </h2>
                     <nav class="space-y-2">
-                        <div class="drawer-item active flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer hover:bg-surface-variant text-on-surface-variant font-medium text-sm" onclick="switchSection('ce2-impact', event)">
+                        <div class="drawer-item active flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer hover:bg-surface-variant text-on-surface-variant font-medium text-sm" onclick="switchSection('cto-metrics', event)">
+                            <span class="material-symbols-outlined text-lg">query_stats</span>
+                            Métricas CTO
+                        </div>
+                        <div class="drawer-item flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer font-medium text-sm" onclick="switchSection('ce2-impact', event)">
                             <span class="material-symbols-outlined text-lg">auto_awesome</span>
                             CE2 Impact
                         </div>
@@ -536,10 +540,6 @@
                         <div class="drawer-item flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer font-medium text-sm" onclick="switchSection('recognitions', event)">
                             <span class="material-symbols-outlined text-lg">emoji_events</span>
                             Logros
-                        </div>
-                        <div class="drawer-item flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer font-medium text-sm" onclick="switchSection('cto-metrics', event)">
-                            <span class="material-symbols-outlined text-lg">query_stats</span>
-                            Métricas CTO
                         </div>
                     </nav>
                 </div>
@@ -1259,7 +1259,7 @@
                     </p>
                 </section>
 
-                <section class="max-w-7xl mx-auto" id="ce2-impact">
+                <section class="max-w-7xl mx-auto" id="ce2-impact" style="display: none;">
                     <div class="mb-8">
                         <h1 class="text-3xl font-bold text-on-surface mb-2">CE2 Impact Dashboard</h1>
                         <p class="text-on-surface-variant">Métricas de resolución y calidad de incidentes críticos</p>
@@ -1362,7 +1362,7 @@
                 </section>
 
                 <!-- ========== MÉTRICAS CTO ========== -->
-                <section id="cto-metrics" style="display: none;">
+                <section id="cto-metrics">
                     <div class="mb-8">
                         <h1 class="text-3xl font-bold text-on-surface mb-2">Métricas CTO</h1>
                         <p class="text-on-surface-variant">Volumen, tiempo de atención y carga total de tickets por marca y tipo</p>
@@ -1623,6 +1623,7 @@
 
                 if (section === 'cto-metrics') {
                     initCTOWeekSelect();
+                    loadCTOMetrics();
                 }
             }
 
@@ -3286,6 +3287,12 @@
                 document.getElementById('cto-table-container').innerHTML = html;
             }
             // ========== END MÉTRICAS CTO ==========
+
+            // Carga inicial al abrir la página
+            document.addEventListener('DOMContentLoaded', function() {
+                initCTOWeekSelect();
+                loadCTOMetrics();
+            });
         </script>
     </body>
     </html>
