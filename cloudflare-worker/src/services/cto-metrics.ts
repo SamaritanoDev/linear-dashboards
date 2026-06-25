@@ -3,8 +3,9 @@ import { getIssuesQueryForDateRange } from "../linear/queries";
 import type { LinearIssue, PeriodMetrics, CTOTicketMetrics } from "../types";
 
 const BRAND_LABELS = [
-  "Cuy", "Guinea", "Habla+", "Wings", "PeruSim+",
-  "Fimo", "Airalo", "B2B", "Finanzas", "Legales", "Partner", "Tech",
+  "Airalo", "B2B", "BackOffice", "Cuy", "Fimo",
+  "Finanzas", "Guinea", "Habla+", "Legales", "PeruSim+",
+  "SAC", "Tech", "Wings",
 ];
 
 const TYPE_LABELS = ["Error", "Requerimiento", "Hallazgo"];

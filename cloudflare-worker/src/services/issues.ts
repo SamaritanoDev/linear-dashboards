@@ -3,18 +3,19 @@ import { getIssuesQueryForMonth } from "../linear/queries";
 import type { LinearIssue, IssueMetrics } from "../types";
 
 const CUSTOMER_LABELS = [
-  "Cuy",
-  "Guinea",
-  "Habla+",
-  "Wings",
-  "PeruSim+",
-  "Fimo",
+  "BackOffice",
   "Airalo",
   "B2B",
+  "Cuy",
+  "Fimo",
   "Finanzas",
+  "Guinea",
+  "Habla+",
   "Legales",
-  "Partner",
+  "PeruSim+",
+  "SAC",
   "Tech",
+  "Wings",
 ];
 
 const PENDING_STATES = [
