@@ -584,8 +584,11 @@ async function handleCTOMetrics(
     }
 
     const ctoService = new CTOMetricsService(client);
-    const issues = await ctoService.getIssuesForDateRange(startDate, endDate);
-    const metrics = ctoService.calculateMetrics(issues, periodLabel);
+    const [issues, projects] = await Promise.all([
+      ctoService.getIssuesForDateRange(startDate, endDate),
+      ctoService.getProjectsForDateRange(startDate, endDate),
+    ]);
+    const metrics = ctoService.calculateMetrics(issues, projects, periodLabel);
 
     return jsonResponse({ ...metrics, cached_at: new Date().toISOString() });
   } catch (error) {

@@ -119,6 +119,32 @@ export function getIssuesQueryForDateRange(startDate: string, endDate: string, c
 `;
 }
 
+export function getProjectsQueryForDateRange(startDate: string, endDate: string, cursor: string | null = null): string {
+  const after = cursor ? `, after: "${cursor}"` : "";
+  return `
+{
+  projects(
+    first: 100${after}
+    filter: {
+      createdAt: {gte: "${startDate}T00:00:00Z", lt: "${endDate}T00:00:00Z"}
+    }
+  ) {
+    nodes {
+      id
+      name
+      state
+      startedAt
+      completedAt
+      createdAt
+      labels(first: 15) { nodes {name} }
+      teams(first: 3) { nodes {key} }
+    }
+    pageInfo { hasNextPage endCursor }
+  }
+}
+`;
+}
+
 export function getCE2MetricsQueryForMonth(
   year: number,
   month: number

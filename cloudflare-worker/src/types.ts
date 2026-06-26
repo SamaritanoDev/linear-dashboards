@@ -39,6 +39,8 @@ export interface LinearProject {
     name: string;
   } | null;
   createdAt: string;
+  startedAt: string | null;
+  completedAt: string | null;
   labels: {
     nodes: Array<{
       name: string;
