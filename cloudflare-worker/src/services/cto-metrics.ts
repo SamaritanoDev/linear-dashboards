@@ -137,6 +137,8 @@ export class CTOMetricsService {
       total,
       issues_count: validIssues.length,
       projects_count: projects.length,
+      issues_timed_count: issueTotal.timed_count,
+      projects_timed_count: projectTotal.timed_count,
       by_brand, by_type, by_brand_and_type,
     };
   }

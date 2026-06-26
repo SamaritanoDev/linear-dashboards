@@ -136,8 +136,8 @@ export class StateHistoryService {
     // Buscar si hubo una reducción de prioridad: P1 → P3
     // Nota: El webhook debe incluir priority en los datos
     return transitions.some(t =>
-      t.fromState === "Priority 1" &&
-      t.toState === "Priority 3"
+      t.fromState === "Priority P1 (Urgent)" &&
+      (t.toState === "Priority P3 (Medium)" || t.toState === "Priority P4 (Low)")
     );
   }
 

@@ -1476,9 +1476,9 @@
                         </div>
                     </div>
 
-                    <!-- Tabla Marca × Tipo -->
+                    <!-- Visualizaciones Marca × Tipo -->
                     <div class="glacier-card rounded-2xl p-6 mb-6 overflow-x-auto">
-                        <h3 class="text-lg font-semibold text-on-surface mb-4">Detalle por Marca y Tipo</h3>
+                        <h3 class="text-lg font-semibold text-on-surface mb-4">Distribución y velocidad por marca</h3>
                         <div id="cto-table-container">
                             <p class="text-on-surface-variant text-sm">Selecciona un período y haz clic en <strong>Cargar</strong>.</p>
                         </div>
@@ -3061,6 +3061,7 @@
 
             // ========== MÉTRICAS CTO ==========
             let ctoRawData = null;
+            let ctoBarChart = null;
             let ctoCurrentPeriod = 'month';
 
             function initCTOWeekSelect() {
@@ -3206,11 +3207,21 @@
                     avgHours !== null ? formatHours(avgHours) : '—';
                 document.getElementById('cto-total-time').textContent =
                     totalTimedCount > 0 ? formatHours(totalTimeHours) : '—';
-                document.getElementById('cto-time-sub').textContent =
-                    totalTimedCount > 0 ? `Basado en ${totalTimedCount} tickets cerrados` : 'Sin tickets cerrados con datos de tiempo';
+                const issuesTimed = ctoRawData.issues_timed_count ?? totalTimedCount;
+                const projectsTimed = ctoRawData.projects_timed_count ?? 0;
+                let timedSubtext = 'Sin tickets cerrados con datos de tiempo';
+                if (totalTimedCount > 0) {
+                    if (projectsTimed > 0) {
+                        const proyLabel = projectsTimed === 1 ? 'proyecto' : 'proyectos';
+                        timedSubtext = `Basado en ${issuesTimed} issues + ${projectsTimed} ${proyLabel} cerrados`;
+                    } else {
+                        timedSubtext = `Basado en ${issuesTimed} issues cerrados`;
+                    }
+                }
+                document.getElementById('cto-time-sub').textContent = timedSubtext;
 
-                // Tabla
-                renderCTOTable(brandsToShow, typesToShow);
+                // Gráficas
+                renderCTOCharts(brandsToShow, typesToShow);
             }
 
             function formatHours(h) {
@@ -3221,97 +3232,174 @@
                 return days < 2 ? `${h.toFixed(1)}h` : `${days.toFixed(1)}d`;
             }
 
-            function renderCTOTable(brands, types) {
+            function renderCTOCharts(brands, types) {
+                const types_active = types.filter(type =>
+                    brands.some(brand => (ctoRawData.by_brand_and_type?.[brand]?.[type]?.count || 0) > 0)
+                );
+
+                const brandsWithData = brands.filter(brand =>
+                    types_active.some(type => (ctoRawData.by_brand_and_type?.[brand]?.[type]?.count || 0) > 0)
+                ).sort((a, b) => {
+                    const tA = types_active.reduce((s, t) => s + (ctoRawData.by_brand_and_type?.[a]?.[t]?.count || 0), 0);
+                    const tB = types_active.reduce((s, t) => s + (ctoRawData.by_brand_and_type?.[b]?.[t]?.count || 0), 0);
+                    return tB - tA;
+                });
+
+                if (ctoBarChart) { ctoBarChart.destroy(); ctoBarChart = null; }
+
+                if (brandsWithData.length === 0) {
+                    document.getElementById('cto-table-container').innerHTML =
+                        '<p class="text-on-surface-variant text-sm">Sin datos para el período seleccionado.</p>';
+                    return;
+                }
+
+                const typeColors = { 'Error': '#ef4444', 'Requerimiento': '#3b82f6', 'Hallazgo': '#f59e0b', 'Sin tipo': '#94a3b8' };
+                const heatBgs  = ['rgba(16,185,129,.20)', 'rgba(245,158,11,.24)', 'rgba(234,88,12,.30)', 'rgba(220,38,38,.34)'];
+                function heatTier(h) {
+                    if (!h || h <= 0) return -1;
+                    if (h < 8) return 0; if (h < 48) return 1; if (h < 168) return 2; return 3;
+                }
+
                 const isDark = document.documentElement.classList.contains('dark');
-                const headerBg = isDark ? '#1a2438' : '#f0f4f8';
-                const borderColor = isDark ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.07)';
+                const tagBg    = isDark ? 'rgba(59,130,246,.2)'  : 'rgba(59,130,246,.12)';
+                const tagColor = isDark ? '#93c5fd' : '#1d4ed8';
+                const bdr      = isDark ? 'rgba(255,255,255,.07)' : 'rgba(0,0,0,.07)';
+                const surfBg   = isDark ? 'rgba(255,255,255,.03)' : 'rgba(0,0,0,.03)';
+                const surfBase = isDark ? '#1c1b1f' : '#fff';
+                const chartH   = Math.max(240, brandsWithData.length * 38 + 60);
 
-                let html = `<table class="w-full text-sm border-collapse min-w-max">
-                    <thead>
-                        <tr style="background:${headerBg};">
-                            <th class="text-left px-4 py-3 font-semibold text-on-surface-variant rounded-tl-lg" style="border-bottom:2px solid ${borderColor};">Marca</th>`;
-
-                for (const type of types) {
-                    const typeColors = {
-                        'Error': '#ef4444', 'Requerimiento': '#3b82f6',
-                        'Hallazgo': '#f59e0b', 'Sin tipo': '#94a3b8'
-                    };
-                    const color = typeColors[type] || '#94a3b8';
-                    html += `<th colspan="3" class="text-center px-4 py-3 font-semibold" style="border-bottom:2px solid ${borderColor};border-left:1px solid ${borderColor};color:${color};">${type}</th>`;
-                }
-                html += `<th colspan="3" class="text-center px-4 py-3 font-semibold text-on-surface rounded-tr-lg" style="border-bottom:2px solid ${borderColor};border-left:2px solid ${borderColor};">Total</th></tr>
-                    <tr style="background:${headerBg};">
-                        <th class="px-4 py-2" style="border-bottom:1px solid ${borderColor};"></th>`;
-
-                const subHeaders = types.map(() =>
-                    `<th class="text-center px-3 py-2 text-xs text-on-surface-variant font-medium" style="border-bottom:1px solid ${borderColor};border-left:1px solid ${borderColor};">#</th>
-                     <th class="text-center px-3 py-2 text-xs text-on-surface-variant font-medium" style="border-bottom:1px solid ${borderColor};">Prom.</th>
-                     <th class="text-center px-3 py-2 text-xs text-on-surface-variant font-medium" style="border-bottom:1px solid ${borderColor};">Total</th>`
+                const legA = types_active.map(t =>
+                    `<span style="display:flex;align-items:center;gap:5px;font-size:12px;">` +
+                    `<span style="width:10px;height:10px;border-radius:2px;background:${typeColors[t]||'#94a3b8'};flex-shrink:0;display:inline-block;"></span>` +
+                    `<span class="text-on-surface-variant">${t}</span></span>`
                 ).join('');
-                html += subHeaders;
-                html += `<th class="text-center px-3 py-2 text-xs text-on-surface-variant font-medium" style="border-bottom:1px solid ${borderColor};border-left:2px solid ${borderColor};">#</th>
-                         <th class="text-center px-3 py-2 text-xs text-on-surface-variant font-medium" style="border-bottom:1px solid ${borderColor};">Prom.</th>
-                         <th class="text-center px-3 py-2 text-xs text-on-surface-variant font-medium" style="border-bottom:1px solid ${borderColor};">Total</th>
-                    </tr></thead><tbody>`;
 
-                const totals = { count: 0, timed: 0, hours: 0 };
-                const typeTotals = {};
-                types.forEach(t => { typeTotals[t] = { count: 0, timed: 0, hours: 0 }; });
+                const legBItems = [
+                    ['rgba(16,185,129,.55)', 'Rápido (&lt;8h)'],
+                    ['rgba(245,158,11,.65)', 'Medio (8–48h)'],
+                    ['rgba(234,88,12,.70)', 'Lento (2–7d)'],
+                    ['rgba(220,38,38,.75)', 'Crítico (&gt;7d)'],
+                ];
+                const legB = legBItems.map(([bg, lbl]) =>
+                    `<span style="display:flex;align-items:center;gap:5px;font-size:12px;">` +
+                    `<span style="width:10px;height:10px;border-radius:2px;background:${bg};flex-shrink:0;display:inline-block;"></span>` +
+                    `<span class="text-on-surface-variant">${lbl}</span></span>`
+                ).join('');
 
-                for (const brand of brands) {
-                    const brandData = ctoRawData.by_brand_and_type?.[brand] || {};
-                    let rowCount = 0, rowTimed = 0, rowHours = 0;
-                    let rowCells = '';
+                // --- Heatmap rows ---
+                let hmRows = '';
+                let grandTotal = 0;
+                const colTotals = {};
+                types_active.forEach(t => { colTotals[t] = 0; });
 
-                    for (const type of types) {
-                        const cell = brandData[type] || { count: 0, avg_attention_hours: null, total_time_hours: null, timed_count: 0 };
-                        rowCount += cell.count || 0;
-                        rowTimed += cell.timed_count || 0;
-                        rowHours += cell.total_time_hours || 0;
-                        typeTotals[type].count += cell.count || 0;
-                        typeTotals[type].timed += cell.timed_count || 0;
-                        typeTotals[type].hours += cell.total_time_hours || 0;
-                        rowCells += `<td class="text-center px-3 py-3 font-semibold text-on-surface" style="border-left:1px solid ${borderColor};">${cell.count || 0}</td>
-                            <td class="text-center px-3 py-3 text-on-surface-variant">${formatHours(cell.avg_attention_hours)}</td>
-                            <td class="text-center px-3 py-3 text-on-surface-variant">${cell.total_time_hours ? formatHours(cell.total_time_hours) : '—'}</td>`;
+                for (const brand of brandsWithData) {
+                    let rowTotal = 0;
+                    let cells = '';
+                    for (const type of types_active) {
+                        const cell = ctoRawData.by_brand_and_type?.[brand]?.[type] || {};
+                        const n   = cell.count || 0;
+                        const avg = cell.avg_attention_hours;
+                        rowTotal += n;
+                        colTotals[type] += n;
+                        const tier = heatTier(avg);
+                        const bg   = tier >= 0 && n > 0 ? `background:${heatBgs[tier]};` : '';
+                        const af   = n > 0 && avg ? formatHours(avg) : null;
+                        cells += n > 0
+                            ? `<td style="${bg}border:2px solid ${surfBase};text-align:center;vertical-align:middle;height:40px;padding:0;">` +
+                              `<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:1px;">` +
+                              `<span style="font-size:14px;font-weight:500;" class="text-on-surface">${n}</span>` +
+                              (af ? `<span style="font-size:10px;" class="text-on-surface-variant">${af}</span>` : '') +
+                              `</div></td>`
+                            : `<td style="border:2px solid ${surfBase};text-align:center;vertical-align:middle;height:40px;padding:0;">` +
+                              `<span class="text-on-surface-variant" style="font-size:13px;">—</span></td>`;
                     }
-
-                    totals.count += rowCount;
-                    totals.timed += rowTimed;
-                    totals.hours += rowHours;
-                    const rowAvg = rowTimed > 0 ? rowHours / rowTimed : null;
-
-                    if (rowCount > 0) {
-                        html += `<tr class="hover:bg-surface-container/50 transition-colors">
-                            <td class="px-4 py-3 font-medium text-on-surface" style="border-bottom:1px solid ${borderColor};">${brand}</td>
-                            ${rowCells.replace(/style="/g, `style="border-bottom:1px solid ${borderColor};`)}
-                            <td class="text-center px-3 py-3 font-bold text-on-surface" style="border-left:2px solid ${borderColor};border-bottom:1px solid ${borderColor};">${rowCount}</td>
-                            <td class="text-center px-3 py-3 font-medium text-on-surface" style="border-bottom:1px solid ${borderColor};">${formatHours(rowAvg)}</td>
-                            <td class="text-center px-3 py-3 font-medium text-on-surface" style="border-bottom:1px solid ${borderColor};">${rowTimed > 0 ? formatHours(rowHours) : '—'}</td>
-                        </tr>`;
-                    }
+                    grandTotal += rowTotal;
+                    hmRows += `<tr>` +
+                        `<td style="text-align:right;padding:0 10px;font-size:12px;white-space:nowrap;height:40px;vertical-align:middle;" class="text-on-surface-variant">${brand}</td>` +
+                        cells +
+                        `<td style="text-align:center;padding:0 0 0 8px;font-size:14px;font-weight:500;vertical-align:middle;" class="text-on-surface">${rowTotal}</td>` +
+                        `</tr>`;
                 }
 
-                // Fila de totales
-                const totalAvg = totals.timed > 0 ? totals.hours / totals.timed : null;
-                let totalCells = '';
-                for (const type of types) {
-                    const t = typeTotals[type];
-                    const tAvg = t.timed > 0 ? t.hours / t.timed : null;
-                    totalCells += `<td class="text-center px-3 py-3 font-bold text-on-surface" style="border-left:1px solid ${borderColor};">${t.count}</td>
-                        <td class="text-center px-3 py-3 font-medium text-on-surface">${formatHours(tAvg)}</td>
-                        <td class="text-center px-3 py-3 font-medium text-on-surface">${t.timed > 0 ? formatHours(t.hours) : '—'}</td>`;
-                }
-                html += `<tr style="background:${headerBg};font-weight:700;">
-                    <td class="px-4 py-3 text-on-surface font-bold">TOTAL</td>
-                    ${totalCells}
-                    <td class="text-center px-3 py-3 text-on-surface font-bold" style="border-left:2px solid ${borderColor};">${totals.count}</td>
-                    <td class="text-center px-3 py-3 text-on-surface font-bold">${formatHours(totalAvg)}</td>
-                    <td class="text-center px-3 py-3 text-on-surface font-bold">${totals.timed > 0 ? formatHours(totals.hours) : '—'}</td>
-                </tr>`;
+                const colTotalCells = types_active.map(t =>
+                    `<td style="text-align:center;padding:7px 0;font-size:14px;font-weight:700;border-top:1px solid ${bdr};" class="text-on-surface">${colTotals[t]}</td>`
+                ).join('');
+                hmRows += `<tr style="background:${surfBg};">` +
+                    `<td style="text-align:right;padding:7px 10px;font-size:12px;font-weight:700;border-top:1px solid ${bdr};" class="text-on-surface">Total</td>` +
+                    colTotalCells +
+                    `<td style="text-align:center;padding:7px 0 7px 8px;font-size:14px;font-weight:700;border-top:1px solid ${bdr};" class="text-on-surface">${grandTotal}</td>` +
+                    `</tr>`;
 
-                html += '</tbody></table>';
+                const thCols = types_active.map(t =>
+                    `<th style="text-align:center;padding:7px 8px;font-size:11px;font-weight:600;border-bottom:1px solid ${bdr};color:${typeColors[t]||'#94a3b8'};">${t}</th>`
+                ).join('');
+
+                const html = `
+                    <div style="margin-bottom:28px;">
+                        <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;flex-wrap:wrap;">
+                            <span style="background:${tagBg};color:${tagColor};font-size:11px;font-weight:600;padding:3px 9px;border-radius:6px;white-space:nowrap;flex-shrink:0;">Propuesta A</span>
+                            <span class="text-on-surface" style="font-size:13px;font-weight:500;">Volumen por marca y tipo</span>
+                            <div style="display:flex;gap:14px;margin-left:auto;flex-wrap:wrap;">${legA}</div>
+                        </div>
+                        <div style="position:relative;width:100%;height:${chartH}px;">
+                            <canvas id="cto-bar-chart" role="img" aria-label="Barras horizontales apiladas por tipo de issue por marca"></canvas>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;flex-wrap:wrap;">
+                            <span style="background:${tagBg};color:${tagColor};font-size:11px;font-weight:600;padding:3px 9px;border-radius:6px;white-space:nowrap;flex-shrink:0;">Propuesta B</span>
+                            <span class="text-on-surface" style="font-size:13px;font-weight:500;">Calor — volumen y velocidad</span>
+                            <div style="display:flex;gap:14px;margin-left:auto;flex-wrap:wrap;">${legB}</div>
+                        </div>
+                        <div style="overflow-x:auto;">
+                            <table style="width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;min-width:360px;">
+                                <thead><tr>
+                                    <th style="text-align:right;padding:7px 10px;font-size:11px;font-weight:500;border-bottom:1px solid ${bdr};width:100px;" class="text-on-surface-variant"></th>
+                                    ${thCols}
+                                    <th style="text-align:center;padding:7px 8px;font-size:11px;font-weight:600;border-bottom:1px solid ${bdr};" class="text-on-surface-variant">Total</th>
+                                </tr></thead>
+                                <tbody>${hmRows}</tbody>
+                            </table>
+                        </div>
+                    </div>`;
+
                 document.getElementById('cto-table-container').innerHTML = html;
+
+                // Construir Chart.js (Propuesta A)
+                const canvas = document.getElementById('cto-bar-chart');
+                if (!canvas) return;
+
+                const gcol = isDark ? 'rgba(255,255,255,.08)' : 'rgba(0,0,0,.08)';
+                const tcol = isDark ? 'rgba(255,255,255,.45)' : 'rgba(0,0,0,.45)';
+                const lcol = isDark ? 'rgba(255,255,255,.75)' : 'rgba(0,0,0,.70)';
+
+                ctoBarChart = new Chart(canvas.getContext('2d'), {
+                    type: 'bar',
+                    data: {
+                        labels: brandsWithData,
+                        datasets: types_active.map(type => ({
+                            label: type,
+                            data: brandsWithData.map(brand => ctoRawData.by_brand_and_type?.[brand]?.[type]?.count || 0),
+                            backgroundColor: typeColors[type] || '#94a3b8',
+                            borderWidth: 0,
+                        }))
+                    },
+                    options: {
+                        indexAxis: 'y',
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: { callbacks: { label: c => ` ${c.dataset.label}: ${c.parsed.x} issues` } }
+                        },
+                        scales: {
+                            x: { stacked: true, grid: { color: gcol }, ticks: { color: tcol, font: { size: 11 }, stepSize: 10 }, border: { color: gcol } },
+                            y: { stacked: true, grid: { display: false }, ticks: { color: lcol, font: { size: 12 } }, border: { display: false } }
+                        },
+                        layout: { padding: { right: 8 } }
+                    }
+                });
             }
             // ========== END MÉTRICAS CTO ==========
 

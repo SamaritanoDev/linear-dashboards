@@ -44,11 +44,13 @@ export class IssuesService {
       (cursor) => getIssuesQueryForMonth(year, month, includeWithProject, cursor)
     );
 
+    const EXCLUDED = ["Discarded", "Duplicate", "Cancelled", "Monitoring"];
+
     if (filter === "with_project") {
-      return issues.filter((i) => i.project && i.state.name !== "Discarded" && i.state.name !== "Duplicate");
+      return issues.filter((i) => i.project && !EXCLUDED.includes(i.state.name));
     }
 
-    return issues.filter((i) => !i.project && i.state.name !== "Discarded" && i.state.name !== "Duplicate");
+    return issues.filter((i) => !i.project && !EXCLUDED.includes(i.state.name));
   }
 
   async calculateMetrics(
