@@ -10,7 +10,7 @@ const BRAND_LABELS = [
 
 const TYPE_LABELS = ["Error", "Requerimiento", "Hallazgo"];
 
-const EXCLUDED_STATES = ["Discarded", "Duplicate", "Cancelled"];
+const EXCLUDED_STATES = ["Discarded", "Duplicate", "Cancelled", "Monitoring"];
 const CE2_TEAM_KEYS = ["CE2", "CE1"];
 
 // Infer issue type from solution labels when no direct type label exists
