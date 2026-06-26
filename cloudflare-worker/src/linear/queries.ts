@@ -93,6 +93,7 @@ export function getIssuesQueryForDateRange(startDate: string, endDate: string, c
     first: 250${after}
     filter: {
       team: {id: {in: ["5feed208-25ac-4eb5-a2e6-e5f60f957b00", "c79c921c-5ef9-4539-bf19-5d8161cfe6ee"]}}
+      project: {null: true}
       createdAt: {gte: "${startDate}T00:00:00Z", lt: "${endDate}T00:00:00Z"}
     }
   ) {
