@@ -142,27 +142,21 @@ export class CTOMetricsService {
   }
 
   private calcPeriodMetrics(issues: LinearIssue[]): PeriodMetrics {
+    const DEFAULT_HOURS = 4; // medio día laboral para issues cerrados sin startedAt
     const count = issues.length;
 
-    const closedWithTime = issues.filter(
-      (i) => i.state.name === "Closed" && i.startedAt && i.completedAt
-    );
-
-    if (closedWithTime.length === 0) {
+    const closed = issues.filter((i) => i.state.name === "Closed" && i.completedAt);
+    if (closed.length === 0) {
       return { count, avg_attention_hours: null, total_time_hours: null, timed_count: 0 };
     }
 
-    const times = closedWithTime
-      .map((i) => {
-        const started = new Date(i.startedAt!).getTime();
-        const completed = new Date(i.completedAt!).getTime();
-        return (completed - started) / (1000 * 60 * 60);
-      })
-      .filter((t) => t > 0);
-
-    if (times.length === 0) {
-      return { count, avg_attention_hours: null, total_time_hours: null, timed_count: 0 };
-    }
+    const times = closed.map((i) => {
+      if (i.startedAt) {
+        const h = (new Date(i.completedAt!).getTime() - new Date(i.startedAt).getTime()) / (1000 * 60 * 60);
+        return h > 0 ? h : DEFAULT_HOURS;
+      }
+      return DEFAULT_HOURS;
+    });
 
     const total_time_hours = Math.round(times.reduce((a, b) => a + b, 0) * 10) / 10;
     const avg_attention_hours = Math.round((total_time_hours / times.length) * 10) / 10;
