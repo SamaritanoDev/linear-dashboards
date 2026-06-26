@@ -32,7 +32,8 @@ export const PROJECTS_QUERY = `
 export function getIssuesQueryForMonth(
   year: number,
   month: number,
-  includeWithProject: boolean = false
+  includeWithProject: boolean = false,
+  cursor: string | null = null
 ): string {
   const startDate = new Date(year, month - 1, 1);
   const endDate = new Date(
@@ -44,7 +45,6 @@ export function getIssuesQueryForMonth(
   const startStr = startDate.toISOString().split("T")[0];
   const endStr = endDate.toISOString().split("T")[0];
 
-  // Build filter object based on includeWithProject flag
   let filterStr = `
       team: {id: {in: ["5feed208-25ac-4eb5-a2e6-e5f60f957b00", "c79c921c-5ef9-4539-bf19-5d8161cfe6ee"]}}
       createdAt: {gte: "${startStr}T00:00:00Z", lt: "${endStr}T00:00:00Z"}`;
@@ -54,10 +54,12 @@ export function getIssuesQueryForMonth(
       project: {null: true}`;
   }
 
+  const after = cursor ? `, after: "${cursor}"` : "";
+
   return `
 {
   issues(
-    first: 250
+    first: 250${after}
     filter: {${filterStr}
     }
   ) {
@@ -77,16 +79,18 @@ export function getIssuesQueryForMonth(
         nodes {name}
       }
     }
+    pageInfo { hasNextPage endCursor }
   }
 }
 `;
 }
 
-export function getIssuesQueryForDateRange(startDate: string, endDate: string): string {
+export function getIssuesQueryForDateRange(startDate: string, endDate: string, cursor: string | null = null): string {
+  const after = cursor ? `, after: "${cursor}"` : "";
   return `
 {
   issues(
-    first: 250
+    first: 250${after}
     filter: {
       team: {id: {in: ["5feed208-25ac-4eb5-a2e6-e5f60f957b00", "c79c921c-5ef9-4539-bf19-5d8161cfe6ee"]}}
       createdAt: {gte: "${startDate}T00:00:00Z", lt: "${endDate}T00:00:00Z"}
@@ -108,6 +112,7 @@ export function getIssuesQueryForDateRange(startDate: string, endDate: string): 
         nodes {name}
       }
     }
+    pageInfo { hasNextPage endCursor }
   }
 }
 `;

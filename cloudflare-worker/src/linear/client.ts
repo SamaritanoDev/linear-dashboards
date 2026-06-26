@@ -4,6 +4,10 @@ export interface LinearClientOptions {
   apiKey: string;
 }
 
+export interface LinearNode {
+  id: string;
+}
+
 export class LinearClient {
   private apiKey: string;
 
@@ -42,5 +46,24 @@ export class LinearClient {
       console.error("Linear query failed:", errorMsg);
       return null;
     }
+  }
+
+  // Fetches all pages of a paginated issues query.
+  // The queryFn receives an optional cursor and must embed pageInfo { hasNextPage endCursor } in the response.
+  async queryAllIssues<N>(
+    queryFn: (cursor: string | null) => string
+  ): Promise<N[]> {
+    const all: N[] = [];
+    let cursor: string | null = null;
+
+    do {
+      interface PagedResult { issues: { nodes: N[]; pageInfo: { hasNextPage: boolean; endCursor: string } } }
+      const result: PagedResult | null = await this.query<PagedResult>(queryFn(cursor));
+      if (!result?.issues) break;
+      all.push(...result.issues.nodes);
+      cursor = result.issues.pageInfo.hasNextPage ? result.issues.pageInfo.endCursor : null;
+    } while (cursor !== null);
+
+    return all;
   }
 }

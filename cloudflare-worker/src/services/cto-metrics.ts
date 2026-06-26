@@ -16,9 +16,9 @@ export class CTOMetricsService {
   constructor(private client: LinearClient) {}
 
   async getIssuesForDateRange(startDate: string, endDate: string): Promise<LinearIssue[]> {
-    const query = getIssuesQueryForDateRange(startDate, endDate);
-    const result = await this.client.query<{ issues: { nodes: LinearIssue[] } }>(query);
-    return result?.issues?.nodes ?? [];
+    return this.client.queryAllIssues<LinearIssue>(
+      (cursor) => getIssuesQueryForDateRange(startDate, endDate, cursor)
+    );
   }
 
   calculateMetrics(issues: LinearIssue[], periodLabel: string): CTOTicketMetrics {
