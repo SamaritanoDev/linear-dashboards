@@ -6,7 +6,8 @@
 import { StateHistoryService, StateTransition } from "../services/state-history";
 
 export interface LinearWebhookPayload {
-  action: string;
+  action: string;  // Linear envía "create" | "update" | "remove"
+  type?: string;   // "Issue" | "Comment" | "Project" etc.
   createdAt: string;
   data: {
     id: string;
@@ -58,12 +59,15 @@ export class LinearWebhookHandler {
       );
 
       // Solo nos interesan los cambios de estado
-      if (payload.action === "Issue.updated" && payload.data.previousValues?.state) {
+      // Linear envía action:"update" y type:"Issue" (no "Issue.updated")
+      const isIssueUpdate = (payload.action === "update" || payload.action === "Issue.updated") &&
+        (!payload.type || payload.type === "Issue");
+
+      if (isIssueUpdate && payload.data.previousValues?.state) {
         return await this.handleStateChange(payload);
       }
 
-      // También registrar cambios de prioridad
-      if (payload.action === "Issue.updated" && payload.data.previousValues?.priority !== undefined) {
+      if (isIssueUpdate && payload.data.previousValues?.priority !== undefined) {
         return await this.handlePriorityChange(payload);
       }
 

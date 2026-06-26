@@ -39,6 +39,8 @@ export interface LinearProject {
     name: string;
   } | null;
   createdAt: string;
+  startedAt: string | null;
+  completedAt: string | null;
   labels: {
     nodes: Array<{
       name: string;
@@ -105,6 +107,10 @@ export interface PeriodMetrics {
 export interface CTOTicketMetrics {
   period_label: string;
   total: PeriodMetrics;
+  issues_count: number;
+  projects_count: number;
+  issues_timed_count: number;
+  projects_timed_count: number;
   by_brand: Record<string, PeriodMetrics>;
   by_type: Record<string, PeriodMetrics>;
   by_brand_and_type: Record<string, Record<string, PeriodMetrics>>;

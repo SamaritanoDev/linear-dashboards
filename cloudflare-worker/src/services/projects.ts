@@ -55,8 +55,9 @@ export class ProjectsService {
     const validProjects = projects.filter(isValidProject);
 
     const BRAND_LABELS = [
-      "Cuy", "Guinea", "Habla+", "Wings", "PeruSim+", "Fimo", "Airalo",
-      "B2B", "Finanzas", "Legales", "Partner"
+      "BackOffice", "Airalo", "B2B", "Cuy", "Fimo",
+      "Finanzas", "Guinea", "Habla+", "Legales", "PeruSim+",
+      "SAC", "Tech", "Wings"
     ];
 
     // States that count as "pending" - must match frontend definition

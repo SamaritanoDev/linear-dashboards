@@ -125,7 +125,7 @@ export class CE2MetricsService {
 
     return {
       vipResolutionRate: this.calculateVIPResolutionRate(issues, year, month),
-      fcrr: this.calculateFCRR(issues, year, month),
+      fcrr: await this.calculateFCRR(issues, year, month),
       reopenRate: await this.calculateReopenRate(issues, year, month),
       containmentRate: await this.calculateContainmentRate(issues, year, month),
       mttr: this.calculateMTTR(issues, year, month),
@@ -136,7 +136,7 @@ export class CE2MetricsService {
         year,
         month
       ),
-      noiseReduction: this.calculateNoiseReduction(issues, year, month),
+      noiseReduction: await this.calculateNoiseReduction(issues, year, month),
     };
   }
 
@@ -251,19 +251,23 @@ export class CE2MetricsService {
     };
   }
 
-  private calculateFCRR(
+  private async calculateFCRR(
     issues: CE2Issue[],
     year: number,
     month: number
-  ): any {
+  ): Promise<any> {
     const p1p2Completed = issues.filter(
       (i) =>
         (i.priority === 1 || i.priority === 2) && (i.state.name === "Closed")
     );
 
-    // Without historyEntries API support, assume all completed issues were resolved on first try
-    // This is a simplification; ideally we'd check state transitions via a different API
-    const withoutReopen = p1p2Completed.length;
+    const reopened: CE2Issue[] = [];
+    for (const issue of p1p2Completed) {
+      const wasReopened = await this.historyService.wasReopened(issue.id);
+      if (wasReopened) reopened.push(issue);
+    }
+
+    const withoutReopen = p1p2Completed.length - reopened.length;
     const value =
       p1p2Completed.length > 0
         ? parseFloat(((withoutReopen / p1p2Completed.length) * 100).toFixed(1))
@@ -309,7 +313,7 @@ export class CE2MetricsService {
       period: `${startDate} to ${endDate}`,
       total_resolved_critical: p1p2Completed.length,
       resolved_without_reopen: withoutReopen,
-      reopened_issues: 0,
+      reopened_issues: reopened.length,
     };
   }
 
@@ -706,18 +710,22 @@ export class CE2MetricsService {
     };
   }
 
-  private calculateNoiseReduction(
+  private async calculateNoiseReduction(
     issues: CE2Issue[],
     year: number,
     month: number
-  ): any {
+  ): Promise<any> {
     const initiallyP1 = issues.filter((i) => i.priority === 1);
 
-    // Without historyEntries API support, we can't detect priority changes
-    // Assume 0% of issues were reclassified
-    const reclassified: any[] = [];
-    const reclassifiedToP2: any[] = [];
-    const value = 0;
+    const reclassified: CE2Issue[] = [];
+    const reclassifiedToP2: CE2Issue[] = [];
+    for (const issue of initiallyP1) {
+      const downgraded = await this.historyService.hasPriorityDowngrade(issue.id);
+      if (downgraded) reclassified.push(issue);
+    }
+    const value = initiallyP1.length > 0
+      ? parseFloat(((reclassified.length / initiallyP1.length) * 100).toFixed(1))
+      : 0;
     const status = value >= 20 ? "good" : value >= 10 ? "fair" : "poor";
 
     const startDate = new Date(year, month - 1, 1)

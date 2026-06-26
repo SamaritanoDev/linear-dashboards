@@ -3,18 +3,19 @@ import { getIssuesQueryForMonth } from "../linear/queries";
 import type { LinearIssue, IssueMetrics } from "../types";
 
 const CUSTOMER_LABELS = [
-  "Cuy",
-  "Guinea",
-  "Habla+",
-  "Wings",
-  "PeruSim+",
-  "Fimo",
+  "BackOffice",
   "Airalo",
   "B2B",
+  "Cuy",
+  "Fimo",
   "Finanzas",
+  "Guinea",
+  "Habla+",
   "Legales",
-  "Partner",
+  "PeruSim+",
+  "SAC",
   "Tech",
+  "Wings",
 ];
 
 const PENDING_STATES = [
@@ -38,24 +39,18 @@ export class IssuesService {
     month: number,
     filter: "with_project" | "without_project" = "without_project"
   ): Promise<LinearIssue[]> {
-    // Get query based on filter type
-    // For "with_project": includeWithProject = true (gets ALL issues, no project filter)
-    // For "without_project": includeWithProject = false (gets only issues without project)
-    const query = getIssuesQueryForMonth(year, month, filter === "with_project");
-    const result = await this.client.query<{ issues: { nodes: LinearIssue[] } }>(
-      query
+    const includeWithProject = filter === "with_project";
+    const issues = await this.client.queryAllIssues<LinearIssue>(
+      (cursor) => getIssuesQueryForMonth(year, month, includeWithProject, cursor)
     );
 
-    if (!result) return [];
+    const EXCLUDED = ["Discarded", "Duplicate", "Cancelled", "Monitoring"];
 
-    const issues = result.issues.nodes;
-
-    // Filter by project status and exclude Discarded and Duplicate
     if (filter === "with_project") {
-      return issues.filter((i) => i.project && i.state.name !== "Discarded" && i.state.name !== "Duplicate");
+      return issues.filter((i) => i.project && !EXCLUDED.includes(i.state.name));
     }
 
-    return issues.filter((i) => !i.project && i.state.name !== "Discarded" && i.state.name !== "Duplicate");
+    return issues.filter((i) => !i.project && !EXCLUDED.includes(i.state.name));
   }
 
   async calculateMetrics(
