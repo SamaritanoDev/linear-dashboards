@@ -28,6 +28,10 @@ export class CTOMetricsService {
 
     const total = this.calcPeriodMetrics(validIssues);
 
+    const unbranded = validIssues.filter(
+      (i) => !i.labels.nodes.some((l) => BRAND_LABELS.includes(l.name))
+    );
+
     const by_brand: Record<string, PeriodMetrics> = {};
     for (const brand of BRAND_LABELS) {
       const brandIssues = validIssues.filter((i) =>
@@ -35,6 +39,7 @@ export class CTOMetricsService {
       );
       by_brand[brand] = this.calcPeriodMetrics(brandIssues);
     }
+    by_brand["Sin marca"] = this.calcPeriodMetrics(unbranded);
 
     const by_type: Record<string, PeriodMetrics> = {};
     for (const type of TYPE_LABELS) {
@@ -50,10 +55,11 @@ export class CTOMetricsService {
     );
 
     const by_brand_and_type: Record<string, Record<string, PeriodMetrics>> = {};
-    for (const brand of BRAND_LABELS) {
-      const brandIssues = validIssues.filter((i) =>
-        i.labels.nodes.some((l) => l.name === brand)
-      );
+    const allBrands = [...BRAND_LABELS, "Sin marca"];
+    for (const brand of allBrands) {
+      const brandIssues = brand === "Sin marca"
+        ? unbranded
+        : validIssues.filter((i) => i.labels.nodes.some((l) => l.name === brand));
       by_brand_and_type[brand] = {};
       for (const type of TYPE_LABELS) {
         by_brand_and_type[brand][type] = this.calcPeriodMetrics(
