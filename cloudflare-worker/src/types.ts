@@ -107,6 +107,8 @@ export interface PeriodMetrics {
 export interface CTOTicketMetrics {
   period_label: string;
   total: PeriodMetrics;
+  issues_count: number;
+  projects_count: number;
   by_brand: Record<string, PeriodMetrics>;
   by_type: Record<string, PeriodMetrics>;
   by_brand_and_type: Record<string, Record<string, PeriodMetrics>>;

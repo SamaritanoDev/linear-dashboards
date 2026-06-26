@@ -132,7 +132,13 @@ export class CTOMetricsService {
       }
     }
 
-    return { period_label: periodLabel, total, by_brand, by_type, by_brand_and_type };
+    return {
+      period_label: periodLabel,
+      total,
+      issues_count: validIssues.length,
+      projects_count: projects.length,
+      by_brand, by_type, by_brand_and_type,
+    };
   }
 
   private calcPeriodMetrics(issues: LinearIssue[]): PeriodMetrics {
