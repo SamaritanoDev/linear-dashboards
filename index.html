@@ -593,8 +593,9 @@
     <button class="px-5 py-2.5 rounded-full text-sm text-on-surface-variant hover:text-primary transition-all font-medium whitespace-nowrap" data-month="Febrero">Febrero</button>
     <button class="px-5 py-2.5 rounded-full text-sm text-on-surface-variant hover:text-primary transition-all font-medium whitespace-nowrap" data-month="Marzo">Marzo</button>
     <button class="px-5 py-2.5 rounded-full text-sm text-on-surface-variant hover:text-primary transition-all font-medium whitespace-nowrap" data-month="Abril">Abril</button>
-    <button class="px-5 py-2.5 rounded-full text-sm text-primary border-b-2 border-primary font-semibold whitespace-nowrap" data-month="Mayo">Mayo</button>
+    <button class="px-5 py-2.5 rounded-full text-sm text-on-surface-variant hover:text-primary transition-all font-medium whitespace-nowrap" data-month="Mayo">Mayo</button>
     <button class="px-5 py-2.5 rounded-full text-sm text-on-surface-variant hover:text-primary transition-all font-medium whitespace-nowrap" data-month="Junio">Junio</button>
+    <button class="px-5 py-2.5 rounded-full text-sm text-primary border-b-2 border-primary font-semibold whitespace-nowrap" data-month="Julio">Julio</button>
                     </div>
 
                     <div class="tab-content" data-purpose="projects-data" id="tab-projects">
@@ -897,11 +898,12 @@
     <button class="px-5 py-2.5 rounded-full text-sm text-on-surface-variant font-medium hover:text-primary transition-all whitespace-nowrap" data-month="Febrero">Febrero</button>
     <button class="px-5 py-2.5 rounded-full text-sm text-on-surface-variant font-medium hover:text-primary transition-all whitespace-nowrap" data-month="Marzo">Marzo</button>
     <button class="px-5 py-2.5 rounded-full text-sm text-on-surface-variant font-medium hover:text-primary transition-all whitespace-nowrap" data-month="Abril">Abril</button>
-    <button class="px-5 py-2.5 rounded-full text-sm text-primary border-b-2 border-primary font-semibold transition-all whitespace-nowrap" data-month="Mayo">Mayo</button>
+    <button class="px-5 py-2.5 rounded-full text-sm text-on-surface-variant font-medium hover:text-primary transition-all whitespace-nowrap" data-month="Mayo">Mayo</button>
     <button class="px-5 py-2.5 rounded-full text-sm text-on-surface-variant font-medium hover:text-primary transition-all whitespace-nowrap" data-month="Junio">Junio</button>
+    <button class="px-5 py-2.5 rounded-full text-sm text-primary border-b-2 border-primary font-semibold transition-all whitespace-nowrap" data-month="Julio">Julio</button>
     </div>
 
-    <div class="tab-content" id="tab-issues" data-month="Mayo">
+    <div class="tab-content" id="tab-issues" data-month="Julio">
         <div class="flex items-center gap-2 mb-6">
             <span class="h-2 w-2 rounded-full bg-primary"></span>
             <span id="issues-month-header" class="text-sm font-medium text-on-surface-variant uppercase tracking-widest">Mayo 2026: 58 issues totales | Pendientes: 29</span>
@@ -1344,8 +1346,9 @@
                             <option value="Febrero">Febrero</option>
                             <option value="Marzo">Marzo</option>
                             <option value="Abril">Abril</option>
-                            <option value="Mayo" selected>Mayo</option>
+                            <option value="Mayo">Mayo</option>
                             <option value="Junio">Junio</option>
+                            <option value="Julio" selected>Julio</option>
                         </select>
                         <button onclick="loadCE2Metrics()" class="px-6 py-2 rounded-lg bg-primary text-on-primary font-medium text-sm hover:bg-primary/90 transition-all">
                             Cargar
@@ -1410,8 +1413,8 @@
                                 <select id="cto-month-select" class="px-4 py-2 rounded-lg border border-outline bg-surface text-on-surface text-sm">
                                     <option value="Enero">Enero</option><option value="Febrero">Febrero</option>
                                     <option value="Marzo">Marzo</option><option value="Abril">Abril</option>
-                                    <option value="Mayo" selected>Mayo</option><option value="Junio">Junio</option>
-                                    <option value="Julio">Julio</option><option value="Agosto">Agosto</option>
+                                    <option value="Mayo">Mayo</option><option value="Junio">Junio</option>
+                                    <option value="Julio" selected>Julio</option><option value="Agosto">Agosto</option>
                                     <option value="Septiembre">Septiembre</option><option value="Octubre">Octubre</option>
                                     <option value="Noviembre">Noviembre</option><option value="Diciembre">Diciembre</option>
                                 </select>
@@ -2469,7 +2472,7 @@
             // ========== CE2 METRICS FUNCTIONS ==========
             window.loadCE2Metrics = async function() {
                 const monthSelect = document.getElementById('ce2-month-select');
-                const month = monthSelect?.value || 'Mayo';
+                const month = monthSelect?.value || 'Julio';
 
                 showLoadingState();
                 try {
@@ -2768,7 +2771,7 @@
             // ========== END CE2 METRICS FUNCTIONS ==========
 
             // ========== CE2 YEARLY TREND CHART ==========
-            const CE2_MONTHS = ['Enero','Febrero','Marzo','Abril','Mayo','Junio'];
+            const CE2_MONTHS = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio'];
             let ce2TrendChartPct = null;
             let ce2TrendChartHrs = null;
             let ce2TrendMode = 'pct'; // 'pct' or 'hrs'
@@ -3022,9 +3025,9 @@
                     // Load team workload (cumulative across all months)
                     loadTeamWorkload();
 
-                    // Mark Mayo as active tab
+                    // Mark Julio as active tab
                     document.querySelectorAll('button[data-month]').forEach(btn => {
-                        if (btn.getAttribute('data-month') === 'Mayo') {
+                        if (btn.getAttribute('data-month') === 'Julio') {
                             btn.classList.add('text-primary', 'bg-primary/10', 'border-primary/30', 'shadow-lg', 'shadow-primary/5', 'font-semibold');
                             btn.classList.remove('text-on-surface-variant', 'font-medium');
                         } else {
