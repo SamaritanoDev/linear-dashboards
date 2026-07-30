@@ -3380,19 +3380,42 @@
                     id: 'barTotals',
                     afterDatasetsDraw(chart) {
                         const { ctx, data, scales: { x, y } } = chart;
-                        const labelColor = isDark ? 'rgba(255,255,255,0.75)' : 'rgba(0,0,0,0.62)';
+                        const totalColor = isDark ? 'rgba(255,255,255,0.75)' : 'rgba(0,0,0,0.62)';
+
+                        // Etiqueta de total al final de cada barra
                         data.labels.forEach((_, i) => {
                             const total = data.datasets.reduce((sum, ds) => sum + (Number(ds.data[i]) || 0), 0);
                             if (total === 0) return;
                             const xPos = x.getPixelForValue(total);
                             const yPos = y.getPixelForValue(i);
                             ctx.save();
-                            ctx.fillStyle = labelColor;
+                            ctx.fillStyle = totalColor;
                             ctx.font = '600 11px Inter, sans-serif';
                             ctx.textAlign = 'left';
                             ctx.textBaseline = 'middle';
                             ctx.fillText(total, xPos + 5, yPos);
                             ctx.restore();
+                        });
+
+                        // Etiqueta de cada segmento (si el segmento es suficientemente ancho)
+                        const MIN_PX = 18;
+                        data.datasets.forEach((ds, di) => {
+                            const meta = chart.getDatasetMeta(di);
+                            if (meta.hidden) return;
+                            meta.data.forEach((bar, i) => {
+                                const value = Number(ds.data[i]) || 0;
+                                if (value === 0) return;
+                                const segW = Math.abs(bar.x - bar.base);
+                                if (segW < MIN_PX) return;
+                                const cx = (bar.x + bar.base) / 2;
+                                ctx.save();
+                                ctx.fillStyle = 'rgba(255,255,255,0.90)';
+                                ctx.font = '600 10px Inter, sans-serif';
+                                ctx.textAlign = 'center';
+                                ctx.textBaseline = 'middle';
+                                ctx.fillText(value, cx, bar.y);
+                                ctx.restore();
+                            });
                         });
                     }
                 };
