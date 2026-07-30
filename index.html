@@ -1450,6 +1450,7 @@
                                     <option value="Error">Error</option>
                                     <option value="Requerimiento">Requerimiento</option>
                                     <option value="Hallazgo">Hallazgo</option>
+                                    <option value="Sin tipo">Sin tipo</option>
                                 </select>
                             </div>
 
@@ -1485,6 +1486,8 @@
                             <p class="text-on-surface-variant text-sm">Selecciona un período y haz clic en <strong>Cargar</strong>.</p>
                         </div>
                     </div>
+
+                    <div id="cto-unclassified-container"></div>
 
                     <p class="text-xs text-on-surface-variant mt-2">
                         <span id="cto-timestamp"></span>
@@ -3145,6 +3148,7 @@
                         if (Date.now() - timestamp < 900000) {
                             ctoRawData = data;
                             applyCTOFilters();
+                            renderCTOUnclassified(data.unclassified_issues || []);
                             return;
                         }
                     } catch (e) {}
@@ -3163,6 +3167,7 @@
                     ctoRawData = data;
                     localStorage.setItem(cacheKey, JSON.stringify({ data, timestamp: Date.now() }));
                     applyCTOFilters();
+                    renderCTOUnclassified(data.unclassified_issues || []);
                     document.getElementById('cto-timestamp').textContent =
                         `Actualizado: ${new Date(data.cached_at || Date.now()).toLocaleString('es-PE')}`;
                 } catch (err) {
@@ -3176,7 +3181,7 @@
                 const brandFilter = document.getElementById('cto-brand-filter').value;
                 const typeFilter = document.getElementById('cto-type-filter').value;
                 const BRANDS = ['BackOffice','Airalo','B2B','Cuy','Fimo','Finanzas','Guinea','Habla+','Legales','PeruSim+','SAC','Tech','Wings','Sin marca'];
-                const TYPES = ['Error','Requerimiento','Hallazgo'];
+                const TYPES = ['Error','Requerimiento','Hallazgo','Sin tipo'];
 
                 const brandsToShow = brandFilter === 'all' ? BRANDS : [brandFilter];
                 const typesToShow = typeFilter === 'all' ? TYPES : [typeFilter];
@@ -3450,6 +3455,67 @@
                     plugins: [barTotalsPlugin]
                 });
             }
+            function renderCTOUnclassified(issues) {
+                const container = document.getElementById('cto-unclassified-container');
+                if (!container) return;
+                if (!issues || issues.length === 0) {
+                    container.innerHTML = '';
+                    return;
+                }
+                const isDark = document.documentElement.classList.contains('dark');
+                const bdr = isDark ? 'rgba(255,255,255,.1)' : 'rgba(0,0,0,.08)';
+                const stateColor = s => {
+                    if (!s) return '#94a3b8';
+                    const sl = s.toLowerCase();
+                    if (sl === 'completed' || sl === 'done') return '#22c55e';
+                    if (sl === 'in progress') return '#3b82f6';
+                    if (sl === 'backlog' || sl === 'planning') return '#94a3b8';
+                    return '#94a3b8';
+                };
+                const rows = issues.map(i => `
+                    <tr style="border-bottom:1px solid ${bdr};">
+                        <td style="padding:8px 10px;font-size:12px;font-weight:600;white-space:nowrap;">
+                            <a href="${i.url}" target="_blank" rel="noopener"
+                               style="color:var(--color-primary);text-decoration:none;hover:underline;"
+                               onmouseover="this.style.textDecoration='underline'"
+                               onmouseout="this.style.textDecoration='none'">
+                                ${i.identifier}
+                            </a>
+                        </td>
+                        <td style="padding:8px 10px;font-size:12px;" class="text-on-surface">${i.title}</td>
+                        <td style="padding:8px 10px;font-size:11px;white-space:nowrap;" class="text-on-surface-variant">${i.brand}</td>
+                        <td style="padding:8px 10px;font-size:11px;white-space:nowrap;" class="text-on-surface-variant">${i.assignee || '—'}</td>
+                        <td style="padding:8px 10px;">
+                            <span style="font-size:10px;font-weight:600;padding:2px 7px;border-radius:4px;background:${stateColor(i.state)}22;color:${stateColor(i.state)};">
+                                ${i.state}
+                            </span>
+                        </td>
+                    </tr>`).join('');
+
+                container.innerHTML = `
+                    <div class="glacier-card rounded-2xl p-6 mt-4" style="border:1.5px solid #f59e0b44;">
+                        <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+                            <span style="font-size:18px;">⚠️</span>
+                            <h3 class="text-base font-semibold text-on-surface">Issues sin clasificar — ${issues.length} pendientes</h3>
+                            <span class="text-on-surface-variant" style="font-size:12px;margin-left:auto;">Agrégales la etiqueta <strong>Error</strong>, <strong>Requerimiento</strong> o <strong>Hallazgo</strong> en Linear</span>
+                        </div>
+                        <div style="overflow-x:auto;">
+                            <table style="width:100%;border-collapse:collapse;">
+                                <thead>
+                                    <tr style="border-bottom:2px solid ${bdr};">
+                                        <th style="text-align:left;padding:6px 10px;font-size:11px;font-weight:600;white-space:nowrap;" class="text-on-surface-variant">ID</th>
+                                        <th style="text-align:left;padding:6px 10px;font-size:11px;font-weight:600;" class="text-on-surface-variant">Título</th>
+                                        <th style="text-align:left;padding:6px 10px;font-size:11px;font-weight:600;white-space:nowrap;" class="text-on-surface-variant">Marca</th>
+                                        <th style="text-align:left;padding:6px 10px;font-size:11px;font-weight:600;white-space:nowrap;" class="text-on-surface-variant">Asignado</th>
+                                        <th style="text-align:left;padding:6px 10px;font-size:11px;font-weight:600;" class="text-on-surface-variant">Estado</th>
+                                    </tr>
+                                </thead>
+                                <tbody>${rows}</tbody>
+                            </table>
+                        </div>
+                    </div>`;
+            }
+
             // ========== END MÉTRICAS CTO ==========
 
             // Carga inicial al abrir la página

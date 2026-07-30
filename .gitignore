@@ -6,3 +6,4 @@ dist/
 *.log
 .wrangler/
 cloudflare-worker/wrangler.toml
+.vercel

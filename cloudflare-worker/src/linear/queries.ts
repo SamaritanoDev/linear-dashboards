@@ -101,6 +101,7 @@ export function getIssuesQueryForDateRange(startDate: string, endDate: string, c
       id
       identifier
       title
+      url
       state {name type}
       priority
       createdAt

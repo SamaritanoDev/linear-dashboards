@@ -20,6 +20,7 @@ export interface LinearIssue {
   project: {
     id: string;
   } | null;
+  url: string;
   labels: {
     nodes: Array<{
       name: string;
@@ -114,6 +115,15 @@ export interface PeriodMetrics {
   timed_count: number;
 }
 
+export interface UnclassifiedIssue {
+  identifier: string;
+  title: string;
+  url: string;
+  brand: string;
+  assignee: string | null;
+  state: string;
+}
+
 export interface CTOTicketMetrics {
   period_label: string;
   total: PeriodMetrics;
@@ -124,6 +134,7 @@ export interface CTOTicketMetrics {
   by_brand: Record<string, PeriodMetrics>;
   by_type: Record<string, PeriodMetrics>;
   by_brand_and_type: Record<string, Record<string, PeriodMetrics>>;
+  unclassified_issues: UnclassifiedIssue[];
 }
 
 export interface LinearResponse<T> {

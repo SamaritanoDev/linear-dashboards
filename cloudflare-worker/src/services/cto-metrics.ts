@@ -1,6 +1,6 @@
 import { LinearClient } from "../linear/client";
 import { getIssuesQueryForDateRange, getProjectsQueryForDateRange } from "../linear/queries";
-import type { LinearIssue, LinearProject, PeriodMetrics, CTOTicketMetrics } from "../types";
+import type { LinearIssue, LinearProject, PeriodMetrics, CTOTicketMetrics, UnclassifiedIssue } from "../types";
 
 const BRAND_LABELS = [
   "Airalo", "B2B", "BackOffice", "Cuy", "Fimo",
@@ -136,6 +136,19 @@ export class CTOMetricsService {
       }
     }
 
+    // Collect issues sin tipo para mostrar en el dashboard
+    const unclassified_issues: UnclassifiedIssue[] = validIssues
+      .filter(i => this.getTypeFromLabels(i.labels.nodes.map(l => l.name)) === "Sin tipo")
+      .map(i => ({
+        identifier: i.identifier,
+        title: i.title,
+        url: i.url,
+        brand: BRAND_LABELS.find(b => i.labels.nodes.some(l => l.name === b)) ?? "Sin marca",
+        assignee: i.assignee?.name ?? null,
+        state: i.state.name,
+      }))
+      .sort((a, b) => a.brand.localeCompare(b.brand));
+
     return {
       period_label: periodLabel,
       total,
@@ -144,6 +157,7 @@ export class CTOMetricsService {
       issues_timed_count: issueTotal.timed_count,
       projects_timed_count: projectTotal.timed_count,
       by_brand, by_type, by_brand_and_type,
+      unclassified_issues,
     };
   }
 
