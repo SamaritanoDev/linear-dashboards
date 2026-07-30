@@ -25,6 +25,15 @@ export interface LinearIssue {
       name: string;
     }>;
   };
+  history?: {
+    nodes: Array<{
+      fromState: { name: string; type: string } | null;
+      toState: { name: string; type: string } | null;
+      fromPriority: number | null;
+      toPriority: number | null;
+      createdAt: string;
+    }>;
+  };
 }
 
 export interface LinearProject {

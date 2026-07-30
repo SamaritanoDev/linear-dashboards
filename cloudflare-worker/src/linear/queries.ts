@@ -180,6 +180,15 @@ export function getCE2MetricsQueryForMonth(
       updatedAt
       assignee {name}
       team {key}
+      history(first: 50) {
+        nodes {
+          fromState {name type}
+          toState {name type}
+          fromPriority
+          toPriority
+          createdAt
+        }
+      }
     }
   }
 }

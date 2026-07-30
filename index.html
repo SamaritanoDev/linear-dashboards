@@ -3382,11 +3382,13 @@
                         const { ctx, data, scales: { x, y } } = chart;
                         const totalColor = isDark ? 'rgba(255,255,255,0.75)' : 'rgba(0,0,0,0.62)';
 
-                        // Etiqueta de total al final de cada barra
-                        data.labels.forEach((_, i) => {
-                            const total = data.datasets.reduce((sum, ds) => sum + (Number(ds.data[i]) || 0), 0);
+                        // Etiqueta de total al final de cada barra (usa by_brand para incluir Sin tipo)
+                        data.labels.forEach((brand, i) => {
+                            const total = ctoRawData.by_brand?.[brand]?.count
+                                ?? data.datasets.reduce((sum, ds) => sum + (Number(ds.data[i]) || 0), 0);
                             if (total === 0) return;
-                            const xPos = x.getPixelForValue(total);
+                            const visibleTotal = data.datasets.reduce((sum, ds) => sum + (Number(ds.data[i]) || 0), 0);
+                            const xPos = x.getPixelForValue(visibleTotal);
                             const yPos = y.getPixelForValue(i);
                             ctx.save();
                             ctx.fillStyle = totalColor;
