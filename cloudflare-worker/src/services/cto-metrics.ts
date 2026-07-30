@@ -136,17 +136,29 @@ export class CTOMetricsService {
       }
     }
 
-    // Collect issues sin tipo para mostrar en el dashboard
+    // Collect issues sin marca o sin tipo para mostrar en el dashboard
     const unclassified_issues: UnclassifiedIssue[] = validIssues
-      .filter(i => this.getTypeFromLabels(i.labels.nodes.map(l => l.name)) === "Sin tipo")
-      .map(i => ({
-        identifier: i.identifier,
-        title: i.title,
-        url: i.url,
-        brand: BRAND_LABELS.find(b => i.labels.nodes.some(l => l.name === b)) ?? "Sin marca",
-        assignee: i.assignee?.name ?? null,
-        state: i.state.name,
-      }))
+      .filter(i => {
+        const labelNames = i.labels.nodes.map(l => l.name);
+        const hasBrand = BRAND_LABELS.some(b => labelNames.includes(b));
+        const hasType = this.getTypeFromLabels(labelNames) !== "Sin tipo";
+        return !hasBrand || !hasType;
+      })
+      .map(i => {
+        const labelNames = i.labels.nodes.map(l => l.name);
+        const hasBrand = BRAND_LABELS.some(b => labelNames.includes(b));
+        const hasType = this.getTypeFromLabels(labelNames) !== "Sin tipo";
+        const missing: "brand" | "type" | "both" = !hasBrand && !hasType ? "both" : !hasBrand ? "brand" : "type";
+        return {
+          identifier: i.identifier,
+          title: i.title,
+          url: i.url,
+          brand: BRAND_LABELS.find(b => labelNames.includes(b)) ?? "Sin marca",
+          assignee: i.assignee?.name ?? null,
+          state: i.state.name,
+          missing,
+        };
+      })
       .sort((a, b) => a.brand.localeCompare(b.brand));
 
     return {

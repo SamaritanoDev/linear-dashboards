@@ -3472,11 +3472,16 @@
                     if (sl === 'backlog' || sl === 'planning') return '#94a3b8';
                     return '#94a3b8';
                 };
+                const missingLabel = m => {
+                    if (m === 'both') return '<span style="font-size:10px;font-weight:600;padding:2px 7px;border-radius:4px;background:#ef444422;color:#ef4444;">Marca + Tipo</span>';
+                    if (m === 'brand') return '<span style="font-size:10px;font-weight:600;padding:2px 7px;border-radius:4px;background:#f59e0b22;color:#f59e0b;">Sin marca</span>';
+                    return '<span style="font-size:10px;font-weight:600;padding:2px 7px;border-radius:4px;background:#8b5cf622;color:#8b5cf6;">Sin tipo</span>';
+                };
                 const rows = issues.map(i => `
                     <tr style="border-bottom:1px solid ${bdr};">
                         <td style="padding:8px 10px;font-size:12px;font-weight:600;white-space:nowrap;">
                             <a href="${i.url}" target="_blank" rel="noopener"
-                               style="color:var(--color-primary);text-decoration:none;hover:underline;"
+                               style="color:var(--color-primary);text-decoration:none;"
                                onmouseover="this.style.textDecoration='underline'"
                                onmouseout="this.style.textDecoration='none'">
                                 ${i.identifier}
@@ -3490,14 +3495,15 @@
                                 ${i.state}
                             </span>
                         </td>
+                        <td style="padding:8px 10px;white-space:nowrap;">${missingLabel(i.missing)}</td>
                     </tr>`).join('');
 
                 container.innerHTML = `
                     <div class="glacier-card rounded-2xl p-6 mt-4" style="border:1.5px solid #f59e0b44;">
                         <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
                             <span style="font-size:18px;">⚠️</span>
-                            <h3 class="text-base font-semibold text-on-surface">Issues sin clasificar — ${issues.length} pendientes</h3>
-                            <span class="text-on-surface-variant" style="font-size:12px;margin-left:auto;">Agrégales la etiqueta <strong>Error</strong>, <strong>Requerimiento</strong> o <strong>Hallazgo</strong> en Linear</span>
+                            <h3 class="text-base font-semibold text-on-surface">Issues sin marca o sin tipo — ${issues.length} pendientes</h3>
+                            <span class="text-on-surface-variant" style="font-size:12px;margin-left:auto;">Regularízalos en Linear agregando marca y/o tipo</span>
                         </div>
                         <div style="overflow-x:auto;">
                             <table style="width:100%;border-collapse:collapse;">
@@ -3508,6 +3514,7 @@
                                         <th style="text-align:left;padding:6px 10px;font-size:11px;font-weight:600;white-space:nowrap;" class="text-on-surface-variant">Marca</th>
                                         <th style="text-align:left;padding:6px 10px;font-size:11px;font-weight:600;white-space:nowrap;" class="text-on-surface-variant">Asignado</th>
                                         <th style="text-align:left;padding:6px 10px;font-size:11px;font-weight:600;" class="text-on-surface-variant">Estado</th>
+                                        <th style="text-align:left;padding:6px 10px;font-size:11px;font-weight:600;" class="text-on-surface-variant">Falta</th>
                                     </tr>
                                 </thead>
                                 <tbody>${rows}</tbody>

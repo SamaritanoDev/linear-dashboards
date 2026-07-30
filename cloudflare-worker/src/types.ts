@@ -122,6 +122,7 @@ export interface UnclassifiedIssue {
   brand: string;
   assignee: string | null;
   state: string;
+  missing: "brand" | "type" | "both";
 }
 
 export interface CTOTicketMetrics {
