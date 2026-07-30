@@ -4,6 +4,7 @@ export interface LinearIssue {
   title: string;
   state: {
     name: string;
+    type: string;
   };
   priority: number;
   createdAt: string;

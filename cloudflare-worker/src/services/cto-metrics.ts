@@ -84,7 +84,7 @@ export class CTOMetricsService {
 
   calculateMetrics(issues: LinearIssue[], projects: LinearProject[], periodLabel: string): CTOTicketMetrics {
     const validIssues = issues.filter(
-      (i) => !EXCLUDED_STATES.includes(i.state.name)
+      (i) => i.state.type !== "cancelled" && !EXCLUDED_STATES.includes(i.state.name)
     );
 
     const issueTotal = this.calcPeriodMetrics(validIssues);
@@ -147,7 +147,7 @@ export class CTOMetricsService {
     const DEFAULT_HOURS = 4; // medio día laboral para issues cerrados sin startedAt
     const count = issues.length;
 
-    const closed = issues.filter((i) => i.state.name === "Closed" && i.completedAt);
+    const closed = issues.filter((i) => i.state.type === "completed" && i.completedAt);
     if (closed.length === 0) {
       return { count, avg_attention_hours: null, total_time_hours: null, timed_count: 0 };
     }
