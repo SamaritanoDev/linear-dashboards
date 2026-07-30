@@ -104,8 +104,8 @@ export class CE2MetricsService {
     // Log priority breakdown
     const p1Issues = issues.filter(i => i.priority === 1);
     const p2Issues = issues.filter(i => i.priority === 2);
-    const completedP1 = p1Issues.filter(i => i.state.name === "Closed").length;
-    const completedP2 = p2Issues.filter(i => i.state.name === "Closed").length;
+    const completedP1 = p1Issues.filter(i => i.state.type === "completed").length;
+    const completedP2 = p2Issues.filter(i => i.state.type === "completed").length;
 
     console.log(`[CE2 Metrics] Priority breakdown: P1=${p1Issues.length} (completed=${completedP1}), P2=${p2Issues.length} (completed=${completedP2})`);
 
@@ -182,7 +182,7 @@ export class CE2MetricsService {
   ): any {
     const p1p2Issues = issues.filter((i) => i.priority === 1 || i.priority === 2);
     const completed = p1p2Issues.filter(
-      (i) => i.state.name === "Closed"
+      (i) => i.state.type === "completed"
     ).length;
 
     const value =
@@ -251,6 +251,19 @@ export class CE2MetricsService {
     };
   }
 
+  private wasReopenedFromHistory(issue: CE2Issue): boolean {
+    return (issue.history?.nodes ?? []).some(h =>
+      h.fromState?.type === "completed" &&
+      (h.toState?.type === "started" || h.toState?.type === "unstarted")
+    );
+  }
+
+  private hasPriorityDowngradeFromHistory(issue: CE2Issue): boolean {
+    return (issue.history?.nodes ?? []).some(h =>
+      h.fromPriority === 1 && h.toPriority !== null && h.toPriority >= 3
+    );
+  }
+
   private async calculateFCRR(
     issues: CE2Issue[],
     year: number,
@@ -258,14 +271,10 @@ export class CE2MetricsService {
   ): Promise<any> {
     const p1p2Completed = issues.filter(
       (i) =>
-        (i.priority === 1 || i.priority === 2) && (i.state.name === "Closed")
+        (i.priority === 1 || i.priority === 2) && (i.state.type === "completed")
     );
 
-    const reopened: CE2Issue[] = [];
-    for (const issue of p1p2Completed) {
-      const wasReopened = await this.historyService.wasReopened(issue.id);
-      if (wasReopened) reopened.push(issue);
-    }
+    const reopened = p1p2Completed.filter(issue => this.wasReopenedFromHistory(issue));
 
     const withoutReopen = p1p2Completed.length - reopened.length;
     const value =
@@ -324,19 +333,7 @@ export class CE2MetricsService {
   ): Promise<any> {
     const p1p2Issues = issues.filter((i) => i.priority === 1 || i.priority === 2);
 
-    // Usar historial de estado para detectar reaperturas
-    const reopened: any[] = [];
-
-    for (const issue of p1p2Issues) {
-      const wasReopened = await this.historyService.wasReopened(issue.id);
-      if (wasReopened) {
-        reopened.push({
-          id: issue.id,
-          identifier: issue.identifier,
-          title: issue.title,
-        });
-      }
-    }
+    const reopened = p1p2Issues.filter(issue => this.wasReopenedFromHistory(issue));
 
     const value =
       p1p2Issues.length > 0
@@ -395,19 +392,8 @@ export class CE2MetricsService {
   ): Promise<any> {
     const p1p2Issues = issues.filter((i) => i.priority === 1 || i.priority === 2);
 
-    // Usar historial para detectar cambios de team (escalaciones)
+    // hadTeamChange requiere datos de webhook — por ahora siempre 0 escaladas
     const escalated: any[] = [];
-
-    for (const issue of p1p2Issues) {
-      const hadTeamChange = await this.historyService.hadTeamChange(issue.id);
-      if (hadTeamChange) {
-        escalated.push({
-          id: issue.id,
-          identifier: issue.identifier,
-          title: issue.title,
-        });
-      }
-    }
 
     const contained = p1p2Issues.length - escalated.length;
     const value =
@@ -458,7 +444,7 @@ export class CE2MetricsService {
   }
 
   private calculateMTTR(issues: CE2Issue[], year: number, month: number): any {
-    const completed = issues.filter((i) => i.state.name === "Closed");
+    const completed = issues.filter((i) => i.state.type === "completed");
 
     const calculateByPriority = (priority: number) => {
       const filtered = completed.filter((i) => i.priority === priority);
@@ -566,7 +552,7 @@ export class CE2MetricsService {
     const SLA_P1 = 72;  // 3 días para P1 (Urgente)
     const SLA_P2 = 120; // 5 días para P2 (Alto)
 
-    const completed = issues.filter((i) => i.state.name === "Closed");
+    const completed = issues.filter((i) => i.state.type === "completed");
 
     let totalSaved = 0;
     let p1Saved = 0;
@@ -717,12 +703,8 @@ export class CE2MetricsService {
   ): Promise<any> {
     const initiallyP1 = issues.filter((i) => i.priority === 1);
 
-    const reclassified: CE2Issue[] = [];
+    const reclassified = initiallyP1.filter(issue => this.hasPriorityDowngradeFromHistory(issue));
     const reclassifiedToP2: CE2Issue[] = [];
-    for (const issue of initiallyP1) {
-      const downgraded = await this.historyService.hasPriorityDowngrade(issue.id);
-      if (downgraded) reclassified.push(issue);
-    }
     const value = initiallyP1.length > 0
       ? parseFloat(((reclassified.length / initiallyP1.length) * 100).toFixed(1))
       : 0;

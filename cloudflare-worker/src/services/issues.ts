@@ -44,13 +44,20 @@ export class IssuesService {
       (cursor) => getIssuesQueryForMonth(year, month, includeWithProject, cursor)
     );
 
-    const EXCLUDED = ["Discarded", "Duplicate", "Cancelled", "Monitoring"];
+    const EXCLUDED_NAMES = ["Discarded", "Duplicate", "Monitoring"];
+
+    const isExcluded = (issue: LinearIssue) => {
+      const stateType = issue.state.type;
+      const stateName = issue.state.name;
+      // Excluir estados cancelados (cualquier nombre) y los nombres específicos no-cancelados
+      return stateType === "cancelled" || EXCLUDED_NAMES.includes(stateName);
+    };
 
     if (filter === "with_project") {
-      return issues.filter((i) => i.project && !EXCLUDED.includes(i.state.name));
+      return issues.filter((i) => i.project && !isExcluded(i));
     }
 
-    return issues.filter((i) => !i.project && !EXCLUDED.includes(i.state.name));
+    return issues.filter((i) => !i.project && !isExcluded(i));
   }
 
   async calculateMetrics(
@@ -77,6 +84,8 @@ export class IssuesService {
 
     for (const issue of issues) {
       const state = issue.state.name;
+      const stateType = issue.state.type;
+      const isClosed = stateType === "completed";
       const team = issue.team.key || "Unknown";
       const labels = issue.labels.nodes.map((l) => l.name);
       const productLabels = labels.filter((l) => CUSTOMER_LABELS.includes(l));
@@ -91,8 +100,8 @@ export class IssuesService {
         metrics.pending_ce2 += 1;
       }
 
-      // Contar issues sin etiqueta de producto (pero NO Closed/Discarded/Duplicate)
-      if (!hasProductLabel && state !== "Closed" && state !== "Discarded" && state !== "Duplicate") {
+      // Contar issues sin etiqueta de producto (pero NO las completadas/cerradas)
+      if (!hasProductLabel && !isClosed) {
         metrics.untracked_issues += 1;
         // Agregar a lista solo si está en estado pendiente
         if (isPending) {
@@ -121,7 +130,7 @@ export class IssuesService {
       if (state === "In Progress") metrics.active_issues++;
       if (["Backlog", "Planning"].includes(state)) metrics.backlog++;
       if (state === "Blocked") metrics.blocked++;
-      if (state === "Closed") metrics.closed++;
+      if (isClosed) metrics.closed++;
 
       if (hasProductLabel) {
         for (const product of productLabels) {

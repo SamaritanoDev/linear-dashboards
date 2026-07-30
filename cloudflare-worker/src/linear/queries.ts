@@ -67,7 +67,7 @@ export function getIssuesQueryForMonth(
       id
       identifier
       title
-      state {name}
+      state {name type}
       priority
       createdAt
       startedAt
@@ -101,7 +101,8 @@ export function getIssuesQueryForDateRange(startDate: string, endDate: string, c
       id
       identifier
       title
-      state {name}
+      url
+      state {name type}
       priority
       createdAt
       startedAt
@@ -173,13 +174,22 @@ export function getCE2MetricsQueryForMonth(
       id
       identifier
       title
-      state {name}
+      state {name type}
       priority
       createdAt
       completedAt
       updatedAt
       assignee {name}
       team {key}
+      history(first: 50) {
+        nodes {
+          fromState {name type}
+          toState {name type}
+          fromPriority
+          toPriority
+          createdAt
+        }
+      }
     }
   }
 }

@@ -1487,6 +1487,8 @@
                         </div>
                     </div>
 
+                    <div id="cto-unclassified-container"></div>
+
                     <p class="text-xs text-on-surface-variant mt-2">
                         <span id="cto-timestamp"></span>
                     </p>
@@ -3146,6 +3148,7 @@
                         if (Date.now() - timestamp < 900000) {
                             ctoRawData = data;
                             applyCTOFilters();
+                            renderCTOUnclassified(data.unclassified_issues || []);
                             return;
                         }
                     } catch (e) {}
@@ -3164,6 +3167,7 @@
                     ctoRawData = data;
                     localStorage.setItem(cacheKey, JSON.stringify({ data, timestamp: Date.now() }));
                     applyCTOFilters();
+                    renderCTOUnclassified(data.unclassified_issues || []);
                     document.getElementById('cto-timestamp').textContent =
                         `Actualizado: ${new Date(data.cached_at || Date.now()).toLocaleString('es-PE')}`;
                 } catch (err) {
@@ -3377,6 +3381,52 @@
                 const tcol = isDark ? 'rgba(255,255,255,.45)' : 'rgba(0,0,0,.45)';
                 const lcol = isDark ? 'rgba(255,255,255,.75)' : 'rgba(0,0,0,.70)';
 
+                const barTotalsPlugin = {
+                    id: 'barTotals',
+                    afterDatasetsDraw(chart) {
+                        const { ctx, data, scales: { x, y } } = chart;
+                        const totalColor = isDark ? 'rgba(255,255,255,0.75)' : 'rgba(0,0,0,0.62)';
+
+                        // Etiqueta de total al final de cada barra (usa by_brand para incluir Sin tipo)
+                        data.labels.forEach((brand, i) => {
+                            const total = ctoRawData.by_brand?.[brand]?.count
+                                ?? data.datasets.reduce((sum, ds) => sum + (Number(ds.data[i]) || 0), 0);
+                            if (total === 0) return;
+                            const visibleTotal = data.datasets.reduce((sum, ds) => sum + (Number(ds.data[i]) || 0), 0);
+                            const xPos = x.getPixelForValue(visibleTotal);
+                            const yPos = y.getPixelForValue(i);
+                            ctx.save();
+                            ctx.fillStyle = totalColor;
+                            ctx.font = '600 11px Inter, sans-serif';
+                            ctx.textAlign = 'left';
+                            ctx.textBaseline = 'middle';
+                            ctx.fillText(total, xPos + 5, yPos);
+                            ctx.restore();
+                        });
+
+                        // Etiqueta de cada segmento (si el segmento es suficientemente ancho)
+                        const MIN_PX = 18;
+                        data.datasets.forEach((ds, di) => {
+                            const meta = chart.getDatasetMeta(di);
+                            if (meta.hidden) return;
+                            meta.data.forEach((bar, i) => {
+                                const value = Number(ds.data[i]) || 0;
+                                if (value === 0) return;
+                                const segW = Math.abs(bar.x - bar.base);
+                                if (segW < MIN_PX) return;
+                                const cx = (bar.x + bar.base) / 2;
+                                ctx.save();
+                                ctx.fillStyle = 'rgba(255,255,255,0.90)';
+                                ctx.font = '600 10px Inter, sans-serif';
+                                ctx.textAlign = 'center';
+                                ctx.textBaseline = 'middle';
+                                ctx.fillText(value, cx, bar.y);
+                                ctx.restore();
+                            });
+                        });
+                    }
+                };
+
                 ctoBarChart = new Chart(canvas.getContext('2d'), {
                     type: 'bar',
                     data: {
@@ -3400,10 +3450,72 @@
                             x: { stacked: true, grid: { color: gcol }, ticks: { color: tcol, font: { size: 11 }, stepSize: 10 }, border: { color: gcol } },
                             y: { stacked: true, grid: { display: false }, ticks: { color: lcol, font: { size: 12 } }, border: { display: false } }
                         },
-                        layout: { padding: { right: 8 } }
-                    }
+                        layout: { padding: { right: 30 } }
+                    },
+                    plugins: [barTotalsPlugin]
                 });
             }
+            function renderCTOUnclassified(issues) {
+                const container = document.getElementById('cto-unclassified-container');
+                if (!container) return;
+                if (!issues || issues.length === 0) {
+                    container.innerHTML = '';
+                    return;
+                }
+                const isDark = document.documentElement.classList.contains('dark');
+                const bdr = isDark ? 'rgba(255,255,255,.1)' : 'rgba(0,0,0,.08)';
+                const stateColor = s => {
+                    if (!s) return '#94a3b8';
+                    const sl = s.toLowerCase();
+                    if (sl === 'completed' || sl === 'done') return '#22c55e';
+                    if (sl === 'in progress') return '#3b82f6';
+                    if (sl === 'backlog' || sl === 'planning') return '#94a3b8';
+                    return '#94a3b8';
+                };
+                const rows = issues.map(i => `
+                    <tr style="border-bottom:1px solid ${bdr};">
+                        <td style="padding:8px 10px;font-size:12px;font-weight:600;white-space:nowrap;">
+                            <a href="${i.url}" target="_blank" rel="noopener"
+                               style="color:var(--color-primary);text-decoration:none;hover:underline;"
+                               onmouseover="this.style.textDecoration='underline'"
+                               onmouseout="this.style.textDecoration='none'">
+                                ${i.identifier}
+                            </a>
+                        </td>
+                        <td style="padding:8px 10px;font-size:12px;" class="text-on-surface">${i.title}</td>
+                        <td style="padding:8px 10px;font-size:11px;white-space:nowrap;" class="text-on-surface-variant">${i.brand}</td>
+                        <td style="padding:8px 10px;font-size:11px;white-space:nowrap;" class="text-on-surface-variant">${i.assignee || '—'}</td>
+                        <td style="padding:8px 10px;">
+                            <span style="font-size:10px;font-weight:600;padding:2px 7px;border-radius:4px;background:${stateColor(i.state)}22;color:${stateColor(i.state)};">
+                                ${i.state}
+                            </span>
+                        </td>
+                    </tr>`).join('');
+
+                container.innerHTML = `
+                    <div class="glacier-card rounded-2xl p-6 mt-4" style="border:1.5px solid #f59e0b44;">
+                        <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+                            <span style="font-size:18px;">⚠️</span>
+                            <h3 class="text-base font-semibold text-on-surface">Issues sin clasificar — ${issues.length} pendientes</h3>
+                            <span class="text-on-surface-variant" style="font-size:12px;margin-left:auto;">Agrégales la etiqueta <strong>Error</strong>, <strong>Requerimiento</strong> o <strong>Hallazgo</strong> en Linear</span>
+                        </div>
+                        <div style="overflow-x:auto;">
+                            <table style="width:100%;border-collapse:collapse;">
+                                <thead>
+                                    <tr style="border-bottom:2px solid ${bdr};">
+                                        <th style="text-align:left;padding:6px 10px;font-size:11px;font-weight:600;white-space:nowrap;" class="text-on-surface-variant">ID</th>
+                                        <th style="text-align:left;padding:6px 10px;font-size:11px;font-weight:600;" class="text-on-surface-variant">Título</th>
+                                        <th style="text-align:left;padding:6px 10px;font-size:11px;font-weight:600;white-space:nowrap;" class="text-on-surface-variant">Marca</th>
+                                        <th style="text-align:left;padding:6px 10px;font-size:11px;font-weight:600;white-space:nowrap;" class="text-on-surface-variant">Asignado</th>
+                                        <th style="text-align:left;padding:6px 10px;font-size:11px;font-weight:600;" class="text-on-surface-variant">Estado</th>
+                                    </tr>
+                                </thead>
+                                <tbody>${rows}</tbody>
+                            </table>
+                        </div>
+                    </div>`;
+            }
+
             // ========== END MÉTRICAS CTO ==========
 
             // Carga inicial al abrir la página
