@@ -44,14 +44,18 @@ export class CTOMetricsService {
     return BRAND_LABELS.find((b) => labels.includes(b)) ?? "Sin marca";
   }
 
-  // Returns type label for a project — direct label first, then infer from solution
-  private getProjectType(labels: string[]): string {
+  // Returns type label from labels — direct label first, then infer from solution
+  private getTypeFromLabels(labels: string[]): string {
     const direct = TYPE_LABELS.find((t) => labels.includes(t));
     if (direct) return direct;
     for (const [sol, type] of Object.entries(SOLUTION_TO_TYPE)) {
       if (labels.includes(sol)) return type;
     }
     return "Sin tipo";
+  }
+
+  private getProjectType(labels: string[]): string {
+    return this.getTypeFromLabels(labels);
   }
 
   // Converts a project to a PeriodMetrics-compatible record (count=1, time from startedAt→completedAt)
@@ -109,9 +113,9 @@ export class CTOMetricsService {
     const by_type: Record<string, PeriodMetrics> = {};
     const allTypes = [...TYPE_LABELS, "Sin tipo"];
     for (const type of allTypes) {
-      const tIssues = type === "Sin tipo"
-        ? validIssues.filter((i) => !i.labels.nodes.some((l) => TYPE_LABELS.includes(l.name)))
-        : validIssues.filter((i) => i.labels.nodes.some((l) => l.name === type));
+      const tIssues = validIssues.filter(
+        (i) => this.getTypeFromLabels(i.labels.nodes.map((l) => l.name)) === type
+      );
       const tProjects = projects.filter((p) => this.getProjectType(p.labels.nodes.map((l) => l.name)) === type);
       by_type[type] = this.mergeMetrics(this.calcPeriodMetrics(tIssues), this.calcProjectMetrics(tProjects));
     }
@@ -124,9 +128,9 @@ export class CTOMetricsService {
       const bProjects = projects.filter((p) => this.getProjectBrand(p.labels.nodes.map((l) => l.name)) === brand);
       by_brand_and_type[brand] = {};
       for (const type of allTypes) {
-        const tIssues = type === "Sin tipo"
-          ? bIssues.filter((i) => !i.labels.nodes.some((l) => TYPE_LABELS.includes(l.name)))
-          : bIssues.filter((i) => i.labels.nodes.some((l) => l.name === type));
+        const tIssues = bIssues.filter(
+          (i) => this.getTypeFromLabels(i.labels.nodes.map((l) => l.name)) === type
+        );
         const tProjects = bProjects.filter((p) => this.getProjectType(p.labels.nodes.map((l) => l.name)) === type);
         by_brand_and_type[brand][type] = this.mergeMetrics(this.calcPeriodMetrics(tIssues), this.calcProjectMetrics(tProjects));
       }
