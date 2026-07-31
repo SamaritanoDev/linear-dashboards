@@ -10,8 +10,17 @@ const BRAND_LABELS = [
 
 const TYPE_LABELS = ["Error", "Requerimiento", "Hallazgo"];
 
-const EXCLUDED_STATES = ["Discarded", "Duplicate", "Cancelled", "Monitoring"];
+const EXCLUDED_STATES_LOWER = new Set([
+  "discarded", "descartado", "descartados",
+  "duplicate", "duplicado",
+  "cancelled", "canceled", "cancelado", "cancelados",
+  "monitoring",
+]);
 const CE2_TEAM_KEYS = ["CE2", "CE1"];
+
+function isExcludedState(name: string): boolean {
+  return EXCLUDED_STATES_LOWER.has(name.toLowerCase());
+}
 
 // Infer issue type from solution labels when no direct type label exists
 const SOLUTION_TO_TYPE: Record<string, string> = {
@@ -35,7 +44,7 @@ export class CTOMetricsService {
     );
     return all.filter(
       (p) => p.teams.nodes.some((t) => CE2_TEAM_KEYS.includes(t.key)) &&
-             !EXCLUDED_STATES.includes(p.state)
+             !isExcludedState(p.state)
     );
   }
 
@@ -88,7 +97,7 @@ export class CTOMetricsService {
 
   calculateMetrics(issues: LinearIssue[], projects: LinearProject[], periodLabel: string): CTOTicketMetrics {
     const validIssues = issues.filter(
-      (i) => i.state.type !== "cancelled" && !EXCLUDED_STATES.includes(i.state.name) && !i.project
+      (i) => i.state.type !== "cancelled" && !isExcludedState(i.state.name) && !i.project
     );
 
     const issueTotal = this.calcPeriodMetrics(validIssues);
