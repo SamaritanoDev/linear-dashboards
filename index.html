@@ -3282,7 +3282,9 @@
 
                 // Gráficas
                 renderCTOCharts(brandsToShow, typesToShow, breakdown);
-                renderCTOUnclassifiedProjects(ctoRawData.unclassified_projects || []);
+                // Tablas de pendientes según filtro VER
+                renderCTOUnclassified(viewFilter !== 'projects' ? (ctoRawData.unclassified_issues || []) : []);
+                renderCTOUnclassifiedProjects(viewFilter !== 'issues' ? (ctoRawData.unclassified_projects || []) : []);
             }
 
             function formatHours(h) {
