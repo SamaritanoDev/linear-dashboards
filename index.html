@@ -1427,6 +1427,16 @@
                                 <span id="cto-year-label" class="hidden px-4 py-2 rounded-lg border border-outline bg-surface text-on-surface text-sm inline-block">2026</span>
                             </div>
 
+                            <!-- Filtro Ver -->
+                            <div>
+                                <label class="block text-xs font-semibold uppercase tracking-widest text-on-surface-variant mb-2">Ver</label>
+                                <select id="cto-view-filter" class="px-4 py-2 rounded-lg border border-outline bg-surface text-on-surface text-sm" onchange="applyCTOFilters()">
+                                    <option value="issues">Tickets</option>
+                                    <option value="projects">Proyectos</option>
+                                    <option value="both">Ambos</option>
+                                </select>
+                            </div>
+
                             <!-- Filtro Marca -->
                             <div>
                                 <label class="block text-xs font-semibold uppercase tracking-widest text-on-surface-variant mb-2">Marca</label>
@@ -1454,28 +1464,55 @@
                                 </select>
                             </div>
 
-                            <button onclick="loadCTOMetrics()" class="px-6 py-2 rounded-lg bg-primary text-on-primary font-medium text-sm hover:bg-primary/90 transition-all">
+                            <button onclick="localStorage.removeItem(getCTOCacheKey()); loadCTOMetrics()" class="px-6 py-2 rounded-lg bg-primary text-on-primary font-medium text-sm hover:bg-primary/90 transition-all">
                                 Cargar
                             </button>
                         </div>
                     </div>
 
                     <!-- Tarjetas de resumen -->
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6" id="cto-summary-cards">
-                        <div class="glacier-card rounded-2xl p-6">
-                            <p class="text-xs font-semibold uppercase tracking-widest text-on-surface-variant mb-2">Total Tickets</p>
-                            <p class="text-4xl font-bold text-on-surface" id="cto-total-count">—</p>
-                            <p class="text-xs text-on-surface-variant mt-1" id="cto-total-sub"></p>
+                    <div class="space-y-4 mb-6" id="cto-summary-cards">
+                        <!-- Fila Issues -->
+                        <div>
+                            <p class="text-xs font-semibold uppercase tracking-widest text-on-surface-variant mb-2 px-1">Issues</p>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div class="glacier-card rounded-2xl p-5">
+                                    <p class="text-xs font-semibold uppercase tracking-widest text-on-surface-variant mb-2">Total Issues</p>
+                                    <p class="text-4xl font-bold text-on-surface" id="cto-issues-count">—</p>
+                                    <p class="text-xs text-on-surface-variant mt-1" id="cto-issues-sub"></p>
+                                </div>
+                                <div class="glacier-card rounded-2xl p-5">
+                                    <p class="text-xs font-semibold uppercase tracking-widest text-on-surface-variant mb-2">Tiempo Promedio de Atención</p>
+                                    <p class="text-4xl font-bold text-on-surface" id="cto-issues-avg">—</p>
+                                    <p class="text-xs text-on-surface-variant mt-1">Desde In Progress → Closed</p>
+                                </div>
+                                <div class="glacier-card rounded-2xl p-5">
+                                    <p class="text-xs font-semibold uppercase tracking-widest text-on-surface-variant mb-2">Tiempo Promedio Invertido</p>
+                                    <p class="text-4xl font-bold text-on-surface" id="cto-issues-total-time">—</p>
+                                    <p class="text-xs text-on-surface-variant mt-1" id="cto-issues-time-sub"></p>
+                                </div>
+                            </div>
                         </div>
-                        <div class="glacier-card rounded-2xl p-6">
-                            <p class="text-xs font-semibold uppercase tracking-widest text-on-surface-variant mb-2">Tiempo Promedio de Atención</p>
-                            <p class="text-4xl font-bold text-on-surface" id="cto-avg-time">—</p>
-                            <p class="text-xs text-on-surface-variant mt-1">Desde In Progress → Closed</p>
-                        </div>
-                        <div class="glacier-card rounded-2xl p-6">
-                            <p class="text-xs font-semibold uppercase tracking-widest text-on-surface-variant mb-2">Tiempo Total Invertido</p>
-                            <p class="text-4xl font-bold text-on-surface" id="cto-total-time">—</p>
-                            <p class="text-xs text-on-surface-variant mt-1" id="cto-time-sub">Tickets con datos de tiempo</p>
+                        <!-- Fila Proyectos -->
+                        <div>
+                            <p class="text-xs font-semibold uppercase tracking-widest text-on-surface-variant mb-2 px-1">Proyectos</p>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div class="glacier-card rounded-2xl p-5">
+                                    <p class="text-xs font-semibold uppercase tracking-widest text-on-surface-variant mb-2">Total Proyectos</p>
+                                    <p class="text-4xl font-bold text-on-surface" id="cto-projects-count">—</p>
+                                    <p class="text-xs text-on-surface-variant mt-1" id="cto-projects-sub"></p>
+                                </div>
+                                <div class="glacier-card rounded-2xl p-5">
+                                    <p class="text-xs font-semibold uppercase tracking-widest text-on-surface-variant mb-2">Tiempo Promedio de Atención</p>
+                                    <p class="text-4xl font-bold text-on-surface" id="cto-projects-avg">—</p>
+                                    <p class="text-xs text-on-surface-variant mt-1">Desde In Progress → Completado</p>
+                                </div>
+                                <div class="glacier-card rounded-2xl p-5">
+                                    <p class="text-xs font-semibold uppercase tracking-widest text-on-surface-variant mb-2">Tiempo Promedio Invertido</p>
+                                    <p class="text-4xl font-bold text-on-surface" id="cto-projects-total-time">—</p>
+                                    <p class="text-xs text-on-surface-variant mt-1" id="cto-projects-time-sub"></p>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -1488,6 +1525,7 @@
                     </div>
 
                     <div id="cto-unclassified-container"></div>
+                    <div id="cto-unclassified-projects-container"></div>
 
                     <p class="text-xs text-on-surface-variant mt-2">
                         <span id="cto-timestamp"></span>
@@ -2352,12 +2390,14 @@
             // ========== CACHE CLEARING & REFRESH FUNCTIONS ==========
             function clearAllCache() {
                 // Clear all month metrics from localStorage
+                const keysToRemove = [];
                 for (let i = 0; i < localStorage.length; i++) {
                     const key = localStorage.key(i);
-                    if (key && key.startsWith('cache_metrics_')) {
-                        localStorage.removeItem(key);
+                    if (key && (key.startsWith('cache_metrics_') || key.startsWith('cache_cto_'))) {
+                        keysToRemove.push(key);
                     }
                 }
+                keysToRemove.forEach(k => localStorage.removeItem(k));
 
                 // Clear workload cache
                 workloadCache.all = null;
@@ -2422,6 +2462,12 @@
                         await loadTeamWorkload(currentFilter);
                     } else if (activeSection === 'ce2-impact') {
                         await loadCE2Metrics();
+                    }
+
+                    // CTO metrics section (always refresh if visible)
+                    const ctoSection = document.getElementById('cto-metrics');
+                    if (ctoSection && ctoSection.style.display !== 'none') {
+                        await loadCTOMetrics();
                     }
 
                     console.log(`✓ Data refreshed for ${activeSection} section`);
@@ -3145,10 +3191,11 @@
                 if (cached) {
                     try {
                         const { data, timestamp } = JSON.parse(cached);
-                        if (Date.now() - timestamp < 900000) {
+                        if (Date.now() - timestamp < 120000) {
                             ctoRawData = data;
                             applyCTOFilters();
                             renderCTOUnclassified(data.unclassified_issues || []);
+                            renderCTOUnclassifiedProjects(data.unclassified_projects || []);
                             return;
                         }
                     } catch (e) {}
@@ -3156,9 +3203,11 @@
 
                 document.getElementById('cto-table-container').innerHTML =
                     '<p class="text-on-surface-variant text-sm animate-pulse">Cargando datos desde Linear...</p>';
-                document.getElementById('cto-total-count').textContent = '…';
-                document.getElementById('cto-avg-time').textContent = '…';
-                document.getElementById('cto-total-time').textContent = '…';
+                ['cto-issues-count','cto-issues-avg','cto-issues-total-time',
+                 'cto-projects-count','cto-projects-avg','cto-projects-total-time'].forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) el.textContent = '…';
+                });
 
                 try {
                     const res = await fetch(url);
@@ -3180,16 +3229,24 @@
                 if (!ctoRawData) return;
                 const brandFilter = document.getElementById('cto-brand-filter').value;
                 const typeFilter = document.getElementById('cto-type-filter').value;
+                const viewFilter = document.getElementById('cto-view-filter')?.value || 'issues';
                 const BRANDS = ['BackOffice','Airalo','B2B','Cuy','Fimo','Finanzas','Guinea','Habla+','Legales','PeruSim+','SAC','Tech','Wings','Sin marca'];
                 const TYPES = ['Error','Requerimiento','Hallazgo','Sin tipo'];
 
                 const brandsToShow = brandFilter === 'all' ? BRANDS : [brandFilter];
                 const typesToShow = typeFilter === 'all' ? TYPES : [typeFilter];
 
-                // Calcular totales filtrados sumando desde by_brand_and_type
+                // Seleccionar el breakdown según el filtro "Ver"
+                const breakdown = viewFilter === 'issues'
+                    ? (ctoRawData.by_brand_and_type_issues || ctoRawData.by_brand_and_type)
+                    : viewFilter === 'projects'
+                        ? (ctoRawData.by_brand_and_type_projects || ctoRawData.by_brand_and_type)
+                        : ctoRawData.by_brand_and_type;
+
+                // Calcular totales filtrados sumando desde el breakdown activo
                 let totalCount = 0, totalTimedCount = 0, totalTimeHours = 0;
                 for (const brand of brandsToShow) {
-                    const brandData = ctoRawData.by_brand_and_type?.[brand];
+                    const brandData = breakdown?.[brand];
                     if (!brandData) continue;
                     for (const type of typesToShow) {
                         const cell = brandData[type];
@@ -3200,35 +3257,30 @@
                     }
                 }
 
-                const avgHours = totalTimedCount > 0 ? totalTimeHours / totalTimedCount : null;
+                // Cards de Issues
+                const it = ctoRawData.issues_total;
+                document.getElementById('cto-issues-count').textContent = it?.count ?? ctoRawData.issues_count ?? 0;
+                document.getElementById('cto-issues-sub').textContent = ctoRawData.period_label || '';
+                document.getElementById('cto-issues-avg').textContent =
+                    it?.avg_attention_hours != null ? formatHours(it.avg_attention_hours) : '—';
+                document.getElementById('cto-issues-total-time').textContent =
+                    it?.avg_attention_hours != null ? formatHours(it.avg_attention_hours) : '—';
+                document.getElementById('cto-issues-time-sub').textContent =
+                    it?.timed_count > 0 ? `Promedio sobre ${it.timed_count} issues cerrados` : 'Sin issues cerrados con datos';
 
-                // Resumen
-                document.getElementById('cto-total-count').textContent = totalCount;
-                const issuesCount = ctoRawData.issues_count ?? 0;
-                const projectsCount = ctoRawData.projects_count ?? 0;
-                const breakdownText = projectsCount > 0
-                    ? `${ctoRawData.period_label || ''} · ${issuesCount} issues + ${projectsCount} proyectos`
-                    : `${ctoRawData.period_label || ''}`;
-                document.getElementById('cto-total-sub').textContent = breakdownText;
-                document.getElementById('cto-avg-time').textContent =
-                    avgHours !== null ? formatHours(avgHours) : '—';
-                document.getElementById('cto-total-time').textContent =
-                    totalTimedCount > 0 ? formatHours(totalTimeHours) : '—';
-                const issuesTimed = ctoRawData.issues_timed_count ?? totalTimedCount;
-                const projectsTimed = ctoRawData.projects_timed_count ?? 0;
-                let timedSubtext = 'Sin tickets cerrados con datos de tiempo';
-                if (totalTimedCount > 0) {
-                    if (projectsTimed > 0) {
-                        const proyLabel = projectsTimed === 1 ? 'proyecto' : 'proyectos';
-                        timedSubtext = `Basado en ${issuesTimed} issues + ${projectsTimed} ${proyLabel} cerrados`;
-                    } else {
-                        timedSubtext = `Basado en ${issuesTimed} issues cerrados`;
-                    }
-                }
-                document.getElementById('cto-time-sub').textContent = timedSubtext;
+                // Cards de Proyectos
+                const pt = ctoRawData.projects_total;
+                document.getElementById('cto-projects-count').textContent = pt?.count ?? ctoRawData.projects_count ?? 0;
+                document.getElementById('cto-projects-sub').textContent = ctoRawData.period_label || '';
+                document.getElementById('cto-projects-avg').textContent =
+                    pt?.avg_attention_hours != null ? formatHours(pt.avg_attention_hours) : '—';
+                document.getElementById('cto-projects-total-time').textContent =
+                    pt?.avg_attention_hours != null ? formatHours(pt.avg_attention_hours) : '—';
+                document.getElementById('cto-projects-time-sub').textContent =
+                    pt?.timed_count > 0 ? `Promedio sobre ${pt.timed_count} proyectos completados` : 'Sin proyectos completados con datos';
 
                 // Gráficas
-                renderCTOCharts(brandsToShow, typesToShow);
+                renderCTOCharts(brandsToShow, typesToShow, breakdown);
             }
 
             function formatHours(h) {
@@ -3239,16 +3291,17 @@
                 return days < 2 ? `${h.toFixed(1)}h` : `${days.toFixed(1)}d`;
             }
 
-            function renderCTOCharts(brands, types) {
+            function renderCTOCharts(brands, types, breakdown) {
+                breakdown = breakdown || ctoRawData.by_brand_and_type;
                 const types_active = types.filter(type =>
-                    brands.some(brand => (ctoRawData.by_brand_and_type?.[brand]?.[type]?.count || 0) > 0)
+                    brands.some(brand => (breakdown?.[brand]?.[type]?.count || 0) > 0)
                 );
 
                 const brandsWithData = brands.filter(brand =>
-                    types_active.some(type => (ctoRawData.by_brand_and_type?.[brand]?.[type]?.count || 0) > 0)
+                    types_active.some(type => (breakdown?.[brand]?.[type]?.count || 0) > 0)
                 ).sort((a, b) => {
-                    const tA = types_active.reduce((s, t) => s + (ctoRawData.by_brand_and_type?.[a]?.[t]?.count || 0), 0);
-                    const tB = types_active.reduce((s, t) => s + (ctoRawData.by_brand_and_type?.[b]?.[t]?.count || 0), 0);
+                    const tA = types_active.reduce((s, t) => s + (breakdown?.[a]?.[t]?.count || 0), 0);
+                    const tB = types_active.reduce((s, t) => s + (breakdown?.[b]?.[t]?.count || 0), 0);
                     return tB - tA;
                 });
 
@@ -3303,7 +3356,7 @@
                     let rowTotal = 0;
                     let cells = '';
                     for (const type of types_active) {
-                        const cell = ctoRawData.by_brand_and_type?.[brand]?.[type] || {};
+                        const cell = breakdown?.[brand]?.[type] || {};
                         const n   = cell.count || 0;
                         const avg = cell.avg_attention_hours;
                         rowTotal += n;
@@ -3433,7 +3486,7 @@
                         labels: brandsWithData,
                         datasets: types_active.map(type => ({
                             label: type,
-                            data: brandsWithData.map(brand => ctoRawData.by_brand_and_type?.[brand]?.[type]?.count || 0),
+                            data: brandsWithData.map(brand => breakdown?.[brand]?.[type]?.count || 0),
                             backgroundColor: typeColors[type] || '#94a3b8',
                             borderWidth: 0,
                         }))
@@ -3472,11 +3525,16 @@
                     if (sl === 'backlog' || sl === 'planning') return '#94a3b8';
                     return '#94a3b8';
                 };
+                const missingLabel = m => {
+                    if (m === 'both') return '<span style="font-size:10px;font-weight:600;padding:2px 7px;border-radius:4px;background:#ef444422;color:#ef4444;">Marca + Tipo</span>';
+                    if (m === 'brand') return '<span style="font-size:10px;font-weight:600;padding:2px 7px;border-radius:4px;background:#f59e0b22;color:#f59e0b;">Sin marca</span>';
+                    return '<span style="font-size:10px;font-weight:600;padding:2px 7px;border-radius:4px;background:#8b5cf622;color:#8b5cf6;">Sin tipo</span>';
+                };
                 const rows = issues.map(i => `
                     <tr style="border-bottom:1px solid ${bdr};">
                         <td style="padding:8px 10px;font-size:12px;font-weight:600;white-space:nowrap;">
                             <a href="${i.url}" target="_blank" rel="noopener"
-                               style="color:var(--color-primary);text-decoration:none;hover:underline;"
+                               style="color:var(--color-primary);text-decoration:none;"
                                onmouseover="this.style.textDecoration='underline'"
                                onmouseout="this.style.textDecoration='none'">
                                 ${i.identifier}
@@ -3490,14 +3548,15 @@
                                 ${i.state}
                             </span>
                         </td>
+                        <td style="padding:8px 10px;white-space:nowrap;">${missingLabel(i.missing)}</td>
                     </tr>`).join('');
 
                 container.innerHTML = `
                     <div class="glacier-card rounded-2xl p-6 mt-4" style="border:1.5px solid #f59e0b44;">
                         <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
                             <span style="font-size:18px;">⚠️</span>
-                            <h3 class="text-base font-semibold text-on-surface">Issues sin clasificar — ${issues.length} pendientes</h3>
-                            <span class="text-on-surface-variant" style="font-size:12px;margin-left:auto;">Agrégales la etiqueta <strong>Error</strong>, <strong>Requerimiento</strong> o <strong>Hallazgo</strong> en Linear</span>
+                            <h3 class="text-base font-semibold text-on-surface">Issues sin marca o sin tipo — ${issues.length} pendientes</h3>
+                            <span class="text-on-surface-variant" style="font-size:12px;margin-left:auto;">Regularízalos en Linear agregando marca y/o tipo</span>
                         </div>
                         <div style="overflow-x:auto;">
                             <table style="width:100%;border-collapse:collapse;">
@@ -3508,6 +3567,61 @@
                                         <th style="text-align:left;padding:6px 10px;font-size:11px;font-weight:600;white-space:nowrap;" class="text-on-surface-variant">Marca</th>
                                         <th style="text-align:left;padding:6px 10px;font-size:11px;font-weight:600;white-space:nowrap;" class="text-on-surface-variant">Asignado</th>
                                         <th style="text-align:left;padding:6px 10px;font-size:11px;font-weight:600;" class="text-on-surface-variant">Estado</th>
+                                        <th style="text-align:left;padding:6px 10px;font-size:11px;font-weight:600;" class="text-on-surface-variant">Falta</th>
+                                    </tr>
+                                </thead>
+                                <tbody>${rows}</tbody>
+                            </table>
+                        </div>
+                    </div>`;
+            }
+
+            function renderCTOUnclassifiedProjects(projects) {
+                const container = document.getElementById('cto-unclassified-projects-container');
+                if (!container) return;
+                if (!projects || projects.length === 0) {
+                    container.innerHTML = '';
+                    return;
+                }
+                const isDark = document.documentElement.classList.contains('dark');
+                const bdr = isDark ? 'rgba(255,255,255,.1)' : 'rgba(0,0,0,.08)';
+                const missingLabel = m => {
+                    if (m === 'both') return '<span style="font-size:10px;font-weight:600;padding:2px 7px;border-radius:4px;background:#ef444422;color:#ef4444;">Marca + Tipo</span>';
+                    if (m === 'brand') return '<span style="font-size:10px;font-weight:600;padding:2px 7px;border-radius:4px;background:#f59e0b22;color:#f59e0b;">Sin marca</span>';
+                    return '<span style="font-size:10px;font-weight:600;padding:2px 7px;border-radius:4px;background:#8b5cf622;color:#8b5cf6;">Sin tipo</span>';
+                };
+                const rows = projects.map(p => `
+                    <tr style="border-bottom:1px solid ${bdr};">
+                        <td style="padding:8px 10px;font-size:12px;font-weight:600;">
+                            <a href="${p.url || '#'}" target="_blank" rel="noopener"
+                               style="color:var(--color-primary);text-decoration:none;"
+                               onmouseover="this.style.textDecoration='underline'"
+                               onmouseout="this.style.textDecoration='none'">
+                                ${p.name}
+                            </a>
+                        </td>
+                        <td style="padding:8px 10px;font-size:11px;white-space:nowrap;" class="text-on-surface-variant">${p.brand}</td>
+                        <td style="padding:8px 10px;font-size:11px;white-space:nowrap;" class="text-on-surface-variant">${p.lead || '—'}</td>
+                        <td style="padding:8px 10px;font-size:11px;white-space:nowrap;" class="text-on-surface-variant">${p.state}</td>
+                        <td style="padding:8px 10px;white-space:nowrap;">${missingLabel(p.missing)}</td>
+                    </tr>`).join('');
+
+                container.innerHTML = `
+                    <div class="glacier-card rounded-2xl p-6 mt-4" style="border:1.5px solid #8b5cf644;">
+                        <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+                            <span style="font-size:18px;">⚠️</span>
+                            <h3 class="text-base font-semibold text-on-surface">Proyectos sin marca o sin tipo — ${projects.length} pendientes</h3>
+                            <span class="text-on-surface-variant" style="font-size:12px;margin-left:auto;">Regularízalos en Linear agregando marca y/o tipo</span>
+                        </div>
+                        <div style="overflow-x:auto;">
+                            <table style="width:100%;border-collapse:collapse;">
+                                <thead>
+                                    <tr style="border-bottom:2px solid ${bdr};">
+                                        <th style="text-align:left;padding:6px 10px;font-size:11px;font-weight:600;" class="text-on-surface-variant">Proyecto</th>
+                                        <th style="text-align:left;padding:6px 10px;font-size:11px;font-weight:600;white-space:nowrap;" class="text-on-surface-variant">Marca</th>
+                                        <th style="text-align:left;padding:6px 10px;font-size:11px;font-weight:600;white-space:nowrap;" class="text-on-surface-variant">Lead</th>
+                                        <th style="text-align:left;padding:6px 10px;font-size:11px;font-weight:600;" class="text-on-surface-variant">Estado</th>
+                                        <th style="text-align:left;padding:6px 10px;font-size:11px;font-weight:600;" class="text-on-surface-variant">Falta</th>
                                     </tr>
                                 </thead>
                                 <tbody>${rows}</tbody>
