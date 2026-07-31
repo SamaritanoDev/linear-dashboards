@@ -3153,7 +3153,7 @@
                 if (cached) {
                     try {
                         const { data, timestamp } = JSON.parse(cached);
-                        if (Date.now() - timestamp < 900000) {
+                        if (Date.now() - timestamp < 120000) {
                             ctoRawData = data;
                             applyCTOFilters();
                             renderCTOUnclassified(data.unclassified_issues || []);
