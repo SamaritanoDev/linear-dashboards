@@ -3194,8 +3194,6 @@
                         if (Date.now() - timestamp < 120000) {
                             ctoRawData = data;
                             applyCTOFilters();
-                            renderCTOUnclassified(data.unclassified_issues || []);
-                            renderCTOUnclassifiedProjects(data.unclassified_projects || []);
                             return;
                         }
                     } catch (e) {}
@@ -3216,8 +3214,6 @@
                     ctoRawData = data;
                     localStorage.setItem(cacheKey, JSON.stringify({ data, timestamp: Date.now() }));
                     applyCTOFilters();
-                    renderCTOUnclassified(data.unclassified_issues || []);
-                    renderCTOUnclassifiedProjects(data.unclassified_projects || []);
                     document.getElementById('cto-timestamp').textContent =
                         `Actualizado: ${new Date(data.cached_at || Date.now()).toLocaleString('es-PE')}`;
                 } catch (err) {
