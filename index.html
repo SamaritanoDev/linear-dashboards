@@ -2352,12 +2352,14 @@
             // ========== CACHE CLEARING & REFRESH FUNCTIONS ==========
             function clearAllCache() {
                 // Clear all month metrics from localStorage
+                const keysToRemove = [];
                 for (let i = 0; i < localStorage.length; i++) {
                     const key = localStorage.key(i);
-                    if (key && key.startsWith('cache_metrics_')) {
-                        localStorage.removeItem(key);
+                    if (key && (key.startsWith('cache_metrics_') || key.startsWith('cache_cto_'))) {
+                        keysToRemove.push(key);
                     }
                 }
+                keysToRemove.forEach(k => localStorage.removeItem(k));
 
                 // Clear workload cache
                 workloadCache.all = null;
@@ -2422,6 +2424,12 @@
                         await loadTeamWorkload(currentFilter);
                     } else if (activeSection === 'ce2-impact') {
                         await loadCE2Metrics();
+                    }
+
+                    // CTO metrics section (always refresh if visible)
+                    const ctoSection = document.getElementById('cto-metrics');
+                    if (ctoSection && ctoSection.style.display !== 'none') {
+                        await loadCTOMetrics();
                     }
 
                     console.log(`✓ Data refreshed for ${activeSection} section`);
