@@ -133,10 +133,12 @@ export function getProjectsQueryForDateRange(startDate: string, endDate: string,
     nodes {
       id
       name
+      url
       state
       startedAt
       completedAt
       createdAt
+      lead { name }
       labels(first: 15) { nodes {name} }
       teams(first: 3) { nodes {key} }
     }

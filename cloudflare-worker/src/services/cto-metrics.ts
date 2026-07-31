@@ -1,6 +1,6 @@
 import { LinearClient } from "../linear/client";
 import { getIssuesQueryForDateRange, getProjectsQueryForDateRange } from "../linear/queries";
-import type { LinearIssue, LinearProject, PeriodMetrics, CTOTicketMetrics, UnclassifiedIssue } from "../types";
+import type { LinearIssue, LinearProject, PeriodMetrics, CTOTicketMetrics, UnclassifiedIssue, UnclassifiedProject } from "../types";
 
 const BRAND_LABELS = [
   "Airalo", "B2B", "BackOffice", "Cuy", "Fimo",
@@ -88,7 +88,7 @@ export class CTOMetricsService {
 
   calculateMetrics(issues: LinearIssue[], projects: LinearProject[], periodLabel: string): CTOTicketMetrics {
     const validIssues = issues.filter(
-      (i) => i.state.type !== "cancelled" && !EXCLUDED_STATES.includes(i.state.name)
+      (i) => i.state.type !== "cancelled" && !EXCLUDED_STATES.includes(i.state.name) && !i.project
     );
 
     const issueTotal = this.calcPeriodMetrics(validIssues);
@@ -121,18 +121,24 @@ export class CTOMetricsService {
     }
 
     const by_brand_and_type: Record<string, Record<string, PeriodMetrics>> = {};
+    const by_brand_and_type_issues: Record<string, Record<string, PeriodMetrics>> = {};
+    const by_brand_and_type_projects: Record<string, Record<string, PeriodMetrics>> = {};
     for (const brand of allBrands) {
       const bIssues = brand === "Sin marca"
         ? issueUnbranded
         : validIssues.filter((i) => i.labels.nodes.some((l) => l.name === brand));
       const bProjects = projects.filter((p) => this.getProjectBrand(p.labels.nodes.map((l) => l.name)) === brand);
       by_brand_and_type[brand] = {};
+      by_brand_and_type_issues[brand] = {};
+      by_brand_and_type_projects[brand] = {};
       for (const type of allTypes) {
         const tIssues = bIssues.filter(
           (i) => this.getTypeFromLabels(i.labels.nodes.map((l) => l.name)) === type
         );
         const tProjects = bProjects.filter((p) => this.getProjectType(p.labels.nodes.map((l) => l.name)) === type);
         by_brand_and_type[brand][type] = this.mergeMetrics(this.calcPeriodMetrics(tIssues), this.calcProjectMetrics(tProjects));
+        by_brand_and_type_issues[brand][type] = this.calcPeriodMetrics(tIssues);
+        by_brand_and_type_projects[brand][type] = this.calcProjectMetrics(tProjects);
       }
     }
 
@@ -161,15 +167,41 @@ export class CTOMetricsService {
       })
       .sort((a, b) => a.brand.localeCompare(b.brand));
 
+    const unclassified_projects: UnclassifiedProject[] = projects
+      .filter(p => {
+        const labelNames = p.labels.nodes.map(l => l.name);
+        const hasBrand = BRAND_LABELS.some(b => labelNames.includes(b));
+        const hasType = this.getTypeFromLabels(labelNames) !== "Sin tipo";
+        return !hasBrand || !hasType;
+      })
+      .map(p => {
+        const labelNames = p.labels.nodes.map(l => l.name);
+        const hasBrand = BRAND_LABELS.some(b => labelNames.includes(b));
+        const hasType = this.getTypeFromLabels(labelNames) !== "Sin tipo";
+        const missing: "brand" | "type" | "both" = !hasBrand && !hasType ? "both" : !hasBrand ? "brand" : "type";
+        return {
+          name: p.name,
+          url: p.url,
+          brand: BRAND_LABELS.find(b => labelNames.includes(b)) ?? "Sin marca",
+          lead: p.lead?.name ?? null,
+          state: p.state,
+          missing,
+        };
+      })
+      .sort((a, b) => a.brand.localeCompare(b.brand));
+
     return {
       period_label: periodLabel,
       total,
+      issues_total: issueTotal,
+      projects_total: projectTotal,
       issues_count: validIssues.length,
       projects_count: projects.length,
       issues_timed_count: issueTotal.timed_count,
       projects_timed_count: projectTotal.timed_count,
-      by_brand, by_type, by_brand_and_type,
+      by_brand, by_type, by_brand_and_type, by_brand_and_type_issues, by_brand_and_type_projects,
       unclassified_issues,
+      unclassified_projects,
     };
   }
 

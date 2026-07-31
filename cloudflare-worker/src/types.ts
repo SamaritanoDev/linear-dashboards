@@ -40,6 +40,7 @@ export interface LinearIssue {
 export interface LinearProject {
   id: string;
   name: string;
+  url: string;
   state: string;
   status: {
     name: string;
@@ -125,9 +126,20 @@ export interface UnclassifiedIssue {
   missing: "brand" | "type" | "both";
 }
 
+export interface UnclassifiedProject {
+  name: string;
+  url: string;
+  brand: string;
+  lead: string | null;
+  state: string;
+  missing: "brand" | "type" | "both";
+}
+
 export interface CTOTicketMetrics {
   period_label: string;
   total: PeriodMetrics;
+  issues_total: PeriodMetrics;
+  projects_total: PeriodMetrics;
   issues_count: number;
   projects_count: number;
   issues_timed_count: number;
@@ -135,7 +147,10 @@ export interface CTOTicketMetrics {
   by_brand: Record<string, PeriodMetrics>;
   by_type: Record<string, PeriodMetrics>;
   by_brand_and_type: Record<string, Record<string, PeriodMetrics>>;
+  by_brand_and_type_issues: Record<string, Record<string, PeriodMetrics>>;
+  by_brand_and_type_projects: Record<string, Record<string, PeriodMetrics>>;
   unclassified_issues: UnclassifiedIssue[];
+  unclassified_projects: UnclassifiedProject[];
 }
 
 export interface LinearResponse<T> {
