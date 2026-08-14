@@ -8,7 +8,7 @@ const BRAND_LABELS = [
   "SAC", "Tech", "Wings",
 ];
 
-const TYPE_LABELS = ["Error", "Requerimiento", "Hallazgo"];
+const TYPE_LABELS = ["Error", "Requerimiento", "Hallazgo", "Test"];
 
 const EXCLUDED_STATES_LOWER = new Set([
   "discarded", "descartado", "descartados",

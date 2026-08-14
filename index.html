@@ -1460,6 +1460,7 @@
                                     <option value="Error">Error</option>
                                     <option value="Requerimiento">Requerimiento</option>
                                     <option value="Hallazgo">Hallazgo</option>
+                                    <option value="Test">Test</option>
                                     <option value="Sin tipo">Sin tipo</option>
                                 </select>
                             </div>
@@ -3228,7 +3229,7 @@
                 const typeFilter = document.getElementById('cto-type-filter').value;
                 const viewFilter = document.getElementById('cto-view-filter')?.value || 'issues';
                 const BRANDS = ['BackOffice','Airalo','B2B','Cuy','Fimo','Finanzas','Guinea','Habla+','Legales','PeruSim+','SAC','Tech','Wings','Sin marca'];
-                const TYPES = ['Error','Requerimiento','Hallazgo','Sin tipo'];
+                const TYPES = ['Error','Requerimiento','Hallazgo','Test','Sin tipo'];
 
                 const brandsToShow = brandFilter === 'all' ? BRANDS : [brandFilter];
                 const typesToShow = typeFilter === 'all' ? TYPES : [typeFilter];
@@ -3319,7 +3320,7 @@
                     return;
                 }
 
-                const typeColors = { 'Error': '#ef4444', 'Requerimiento': '#3b82f6', 'Hallazgo': '#f59e0b', 'Sin tipo': '#94a3b8' };
+                const typeColors = { 'Error': '#ef4444', 'Requerimiento': '#3b82f6', 'Hallazgo': '#f59e0b', 'Test': '#14b8a6', 'Sin tipo': '#94a3b8' };
                 const heatBgs  = ['rgba(16,185,129,.20)', 'rgba(245,158,11,.24)', 'rgba(234,88,12,.30)', 'rgba(220,38,38,.34)'];
                 function heatTier(h) {
                     if (!h || h <= 0) return -1;
